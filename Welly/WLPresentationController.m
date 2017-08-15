@@ -31,7 +31,7 @@
 
 @end
 
-@interface WLPresentationController () {
+@interface WLPresentationController () <CAAnimationDelegate> {
 	// The views necessary for full screen and reset
 	NSView *_targetView;
 	NSView *_superView;

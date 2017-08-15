@@ -208,7 +208,7 @@
 	if (!_buttonLayer)
 		[self setupButtonLayer];
 	
-	CATextLayer *textLayer = [[_buttonLayer sublayers] lastObject];
+	CATextLayer *textLayer = (CATextLayer *)[[_buttonLayer sublayers] lastObject];
 	
 	// Set the message to the text layer
 	[textLayer setString:message];

@@ -388,7 +388,7 @@
 + (NSDictionary *) registrationDictionaryByFillingInDictionary:(NSDictionary *)regDict restrictToKeys:(NSSet *)keys;
 
 /*!	@brief	Tries to fill in missing keys in a notification dictionary.
- *	@param	notifDict	The dictionary to fill in.
+ *	@param	regDict dictionary to fill in.
  *	@return	The dictionary with the keys filled in. This will be a separate instance from \a notifDict.
  *	@discussion	This function examines the \a notifDict for missing keys, and 
  *	 tries to get them from the last known registration dictionary. As of 1.1, 
@@ -516,7 +516,8 @@
  *	@result The <code>NSData</code> to treat as the application icon.
  *	@deprecated In version 1.1, in favor of {{{-applicationIconForGrowl}}}.
  */
-- (NSData *) applicationIconDataForGrowl;
+
+- (NSData *) applicationIconDataForGrowl DEPRECATED_ATTRIBUTE;
 
 /*!
  *	@method growlIsReady

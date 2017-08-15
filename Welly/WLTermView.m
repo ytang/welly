@@ -406,7 +406,8 @@ static NSImage *gLeftImage;
 		isDoubleColor[i] = isDoubleByte[i] = textBuf[i] = runLength[i] = 0;
 	
     // find the first dirty position in this row
-	for (x = 0; x < _maxColumn && ![ds isDirtyAtRow:r column:x]; x++) ;
+	for (x = 0; x < _maxColumn && ![ds isDirtyAtRow:r column:x]; x++)
+        ;
 	// all clean? great!
     if (x == _maxColumn) 
 		return; 

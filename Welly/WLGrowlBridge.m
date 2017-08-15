@@ -85,7 +85,7 @@ NSString *const WLGrowlClickObjectKeyName = @"ClickRepresentedObject";
 	// capsulate target, selector and object.
 	// Note: Growl only accepts pure p-list contents as click context
 	//   i.e. only occurs NSDictionary, NSString, NSNumber, NSArray
-    NSDictionary *clickContext = @{WLGrowlClickTargetKeyName:[NSNumber  numberWithUnsignedLong:target], WLGrowlClickSelectorKeyName:NSStringFromSelector(selector), WLGrowlClickObjectKeyName:[NSNumber  numberWithUnsignedLong:identifier]};
+    NSDictionary *clickContext = @{WLGrowlClickTargetKeyName:[NSNumber  numberWithUnsignedLong:(unsigned long)target], WLGrowlClickSelectorKeyName:NSStringFromSelector(selector), WLGrowlClickObjectKeyName:[NSNumber  numberWithUnsignedLong:(unsigned long)identifier]};
 	
     // hack identifier that must be a string
     NSString *stringId = [[NSNumber numberWithLong:(long)identifier] stringValue];
@@ -102,9 +102,9 @@ NSString *const WLGrowlClickObjectKeyName = @"ClickRepresentedObject";
 - (void)growlNotificationWasClicked:(id)contextId {
 	NSDictionary *context = (NSDictionary *)contextId;
 	// encapsulate target/selector/object
-	id target = [[context objectForKey:WLGrowlClickTargetKeyName] unsignedLongValue];
+	id target = (id)[[context objectForKey:WLGrowlClickTargetKeyName] unsignedLongValue];
 	SEL selector = NSSelectorFromString([context objectForKey:WLGrowlClickSelectorKeyName]);
-	id object = [[context objectForKey:WLGrowlClickObjectKeyName] unsignedLongValue];
+	id object = (id)[[context objectForKey:WLGrowlClickObjectKeyName] unsignedLongValue];
 	// perform action
 	[target performSelector:selector withObject:object];
 }
