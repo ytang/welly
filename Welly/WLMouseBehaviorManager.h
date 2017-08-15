@@ -53,13 +53,13 @@ NSString *const WLRangeLengthUserInfoName;
 	NSTimer *_horizontalScrollReactivateTimer;
 	
 	BBSState _lastBBSState;
-	int _lastCursorRow;
+	NSInteger _lastCursorRow;
 }
 @property (readwrite, assign) NSDictionary *activeTrackingAreaUserInfo;
 @property (readwrite, assign) NSDictionary *backgroundTrackingAreaUserInfo;
 @property (readwrite, assign) NSCursor *normalCursor;
 @property (readonly) BBSState lastBBSState;
-@property (readonly) int lastCursorRow;
+@property (readonly) NSInteger lastCursorRow;
 @property (readonly) WLTerminalView *view;
 
 - (id)initWithView:(WLTerminalView *)view;

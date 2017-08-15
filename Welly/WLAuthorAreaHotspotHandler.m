@@ -181,7 +181,7 @@ NSString *const WLMenuTitleAddAsFriend = @"Add %@ as friend";
 	// In the same page, do NOT update
 	WLTerminal *ds = [_view frontMostTerminal];
 	BBSState bbsState = [ds bbsState];
-	if (bbsState.state == [_manager lastBBSState].state && abs([_manager lastCursorRow] - [ds cursorRow]) == 1) {
+	if (bbsState.state == [_manager lastBBSState].state && labs([_manager lastCursorRow] - [ds cursorRow]) == 1) {
 		return NO;
 	}
 	return YES;

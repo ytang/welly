@@ -14,8 +14,8 @@
 
 }
 + (NSData *)ansiColorDataFromTerminal:(WLTerminal *)terminal 
-						   atLocation:(int)location 
-							   length:(int)length;
+						   atLocation:(NSInteger)location
+							   length:(NSInteger)length;
 + (NSData *)ansiColorDataFromTerminal:(WLTerminal *)terminal 
 							   inRect:(NSRect)rect;
 + (NSData *)ansiCodeFromANSIColorData:(NSData *)ansiColorData 

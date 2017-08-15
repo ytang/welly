@@ -34,8 +34,8 @@ unsigned char encodingCodeToRightByte(unsigned short code) {
 	return code & 0xFF;
 }
 
-void convertToUTF8(cell *buffer, int bufferLength, WLEncoding encoding) {
-	for (int i = 0; i < bufferLength; ++i) {
+void convertToUTF8(cell *buffer, NSInteger bufferLength, WLEncoding encoding) {
+	for (NSInteger i = 0; i < bufferLength; ++i) {
 		if (buffer[i].attr.f.doubleByte == 1) {
 			unsigned short code = doubleByteToEncodingCode(buffer[i].byte, buffer[i+1].byte);
 			unichar ch = [WLEncoder toUnicode:code encoding:encoding];
@@ -46,8 +46,8 @@ void convertToUTF8(cell *buffer, int bufferLength, WLEncoding encoding) {
 	}
 }
 
-void convertFromUTF8(cell *buffer, int bufferLength, WLEncoding encoding) {
-	for (int i = 0; i < bufferLength; ++i) {
+void convertFromUTF8(cell *buffer, NSInteger bufferLength, WLEncoding encoding) {
+	for (NSInteger i = 0; i < bufferLength; ++i) {
 		if (buffer[i].attr.f.doubleByte == 1) {
 			unsigned short code = doubleByteToEncodingCode(buffer[i].byte, buffer[i+1].byte) + 0x8000;
 			unichar ch = [WLEncoder fromUnicode:code encoding:encoding];
@@ -62,17 +62,17 @@ void convertFromUTF8(cell *buffer, int bufferLength, WLEncoding encoding) {
 const cell WLWhiteSpaceCell = {WLWhitespaceCharacter, 0};
 
 + (NSData *)ansiColorDataFromTerminal:(WLTerminal *)terminal 
-						   atLocation:(int)location 
-							   length:(int)length {
-	int maxRow = [[WLGlobalConfig sharedInstance] row];
-	int maxColumn = [[WLGlobalConfig sharedInstance] column];
+						   atLocation:(NSInteger)location
+							   length:(NSInteger)length {
+	NSInteger maxRow = [[WLGlobalConfig sharedInstance] row];
+	NSInteger maxColumn = [[WLGlobalConfig sharedInstance] column];
 	cell *buffer = (cell *)malloc((length + maxRow + maxColumn + 1) * sizeof(cell));
-    int i, j;
-    int bufferLength = 0;
-    int emptyCount = 0;
+    NSInteger i, j;
+    NSInteger bufferLength = 0;
+    NSInteger emptyCount = 0;
 	
 	for (i = 0; i < length; i++) {
-		int index = location + i;
+		NSInteger index = location + i;
 		cell *currentRow = [terminal cellsOfRow:(index / maxColumn)];
 		
 		if ((index % maxColumn == 0) && (index != location)) {
@@ -106,13 +106,13 @@ const cell WLWhiteSpaceCell = {WLWhitespaceCharacter, 0};
 
 + (NSData *)ansiColorDataFromTerminal:(WLTerminal *)terminal 
 							   inRect:(NSRect)rect {
-	int maxRow = [[WLGlobalConfig sharedInstance] row];
-	int maxColumn = [[WLGlobalConfig sharedInstance] column];
+	NSInteger maxRow = [[WLGlobalConfig sharedInstance] row];
+	NSInteger maxColumn = [[WLGlobalConfig sharedInstance] column];
 	cell *buffer = (cell *)malloc(((rect.size.height * rect.size.width) + maxRow + maxColumn + 1) * sizeof(cell));
-    int j;
-    int bufferLength = 0;
-    int emptyCount = 0;
-	for (int r = rect.origin.y; r < rect.origin.y + rect.size.height; ++r) {
+    NSInteger j;
+    NSInteger bufferLength = 0;
+    NSInteger emptyCount = 0;
+	for (NSInteger r = rect.origin.y; r < rect.origin.y + rect.size.height; ++r) {
 		cell *currentRow = [terminal cellsOfRow:r];
 		// Copy 'selectedRect.size.width' bytes from (r, selectedRect.origin.x)
 		for (int c = rect.origin.x; c < rect.origin.x + rect.size.width; ++c) {
@@ -178,7 +178,7 @@ const cell WLWhiteSpaceCell = {WLWhitespaceCharacter, 0};
 	}
 	
 	cell *buffer = (cell *)[ansiColorData bytes];
-	int bufferLength = [ansiColorData length] / sizeof(cell);
+	NSInteger bufferLength = [ansiColorData length] / sizeof(cell);
 	convertFromUTF8(buffer, bufferLength, encoding);
 	
 	attribute defaultANSI;

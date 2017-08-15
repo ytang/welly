@@ -12,17 +12,17 @@
 @class WLConnection, WLIntegerArray, WLTerminal;
 
 @interface WLTerminalFeeder : NSObject {
-    unsigned int _row;
-    unsigned int _column;
-    int _cursorX;
-    int _cursorY;
-    unsigned int _offset;
+    NSInteger  _row;
+    NSInteger _column;
+    NSInteger _cursorX;
+    NSInteger _cursorY;
+    NSInteger _offset;
 	
-    int _savedCursorX;
-    int _savedCursorY;
+    NSInteger _savedCursorX;
+    NSInteger _savedCursorY;
 	
-    int _fgColor;
-    int _bgColor;
+    NSInteger _fgColor;
+    NSInteger _bgColor;
     BOOL _bold;
     BOOL _underline;
     BOOL _blink;
@@ -34,10 +34,10 @@
 	
     WLIntegerArray *_csBuf;
     WLIntegerArray *_csArg;
-    unsigned int _csTemp;
+    NSInteger _csTemp;
 	
-    int _scrollBeginRow;
-    int _scrollEndRow;
+    NSInteger _scrollBeginRow;
+    NSInteger _scrollEndRow;
 	
 	WLTerminal *_terminal;
 	WLConnection *_connection;
@@ -52,8 +52,8 @@
     BOOL _modeLNM;            // line feed (true, default), new line (false)
     BOOL _modeIRM;            // insert (true), replace (false, default)
 }
-@property int cursorX;
-@property int cursorY;
+@property NSInteger cursorX;
+@property NSInteger cursorY;
 @property cell **grid;
 
 - (id)init;
@@ -71,5 +71,5 @@
 /* Clear */
 - (void)clearAll;
 
-- (cell *)cellsOfRow:(int)r;
+- (cell *)cellsOfRow:(NSInteger)r;
 @end

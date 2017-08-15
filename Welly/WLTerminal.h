@@ -24,11 +24,11 @@
 @interface WLTerminal : NSObject {	
 	WLBBSType _bbsType;
 	
-    unsigned int _maxRow;
-    unsigned int _maxColumn;
-    unsigned int _cursorColumn;
-    unsigned int _cursorRow;
-    unsigned int _offset;
+    NSInteger _maxRow;
+    NSInteger _maxColumn;
+    NSInteger _cursorColumn;
+    NSInteger _cursorRow;
+    NSInteger _offset;
 	
     cell **_grid;
     BOOL **_dirty;
@@ -41,10 +41,10 @@
 	
 	unichar *_textBuf;
 }
-@property unsigned int maxRow;
-@property unsigned int maxColumn;
-@property unsigned int cursorColumn;
-@property unsigned int cursorRow;
+@property NSInteger maxRow;
+@property NSInteger maxColumn;
+@property NSInteger cursorColumn;
+@property NSInteger cursorRow;
 @property cell **grid;
 @property (assign, setter=setConnection:, nonatomic) WLConnection *connection;
 @property (assign, readwrite) WLBBSType bbsType;
@@ -54,27 +54,27 @@
 - (void)clearAll;
 
 /* Dirty */
-- (BOOL)isDirtyAtRow:(int)r 
-			  column:(int)c;
+- (BOOL)isDirtyAtRow:(NSInteger)r
+			  column:(NSInteger)c;
 - (void)setAllDirty;
 - (void)setDirty:(BOOL)d 
-		   atRow:(int)r 
-		  column:(int)c;
-- (void)setDirtyForRow:(int)r;
+		   atRow:(NSInteger)r
+		  column:(NSInteger)c;
+- (void)setDirtyForRow:(NSInteger)r;
 - (void)removeAllDirtyMarks;
 
 /* Access Data */
-- (attribute)attrAtRow:(int)r 
-				column:(int)c ;
-- (NSString *)stringAtIndex:(int)begin 
-					 length:(int)length;
-- (NSAttributedString *)attributedStringAtIndex:(NSUInteger)location 
-										 length:(NSUInteger)length;
-- (cell *)cellsOfRow:(int)r;
-- (cell)cellAtIndex:(int)index;
+- (attribute)attrAtRow:(NSInteger)r
+				column:(NSInteger)c ;
+- (NSString *)stringAtIndex:(NSInteger)begin
+					 length:(NSInteger)length;
+- (NSAttributedString *)attributedStringAtIndex:(NSInteger)location
+										 length:(NSInteger)length;
+- (cell *)cellsOfRow:(NSInteger)r;
+- (cell)cellAtIndex:(NSInteger)index;
 
 /* Update State */
-- (void)updateDoubleByteStateForRow:(int)r;
+- (void)updateDoubleByteStateForRow:(NSInteger)r;
 - (void)updateBBSState;
 
 /* Accessor */
@@ -83,8 +83,8 @@
 
 /* Input Interface */
 - (void)feedGrid:(cell **)grid;
-- (void)setCursorX:(int)cursorX
-				 Y:(int)cursorY;
+- (void)setCursorX:(NSInteger)cursorX
+				 Y:(NSInteger)cursorY;
 
 /* Observer Interface */
 - (void)addObserver:(id <WLTerminalObserver>)observer;

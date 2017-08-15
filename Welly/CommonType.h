@@ -12,15 +12,15 @@
 typedef union {
 	unsigned short v;
 	struct {
-		unsigned int fgColor	: 4;
-		unsigned int bgColor	: 4;
-		unsigned int bold		: 1;
-		unsigned int underline	: 1;
-		unsigned int blink		: 1;
-		unsigned int reverse	: 1;
-		unsigned int doubleByte	: 2;
-        unsigned int url        : 1;
-		unsigned int nothing	: 1;
+		NSUInteger fgColor      : 4;
+		NSUInteger bgColor      : 4;
+		NSUInteger bold         : 1;
+		NSUInteger underline    : 1;
+		NSUInteger blink        : 1;
+		NSUInteger reverse      : 1;
+		NSUInteger doubleByte   : 2;
+        NSUInteger url          : 1;
+		NSUInteger nothing      : 1;
 	} f;
 } attribute;
 

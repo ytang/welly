@@ -145,10 +145,10 @@
 
 @interface WLTerminalFeeder ()
 /* Clear */
-- (void)clearRow:(int)r;
-- (void)clearRow:(int)r 
-	   fromStart:(int)s 
-		   toEnd:(int)e;
+- (void)clearRow:(NSInteger)r;
+- (void)clearRow:(NSInteger)r
+	   fromStart:(NSInteger)s
+		   toEnd:(NSInteger)e;
 - (void)reverseAll;
 @end
 
@@ -258,7 +258,7 @@ static unsigned short gEmptyAttr;
 	   connection:(id)connection {
     NSAutoreleasePool *pool = [NSAutoreleasePool new];
 	
-	int i, x;
+	NSInteger i, x;
 	unsigned char c;
 	
 	if ([_terminal bbsType] == WLFirebird) {
@@ -519,7 +519,7 @@ static unsigned short gEmptyAttr;
 					if (NO) {
 						// just for code alignment...
 					} else if (c == CSI_ICH) {
-						int p;
+						NSInteger p;
 						if ([_csArg size] > 0) {
 							p = [_csArg front];
 							if (p < 1)
@@ -534,7 +534,7 @@ static unsigned short gEmptyAttr;
 						[self clearRow:_cursorY fromStart:_cursorX toEnd:_cursorX+p-1];
 					} else if (c == CSI_CUU) {		// Cursor Up
 						if ([_csArg size] > 0){
-							int p = [_csArg front];
+							NSInteger p = [_csArg front];
 							if (p < 1) p = 1;
 								_cursorY -= p;
 						} else
@@ -547,7 +547,7 @@ static unsigned short gEmptyAttr;
 						}
 					} else if (c == CSI_CUD) {
 						if ([_csArg size] > 0) {
-							int p = [_csArg front];
+							NSInteger p = [_csArg front];
 							if (p < 1) p = 1;
 							_cursorY += p;
 						} else
@@ -559,7 +559,7 @@ static unsigned short gEmptyAttr;
 						}
 					} else if (c == CSI_CUF) {
 						if ([_csArg size] > 0) {
-							int p = [_csArg front];
+							NSInteger p = [_csArg front];
 							if (p < 1) p = 1;
 							_cursorX += p;
 						} else
@@ -567,7 +567,7 @@ static unsigned short gEmptyAttr;
 						if (_cursorX >= _column) _cursorX = _column - 1;
 					} else if (c == CSI_CUB) {
 						if ([_csArg size] > 0) {
-							int p = [_csArg front];
+							NSInteger p = [_csArg front];
 							if (p < 1) p = 1;
 							_cursorX -= p;
 						} else
@@ -575,7 +575,7 @@ static unsigned short gEmptyAttr;
 						if (_cursorX < 0) _cursorX = 0;
 					} else if (c == CSI_CHA) { // move to Pn position of current line
 						if ([_csArg size] > 0) {
-							int p = [_csArg front];
+							NSInteger p = [_csArg front];
 							if (p < 1) p = 1;
 							CURSOR_MOVETO(p - 1, _cursorY);
 						} else {
@@ -588,7 +588,7 @@ static unsigned short gEmptyAttr;
 						if ([_csArg size] == 0) {
 							_cursorX = 0, _cursorY = 0;
 						} else if ([_csArg size] == 1) {
-							int p = [_csArg front];
+							NSInteger p = [_csArg front];
 							if (p < 1) p = 1;
 							if (_modeOriginRelative && _scrollBeginRow > 0) {
 								p += _scrollBeginRow;
@@ -596,8 +596,8 @@ static unsigned short gEmptyAttr;
 							}
 							CURSOR_MOVETO(0, p - 1);
 						} else if ([_csArg size] > 1) {
-							int p = [_csArg front]; [_csArg pop_front];
-							int q = [_csArg front];
+							NSInteger p = [_csArg front]; [_csArg pop_front];
+							NSInteger q = [_csArg front];
 							if (p < 1) p = 1;
 							if (q < 1) q = 1;
 							if (_modeOriginRelative && _scrollBeginRow > 0) {
@@ -610,7 +610,7 @@ static unsigned short gEmptyAttr;
 						/*  ^[J, ^[0J	: clear from cursor position to end
 						 ^[1J		: clear from start to cursor position
 						 ^[2J		: clear all */
-						int j;
+						NSInteger j;
 						if ([_csArg size] == 0 || [_csArg front] == 0) {
 							// mjhsieh is not comfortable with putting _csArg lookup with
 							// [_csArg size]==0
@@ -646,18 +646,18 @@ static unsigned short gEmptyAttr;
 							[self clearRow:_cursorY];
 						}
 					}else if (c == CSI_IL ) { // Insert Line
-						int lineNumber = 0;
+						NSInteger lineNumber = 0;
 						if ([_csArg size] == 0) 
 							lineNumber = 1;
 						else if ([_csArg size] > 0)
 							lineNumber = [_csArg front];
 						if (lineNumber < 1) lineNumber = 1; //mjhsieh is paranoid
 						
-						int j;
+						NSInteger j;
 						for (j = 0; j < lineNumber; j++) {
 							[self clearRow: _scrollEndRow];
 							cell *emptyRow = [self cellsOfRow: _scrollEndRow];
-							int r;
+							NSInteger r;
 							for (r = _scrollEndRow; r > _cursorY; r--)
 								_grid[r] = _grid[r - 1];
 							_grid[_cursorY] = emptyRow;
@@ -665,18 +665,18 @@ static unsigned short gEmptyAttr;
 						for (j = _cursorY; j <= _scrollEndRow; j++)
 							[_terminal setDirtyForRow:j];
 					} else if (c == CSI_DL ) { // Delete Line
-						int lineNumber = 0;
+						NSInteger lineNumber = 0;
 						if ([_csArg size] == 0) 
 							lineNumber = 1;
 						else if ([_csArg size] > 0)
 							lineNumber = [_csArg front];
 						if (lineNumber < 1) lineNumber = 1; //mjhsieh is paranoid
 						
-						int j;
+						NSInteger j;
 						for (j = 0; j < lineNumber; j++) {
 							[self clearRow:_cursorY];
 							cell *emptyRow = _grid[_cursorY];
-							int r;
+							NSInteger r;
 							for (r = _cursorY; r < _scrollEndRow; r++)
 								_grid[r] = _grid[r + 1];
 							_grid[_scrollEndRow] = emptyRow;
@@ -684,12 +684,12 @@ static unsigned short gEmptyAttr;
 						for (j = _cursorY; j <= _scrollEndRow; j++)
 							[_terminal setDirtyForRow:j];
 					} else if (c == CSI_DCH) { // Delete characters at the current cursor position.
-						int p = 1;
+						NSInteger p = 1;
 						if ([_csArg size] == 1) {
 							p = [_csArg front];
 						}
 						if (p < 1) p = 1;
-						int j;
+						NSInteger j;
 						for (j = _cursorX; j <= _column - 1; j++){
 							if ( j <= _column - 1 - p ) {
 								_grid[_cursorY][j] = _grid[_cursorY][j+p];
@@ -701,14 +701,14 @@ static unsigned short gEmptyAttr;
 							[_terminal setDirty:YES atRow:_cursorY column:j];
 						}
 					} else if (c == CSI_HPA) { // goto to absolute character position
-						int p = 0;
+						NSInteger p = 0;
 						if ([_csArg size] > 0) {
 							p = [_csArg front]-1;
 							if (p < 0) p = 0;
 						}
 						CURSOR_MOVETO(p,_cursorY);
 					} else if (c == CSI_HPR) { // goto to the next position of the line
-						int p = 1;
+						NSInteger p = 1;
 						if ([_csArg size] > 0) {
 							p = [_csArg front];
 							if (p < 1) p = 1;
@@ -734,21 +734,21 @@ static unsigned short gEmptyAttr;
 							[connection sendBytes:cmd length:cmdLength];
 						}
 					} else if (c == CSI_VPA) { // move to Pn line, col remaind the same
-						int p = 0;
+						NSInteger p = 0;
 						if ([_csArg size] > 0) {
 							p = [_csArg front]-1;
 							if (p < 0) p = 0;
 						}
 						CURSOR_MOVETO(_cursorX,p);
 					} else if (c == CSI_VPR) { // move to Pn Line in forward direction
-						int p = 1;
+						NSInteger p = 1;
 						if ([_csArg size] > 0) {
 							p = [_csArg front];
 							if (p < 1) p = 1;
 						}
 						CURSOR_MOVETO(_cursorX,_cursorY+p);
 					} else if (c == CSI_TBC) { // Clear a tab at the current column
-						int p = 1;
+						NSInteger p = 1;
 						if ([_csArg size] == 1){
 							p = [_csArg front];
 						}
@@ -759,7 +759,7 @@ static unsigned short gEmptyAttr;
 					} else if (c == CSI_SM ) {  // set mode
 						int doClear = 0;
 						while (![_csArg empty]) {
-							int p = [_csArg front];
+							NSInteger p = [_csArg front];
 							if (p == -1) {
 								[_csArg pop_front];
 								if ([_csArg size] == 1) {
@@ -809,23 +809,23 @@ static unsigned short gEmptyAttr;
 							}
 						}
 					} else if (c == CSI_HPB) { // move to Pn Location in backward direction, same raw
-						int p = 1;
+						NSInteger p = 1;
 						if ([_csArg size] > 0) {
 							p = [_csArg front];
 							if (p < 1) p = 1;
 						}
 						CURSOR_MOVETO(_cursorX-p,_cursorY);										
 					} else if (c == CSI_VPB) { // move to Pn Line in backward direction
-						int p = 1;
+						NSInteger p = 1;
 						if ([_csArg size] > 0) {
 							p = [_csArg front];
 							if (p < 1) p = 1;
 						}
 						CURSOR_MOVETO(_cursorX,_cursorY-p);
 					} else if (c == CSI_RM ) { // reset mode
-						int doClear = 0;
+						NSInteger doClear = 0;
 						while (![_csArg empty]) {
-							int p = [_csArg front];
+							NSInteger p = [_csArg front];
 							if (p == -1) {
 								[_csArg pop_front];
 								if ([_csArg size] == 1) {
@@ -875,7 +875,7 @@ static unsigned short gEmptyAttr;
 							_reverse = NO ^ _modeScreenReverse;
 						} else {
 							while (![_csArg empty]) {
-								int p = [_csArg front];
+								NSInteger p = [_csArg front];
 								[_csArg pop_front];
 								if (p  == 0) {
 									_fgColor = 7;
@@ -940,8 +940,8 @@ static unsigned short gEmptyAttr;
 							_scrollBeginRow = 0;
 							_scrollEndRow = _row - 1;
 						} else if ([_csArg size] == 2) {
-							int s = [_csArg front];
-							int e = [_csArg at:1];
+							NSInteger s = [_csArg front];
+							NSInteger e = [_csArg at:1];
 							if (s > e) s = [_csArg at:1], e = [_csArg front];
 							_scrollBeginRow = s - 1;
 							_scrollEndRow = e - 1;
@@ -977,7 +977,7 @@ static unsigned short gEmptyAttr;
 		if ([_terminal bbsType] == WLMaple && _grid[_row - 1][0].attr.f.bgColor != 9 && _grid[_row - 1][_column - 2].attr.f.bgColor == 9) {
 			// for maple bbs (e.g. ptt)
 			for (i = 2; i < _column && _grid[_row - 1][i].attr.f.bgColor == _grid[_row - 1][i - 1].attr.f.bgColor; ++i); // split callerName and messageString
-			int splitPoint = i++;
+			NSInteger splitPoint = i++;
 			for (; i < _column && _grid[_row - 1][i].attr.f.bgColor == _grid[_row - 1][i - 1].attr.f.bgColor; ++i); // determine the end of the message
 			NSString *callerName = [_terminal stringAtIndex:((_row - 1) * _column + 2) length:(splitPoint - 2)];
 			NSString *messageString = [_terminal stringAtIndex:((_row - 1) * _column + splitPoint + 1) length:(i - splitPoint - 2)];
@@ -1042,14 +1042,14 @@ static unsigned short gEmptyAttr;
         _csArg = [[WLIntegerArray integerArray] retain];
 }
 
-- (void)clearRow:(int)r {
+- (void)clearRow:(NSInteger)r {
     [self clearRow:r fromStart:0 toEnd:_column - 1];
 }
 
-- (void)clearRow:(int)r 
-	   fromStart:(int)s 
-		   toEnd:(int)e {
-    for (int i = s; i <= e; i++) {
+- (void)clearRow:(NSInteger)r
+	   fromStart:(NSInteger)s
+		   toEnd:(NSInteger)e {
+    for (NSInteger i = s; i <= e; i++) {
         _grid[r][i].byte = '\0';
         _grid[r][i].attr.v = gEmptyAttr;
         _grid[r][i].attr.f.bgColor = _bgColor;
@@ -1068,7 +1068,7 @@ static unsigned short gEmptyAttr;
 	[_terminal setAllDirty];
 }
 
-- (cell *)cellsOfRow:(int)r {
+- (cell *)cellsOfRow:(NSInteger)r {
 	return _grid[r];
 }
 

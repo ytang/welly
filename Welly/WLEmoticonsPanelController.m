@@ -19,14 +19,14 @@
 
 // emoticons accessors
 - (void)addEmoticon:(YLEmoticon *)emoticon;
-- (unsigned)countOfEmoticons;
-- (id)objectInEmoticonsAtIndex:(unsigned)theIndex;
+- (NSUInteger)countOfEmoticons;
+- (id)objectInEmoticonsAtIndex:(NSUInteger)theIndex;
 - (void)getEmoticons:(id *)objsPtr 
 			   range:(NSRange)range;
 - (void)insertObject:(id)obj 
-  inEmoticonsAtIndex:(unsigned)theIndex;
-- (void)removeObjectFromEmoticonsAtIndex:(unsigned)theIndex;
-- (void)replaceObjectInEmoticonsAtIndex:(unsigned)theIndex withObject:(id)obj;
+  inEmoticonsAtIndex:(NSUInteger)theIndex;
+- (void)removeObjectFromEmoticonsAtIndex:(NSUInteger)theIndex;
+- (void)replaceObjectInEmoticonsAtIndex:(NSUInteger)theIndex withObject:(id)obj;
 @end
 
 @implementation WLEmoticonsPanelController
@@ -108,11 +108,11 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(WLEmoticonsPanelController);
 
 #pragma mark -
 #pragma mark Emoticons Accessors
-- (unsigned)countOfEmoticons {
+- (NSUInteger)countOfEmoticons {
     return [_emoticons count];
 }
 
-- (id)objectInEmoticonsAtIndex:(unsigned)theIndex {
+- (id)objectInEmoticonsAtIndex:(NSUInteger)theIndex {
     return [_emoticons objectAtIndex:theIndex];
 }
 
@@ -122,15 +122,15 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(WLEmoticonsPanelController);
 }
 
 - (void)insertObject:(id)obj 
-  inEmoticonsAtIndex:(unsigned)theIndex {
+  inEmoticonsAtIndex:(NSUInteger)theIndex {
     [_emoticons insertObject:obj atIndex:theIndex];
 }
 
-- (void)removeObjectFromEmoticonsAtIndex:(unsigned)theIndex {
+- (void)removeObjectFromEmoticonsAtIndex:(NSUInteger)theIndex {
     [_emoticons removeObjectAtIndex:theIndex];
 }
 
-- (void)replaceObjectInEmoticonsAtIndex:(unsigned)theIndex withObject:(id)obj {
+- (void)replaceObjectInEmoticonsAtIndex:(NSUInteger)theIndex withObject:(id)obj {
     [_emoticons replaceObjectAtIndex:theIndex withObject:obj];
 }
 

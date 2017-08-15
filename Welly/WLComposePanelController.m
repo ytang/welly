@@ -192,7 +192,7 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(WLComposePanelController);
 - (void)textViewDidChangeSelection:(NSNotification *)aNotification {
     NSTextView *textView = [aNotification object];
     NSTextStorage *storage = [textView textStorage];
-    int location = [textView selectedRange].location;
+    NSInteger location = [textView selectedRange].location;
     if (location > 0) 
 		--location;
     [_bgColorWell setColor:[[WLGlobalConfig sharedInstance] colorBG]];

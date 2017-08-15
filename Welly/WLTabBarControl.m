@@ -46,7 +46,7 @@
 }
 
 - (void)selectLastTabViewItem:(id)sender {
-    uint count = [[self cells] count];
+    NSUInteger count = [[self cells] count];
     if (count > 0)
         [self selectTabViewItemAtIndex:count-1];
 }
@@ -64,7 +64,7 @@
     NSTabViewItem *sel = [[self tabView] selectedTabViewItem];
     if (sel == nil)
         return;
-    int index = [self indexOfTabViewItem:sel] + 1;
+    NSInteger index = [self indexOfTabViewItem:sel] + 1;
     if (index == [[self cells] count])
         index = 0;
     [self selectTabViewItemAtIndex:index];
@@ -74,7 +74,7 @@
     NSTabViewItem *sel = [[self tabView] selectedTabViewItem];
     if (sel == nil)
         return;
-    int index = [self indexOfTabViewItem:sel];
+    NSInteger index = [self indexOfTabViewItem:sel];
     if (index == 0)
         [self selectLastTabViewItem:sender];
     else
@@ -83,7 +83,7 @@
 
 #pragma mark -
 - (void)removeTabViewItem:(NSTabViewItem *)tabViewItem {
-    int index = [self indexOfTabViewItem:tabViewItem];
+    NSInteger index = [self indexOfTabViewItem:tabViewItem];
     [self closeTabClick:[[self cells] objectAtIndex:index]];
 }
 

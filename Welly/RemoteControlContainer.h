@@ -33,6 +33,6 @@
 }
 
 - (BOOL) instantiateAndAddRemoteControlDeviceWithClass: (Class) clazz;
-- (unsigned int) count;
+- (NSUInteger) count;
 
 @end

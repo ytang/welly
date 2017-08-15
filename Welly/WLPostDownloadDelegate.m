@@ -37,7 +37,7 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(WLPostDownloadDelegate);
 
 	WLConnection *connection = [terminal connection];
 
-    const int linesPerPage = [[WLGlobalConfig sharedInstance] row] - 1;
+    const NSInteger linesPerPage = [[WLGlobalConfig sharedInstance] row] - 1;
     NSString *lastPage[linesPerPage], *newPage[linesPerPage];
 
     NSString *bottomLine = [terminal stringAtIndex:linesPerPage * [[WLGlobalConfig sharedInstance] column] length:[[WLGlobalConfig sharedInstance] column]] ?: @"";
@@ -47,8 +47,8 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(WLPostDownloadDelegate);
 
     BOOL isFinished = NO;
 
-    for (int i = 0; i < maxAttempt && !isFinished; ++i) {
-        int j = 0, lastline = linesPerPage;
+    for (NSInteger i = 0; i < maxAttempt && !isFinished; ++i) {
+        NSInteger j = 0, lastline = linesPerPage;
         // read in the whole page, and store in 'newPage' array
         for (; j < linesPerPage; ++j) {
             // read one line
@@ -70,7 +70,7 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(WLPostDownloadDelegate);
             isFinished = YES;
         }
 
-        int k = linesPerPage - 1;
+        NSInteger k = linesPerPage - 1;
         // if it is the last page, we should check if there are duplicated pages
         if (isFinished && i != 0) {
             while (j > 0) {
@@ -84,7 +84,7 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(WLPostDownloadDelegate);
                 NSAssert(j == 0 || [newPage[j] isEqualToString:lastPage[k]], @"bbs post layout tradition");
                 
                 // now check if it is really duplicated
-                for (int jj = j - 1; jj >= 0; --jj) {
+                for (NSInteger jj = j - 1; jj >= 0; --jj) {
                     --k;
                     if (![newPage[jj] isEqualToString:lastPage[k]]) {
                         // it is not really duplicated by last page effect, but only duplicated by the author of the post

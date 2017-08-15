@@ -523,8 +523,8 @@ static NSImage *gLeftImage;
         CGContextSetRGBStrokeColor(myCGContext, 1.0, 1.0, 1.0, 1.0);
         CGContextSetLineWidth(myCGContext, 1.0);
         
-        int location = 0;
-        int lastIndex = bufIndex[glyphOffset];
+        NSInteger location = 0;
+        NSInteger lastIndex = bufIndex[glyphOffset];
         BOOL hidden = isHiddenAttribute(currRow[lastIndex].attr);
         BOOL lastDoubleByte = isDoubleByte[glyphOffset];
         
@@ -536,7 +536,7 @@ static NSImage *gLeftImage;
                 (!isDoubleByte[runGlyphIndex + glyphOffset] && index != lastIndex + 1) ||
                 (isDoubleByte[runGlyphIndex + glyphOffset] != lastDoubleByte)) {
                 lastDoubleByte = isDoubleByte[runGlyphIndex + glyphOffset];
-                int len = runGlyphIndex - location;
+                NSInteger len = runGlyphIndex - location;
                 
                 CGContextSetTextDrawingMode(myCGContext, ([gConfig showsHiddenText] && hidden) ? kCGTextStroke : kCGTextFill);
                 CGGlyph glyph[_maxColumn];

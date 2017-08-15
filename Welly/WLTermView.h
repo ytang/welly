@@ -20,11 +20,11 @@
 	
 	NSImage *_backedImage;
 	
-	int _x;
-	int _y;
+	NSInteger _x;
+	NSInteger _y;
 	
-	int _maxRow;
-	int _maxColumn;
+	NSInteger _maxRow;
+	NSInteger _maxColumn;
 	
 	WLConnection *_connection;
 	

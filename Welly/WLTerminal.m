@@ -51,7 +51,7 @@
 }
 
 - (void)dealloc {
-    for (int i = 0; i < _maxRow; i++) {
+    for (NSInteger i = 0; i < _maxRow; i++) {
         free(_grid[i]);
 		free(_dirty[i]);
 	}
@@ -85,8 +85,8 @@
 	 */
 }
 
-- (void)setCursorX:(int)cursorX
-				 Y:(int)cursorY {
+- (void)setCursorX:(NSInteger)cursorX
+				 Y:(NSInteger)cursorY {
 	_cursorColumn = cursorX;
 	_cursorRow = cursorY;
 }
@@ -123,19 +123,19 @@
 			_dirty[r][c] = YES;
 }
 
-- (void)setDirtyForRow:(int)r {
+- (void)setDirtyForRow:(NSInteger)r {
 	for (int c = 0; c < _maxColumn; c++)
 		_dirty[r][c] = YES;
 }
 
-- (BOOL)isDirtyAtRow:(int)r 
-			  column:(int)c {
+- (BOOL)isDirtyAtRow:(NSInteger)r
+			  column:(NSInteger)c {
 	return _dirty[r][c];
 }
 
 - (void)setDirty:(BOOL)d
-		   atRow:(int)r
-		  column:(int)c {
+		   atRow:(NSInteger)r
+		  column:(NSInteger)c {
 	_dirty[r][c] = d;
 }
 
@@ -146,24 +146,24 @@
 
 # pragma mark -
 # pragma mark Access Data
-- (attribute)attrAtRow:(int)r 
-				column:(int)c {
+- (attribute)attrAtRow:(NSInteger)r
+				column:(NSInteger)c {
 	return _grid[r][c].attr;
 }
 
-- (NSString *)stringAtIndex:(int)begin 
-					 length:(int)length {
-    int i, j;
+- (NSString *)stringAtIndex:(NSInteger)begin
+					 length:(NSInteger)length {
+    NSInteger i, j;
     //unichar textBuf[length + 1];
     unichar firstByte = 0;
-    int bufLength = 0;
-    int spacebuf = 0;
+    NSInteger bufLength = 0;
+    NSInteger spacebuf = 0;
 	if (begin + length > _maxRow * _maxColumn) {
 		length = _maxRow * _maxColumn - begin;
 	}
     for (i = begin; i < begin + length; i++) {
-        int x = i % _maxColumn;
-        int y = i / _maxColumn;
+        NSInteger x = i % _maxColumn;
+        NSInteger y = i / _maxColumn;
         if (x == 0 && i != begin && i - 1 < begin + length) { // newline
 			// REVIEW: why we need to update double byte state?????
             [self updateDoubleByteStateForRow:y];
@@ -199,8 +199,8 @@
 // Note that the 'length' means the number of characters in return string
 // A Chinese character is counted as 1 character in return string
 // Different from the method 'stringAtIndex:length'!!
-- (NSAttributedString *)attributedStringAtIndex:(NSUInteger)location 
-										 length:(NSUInteger)length {
+- (NSAttributedString *)attributedStringAtIndex:(NSInteger)location
+										 length:(NSInteger)length {
 	NSFont *englishFont = [NSFont fontWithName:[[WLGlobalConfig sharedInstance] englishFontName] 
 										  size:[[WLGlobalConfig sharedInstance] englishFontSize]];
 	NSFont *chineseFont = [NSFont fontWithName:[[WLGlobalConfig sharedInstance] chineseFontName]
@@ -240,21 +240,21 @@
 	return attrStr;
 }
 
-- (NSString *)stringAtRow:(int)row {
+- (NSString *)stringAtRow:(NSInteger)row {
 	return [self stringAtIndex:row * _maxColumn length:_maxColumn];
 }
 
-- (cell *)cellsOfRow:(int)r {
+- (cell *)cellsOfRow:(NSInteger)r {
 	return _grid[r];
 }
 
-- (cell)cellAtIndex:(int)index {
+- (cell)cellAtIndex:(NSInteger)index {
 	return _grid[index / _maxColumn][index % _maxColumn];
 }
 
 # pragma mark -
 # pragma mark Update State
-- (void)updateDoubleByteStateForRow:(int)r {
+- (void)updateDoubleByteStateForRow:(NSInteger)r {
 	cell *currRow = _grid[r];
 	int db = 0;
 	BOOL isDirty = NO;

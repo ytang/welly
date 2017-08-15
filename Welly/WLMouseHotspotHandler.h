@@ -83,7 +83,7 @@
 	WLTerminalView *_view;
 	
 	WLMouseBehaviorManager *_manager;
-	int _maxRow, _maxColumn;
+	NSInteger _maxRow, _maxColumn;
 	
 	NSMutableArray *_trackingAreas;
 }

@@ -28,9 +28,9 @@ NSString *const WLChineseFontSizeKeyName;
 NSString *const WLEnglishFontSizeKeyName;
 
 @interface WLGlobalConfig : NSObject {
-    int _messageCount;
-	int _row;
-	int _column;
+    NSInteger _messageCount;
+	NSInteger _row;
+	NSInteger _column;
 	CGFloat _cellWidth;
 	CGFloat _cellHeight;
     
@@ -67,9 +67,9 @@ NSString *const WLEnglishFontSizeKeyName;
 	CFDictionaryRef _cCTAttribute[2][NUM_COLOR];
 	CFDictionaryRef _eCTAttribute[2][NUM_COLOR];
 }
-@property (readwrite, assign) int messageCount;
-@property (readwrite, assign) int row;
-@property (readwrite, assign) int column;
+@property (readwrite, assign) NSInteger messageCount;
+@property (readwrite, assign) NSInteger row;
+@property (readwrite, assign) NSInteger column;
 @property (readwrite, assign) CGFloat cellWidth;
 @property (readwrite, assign) CGFloat cellHeight;
 @property (readwrite, assign, nonatomic) BOOL showsHiddenText;

@@ -13,14 +13,14 @@
 	CGFloat _fontWidth;
 	CGFloat _fontHeight;
 	
-	int _maxRow;
-	int _maxColumn;
+	NSInteger _maxRow;
+	NSInteger _maxColumn;
 }
 
 + (BOOL)isAsciiArtSymbol:(unichar)ch;
 - (void)drawSpecialSymbol:(unichar)ch 
-				   forRow:(int)r 
-				   column:(int)c 
+				   forRow:(NSInteger)r
+				   column:(NSInteger)c 
 			leftAttribute:(attribute)attr1 
 		   rightAttribute:(attribute)attr2;
 - (void)configure;

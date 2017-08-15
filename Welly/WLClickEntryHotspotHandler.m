@@ -39,17 +39,17 @@ NSString *const WLCommandSequenceSameAuthorReading = @"\025";	// ^U
 	unsigned char cmd[_maxRow * _maxColumn + 1];
 	unsigned int cmdLength = 0;
 	WLTerminal *ds = [_view frontMostTerminal];
-	int cursorRow = [ds cursorRow];
+	NSInteger cursorRow = [ds cursorRow];
 	
 	// Moving Command
 	if (moveToRow > cursorRow) {
-		for (int i = cursorRow; i < moveToRow; i++) {
+		for (NSInteger i = cursorRow; i < moveToRow; i++) {
 			cmd[cmdLength++] = 0x1B;
 			cmd[cmdLength++] = 0x4F;
 			cmd[cmdLength++] = 0x42;
 		} 
 	} else if (moveToRow < cursorRow) {
-		for (int i = cursorRow; i > moveToRow; i--) {
+		for (NSInteger i = cursorRow; i > moveToRow; i--) {
 			cmd[cmdLength++] = 0x1B;
 			cmd[cmdLength++] = 0x4F;
 			cmd[cmdLength++] = 0x41;
@@ -187,26 +187,26 @@ NSString *const WLCommandSequenceSameAuthorReading = @"\025";	// ^U
 #pragma mark -
 #pragma mark Add Tracking Areas
 - (void)addClickEntryRect:(NSString *)title
-					  row:(int)r
-				   column:(int)c
-				   length:(int)length {
+					  row:(NSInteger)r
+				   column:(NSInteger)c
+				   length:(NSInteger)length {
 	NSRect rect = [_view rectAtRow:r column:c height:1 width:length];
 	// Generate User Info
 	NSArray *keys = [NSArray arrayWithObjects:WLMouseHandlerUserInfoName, WLMouseRowUserInfoName, nil];
-	NSArray *objects = [NSArray arrayWithObjects:self, [NSNumber numberWithInt:r], nil];
+	NSArray *objects = [NSArray arrayWithObjects:self, [NSNumber numberWithInteger:r], nil];
 	NSDictionary *userInfo = [NSDictionary dictionaryWithObjects:objects forKeys:keys];
 	[_trackingAreas addObject:[_manager addTrackingAreaWithRect:rect userInfo:userInfo]];
 }
 
-- (void)addClickEntryRectAtRow:(int)r column:(int)c length:(int)length {
+- (void)addClickEntryRectAtRow:(NSInteger)r column:(NSInteger)c length:(NSInteger)length {
     NSString *title = [[_view frontMostTerminal] stringAtIndex:c+r*_maxColumn length:length];
     [self addClickEntryRect:title row:r column:c length:length];
 }
 
 - (void)addMainMenuClickEntry:(NSString *)cmd 
-						  row:(int)r
-					   column:(int)c 
-					   length:(int)len {
+						  row:(NSInteger)r
+					   column:(NSInteger)c
+					   length:(NSInteger)len {
 	NSRect rect = [_view rectAtRow:r column:c height:1 width:len];
 	// Generate User Info
 	NSArray *keys = [NSArray arrayWithObjects:WLMouseHandlerUserInfoName, WLMouseCommandSequenceUserInfoName, nil];
@@ -221,7 +221,7 @@ NSString *const WLCommandSequenceSameAuthorReading = @"\025";	// ^U
 			 column:(int)column 
 			   with:(NSString *)s {
     cell *currRow = [[_view frontMostTerminal] cellsOfRow:row];
-    int i = 0, n = [s length];
+    NSInteger i = 0, n = [s length];
     for (; i < n && column < _maxColumn - 1; ++i, ++column)
         if (currRow[column].byte != [s characterAtIndex:i])
             return NO;
@@ -405,7 +405,7 @@ BOOL isPostTitleStarter(unichar c) {
 	for (int r = 3; r < _maxRow - 1; ++r) {
 		cell *currRow = [ds cellsOfRow:r];
 		
-		for (int c = postRange.location; c < postRange.location + postRange.length; ++c)
+		for (NSInteger c = postRange.location; c < postRange.location + postRange.length; ++c)
 			if (currRow[c].byte != 0 && currRow[c].byte != ' ') {
 				[self addClickEntryRectAtRow:r column:postRange.location length:postRange.length];
 				break;
@@ -421,7 +421,7 @@ BOOL isPostTitleStarter(unichar c) {
 	// In the same page, do NOT update/clear
 	WLTerminal *ds = [_view frontMostTerminal];
 	BBSState bbsState = [ds bbsState];
-	if (bbsState.state == [_manager lastBBSState].state && abs([_manager lastCursorRow] - [ds cursorRow]) == 1) {
+	if (bbsState.state == [_manager lastBBSState].state && labs([_manager lastCursorRow] - [ds cursorRow]) == 1) {
 		return NO;
 	}
 	return YES;

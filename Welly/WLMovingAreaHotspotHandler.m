@@ -146,10 +146,10 @@ NSString *const WLMenuTitleQuitMode = @"Quit Mode";
 }
 
 #pragma mark pgUp/Down Area
-- (void)addPageUpAreaAtRow:(int)r 
-					column:(int)c 
-					height:(int)h 
-					 width:(int)w {
+- (void)addPageUpAreaAtRow:(NSInteger)r
+					column:(NSInteger)c
+					height:(NSInteger)h
+					 width:(NSInteger)w {
 	NSRect rect = [_view rectAtRow:r column:c height:h width:w];
 	NSArray *keys = [NSArray arrayWithObjects:WLMouseHandlerUserInfoName, WLMouseCommandSequenceUserInfoName, WLMouseCursorUserInfoName, nil];
 	NSArray *objects = [NSArray arrayWithObjects:self, WLCommandSequencePageUp, _pageUpCursor, nil];
@@ -166,10 +166,10 @@ NSString *const WLMenuTitleQuitMode = @"Quit Mode";
 	}
 }
 
-- (void)addPageDownAreaAtRow:(int)r 
-					  column:(int)c 
-					  height:(int)h 
-					   width:(int)w {
+- (void)addPageDownAreaAtRow:(NSInteger)r
+					  column:(NSInteger)c
+					  height:(NSInteger)h
+					   width:(NSInteger)w {
 	NSRect rect = [_view rectAtRow:r column:c height:h width:w];
 	// Generate User Info
 	NSArray *keys = [NSArray arrayWithObjects:WLMouseHandlerUserInfoName, WLMouseCommandSequenceUserInfoName, WLMouseCursorUserInfoName, nil];

@@ -643,8 +643,8 @@ static NSBezierPath *gSymbolLowerLinePath;
 }
 
 - (void)drawSpecialSymbol:(unichar)ch 
-				   forRow:(int)r 
-				   column:(int)c 
+				   forRow:(NSInteger)r
+				   column:(NSInteger)c
 			leftAttribute:(attribute)attrL 
 		   rightAttribute:(attribute)attrR {
 	int colorIndexL = fgColorIndexOfAttribute(attrL);
