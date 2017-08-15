@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		9C034A221F43077500C55BA2 /* Preferences.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9C034A241F43077500C55BA2 /* Preferences.xib */; };
 		9C5C1B241F42DD02006E170D /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 9C5C1B221F42DD02006E170D /* InfoPlist.strings */; };
 		9C5C1B271F42DD1C006E170D /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 9C5C1B251F42DD1C006E170D /* Localizable.strings */; };
 		9C769BCE1F42AED20044F830 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C769BCD1F42AED20044F830 /* main.m */; };
@@ -86,7 +87,6 @@
 		9CC8E73C1F42C13B00737A3E /* EmoticonsPanel.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9CC8E7311F42C13B00737A3E /* EmoticonsPanel.xib */; };
 		9CC8E73D1F42C13B00737A3E /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9CC8E7331F42C13B00737A3E /* MainMenu.xib */; };
 		9CC8E73E1F42C13B00737A3E /* PostDownloadPanel.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9CC8E7351F42C13B00737A3E /* PostDownloadPanel.xib */; };
-		9CC8E73F1F42C13B00737A3E /* Preferences.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9CC8E7371F42C13B00737A3E /* Preferences.xib */; };
 		9CC8E7401F42C13B00737A3E /* SitesPanel.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9CC8E7391F42C13B00737A3E /* SitesPanel.xib */; };
 		9CC8E7451F42C23500737A3E /* Growl.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9CC8E7411F42C23500737A3E /* Growl.framework */; };
 		9CC8E7461F42C23600737A3E /* Growl.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 9CC8E7411F42C23500737A3E /* Growl.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
@@ -125,18 +125,9 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		9C5C1B141F42DC30006E170D /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = "zh-Hans"; path = "zh-Hans.lproj/ComposePanel.xib"; sourceTree = "<group>"; };
-		9C5C1B151F42DC30006E170D /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = "zh-Hans"; path = "zh-Hans.lproj/EmoticonsPanel.xib"; sourceTree = "<group>"; };
-		9C5C1B161F42DC30006E170D /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = "zh-Hans"; path = "zh-Hans.lproj/MainMenu.xib"; sourceTree = "<group>"; };
-		9C5C1B171F42DC30006E170D /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = "zh-Hans"; path = "zh-Hans.lproj/PostDownloadPanel.xib"; sourceTree = "<group>"; };
-		9C5C1B181F42DC30006E170D /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = "zh-Hans"; path = "zh-Hans.lproj/Preferences.xib"; sourceTree = "<group>"; };
-		9C5C1B191F42DC30006E170D /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = "zh-Hans"; path = "zh-Hans.lproj/SitesPanel.xib"; sourceTree = "<group>"; };
-		9C5C1B1A1F42DC47006E170D /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = "zh-Hant"; path = "zh-Hant.lproj/ComposePanel.xib"; sourceTree = "<group>"; };
-		9C5C1B1B1F42DC47006E170D /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = "zh-Hant"; path = "zh-Hant.lproj/EmoticonsPanel.xib"; sourceTree = "<group>"; };
-		9C5C1B1C1F42DC47006E170D /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = "zh-Hant"; path = "zh-Hant.lproj/MainMenu.xib"; sourceTree = "<group>"; };
-		9C5C1B1D1F42DC47006E170D /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = "zh-Hant"; path = "zh-Hant.lproj/PostDownloadPanel.xib"; sourceTree = "<group>"; };
-		9C5C1B1E1F42DC47006E170D /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = "zh-Hant"; path = "zh-Hant.lproj/Preferences.xib"; sourceTree = "<group>"; };
-		9C5C1B1F1F42DC47006E170D /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = "zh-Hant"; path = "zh-Hant.lproj/SitesPanel.xib"; sourceTree = "<group>"; };
+		9C034A231F43077500C55BA2 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/Preferences.xib; sourceTree = "<group>"; };
+		9C034A261F43077900C55BA2 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Preferences.strings"; sourceTree = "<group>"; };
+		9C034A281F43077E00C55BA2 /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hant"; path = "zh-Hant.lproj/Preferences.strings"; sourceTree = "<group>"; };
 		9C5C1B201F42DC60006E170D /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "zh-Hans"; path = "zh-Hans.lproj/contextualMenuItems.plist"; sourceTree = "<group>"; };
 		9C5C1B211F42DC65006E170D /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "zh-Hant"; path = "zh-Hant.lproj/contextualMenuItems.plist"; sourceTree = "<group>"; };
 		9C5C1B231F42DD02006E170D /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = Base.lproj/InfoPlist.strings; sourceTree = "<group>"; };
@@ -280,13 +271,22 @@
 		9C9208981F42E00F00A456D0 /* password.tif */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; name = password.tif; path = Resources/password.tif; sourceTree = "<group>"; };
 		9C9208991F42E00F00A456D0 /* sleep.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; name = sleep.pdf; path = Resources/sleep.pdf; sourceTree = "<group>"; };
 		9C92089A1F42E00F00A456D0 /* waiting.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; name = waiting.pdf; path = Resources/waiting.pdf; sourceTree = "<group>"; };
+		9C9871101F43193100575006 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/SitesPanel.strings"; sourceTree = "<group>"; };
+		9C9871121F43193200575006 /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hant"; path = "zh-Hant.lproj/SitesPanel.strings"; sourceTree = "<group>"; };
+		9C9871141F431EC000575006 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/EmoticonsPanel.strings"; sourceTree = "<group>"; };
+		9C9871161F431EC500575006 /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hant"; path = "zh-Hant.lproj/EmoticonsPanel.strings"; sourceTree = "<group>"; };
+		9C9871181F431F8900575006 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/ComposePanel.strings"; sourceTree = "<group>"; };
+		9C98711A1F431F8C00575006 /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hant"; path = "zh-Hant.lproj/ComposePanel.strings"; sourceTree = "<group>"; };
+		9C98711C1F43216300575006 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/MainMenu.strings"; sourceTree = "<group>"; };
+		9C98711E1F43216700575006 /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hant"; path = "zh-Hant.lproj/MainMenu.strings"; sourceTree = "<group>"; };
+		9CB839811F4317D9001FCBB9 /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hant"; path = "zh-Hant.lproj/PostDownloadPanel.strings"; sourceTree = "<group>"; };
+		9CB839831F431859001FCBB9 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/PostDownloadPanel.strings"; sourceTree = "<group>"; };
 		9CC8E7291F42C02C00737A3E /* Help */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Help; sourceTree = "<group>"; };
 		9CC8E72D1F42C12D00737A3E /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = Base; path = Base.lproj/contextualMenuItems.plist; sourceTree = "<group>"; };
 		9CC8E7301F42C13B00737A3E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/ComposePanel.xib; sourceTree = "<group>"; };
 		9CC8E7321F42C13B00737A3E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/EmoticonsPanel.xib; sourceTree = "<group>"; };
 		9CC8E7341F42C13B00737A3E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/MainMenu.xib; sourceTree = "<group>"; };
 		9CC8E7361F42C13B00737A3E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/PostDownloadPanel.xib; sourceTree = "<group>"; };
-		9CC8E7381F42C13B00737A3E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/Preferences.xib; sourceTree = "<group>"; };
 		9CC8E73A1F42C13B00737A3E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/SitesPanel.xib; sourceTree = "<group>"; };
 		9CC8E7411F42C23500737A3E /* Growl.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Growl.framework; path = Welly/Frameworks/Growl.framework; sourceTree = "<group>"; };
 		9CC8E7421F42C23500737A3E /* HMBlkAppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = HMBlkAppKit.framework; path = Welly/Frameworks/HMBlkAppKit.framework; sourceTree = "<group>"; };
@@ -697,7 +697,7 @@
 				9CC8E7311F42C13B00737A3E /* EmoticonsPanel.xib */,
 				9CC8E7331F42C13B00737A3E /* MainMenu.xib */,
 				9CC8E7351F42C13B00737A3E /* PostDownloadPanel.xib */,
-				9CC8E7371F42C13B00737A3E /* Preferences.xib */,
+				9C034A241F43077500C55BA2 /* Preferences.xib */,
 				9CC8E7391F42C13B00737A3E /* SitesPanel.xib */,
 			);
 			name = "Xib Files";
@@ -790,8 +790,6 @@
 			knownRegions = (
 				Base,
 				English,
-				zh_CN,
-				zh_TW,
 				"zh-Hans",
 				"zh-Hant",
 			);
@@ -815,6 +813,7 @@
 				9C92089B1F42E00F00A456D0 /* bookmark.pdf in Resources */,
 				9C5C1B271F42DD1C006E170D /* Localizable.strings in Resources */,
 				9C9208A01F42E00F00A456D0 /* online.pdf in Resources */,
+				9C034A221F43077500C55BA2 /* Preferences.xib in Resources */,
 				9C92089E1F42E00F00A456D0 /* mouse.pdf in Resources */,
 				9C92088F1F42DFBF00A456D0 /* QQWry.dat in Resources */,
 				9CC8E73C1F42C13B00737A3E /* EmoticonsPanel.xib in Resources */,
@@ -826,7 +825,6 @@
 				9CC8E7401F42C13B00737A3E /* SitesPanel.xib in Resources */,
 				9C9208911F42DFBF00A456D0 /* Whit.aiff in Resources */,
 				9C9208A31F42E00F00A456D0 /* waiting.pdf in Resources */,
-				9CC8E73F1F42C13B00737A3E /* Preferences.xib in Resources */,
 				9C92088E1F42DFBF00A456D0 /* Credits.rtf in Resources */,
 				9C92089C1F42E00F00A456D0 /* default_site.png in Resources */,
 				9CC8E73E1F42C13B00737A3E /* PostDownloadPanel.xib in Resources */,
@@ -907,6 +905,16 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
+		9C034A241F43077500C55BA2 /* Preferences.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				9C034A231F43077500C55BA2 /* Base */,
+				9C034A261F43077900C55BA2 /* zh-Hans */,
+				9C034A281F43077E00C55BA2 /* zh-Hant */,
+			);
+			name = Preferences.xib;
+			sourceTree = "<group>";
+		};
 		9C5C1B221F42DD02006E170D /* InfoPlist.strings */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -941,8 +949,8 @@
 			isa = PBXVariantGroup;
 			children = (
 				9CC8E7301F42C13B00737A3E /* Base */,
-				9C5C1B141F42DC30006E170D /* zh-Hans */,
-				9C5C1B1A1F42DC47006E170D /* zh-Hant */,
+				9C9871181F431F8900575006 /* zh-Hans */,
+				9C98711A1F431F8C00575006 /* zh-Hant */,
 			);
 			name = ComposePanel.xib;
 			sourceTree = "<group>";
@@ -951,8 +959,8 @@
 			isa = PBXVariantGroup;
 			children = (
 				9CC8E7321F42C13B00737A3E /* Base */,
-				9C5C1B151F42DC30006E170D /* zh-Hans */,
-				9C5C1B1B1F42DC47006E170D /* zh-Hant */,
+				9C9871141F431EC000575006 /* zh-Hans */,
+				9C9871161F431EC500575006 /* zh-Hant */,
 			);
 			name = EmoticonsPanel.xib;
 			sourceTree = "<group>";
@@ -961,8 +969,8 @@
 			isa = PBXVariantGroup;
 			children = (
 				9CC8E7341F42C13B00737A3E /* Base */,
-				9C5C1B161F42DC30006E170D /* zh-Hans */,
-				9C5C1B1C1F42DC47006E170D /* zh-Hant */,
+				9C98711C1F43216300575006 /* zh-Hans */,
+				9C98711E1F43216700575006 /* zh-Hant */,
 			);
 			name = MainMenu.xib;
 			sourceTree = "<group>";
@@ -971,28 +979,18 @@
 			isa = PBXVariantGroup;
 			children = (
 				9CC8E7361F42C13B00737A3E /* Base */,
-				9C5C1B171F42DC30006E170D /* zh-Hans */,
-				9C5C1B1D1F42DC47006E170D /* zh-Hant */,
+				9CB839811F4317D9001FCBB9 /* zh-Hant */,
+				9CB839831F431859001FCBB9 /* zh-Hans */,
 			);
 			name = PostDownloadPanel.xib;
-			sourceTree = "<group>";
-		};
-		9CC8E7371F42C13B00737A3E /* Preferences.xib */ = {
-			isa = PBXVariantGroup;
-			children = (
-				9CC8E7381F42C13B00737A3E /* Base */,
-				9C5C1B181F42DC30006E170D /* zh-Hans */,
-				9C5C1B1E1F42DC47006E170D /* zh-Hant */,
-			);
-			name = Preferences.xib;
 			sourceTree = "<group>";
 		};
 		9CC8E7391F42C13B00737A3E /* SitesPanel.xib */ = {
 			isa = PBXVariantGroup;
 			children = (
 				9CC8E73A1F42C13B00737A3E /* Base */,
-				9C5C1B191F42DC30006E170D /* zh-Hans */,
-				9C5C1B1F1F42DC47006E170D /* zh-Hant */,
+				9C9871101F43193100575006 /* zh-Hans */,
+				9C9871121F43193200575006 /* zh-Hant */,
 			);
 			name = SitesPanel.xib;
 			sourceTree = "<group>";
@@ -1042,7 +1040,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				MACOSX_DEPLOYMENT_TARGET = 10.6;
+				MACOSX_DEPLOYMENT_TARGET = 10.8;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = macosx;
@@ -1085,7 +1083,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				MACOSX_DEPLOYMENT_TARGET = 10.6;
+				MACOSX_DEPLOYMENT_TARGET = 10.8;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = macosx;
 			};

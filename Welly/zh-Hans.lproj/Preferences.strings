@@ -1,0 +1,162 @@
+
+/* Class = "NSTextFieldCell"; title = "Default Telnet Client:"; ObjectID = "0F3-V6-Ysd"; */
+"0F3-V6-Ysd.title" = "默认 Telnet 程序：";
+
+/* Class = "NSButtonCell"; title = "Confirm on dangerous posting"; ObjectID = "0Im-5M-3k6"; */
+"0Im-5M-3k6.title" = "非编辑文章状态下粘贴时警告我";
+
+/* Class = "NSButtonCell"; title = "⌘R for reconnect"; ObjectID = "1Dg-fJ-ZSo"; */
+"1Dg-fJ-ZSo.title" = "使用 ⌘R 为重新连接的快捷键";
+
+/* Class = "NSTextFieldCell"; title = "Default Encoding:"; ObjectID = "1ls-A5-ttR"; */
+"1ls-A5-ttR.title" = "默认编码：";
+
+/* Class = "NSMenu"; title = "OtherViews"; ObjectID = "2Qo-1J-2zV"; */
+"2Qo-1J-2zV.title" = "OtherViews";
+
+/* Class = "NSBox"; title = "Hanzi Font"; ObjectID = "3Ke-ak-ghT"; */
+"3Ke-ak-ghT.title" = "中文字体";
+
+/* Class = "NSTextFieldCell"; title = "Cyan"; ObjectID = "40h-gS-JeW"; */
+"40h-gS-JeW.title" = "青绿";
+
+/* Class = "NSBox"; title = "Software Update"; ObjectID = "60N-LK-vr2"; */
+"60N-LK-vr2.title" = "软件更新";
+
+/* Class = "NSTextFieldCell"; title = "Bottom Margin:"; ObjectID = "6tB-Zy-AYb"; */
+"6tB-Zy-AYb.title" = "下边界：";
+
+/* Class = "NSTextFieldCell"; title = "Black"; ObjectID = "6x3-y8-CuP"; */
+"6x3-y8-CuP.title" = "黑色";
+
+/* Class = "NSButtonCell"; title = "Restore connections on startup"; ObjectID = "6y4-SU-9tH"; */
+"6y4-SU-9tH.title" = "启动时恢复上次退出时的连接";
+
+/* Class = "CocoaBindingsConnection"; ibShadowedDisplayPattern = "%{value1}@ - %{value2}@"; ObjectID = "A3K-Rt-h4h"; */
+"A3K-Rt-h4h.ibShadowedDisplayPattern" = "%{value1}@ - %{value2}@";
+
+/* Class = "NSMenuItem"; title = "Select..."; ObjectID = "A9A-D1-QO5"; */
+"A9A-D1-QO5.title" = "选择...";
+
+/* Class = "NSTextFieldCell"; title = "Default ANSI Color Key:"; ObjectID = "ANZ-2p-Fh9"; */
+"ANZ-2p-Fh9.title" = "默认 ANSI 色彩控制码：";
+
+/* Class = "NSTextFieldCell"; title = "Bottom Margin:"; ObjectID = "Dt4-9z-R4t"; */
+"Dt4-9z-R4t.title" = "下边界：";
+
+/* Class = "CocoaBindingsConnection"; ibShadowedDisplayPattern = "%{value1}@ - %{value2}@"; ObjectID = "E9X-Vy-5UZ"; */
+"E9X-Vy-5UZ.ibShadowedDisplayPattern" = "%{value1}@ - %{value2}@";
+
+/* Class = "NSTextFieldCell"; title = "Red"; ObjectID = "Hfg-J1-Q18"; */
+"Hfg-J1-Q18.title" = "红色";
+
+/* Class = "NSMenu"; title = "OtherViews"; ObjectID = "IhV-jx-y1g"; */
+"IhV-jx-y1g.title" = "OtherViews";
+
+/* Class = "NSButtonCell"; title = "Programatically Detect Double Byte"; ObjectID = "J4v-MX-Yp0"; */
+"J4v-MX-Yp0.title" = "程序手动侦测双字节文字（不建议开启）";
+
+/* Class = "NSButtonCell"; title = "Show Cover Flow site list on startup 
+(Not recommended for old machines)"; ObjectID = "LMK-rb-ohC"; */
+"LMK-rb-ohC.title" = "启动时显示 Cover Flow 风格的站点列表
+（不建议低配置计算机开启）";
+
+/* Class = "NSTextFieldCell"; title = "White"; ObjectID = "LdL-Uy-Rut"; */
+"LdL-Uy-Rut.title" = "白色";
+
+/* Class = "NSMenuItem"; title = "Select..."; ObjectID = "NDI-uz-aTV"; */
+"NDI-uz-aTV.title" = "选择...";
+
+/* Class = "NSButtonCell"; title = "Choose..."; ObjectID = "PRy-Y5-QId"; */
+"PRy-Y5-QId.title" = "选择...";
+
+/* Class = "NSTextFieldCell"; title = "Default SSH Client:"; ObjectID = "QQN-zZ-D2q"; */
+"QQN-zZ-D2q.title" = "默认 SSH 程序：";
+
+/* Class = "NSMenuItem"; title = "GBK"; ObjectID = "Tg5-Pv-aFX"; */
+"Tg5-Pv-aFX.title" = "简体中文（GBK）";
+
+/* Class = "NSButtonCell"; title = "Confirm on close"; ObjectID = "WZT-5P-5E7"; */
+"WZT-5P-5E7.title" = "关闭未断开连接的标签时警告我";
+
+/* Class = "NSButtonCell"; title = "Subpixel text rendering (smooth font)"; ObjectID = "Y74-Ut-lRu"; */
+"Y74-Ut-lRu.title" = "次像素文字渲染（在液晶屏幕上可获得更为平滑的显示效果）";
+
+/* Class = "CocoaBindingsConnection"; ibShadowedDisplayPattern = "%{value1}@ - %{value2}@"; ObjectID = "Zog-JT-ycd"; */
+"Zog-JT-ycd.ibShadowedDisplayPattern" = "%{value1}@ - %{value2}@";
+
+/* Class = "NSMenuItem"; title = "Esc + Esc"; ObjectID = "awQ-6t-CLP"; */
+"awQ-6t-CLP.title" = "Esc + Esc";
+
+/* Class = "NSTextFieldCell"; title = "Magenta"; ObjectID = "b6B-Dk-rfW"; */
+"b6B-Dk-rfW.title" = "洋红";
+
+/* Class = "NSBox"; title = "English Font"; ObjectID = "bR1-Le-lzf"; */
+"bR1-Le-lzf.title" = "英文字体";
+
+/* Class = "NSTextFieldCell"; title = "Normal"; ObjectID = "dGT-Tn-uR6"; */
+"dGT-Tn-uR6.title" = "普通";
+
+/* Class = "NSTextFieldCell"; title = "Bold"; ObjectID = "dTj-Lm-GsF"; */
+"dTj-Lm-GsF.title" = "高亮";
+
+/* Class = "NSButtonCell"; title = "Bounce icon in the Dock repeatedly when receiving bell"; ObjectID = "do7-Dv-vsQ"; */
+"do7-Dv-vsQ.title" = "收到消息时让 Welly 在 Dock 上持续跳动";
+
+/* Class = "NSButtonCell"; title = "Check for updates on startup"; ObjectID = "esl-8a-4ub"; */
+"esl-8a-4ub.title" = "启动时检查更新";
+
+/* Class = "NSTextFieldCell"; title = "Green"; ObjectID = "fKu-tP-qTz"; */
+"fKu-tP-qTz.title" = "绿色";
+
+/* Class = "NSTextFieldCell"; title = "Yellow"; ObjectID = "hBE-uu-kfv"; */
+"hBE-uu-kfv.title" = "黄色";
+
+/* Class = "NSTextFieldCell"; title = "Cell Height:"; ObjectID = "i3O-VJ-PYN"; */
+"i3O-VJ-PYN.title" = "格子高度：";
+
+/* Class = "NSTextFieldCell"; title = "Background"; ObjectID = "iEB-Wd-Lq6"; */
+"iEB-Wd-Lq6.title" = "背景颜色";
+
+/* Class = "NSTextFieldCell"; title = "Cell Width:"; ObjectID = "kRP-DB-bLd"; */
+"kRP-DB-bLd.title" = "格子宽度：";
+
+/* Class = "NSTextFieldCell"; title = "Left Margin:"; ObjectID = "kZ5-tg-oWg"; */
+"kZ5-tg-oWg.title" = "左边界：";
+
+/* Class = "NSMenuItem"; title = "Big5"; ObjectID = "lUN-qF-j7R"; */
+"lUN-qF-j7R.title" = "繁体中文（Big5）";
+
+/* Class = "CocoaBindingsConnection"; ibShadowedDisplayPattern = "%{value1}@ - %{value2}@"; ObjectID = "nTA-P0-ugA"; */
+"nTA-P0-ugA.ibShadowedDisplayPattern" = "%{value1}@ - %{value2}@";
+
+/* Class = "NSButtonCell"; title = "Choose..."; ObjectID = "nuF-xG-6y8"; */
+"nuF-xG-6y8.title" = "选择...";
+
+/* Class = "NSMenuItem"; title = "Ctrl-U"; ObjectID = "oUF-Yb-5yq"; */
+"oUF-Yb-5yq.title" = "Ctrl - U";
+
+/* Class = "NSTextFieldCell"; title = "Left Margin:"; ObjectID = "paF-NJ-oc9"; */
+"paF-NJ-oc9.title" = "左边界：";
+
+/* Class = "NSButtonCell"; title = "Restore to initial settings"; ObjectID = "rQT-Rt-dx5"; */
+"rQT-Rt-dx5.title" = "重置至初始配置";
+
+/* Class = "NSTextFieldCell"; title = "Blue"; ObjectID = "rsu-PY-NvX"; */
+"rsu-PY-NvX.title" = "蓝色";
+
+/* Class = "NSMenu"; title = "OtherViews"; ObjectID = "sBO-67-S56"; */
+"sBO-67-S56.title" = "OtherViews";
+
+/* Class = "NSBox"; title = "Restore Settings"; ObjectID = "spT-xf-6as"; */
+"spT-xf-6as.title" = "重置设置";
+
+/* Class = "NSButtonCell"; title = "Enable Remote Control support
+(Restart required)"; ObjectID = "vFh-Yl-zjE"; */
+"vFh-Yl-zjE.title" = "启用遥控器支持（需重启Welly）";
+
+/* Class = "NSTextFieldCell"; title = "Connections which are not configured in Sites Panel will use these default settings."; ObjectID = "xAe-Lm-abT"; */
+"xAe-Lm-abT.title" = "没有登录在地址簿里的连接都会使用这里的设置。";
+
+/* Class = "NSMenu"; title = "OtherViews"; ObjectID = "yTK-Wu-UOS"; */
+"yTK-Wu-UOS.title" = "OtherViews";

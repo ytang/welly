@@ -1,0 +1,15 @@
+
+/* Class = "NSWindow"; title = "Emotions"; ObjectID = "2"; */
+"2.title" = "表情符号";
+
+/* Class = "NSBox"; title = "Box"; ObjectID = "10"; */
+"10.title" = "Box";
+
+/* Class = "NSTextFieldCell"; title = "Text Cell"; ObjectID = "16"; */
+"16.title" = "Text Cell";
+
+/* Class = "NSButtonCell"; title = "Insert"; ObjectID = "21"; */
+"21.title" = "插入";
+
+/* Class = "NSButtonCell"; title = "Cancel"; ObjectID = "22"; */
+"22.title" = "取消";

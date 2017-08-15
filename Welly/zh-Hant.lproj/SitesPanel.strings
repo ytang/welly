@@ -1,0 +1,105 @@
+
+/* Class = "NSWindow"; title = "Address Book"; ObjectID = "2"; */
+"2.title" = "站台";
+
+/* Class = "NSWindow"; title = "Password"; ObjectID = "3"; */
+"3.title" = "口令";
+
+/* Class = "NSTextFieldCell"; title = "Password: (or leave blank to disable auto-login)"; ObjectID = "9"; */
+"9.title" = "要啓用自動登錄，請鍵入口令；要停用自動登錄，請保持下方空白。";
+
+/* Class = "NSButtonCell"; title = "OK"; ObjectID = "10"; */
+"10.title" = "確認";
+
+/* Class = "NSButtonCell"; title = "Cancel"; ObjectID = "12"; */
+"12.title" = "取消";
+
+/* Class = "NSBox"; title = "Site Info"; ObjectID = "20"; */
+"20.title" = "Site Info";
+
+/* Class = "NSTextField"; ibShadowedToolTip = "[proxy.server.address[:port]]"; ObjectID = "22"; */
+"22.ibShadowedToolTip" = "[proxy.server.address[:port]]";
+
+/* Class = "NSButton"; ibShadowedToolTip = "点击此处设置或取消自动登录"; ObjectID = "24"; */
+"24.ibShadowedToolTip" = "点击此处设置或取消自动登录";
+
+/* Class = "NSTextField"; ibShadowedToolTip = "[telnet://][id@]your.site.org[:port]\nssh://[id@]your.site.org[:port]"; ObjectID = "36"; */
+"36.ibShadowedToolTip" = "[telnet://][id@]your.site.org[:port]\nssh://[id@]your.site.org[:port]";
+
+/* Class = "NSButtonCell"; title = "Enable Double Bytes Detection"; ObjectID = "40"; */
+"40.title" = "偵測雙位元文字";
+
+/* Class = "NSButtonCell"; title = "Enable Mouse Browsing"; ObjectID = "41"; */
+"41.title" = "啟用滑鼠瀏覽";
+
+/* Class = "NSTextFieldCell"; title = "Name:"; ObjectID = "42"; */
+"42.title" = "站名：";
+
+/* Class = "NSTextFieldCell"; title = "ANSI Color Key:"; ObjectID = "44"; */
+"44.title" = "ANSI 色彩控制碼：";
+
+/* Class = "NSTextFieldCell"; title = "Address:"; ObjectID = "46"; */
+"46.title" = "位址：";
+
+/* Class = "NSTextFieldCell"; title = "Encoding:"; ObjectID = "47"; */
+"47.title" = "編碼：";
+
+/* Class = "NSMenu"; title = "OtherViews"; ObjectID = "49"; */
+"49.title" = "OtherViews";
+
+/* Class = "NSMenuItem"; title = "Ctrl-U"; ObjectID = "50"; */
+"50.title" = "Ctrl - U";
+
+/* Class = "NSMenuItem"; title = "Esc + Esc"; ObjectID = "51"; */
+"51.title" = "Esc + Esc";
+
+/* Class = "NSMenu"; title = "OtherViews"; ObjectID = "53"; */
+"53.title" = "OtherViews";
+
+/* Class = "NSMenuItem"; title = "Traditional Chinese (Big5)"; ObjectID = "54"; */
+"54.title" = "正體中文（Big5）";
+
+/* Class = "NSMenuItem"; title = "Simplified Chinese (GBK)"; ObjectID = "55"; */
+"55.title" = "簡體中文（GBK）";
+
+/* Class = "NSTextFieldCell"; title = "Proxy:"; ObjectID = "56"; */
+"56.title" = "代理伺服器：";
+
+/* Class = "NSMenu"; title = "OtherViews"; ObjectID = "58"; */
+"58.title" = "OtherViews";
+
+/* Class = "NSMenuItem"; title = "None"; ObjectID = "59"; */
+"59.title" = "無";
+
+/* Class = "NSMenuItem"; title = "Auto"; ObjectID = "60"; */
+"60.title" = "自動";
+
+/* Class = "NSMenuItem"; title = "SOCKS"; ObjectID = "61"; */
+"61.title" = "SOCKS";
+
+/* Class = "NSMenuItem"; title = "HTTP"; ObjectID = "62"; */
+"62.title" = "HTTP";
+
+/* Class = "NSMenuItem"; title = "HTTPS"; ObjectID = "63"; */
+"63.title" = "HTTPS";
+
+/* Class = "NSTextFieldCell"; title = "Auto Reply:"; ObjectID = "64"; */
+"64.title" = "自動應答：";
+
+/* Class = "NSTextFieldCell"; title = "For SSH connections only"; ObjectID = "66"; */
+"66.title" = "代理服务器设置仅对 SSH 連線";
+
+/* Class = "NSTextFieldCell"; title = "All settings will be applied after reconnection"; ObjectID = "68"; */
+"68.title" = "這些設定將在重新連線後生效";
+
+/* Class = "NSTableColumn"; headerCell.title = "Name"; ObjectID = "73"; */
+"73.headerCell.title" = "站名";
+
+/* Class = "NSTextFieldCell"; title = "Text Cell"; ObjectID = "74"; */
+"74.title" = "Text Cell";
+
+/* Class = "NSButtonCell"; title = "Connect"; ObjectID = "75"; */
+"75.title" = "連接";
+
+/* Class = "NSButtonCell"; title = "Close"; ObjectID = "76"; */
+"76.title" = "關閉";

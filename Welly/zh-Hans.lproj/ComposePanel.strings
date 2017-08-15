@@ -1,0 +1,36 @@
+
+/* Class = "NSWindow"; title = "Super Writer"; ObjectID = "2"; */
+"2.title" = "文豪挥笔";
+
+/* Class = "NSButtonCell"; title = "Cancel"; ObjectID = "8"; */
+"8.title" = "取消";
+
+/* Class = "NSButtonCell"; title = "OK"; ObjectID = "9"; */
+"9.title" = "发表文章";
+
+/* Class = "NSToolbarItem"; label = "Background"; ObjectID = "13"; */
+"13.label" = "背景色";
+
+/* Class = "NSToolbarItem"; paletteLabel = "Background"; ObjectID = "13"; */
+"13.paletteLabel" = "背景色";
+
+/* Class = "NSToolbarItem"; toolTip = "Drag a color from the Color Panel to this area to set background color"; ObjectID = "13"; */
+"13.toolTip" = "将颜色从调板中拖拽至此处以设置背景色";
+
+/* Class = "NSToolbarItem"; label = "Blink"; ObjectID = "15"; */
+"15.label" = "闪烁";
+
+/* Class = "NSToolbarItem"; paletteLabel = "Blink"; ObjectID = "15"; */
+"15.paletteLabel" = "闪烁";
+
+/* Class = "NSToolbarItem"; label = "Underline"; ObjectID = "16"; */
+"16.label" = "下划线";
+
+/* Class = "NSToolbarItem"; paletteLabel = "Underline"; ObjectID = "16"; */
+"16.paletteLabel" = "下划线";
+
+/* Class = "NSButtonCell"; title = "_______"; ObjectID = "21"; */
+"21.title" = "_______";
+
+/* Class = "NSButtonCell"; title = "闪"; ObjectID = "23"; */
+"23.title" = "闪";
