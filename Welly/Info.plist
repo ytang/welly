@@ -30,6 +30,11 @@
 	<string>2.7</string>
 	<key>CFBundleVersion</key>
 	<string>836</string>
+    <key>NSAppTransportSecurity</key>
+    <dict>
+        <key>NSAllowsArbitraryLoads</key>
+        <true/>
+    </dict>
     <key>CFBundleURLTypes</key>
     <array>
         <dict>
