@@ -168,7 +168,7 @@ static NSString * stringFromFileSize(long long size) {
     [_window setTitle:@"Loading..."];
     [_window setViewsNeedDisplay:NO];
     [_window makeKeyAndOrderFront:nil];
-	[[_window windowController] setDelegate:self];
+	[_window setDelegate:self];
 
     // Init progress bar
     _indicator = [[HMBlkProgressIndicator alloc] initWithFrame:NSMakeRect(10, 10, 380, 10)];

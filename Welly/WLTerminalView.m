@@ -144,7 +144,9 @@ BOOL isEnglishNumberAlphabet(unsigned char c) {
 }
 
 - (NSPoint)mouseLocationInView {
-	return [self convertPoint:[[self window] convertScreenToBase:[NSEvent mouseLocation]] fromView:nil];
+    NSPoint loc = [NSEvent mouseLocation];
+    NSRect target = [self.window convertRectFromScreen:NSMakeRect(loc.x, loc.y, 0.0, 0.0)];
+	return [self convertPoint:target.origin fromView:nil];
 }
 
 - (NSRange)rangeForWordAtPoint:(NSPoint)point {
@@ -692,7 +694,7 @@ BOOL isEnglishNumberAlphabet(unsigned char c) {
 	}
 	return;
 	
-	[super flagsChanged:event];
+	//[super flagsChanged:event];
 }
 
 - (void)clearSelection {
@@ -851,10 +853,10 @@ BOOL isEnglishNumberAlphabet(unsigned char c) {
 }
 
 #pragma mark -
-#pragma mark NSTextInput Protocol
+#pragma mark NSTextInputClient Protocol
 /* NSTextInput protocol */
 // instead of keyDown: aString can be NSString or NSAttributedString
-- (void)insertText:(id)aString {
+- (void)insertText:(id)aString replacementRange:(NSRange)replacementRange {
     [self insertText:aString withDelay:0];
 }
 
@@ -921,7 +923,8 @@ BOOL isEnglishNumberAlphabet(unsigned char c) {
 
 // setMarkedText: cannot take a nil first argument. aString can be NSString or NSAttributedString
 - (void)setMarkedText:(id)aString 
-		selectedRange:(NSRange)selRange {
+		selectedRange:(NSRange)selRange
+     replacementRange:(NSRange)replacementRange {
     WLTerminal *ds = [self frontMostTerminal];
 	if (![aString respondsToSelector:@selector(isEqualToAttributedString:)] && [aString isMemberOfClass:[NSString class]])
 		aString = [[[NSAttributedString alloc] initWithString:aString] autorelease];
@@ -969,14 +972,10 @@ BOOL isEnglishNumberAlphabet(unsigned char c) {
     return (_markedText != nil);
 }
 
-- (NSInteger)conversationIdentifier {
-    return (NSInteger)self;
-}
-
-// Returns attributed string at the range.  This allows input mangers to query any range in backing-store.  May return nil.
-- (NSAttributedString *)attributedSubstringFromRange:(NSRange)theRange {
+// Returns an attributed string derived from the given range in the receiver's text storage.
+- (NSAttributedString *)attributedSubstringForProposedRange:(NSRange)theRange actualRange:(NSRangePointer)actualRange {
     if (theRange.location >= [_markedText length]) return nil;
-    if (theRange.location + theRange.length > [_markedText length]) 
+    if (theRange.location + theRange.length > [_markedText length])
         theRange.length = [_markedText length] - theRange.location;
     return [[[NSAttributedString alloc] initWithString:[[_markedText string] substringWithRange:theRange]] autorelease];
 }
@@ -992,16 +991,8 @@ BOOL isEnglishNumberAlphabet(unsigned char c) {
 }
 
 // This method returns the first frame of rects for theRange in screen coordindate system.
-- (NSRect)firstRectForCharacterRange:(NSRange)theRange {
-    NSPoint pointInWindowCoordinates;
-    NSRect rectInScreenCoordinates;
-
-    pointInWindowCoordinates = [_textField frame].origin;
-    //[_textField convertPoint: [_textField frame].origin toView: nil];
-    rectInScreenCoordinates.origin = [[_textField window] convertBaseToScreen:pointInWindowCoordinates];
-    rectInScreenCoordinates.size = [_textField bounds].size;
-
-    return rectInScreenCoordinates;
+- (NSRect)firstRectForCharacterRange:(NSRange)theRange actualRange:(nullable NSRangePointer)actualRange {
+    return [[_textField window] convertRectToScreen:[_textField frame]];
 }
 
 // This method returns the index for character that is nearest to thePoint.  thPoint is in screen coordinate system.
@@ -1133,7 +1124,8 @@ BOOL isEnglishNumberAlphabet(unsigned char c) {
 
 - (id)accessibilityAttributeValue:(NSString *)attribute forParameter:(id)parameter {
 	if ([attribute isEqual:NSAccessibilityRangeForPositionParameterizedAttribute]) {
-		NSPoint point = [self convertPoint:[[self window] convertScreenToBase:[(NSValue *)parameter pointValue]] fromView:nil];
+        NSPoint point = [(NSValue *)parameter pointValue];
+		point = [self convertPoint:[[self window] convertRectFromScreen:NSMakeRect(point.x, point.y, 0.0, 0.0)].origin fromView:nil];
 		return [NSValue valueWithRange:[self rangeForWordAtPoint:point]];
 	} else if ([attribute isEqual:NSAccessibilityStringForRangeParameterizedAttribute]) {
 		NSRange range = [(NSValue *)parameter rangeValue];
@@ -1142,7 +1134,7 @@ BOOL isEnglishNumberAlphabet(unsigned char c) {
 		NSRange range = [(NSValue *)parameter rangeValue];
 		NSAttributedString *attrString = [[self frontMostTerminal] attributedStringAtIndex:range.location 
 																					length:range.length];
-		return [attrString RTFFromRange:NSMakeRange(0, [attrString length]) documentAttributes:nil];
+        return [attrString RTFFromRange:NSMakeRange(0, [attrString length]) documentAttributes:@{NSDocumentTypeDocumentAttribute:NSRTFTextDocumentType}];
 	} else if ([attribute isEqual:NSAccessibilityLineForIndexParameterizedAttribute]) {
 		NSUInteger index = [(NSNumber *)parameter unsignedIntegerValue];
 		return [NSNumber numberWithUnsignedInteger:(index/_maxColumn)];
@@ -1156,7 +1148,7 @@ BOOL isEnglishNumberAlphabet(unsigned char c) {
 							   height:1 
 								width:range.length];
 		rect = [self convertRect:rect toView:nil];
-		rect.origin = [[self window] convertBaseToScreen:rect.origin];
+		rect = [[self window] convertRectToScreen:rect];
 		return [NSValue valueWithRect:rect];
 	}
 	return nil;

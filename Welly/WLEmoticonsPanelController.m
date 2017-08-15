@@ -80,12 +80,12 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(WLEmoticonsPanelController);
 - (IBAction)inputSelectedEmoticon:(id)sender {
     [self closeEmoticonsPanel:sender];
 	if ([[[NSApp keyWindow] firstResponder] conformsToProtocol:@protocol(NSTextInput)]) {
-		id <NSTextInput> textInput = (id <NSTextInput>)[[NSApp keyWindow] firstResponder];
+		id <NSTextInputClient> textInput = (id <NSTextInputClient>)[[NSApp keyWindow] firstResponder];
 		NSArray *a = [_emoticonsController selectedObjects];
 		
 		if ([a count] == 1) {
 			YLEmoticon *e = [a objectAtIndex:0];
-			[textInput insertText:[e content]];
+			[textInput insertText:[e content] replacementRange:NSMakeRange(0, 0)];
 		}		
 	}
 }

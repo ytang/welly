@@ -277,12 +277,12 @@
 	}
 }
 
-static NSString *extractString(NSString *row, NSString *start, NSString *end) {
-    NSRange rs = [row rangeOfString:start], re = [row rangeOfString:end];
-    if (rs.length == 0 || re.length == 0 || re.location <= rs.location)
-        return nil;
-    return [row substringWithRange:NSMakeRange(rs.location + 1, re.location - rs.location - 1)];    
-}
+//static NSString *extractString(NSString *row, NSString *start, NSString *end) {
+//    NSRange rs = [row rangeOfString:start], re = [row rangeOfString:end];
+//    if (rs.length == 0 || re.length == 0 || re.location <= rs.location)
+//        return nil;
+//    return [row substringWithRange:NSMakeRange(rs.location + 1, re.location - rs.location - 1)];    
+//}
 
 inline static BOOL hasAnyString(NSString *row, NSArray *array) {
 	if (row == nil)

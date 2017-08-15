@@ -24,7 +24,7 @@ Boolean GetProxySetting(const char *protocol, char *host, size_t hostSize, UInt1
     int                 enable;
     CFStringRef         hostStr;
     CFNumberRef         portNum;
-    int                 portInt;
+    int                 portInt = 0;
     
     assert(host != NULL);
     assert(port != NULL);

@@ -208,7 +208,7 @@ const float xscale = 1, yscale = 0.8;
 
 // private
 - (BOOL)draggedOut:(NSPoint)screenPoint {
-	NSPoint pt = [[_imageFlowView window] convertScreenToBase:screenPoint];
+	NSPoint pt = [[_imageFlowView window] convertRectFromScreen:NSMakeRect(screenPoint.x, screenPoint.y, 0.0, 0.0)].origin;
     return ![_imageFlowView hitTest:pt];
 }
 

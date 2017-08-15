@@ -224,7 +224,7 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(WLMainFrameController);
         if ([[WLGlobalConfig sharedInstance] messageCount] == 0) {
             [dockTile setBadgeLabel:nil];
         } else {
-            [dockTile setBadgeLabel:[NSString stringWithFormat:@"%d", [[WLGlobalConfig sharedInstance] messageCount]]];
+            [dockTile setBadgeLabel:[NSString stringWithFormat:@"%ld", (long)[[WLGlobalConfig sharedInstance] messageCount]]];
         }
         [dockTile display];
     } else if ([keyPath isEqualToString:@"shouldSmoothFonts"]) {

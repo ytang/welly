@@ -20,7 +20,7 @@
 
 #define disableMouseByKeyingTimerInterval 0.3
 
-@interface WLTerminalView : WLTermView <NSTextInput, WLTerminalObserver> {	
+@interface WLTerminalView : WLTermView <NSTextInputClient, WLTerminalObserver> {
 	NSTimer *_timer;
 	
 	id _markedText;
