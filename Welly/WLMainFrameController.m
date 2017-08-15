@@ -144,8 +144,8 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(WLMainFrameController);
 
 - (void)updateSitesMenuWithSites:(NSArray *)sites {
 	// Update Sites Menus
-	int total = [[_sitesMenu submenu] numberOfItems];
-    int i = total - 1;
+	NSInteger total = [[_sitesMenu submenu] numberOfItems];
+    NSInteger i = total - 1;
     // search the last seperator from the bottom
     for (; i > 0; i--)
         if ([[[_sitesMenu submenu] itemAtIndex:i] isSeparatorItem])
@@ -153,7 +153,7 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(WLMainFrameController);
 	
     // then remove all menuitems below it, since we need to refresh the site menus
     ++i;
-    for (int j = i; j < total; j++) {
+    for (NSInteger j = i; j < total; j++) {
         [[_sitesMenu submenu] removeItemAtIndex:i];
     }
     
@@ -262,8 +262,8 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(WLMainFrameController);
 }
 
 - (void)saveLastConnections {
-    int tabNumber = [_tabView numberOfTabViewItems];
-    int i;
+    NSInteger tabNumber = [_tabView numberOfTabViewItems];
+    NSInteger i;
     NSMutableArray *a = [NSMutableArray array];
     for (i = 0; i < tabNumber; i++) {
         id connection = [[[_tabView tabViewItemAtIndex:i] identifier] content];
@@ -554,9 +554,9 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(WLMainFrameController);
     if (![[NSUserDefaults standardUserDefaults] boolForKey:WLConfirmOnCloseEnabledKeyName]) 
         return YES;
     
-    int tabNumber = [_tabView numberOfTabViewItems];
-	int connectedConnection = 0;
-    for (int i = 0; i < tabNumber; i++) {
+    NSInteger tabNumber = [_tabView numberOfTabViewItems];
+	NSInteger connectedConnection = 0;
+    for (NSInteger i = 0; i < tabNumber; i++) {
         id connection = [[[_tabView tabViewItemAtIndex:i] identifier] content];
         if ([connection isKindOfClass:[WLConnection class]] && [connection isConnected])
             ++connectedConnection;
