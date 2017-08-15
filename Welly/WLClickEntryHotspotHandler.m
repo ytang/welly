@@ -117,7 +117,7 @@ NSString *const WLCommandSequenceSameAuthorReading = @"\025";	// ^U
 	
 	// Do Post Download
 	if (count != maxAttempt) {
-		[[WLPostDownloadDelegate sharedInstance] beginPostDownloadInWindow:[NSApp window] 
+		[[WLPostDownloadDelegate sharedInstance] beginPostDownloadInWindow:[NSApp keyWindow]
 															   forTerminal:[_view frontMostTerminal]];
 	}
 }
