@@ -11,7 +11,7 @@
 #import "WLEmoticonsPanelController.h"
 #import "SynthesizeSingleton.h"
 #import "Carbon/Carbon.h"
-#ifdef _DEBUG
+#ifdef DEBUG
 #import "WLEncoder.h"
 #endif
 
@@ -87,7 +87,7 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(WLContextualMenuManager);
                  keyEquivalent:@""];
 
         [menu addItem:[NSMenuItem separatorItem]];
-#ifdef _DEBUG
+#ifdef DEBUG
 		if ([selectedString length] >= 1) {
 			unichar ch = [selectedString characterAtIndex:0];
 			if (ch >= 0x007F) {
@@ -138,7 +138,7 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(WLContextualMenuManager);
     return menu;
 }
 
-#ifdef _DEBUG
+#ifdef DEBUG
 + (void)copyCodeInfo:(id)sender {
 	NSString *s = [sender title];
 	NSPasteboard *pb = [NSPasteboard generalPasteboard];

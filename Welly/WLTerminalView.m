@@ -13,7 +13,7 @@
 #import "WLTerminal.h"
 #import "WLConnection.h"
 #import "WLSite.h"
-#import "WLGLobalConfig.h"
+#import "WLGlobalConfig.h"
 #import "WLContextualMenuManager.h"
 #import "WLPreviewController.h"
 #import "WLIntegerArray.h"

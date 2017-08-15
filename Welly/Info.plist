@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+    <key>NSSupportsAutomaticGraphicsSwitching</key>
+    <true/>
+	<key>CFBundleDevelopmentRegion</key>
+	<string>en</string>
+    <key>CFBundleDocumentTypes</key>
+    <array/>
+	<key>CFBundleExecutable</key>
+	<string>$(EXECUTABLE_NAME)</string>
+    <key>CFBundleHelpBookFolder</key>
+    <string>Help</string>
+    <key>CFBundleDisplayName</key>
+    <string>Welly</string>
+    <key>CFBundleHelpBookName</key>
+    <string>Welly Help</string>
+	<key>CFBundleIconFile</key>
+	<string>Welly</string>
+	<key>CFBundleIdentifier</key>
+	<string>$(PRODUCT_BUNDLE_IDENTIFIER)</string>
+	<key>CFBundleInfoDictionaryVersion</key>
+	<string>6.0</string>
+	<key>CFBundleName</key>
+	<string>$(PRODUCT_NAME)</string>
+	<key>CFBundlePackageType</key>
+	<string>APPL</string>
+	<key>CFBundleShortVersionString</key>
+	<string>2.7</string>
+	<key>CFBundleVersion</key>
+	<string>836</string>
+    <key>CFBundleURLTypes</key>
+    <array>
+        <dict>
+            <key>CFBundleURLName</key>
+            <string>Telnet URL</string>
+            <key>CFBundleURLSchemes</key>
+            <array>
+                <string>telnet</string>
+                <string>bbs</string>
+            </array>
+        </dict>
+        <dict>
+            <key>CFBundleURLName</key>
+            <string>SSH URL</string>
+            <key>CFBundleURLSchemes</key>
+            <array>
+                <string>ssh</string>
+            </array>
+        </dict>
+    </array>
+	<key>LSMinimumSystemVersion</key>
+	<string>$(MACOSX_DEPLOYMENT_TARGET)</string>
+	<key>NSHumanReadableCopyright</key>
+	<string>Copyright © 2017 net9.org. All rights reserved.</string>
+	<key>NSMainNibFile</key>
+	<string>MainMenu</string>
+	<key>NSPrincipalClass</key>
+	<string>NSApplication</string>
+    <key>NSServices</key>
+    <array/>
+    <key>SUFeedURL</key>
+    <string>http://welly.googlecode.com/svn/wiki/WellyUpdate.xml</string>
+    <key>UTExportedTypeDeclarations</key>
+    <array/>
+    <key>UTImportedTypeDeclarations</key>
+    <array/>
+</dict>
+</plist>
