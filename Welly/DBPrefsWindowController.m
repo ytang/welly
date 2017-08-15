@@ -122,8 +122,6 @@ static DBPrefsWindowController *_sharedPrefsWindowController = nil;
 		[self setShiftSlowsAnimation:YES];
 	}
 	return self;
-
-	(void)window;  // To prevent compiler warnings.
 }
 
 
@@ -345,8 +343,6 @@ static DBPrefsWindowController *_sharedPrefsWindowController = nil;
 - (NSArray *)toolbarDefaultItemIdentifiers:(NSToolbar*)toolbar
 {
 	return toolbarIdentifiers;
-
-	(void)toolbar;
 }
 
 
@@ -355,8 +351,6 @@ static DBPrefsWindowController *_sharedPrefsWindowController = nil;
 - (NSArray *)toolbarAllowedItemIdentifiers:(NSToolbar*)toolbar 
 {
 	return toolbarIdentifiers;
-
-	(void)toolbar;
 }
 
 
@@ -365,7 +359,6 @@ static DBPrefsWindowController *_sharedPrefsWindowController = nil;
 - (NSArray *)toolbarSelectableItemIdentifiers:(NSToolbar *)toolbar
 {
 	return toolbarIdentifiers;
-	(void)toolbar;
 }
 
 
@@ -374,8 +367,6 @@ static DBPrefsWindowController *_sharedPrefsWindowController = nil;
 - (NSToolbarItem *)toolbar:(NSToolbar *)toolbar itemForItemIdentifier:(NSString *)identifier willBeInsertedIntoToolbar:(BOOL)willBeInserted 
 {
 	return [toolbarItems objectForKey:identifier];
-	(void)toolbar;
-	(void)willBeInserted;
 }
 
 
