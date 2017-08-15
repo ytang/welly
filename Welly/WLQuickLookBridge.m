@@ -53,9 +53,11 @@ static BOOL isLion;
 }
 
 + (void)initialize {
-    SInt32 ver;
-    isLeopard = Gestalt(gestaltSystemVersion, &ver) == noErr && ver < 0x1060;
-    isLion = Gestalt(gestaltSystemVersion, &ver) == noErr && ver >= 0x1070;
+    // SInt32 ver;
+    // Since deployment target set to 10.8, there's no need to detect these 2 values
+    // Set to NO to silent Xcode deprecation warnings.
+    isLeopard = NO; // Gestalt(gestaltSystemVersion, &ver) == noErr && ver < 0x1060;
+    isLion = NO; // Gestalt(gestaltSystemVersion, &ver) == noErr && ver >= 0x1070;
 }
 
 - (id)init {
