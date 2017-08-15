@@ -9,25 +9,32 @@
 #ifndef SUAPPCAST_H
 #define SUAPPCAST_H
 
-@class RSS, SUAppcastItem;
-@interface SUAppcast : NSObject {
-	NSArray *items;
-	NSString *userAgentString;
-	id delegate;
-	NSMutableData *incrementalData;
-}
+#if __has_feature(modules)
+@import Foundation;
+#else
+#import <Foundation/Foundation.h>
+#endif
+#import "SUExport.h"
 
-- (void)fetchAppcastFromURL:(NSURL *)url;
-- (void)setDelegate:delegate;
-- (void)setUserAgentString:(NSString *)userAgentString;
+NS_ASSUME_NONNULL_BEGIN
 
-- (NSArray *)items;
+@class SUAppcastItem;
+SU_EXPORT @interface SUAppcast : NSObject<NSURLDownloadDelegate>
 
+@property (copy, nullable) NSString *userAgentString;
+
+#if __has_feature(objc_generics)
+@property (copy, nullable) NSDictionary<NSString *, NSString *> *httpHeaders;
+#else
+@property (copy, nullable) NSDictionary *httpHeaders;
+#endif
+
+- (void)fetchAppcastFromURL:(NSURL *)url inBackground:(BOOL)bg completionBlock:(void (^)(NSError *_Nullable))err;
+- (SUAppcast *)copyWithoutDeltaUpdates;
+
+@property (readonly, copy, nullable) NSArray *items;
 @end
 
-@interface NSObject (SUAppcastDelegate)
-- (void)appcastDidFinishLoading:(SUAppcast *)appcast;
-- (void)appcast:(SUAppcast *)appcast failedToLoadWithError:(NSError *)error;
-@end
+NS_ASSUME_NONNULL_END
 
 #endif
