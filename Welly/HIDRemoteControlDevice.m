@@ -138,7 +138,7 @@
 }
 
 - (IBAction) startListening: (id) sender {	
-	if ([self isListeningToRemote]) return;
+	if (self.listeningToRemote) return;
 	
 	// 4th July 2007
 	// 
@@ -167,11 +167,11 @@
 		goto error;
 	}
 	
-	if ([self initializeCookies]==NO) {
+	if (self.initializeCookies==NO) {
 		goto error;
 	}
 
-	if ([self openDevice]==NO) {
+	if (self.openDevice==NO) {
 		goto error;
 	}
 	// be KVO friendly
@@ -187,7 +187,7 @@ cleanup:
 }
 
 - (IBAction) stopListening: (id) sender {
-	if ([self isListeningToRemote]==NO) return;
+	if (self.listeningToRemote==NO) return;
 	
 	BOOL sendNotification = NO;
 	
@@ -225,7 +225,7 @@ cleanup:
 		hidDeviceInterface = NULL;
 	}
 	
-	if ([self isOpenInExclusiveMode] && sendNotification) {
+	if (self.openInExclusiveMode && sendNotification) {
 		[[self class] sendFinishedNotifcationForAppIdentifier: nil];		
 	}
 	// be KVO friendly
@@ -252,7 +252,7 @@ cleanup:
 
 - (NSString*) validCookieSubstring: (NSString*) cookieString {
 	if (cookieString == nil || cookieString.length == 0) return nil;
-	NSEnumerator* keyEnum = [[self cookieToButtonMapping] keyEnumerator];
+	NSEnumerator* keyEnum = [self.cookieToButtonMapping keyEnumerator];
 	NSString* key;
 	while(key = [keyEnum nextObject]) {
 		NSRange range = [cookieString rangeOfString:key];
@@ -270,7 +270,7 @@ cleanup:
 	}*/
 	if (cookieString == nil || cookieString.length == 0) return;
 		
-	NSNumber* buttonId = [self cookieToButtonMapping][cookieString];
+	NSNumber* buttonId = self.cookieToButtonMapping[cookieString];
 	if (buttonId != nil) {
 		[self sendRemoteButtonEvent: buttonId.intValue pressedDown: (sumOfValues>0)];
 	} else {
@@ -324,7 +324,7 @@ static void QueueCallbackFunction(void* target,  IOReturn result, void* refcon, 
 	SInt32			 sumOfValues = 0;
 	while (result == kIOReturnSuccess)
 	{
-		result = (*[remote queue])->getNextEvent([remote queue], &event, zeroTime, 0);		
+		result = (*remote.queue)->getNextEvent(remote.queue, &event, zeroTime, 0);		
 		if ( result != kIOReturnSuccess )
 			continue;
 	
@@ -436,7 +436,7 @@ static void QueueCallbackFunction(void* target,  IOReturn result, void* refcon, 
 	HRESULT  result;
 	
 	IOHIDOptionsType openMode = kIOHIDOptionsTypeNone;
-	if ([self isOpenInExclusiveMode]) openMode = kIOHIDOptionsTypeSeizeDevice;	
+	if (self.openInExclusiveMode) openMode = kIOHIDOptionsTypeSeizeDevice;	
 	IOReturn ioReturnValue = (*hidDeviceInterface)->open(hidDeviceInterface, openMode);	
 	
 	if (ioReturnValue == KERN_SUCCESS) {		

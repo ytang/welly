@@ -35,13 +35,13 @@
 	// Decide whether to set or to reset the font size
 	if (isEnteringFullScreen) {
 		// Store old parameters
-		_originalSizeParameters = [[gConfig sizeParameters] copy];
+		_originalSizeParameters = [gConfig.sizeParameters copy];
 		
 		// And do it..
-		[gConfig setSizeParameters:[WLMainFrameController sizeParametersForZoomRatio:_screenRatio]];
+		gConfig.sizeParameters = [WLMainFrameController sizeParametersForZoomRatio:_screenRatio];
 	} else {
 		// Restore old parameters
-		[gConfig setSizeParameters:_originalSizeParameters];
+		gConfig.sizeParameters = _originalSizeParameters;
 		[_originalSizeParameters release];
 		_originalSizeParameters = nil;
 	}
@@ -88,7 +88,7 @@
 	// Back up original bg color
 	_originalWindowBackgroundColor = _mainWindow.backgroundColor;
 	// Now set to bg color of the tab view to ensure consistency
-	_mainWindow.backgroundColor = [[WLGlobalConfig sharedInstance] colorBG];
+	_mainWindow.backgroundColor = [WLGlobalConfig sharedInstance].colorBG;
 	
 	// Move the origin point
 	[_tabView setFrameOrigin:newOP];

@@ -87,7 +87,7 @@ const float WLHorizontalScrollReactivateTimeInteval = 1.0;
 #pragma mark -
 #pragma mark Event Handle
 - (void)mouseEntered:(NSEvent *)theEvent {
-	if (![_view isConnected])
+	if (!_view.connected)
 		return;
 	if (theEvent.trackingArea) {
 		NSDictionary *userInfo = theEvent.trackingArea.userInfo;
@@ -99,7 +99,7 @@ const float WLHorizontalScrollReactivateTimeInteval = 1.0;
 }
 
 - (void)mouseExited:(NSEvent *)theEvent {
-	if (![_view isConnected])
+	if (!_view.connected)
 		return;
 	if (theEvent.trackingArea) {
 		NSDictionary *userInfo = theEvent.trackingArea.userInfo;
@@ -111,7 +111,7 @@ const float WLHorizontalScrollReactivateTimeInteval = 1.0;
 }
 
 - (void)mouseMoved:(NSEvent *)theEvent {
-	if (![_view isConnected])
+	if (!_view.connected)
 		return;
 	if (_activeTrackingAreaUserInfo) {
 		WLMouseHotspotHandler *handler = [_activeTrackingAreaUserInfo valueForKey:WLMouseHandlerUserInfoName];
@@ -123,7 +123,7 @@ const float WLHorizontalScrollReactivateTimeInteval = 1.0;
 }
 
 - (void)mouseUp:(NSEvent *)theEvent {
-	if (![_view isConnected])
+	if (!_view.connected)
 		return;
 	if (_activeTrackingAreaUserInfo) {
 		WLMouseHotspotHandler *handler = [_activeTrackingAreaUserInfo valueForKey:WLMouseHandlerUserInfoName];
@@ -138,14 +138,14 @@ const float WLHorizontalScrollReactivateTimeInteval = 1.0;
 		return;
 	}
 	
-	if ([_view frontMostTerminal].bbsState.state == BBSWaitingEnter) {
+	if (_view.frontMostTerminal.bbsState.state == BBSWaitingEnter) {
 		[_view sendText:termKeyEnter];
 	}
 }
 
 - (void)scrollWheel:(NSEvent *)theEvent {
 	const int WLScrollWheelHorizontalThreshold = 3;
-	if ([_view frontMostTerminal].connection.isConnected) {
+	if (_view.frontMostTerminal.connection.isConnected) {
 		// For Y-Axis
 		if (theEvent.deltaY < 0)
 			[_view sendText:termKeyDown];
@@ -182,7 +182,7 @@ const float WLHorizontalScrollReactivateTimeInteval = 1.0;
 #pragma mark -
 #pragma mark Add/Remove Tracking Area
 - (BOOL)isMouseInsideRect:(NSRect)rect {
-	NSPoint mousePos = [_view mouseLocationInView];
+	NSPoint mousePos = _view.mouseLocationInView;
 	return [_view mouse:mousePos inRect:rect];
 }
 
@@ -250,8 +250,8 @@ const float WLHorizontalScrollReactivateTimeInteval = 1.0;
 				[updater update];
 		}
 	}
-	_lastBBSState = [_view frontMostTerminal].bbsState;
-	_lastCursorRow = [_view frontMostTerminal].cursorRow;
+	_lastBBSState = _view.frontMostTerminal.bbsState;
+	_lastCursorRow = _view.frontMostTerminal.cursorRow;
 }
 
 - (void)forceUpdate {
@@ -261,8 +261,8 @@ const float WLHorizontalScrollReactivateTimeInteval = 1.0;
 		if ([obj conformsToProtocol:@protocol(WLUpdatable)])
 			[(NSObject <WLUpdatable> *)obj update];
 	}
-	_lastBBSState = [_view frontMostTerminal].bbsState;
-	_lastCursorRow = [_view frontMostTerminal].cursorRow;
+	_lastBBSState = _view.frontMostTerminal.bbsState;
+	_lastCursorRow = _view.frontMostTerminal.cursorRow;
 }
 
 #pragma mark -

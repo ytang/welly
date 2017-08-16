@@ -30,10 +30,10 @@ const NSTimeInterval DEFAULT_CLICK_TIME_DIFFERENCE = 0.25;	// for remote control
 		// 1. instantiate the desired behavior for the remote control device
 		_remoteControlBehavior = [[MultiClickRemoteBehavior alloc] init];	
 		// 2. configure the behavior
-		[_remoteControlBehavior setDelegate:self];
+		_remoteControlBehavior.delegate = self;
 		[_remoteControlBehavior setClickCountingEnabled:YES];
 		[_remoteControlBehavior setSimulateHoldEvent:YES];
-		[_remoteControlBehavior setMaximumClickCountTimeDifference:DEFAULT_CLICK_TIME_DIFFERENCE];
+		_remoteControlBehavior.maximumClickCountTimeDifference = DEFAULT_CLICK_TIME_DIFFERENCE;
 		// 3. a Remote Control Container manages a number of devices and conforms to the RemoteControl interface
 		//    Therefore you can enable or disable all the devices of the container with a single "startListening:" call.
 		NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
@@ -132,18 +132,18 @@ const NSTimeInterval DEFAULT_CLICK_TIME_DIFFERENCE = 0.25;	// for remote control
 	}
 	
 	if (cmd != nil) {
-		[[_tabView frontMostConnection] sendText:cmd];
+		[_tabView.frontMostConnection sendText:cmd];
 	}
 }
 
 // TODO: use responder instead of finding the connection!!
 // for timer
 - (void)doScrollDown:(NSTimer*)timer {
-    [[_tabView frontMostConnection] sendText:termKeyDown];
+    [_tabView.frontMostConnection sendText:termKeyDown];
 }
 
 - (void)doScrollUp:(NSTimer*)timer {
-    [[_tabView frontMostConnection] sendText:termKeyUp];
+    [_tabView.frontMostConnection sendText:termKeyUp];
 }
 
 - (void)disableTimer {

@@ -72,7 +72,7 @@
 	for(i=0; i < remoteControls.count; i++) {
 		[remoteControls[i] setListeningToRemote: value];
 	}
-	if (value && value != [self isListeningToRemote]) [self performSelector:@selector(reset) withObject:nil afterDelay:0.01];
+	if (value && value != self.listeningToRemote) [self performSelector:@selector(reset) withObject:nil afterDelay:0.01];
 }
 - (BOOL) isListeningToRemote {
 	int i;

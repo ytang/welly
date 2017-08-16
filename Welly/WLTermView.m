@@ -48,10 +48,10 @@ static NSImage *gLeftImage;
     _fontWidth = gConfig.cellWidth;
     _fontHeight = gConfig.cellHeight;
 	
-    [self setFrameSize:[gConfig contentSize]];
+    [self setFrameSize:gConfig.contentSize];
 	
     [_backedImage release];
-    _backedImage = [[NSImage alloc] initWithSize:[gConfig contentSize]];
+    _backedImage = [[NSImage alloc] initWithSize:gConfig.contentSize];
     [_backedImage setFlipped:NO];
 	
     [gLeftImage release]; 
@@ -120,18 +120,18 @@ static NSImage *gLeftImage;
 - (WLTerminal *)frontMostTerminal {
 	if (!_connection)
 		return nil;
-    return (WLTerminal *)[self frontMostConnection].terminal;
+    return (WLTerminal *)self.frontMostConnection.terminal;
 }
 
 - (BOOL)isConnected {
 	if (!_connection)
 		return NO;
-	return [self frontMostConnection].isConnected;
+	return self.frontMostConnection.isConnected;
 }
 
 - (BOOL)hasBlinkCell {
     int c, r;
-    id ds = [self frontMostTerminal];
+    id ds = self.frontMostTerminal;
     if (!ds) return NO;
     for (r = 0; r < _maxRow; r++) {
         [ds updateDoubleByteStateForRow: r];
@@ -151,20 +151,20 @@ static NSImage *gLeftImage;
 #pragma mark -
 #pragma mark Drawing
 - (void)refreshDisplay {
-	[[self frontMostTerminal] setAllDirty];
+	[self.frontMostTerminal setAllDirty];
 	[self updateBackedImage];
 	[self setNeedsDisplay:YES];
 }
 
 - (void)refreshHiddenRegion {
-    if (![self isConnected]) 
+    if (!self.connected) 
 		return;
     int i, j;
     for (i = 0; i < _maxRow; i++) {
-        cell *currRow = [[self frontMostTerminal] cellsOfRow:i];
+        cell *currRow = [self.frontMostTerminal cellsOfRow:i];
         for (j = 0; j < _maxColumn; j++)
             if (isHiddenAttribute(currRow[j].attr)) 
-                [[self frontMostTerminal] setDirty:YES atRow:i column:j];
+                [self.frontMostTerminal setDirty:YES atRow:i column:j];
     }
 	[self refreshDisplay];
 }
@@ -175,7 +175,7 @@ static NSImage *gLeftImage;
 }
 
 - (void)terminalDidUpdate:(WLTerminal *)terminal {
-	if (terminal == [self frontMostTerminal]) {
+	if (terminal == self.frontMostTerminal) {
 		[self tick];
 	}
 }
@@ -183,7 +183,7 @@ static NSImage *gLeftImage;
 - (void)tick {
     NSAutoreleasePool *pool = [NSAutoreleasePool new];
 	[self updateBackedImage];
-    WLTerminal *ds = [self frontMostTerminal];
+    WLTerminal *ds = self.frontMostTerminal;
 	
 	if (ds && (_x != ds.cursorColumn || _y != ds.cursorRow)) {
 		[self setNeedsDisplayInRect:NSMakeRect(_x * _fontWidth, (_maxRow - 1 - _y) * _fontHeight, _fontWidth, _fontHeight)];
@@ -204,11 +204,11 @@ static NSImage *gLeftImage;
 
 - (void)drawRect:(NSRect)rect {
     NSAutoreleasePool *pool = [NSAutoreleasePool new];
-    WLTerminal *ds = [self frontMostTerminal];
-	if ([self isConnected]) {
+    WLTerminal *ds = self.frontMostTerminal;
+	if (self.connected) {
 		// Modified by gtCarrera
 		// Draw the background color first!!!
-		[[gConfig colorBG] set];
+		[gConfig.colorBG set];
         NSRect retangle = self.bounds;
 		NSRectFill(retangle);
         /* Draw the backed image */
@@ -248,7 +248,7 @@ static NSImage *gLeftImage;
         /* Draw the selection */
 		//[self drawSelection];
 	} else {
-		[[gConfig colorBG] set];
+		[gConfig.colorBG set];
         NSRect r = self.bounds;
         NSRectFill(r);
 	}
@@ -268,7 +268,7 @@ static NSImage *gLeftImage;
 		return;
 	
     int c, r;
-    id ds = [self frontMostTerminal];
+    id ds = self.frontMostTerminal;
     if (!ds) 
 		return;
 	
@@ -341,7 +341,7 @@ static NSImage *gLeftImage;
 - (void)updateBackedImage {
     NSAutoreleasePool *pool = [NSAutoreleasePool new];
 	int x, y;
-    WLTerminal *ds = [self frontMostTerminal];
+    WLTerminal *ds = self.frontMostTerminal;
 	[_backedImage lockFocus];
 	CGContextRef myCGContext = (CGContextRef)[NSGraphicsContext currentContext].graphicsPort;
 	if (ds) {
@@ -396,7 +396,7 @@ static NSImage *gLeftImage;
     CGFloat ePaddingLeft = gConfig.englishFontPaddingLeft, ePaddingBottom = gConfig.englishFontPaddingBottom;
     CGFloat cPaddingLeft = gConfig.chineseFontPaddingLeft, cPaddingBottom = gConfig.chineseFontPaddingBottom;
     
-    WLTerminal *ds = [self frontMostTerminal];
+    WLTerminal *ds = self.frontMostTerminal;
     [ds updateDoubleByteStateForRow:r];
 	
     cell *currRow = [ds cellsOfRow:r];
@@ -433,7 +433,7 @@ static NSImage *gLeftImage;
 		} else if (db == 2) {
 			unsigned short code = (((currRow + x - 1)->byte) << 8) + ((currRow + x)->byte) - 0x8000;
 			unichar ch = [WLEncoder toUnicode:code 
-									 encoding:[[self frontMostConnection].site encoding]];
+									 encoding:(self.frontMostConnection.site).encoding];
 			
 			if ([WLAsciiArtRender isAsciiArtSymbol:ch] 
 				&& !(gConfig.showsHiddenText					// If the user desires anti-hidden
@@ -626,7 +626,7 @@ static NSImage *gLeftImage;
 						  from:(int)start 
 							to:(int)end {
 	int c;
-	cell *currRow = [[self frontMostTerminal] cellsOfRow:r];
+	cell *currRow = [self.frontMostTerminal cellsOfRow:r];
 	NSRect rowRect = NSMakeRect(start * _fontWidth, (_maxRow - 1 - r) * _fontHeight, (end - start) * _fontWidth, _fontHeight);
 	
 	attribute currAttr, lastAttr = (currRow + start)->attr;

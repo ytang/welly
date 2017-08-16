@@ -271,61 +271,61 @@ static NSColor* colorUsingNearestAnsiColor(NSColor *rawColor, BOOL isBackground)
     if (!rawColor)
         return nil;
     WLGlobalConfig *config = [WLGlobalConfig sharedInstance];
-    if ([rawColor isEqual:[config colorBG]] ||
-        [rawColor isEqual:[config colorBlack]] ||
-        [rawColor isEqual:[config colorRed]] ||
-        [rawColor isEqual:[config colorGreen]] ||
-        [rawColor isEqual:[config colorYellow]] ||
-        [rawColor isEqual:[config colorBlue]] ||
-        [rawColor isEqual:[config colorMagenta]] ||
-        [rawColor isEqual:[config colorCyan]] ||
-        [rawColor isEqual:[config colorWhite]] ||
-        [rawColor isEqual:[config colorBGHilite]] ||
-        [rawColor isEqual:[config colorBlackHilite]] ||
-        [rawColor isEqual:[config colorRedHilite]] ||
-        [rawColor isEqual:[config colorGreenHilite]] ||
-        [rawColor isEqual:[config colorYellowHilite]] ||
-        [rawColor isEqual:[config colorBlueHilite]] ||
-        [rawColor isEqual:[config colorMagentaHilite]] ||
-        [rawColor isEqual:[config colorCyanHilite]] ||
-        [rawColor isEqual:[config colorWhiteHilite]])
+    if ([rawColor isEqual:config.colorBG] ||
+        [rawColor isEqual:config.colorBlack] ||
+        [rawColor isEqual:config.colorRed] ||
+        [rawColor isEqual:config.colorGreen] ||
+        [rawColor isEqual:config.colorYellow] ||
+        [rawColor isEqual:config.colorBlue] ||
+        [rawColor isEqual:config.colorMagenta] ||
+        [rawColor isEqual:config.colorCyan] ||
+        [rawColor isEqual:config.colorWhite] ||
+        [rawColor isEqual:config.colorBGHilite] ||
+        [rawColor isEqual:config.colorBlackHilite] ||
+        [rawColor isEqual:config.colorRedHilite] ||
+        [rawColor isEqual:config.colorGreenHilite] ||
+        [rawColor isEqual:config.colorYellowHilite] ||
+        [rawColor isEqual:config.colorBlueHilite] ||
+        [rawColor isEqual:config.colorMagentaHilite] ||
+        [rawColor isEqual:config.colorCyanHilite] ||
+        [rawColor isEqual:config.colorWhiteHilite])
         return rawColor;
     CGFloat h, s, b;
     [[rawColor colorUsingColorSpaceName:@"NSCalibratedRGBColorSpace"] getHue:&h saturation:&s brightness:&b alpha:nil];
     if (s < 0.05) {
         if (isBackground)
-            return [config colorBG];
+            return config.colorBG;
         if (!isBackground && b < 0.05)
-            return [config colorWhite];
+            return config.colorWhite;
         switch ((int)(b * 4)) {
             case 0:
-                return [config colorBlack];
+                return config.colorBlack;
             case 1:
-                return [config colorBlackHilite];
+                return config.colorBlackHilite;
             case 2:
-                return [config colorWhite];
+                return config.colorWhite;
             default:
-                return [config colorWhiteHilite];
+                return config.colorWhiteHilite;
         }
     }
     if (b < 0.05)
-        return [config colorBlack];
+        return config.colorBlack;
     switch ((int)((h + 1.0/6/2) * 6)) {
         case 0:
         case 6:
-            return (b < 0.5) ? [config colorRed] : [config colorRedHilite];
+            return (b < 0.5) ? config.colorRed : config.colorRedHilite;
         case 1:
-            return (b < 0.5) ? [config colorYellow] : [config colorYellowHilite];
+            return (b < 0.5) ? config.colorYellow : config.colorYellowHilite;
         case 2:
-            return (b < 0.5) ? [config colorGreen] : [config colorGreenHilite];
+            return (b < 0.5) ? config.colorGreen : config.colorGreenHilite;
         case 3:
-            return (b < 0.5) ? [config colorCyan] : [config colorCyanHilite];
+            return (b < 0.5) ? config.colorCyan : config.colorCyanHilite;
         case 4:
-            return (b < 0.5) ? [config colorBlue] : [config colorBlueHilite];
+            return (b < 0.5) ? config.colorBlue : config.colorBlueHilite;
         case 5:
-            return (b < 0.5) ? [config colorMagenta] : [config colorMagentaHilite];
+            return (b < 0.5) ? config.colorMagenta : config.colorMagentaHilite;
         default:
-            return [config colorWhite];
+            return config.colorWhite;
     }
 }
 
@@ -346,7 +346,7 @@ static NSColor* colorUsingNearestAnsiColor(NSColor *rawColor, BOOL isBackground)
     BOOL underline, preUnderline = NO;
     BOOL blink, preBlink = NO;
     WLGlobalConfig *config = [WLGlobalConfig sharedInstance];
-    NSColor *color, *preColor = [config colorWhite];
+    NSColor *color, *preColor = config.colorWhite;
     NSColor *bgColor, *preBgColor = nil;
     BOOL hasColor = NO;
     
@@ -367,56 +367,56 @@ static NSColor* colorUsingNearestAnsiColor(NSColor *rawColor, BOOL isBackground)
             (bgColor && ![bgColor isEqual:preBgColor]) || (!bgColor && preBgColor)) {
             // pre-calculate background color
             char bgColorCode[4] = "";
-            if (!bgColor || [bgColor isEqual:[config colorBG]] || [bgColor isEqual:[config colorBGHilite]])
+            if (!bgColor || [bgColor isEqual:config.colorBG] || [bgColor isEqual:config.colorBGHilite])
 			/* do nothing */;
-            else if ([bgColor isEqual:[config colorBlack]] || [bgColor isEqual:[config colorBlackHilite]])
+            else if ([bgColor isEqual:config.colorBlack] || [bgColor isEqual:config.colorBlackHilite])
                 strcpy(bgColorCode, ";40");
-            else if ([bgColor isEqual:[config colorRed]] || [bgColor isEqual:[config colorRedHilite]])
+            else if ([bgColor isEqual:config.colorRed] || [bgColor isEqual:config.colorRedHilite])
                 strcpy(bgColorCode, ";41");
-            else if ([bgColor isEqual:[config colorGreen]] || [bgColor isEqual:[config colorGreenHilite]])
+            else if ([bgColor isEqual:config.colorGreen] || [bgColor isEqual:config.colorGreenHilite])
                 strcpy(bgColorCode, ";42");
-            else if ([bgColor isEqual:[config colorYellow]] || [bgColor isEqual:[config colorYellowHilite]])
+            else if ([bgColor isEqual:config.colorYellow] || [bgColor isEqual:config.colorYellowHilite])
                 strcpy(bgColorCode, ";43");
-            else if ([bgColor isEqual:[config colorBlue]] || [bgColor isEqual:[config colorBlueHilite]])
+            else if ([bgColor isEqual:config.colorBlue] || [bgColor isEqual:config.colorBlueHilite])
                 strcpy(bgColorCode, ";44");
-            else if ([bgColor isEqual:[config colorMagenta]] || [bgColor isEqual:[config colorMagentaHilite]])
+            else if ([bgColor isEqual:config.colorMagenta] || [bgColor isEqual:config.colorMagentaHilite])
                 strcpy(bgColorCode, ";45");
-            else if ([bgColor isEqual:[config colorCyan]] || [bgColor isEqual:[config colorCyanHilite]])
+            else if ([bgColor isEqual:config.colorCyan] || [bgColor isEqual:config.colorCyanHilite])
                 strcpy(bgColorCode, ";46");
-            else if ([bgColor isEqual:[config colorWhite]] || [bgColor isEqual:[config colorWhiteHilite]])
+            else if ([bgColor isEqual:config.colorWhite] || [bgColor isEqual:config.colorWhiteHilite])
                 strcpy(bgColorCode, ";47");
             // merge foreground color, underline, blink and background color
-            if (color == [config colorBlack])
+            if (color == config.colorBlack)
                 sprintf(tmp, "[0;%s%s30%sm", underline ? "4;" : "", blink ? "5;" : "", bgColorCode);
-            else if (color == [config colorRed])
+            else if (color == config.colorRed)
                 sprintf(tmp, "[0;%s%s31%sm", underline ? "4;" : "", blink ? "5;" : "", bgColorCode);
-            else if (color == [config colorGreen])
+            else if (color == config.colorGreen)
                 sprintf(tmp, "[0;%s%s32%sm", underline ? "4;" : "", blink ? "5;" : "", bgColorCode);
-            else if (color == [config colorYellow])
+            else if (color == config.colorYellow)
                 sprintf(tmp, "[0;%s%s33%sm", underline ? "4;" : "", blink ? "5;" : "", bgColorCode);
-            else if (color == [config colorBlue])
+            else if (color == config.colorBlue)
                 sprintf(tmp, "[0;%s%s34%sm", underline ? "4;" : "", blink ? "5;" : "", bgColorCode);
-            else if (color == [config colorMagenta])
+            else if (color == config.colorMagenta)
                 sprintf(tmp, "[0;%s%s35%sm", underline ? "4;" : "", blink ? "5;" : "", bgColorCode);
-            else if (color == [config colorCyan])
+            else if (color == config.colorCyan)
                 sprintf(tmp, "[0;%s%s36%sm", underline ? "4;" : "", blink ? "5;" : "", bgColorCode);
-            else if (color == [config colorWhite])
+            else if (color == config.colorWhite)
                 sprintf(tmp, "[0;%s%s37%sm", underline ? "4;" : "", blink ? "5;" : "", bgColorCode);
-            else if (color == [config colorBlackHilite])
+            else if (color == config.colorBlackHilite)
                 sprintf(tmp, "[0;1;%s%s30%sm", underline ? "4;" : "", blink ? "5;" : "", bgColorCode);
-            else if (color == [config colorRedHilite])
+            else if (color == config.colorRedHilite)
                 sprintf(tmp, "[0;1;%s%s31%sm", underline ? "4;" : "", blink ? "5;" : "", bgColorCode);
-            else if (color == [config colorGreenHilite])
+            else if (color == config.colorGreenHilite)
                 sprintf(tmp, "[0;1;%s%s32%sm", underline ? "4;" : "", blink ? "5;" : "", bgColorCode);
-            else if (color == [config colorYellowHilite])
+            else if (color == config.colorYellowHilite)
                 sprintf(tmp, "[0;1;%s%s33%sm", underline ? "4;" : "", blink ? "5;" : "", bgColorCode);
-            else if (color == [config colorBlueHilite])
+            else if (color == config.colorBlueHilite)
                 sprintf(tmp, "[0;1;%s%s34%sm", underline ? "4;" : "", blink ? "5;" : "", bgColorCode);
-            else if (color == [config colorMagentaHilite])
+            else if (color == config.colorMagentaHilite)
                 sprintf(tmp, "[0;1;%s%s35%sm", underline ? "4;" : "", blink ? "5;" : "", bgColorCode);
-            else if (color == [config colorCyanHilite])
+            else if (color == config.colorCyanHilite)
                 sprintf(tmp, "[0;1;%s%s36%sm", underline ? "4;" : "", blink ? "5;" : "", bgColorCode);
-            else if (color == [config colorWhiteHilite])
+            else if (color == config.colorWhiteHilite)
                 sprintf(tmp, "[0;1;%s%s37%sm", underline ? "4;" : "", blink ? "5;" : "", bgColorCode);
             else
                 sprintf(tmp, "[%s%s%s%sm", (underline || blink || *bgColorCode) ? "0" : "", underline ? ";4" : "", blink ? ";5" : "", bgColorCode);

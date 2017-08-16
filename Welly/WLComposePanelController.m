@@ -47,22 +47,22 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(WLComposePanelController);
     NSColorPanel *colorPanel = [NSColorPanel sharedColorPanel];
     colorPanel.mode = NSColorListModeColorPanel;
     NSColorList *colorList = [[NSColorList alloc] initWithName:@"Welly"];
-    [colorList insertColor:[config colorBlack] key:NSLocalizedString(@"Black", @"Color") atIndex:0];
-    [colorList insertColor:[config colorRed] key:NSLocalizedString(@"Red", @"Color") atIndex:1];
-    [colorList insertColor:[config colorGreen] key:NSLocalizedString(@"Green", @"Color") atIndex:2];
-    [colorList insertColor:[config colorYellow] key:NSLocalizedString(@"Yellow", @"Color") atIndex:3];
-    [colorList insertColor:[config colorBlue] key:NSLocalizedString(@"Blue", @"Color") atIndex:4];
-    [colorList insertColor:[config colorMagenta] key:NSLocalizedString(@"Magenta", @"Color") atIndex:5];
-    [colorList insertColor:[config colorCyan] key:NSLocalizedString(@"Cyan", @"Color") atIndex:6];
-    [colorList insertColor:[config colorWhite] key:NSLocalizedString(@"White", @"Color") atIndex:7];
-    [colorList insertColor:[config colorBlackHilite] key:NSLocalizedString(@"BlackHilite", @"Color") atIndex:8];
-    [colorList insertColor:[config colorRedHilite] key:NSLocalizedString(@"RedHilite", @"Color") atIndex:9];
-    [colorList insertColor:[config colorGreenHilite] key:NSLocalizedString(@"GreenHilite", @"Color") atIndex:10];
-    [colorList insertColor:[config colorYellowHilite] key:NSLocalizedString(@"YellowHilite", @"Color") atIndex:11];
-    [colorList insertColor:[config colorBlueHilite] key:NSLocalizedString(@"BlueHilite", @"Color") atIndex:12];
-    [colorList insertColor:[config colorMagentaHilite] key:NSLocalizedString(@"MagentaHilite", @"Color") atIndex:13];
-    [colorList insertColor:[config colorCyanHilite] key:NSLocalizedString(@"CyanHilite", @"Color") atIndex:14];
-    [colorList insertColor:[config colorWhiteHilite] key:NSLocalizedString(@"WhiteHilite", @"Color") atIndex:15];
+    [colorList insertColor:config.colorBlack key:NSLocalizedString(@"Black", @"Color") atIndex:0];
+    [colorList insertColor:config.colorRed key:NSLocalizedString(@"Red", @"Color") atIndex:1];
+    [colorList insertColor:config.colorGreen key:NSLocalizedString(@"Green", @"Color") atIndex:2];
+    [colorList insertColor:config.colorYellow key:NSLocalizedString(@"Yellow", @"Color") atIndex:3];
+    [colorList insertColor:config.colorBlue key:NSLocalizedString(@"Blue", @"Color") atIndex:4];
+    [colorList insertColor:config.colorMagenta key:NSLocalizedString(@"Magenta", @"Color") atIndex:5];
+    [colorList insertColor:config.colorCyan key:NSLocalizedString(@"Cyan", @"Color") atIndex:6];
+    [colorList insertColor:config.colorWhite key:NSLocalizedString(@"White", @"Color") atIndex:7];
+    [colorList insertColor:config.colorBlackHilite key:NSLocalizedString(@"BlackHilite", @"Color") atIndex:8];
+    [colorList insertColor:config.colorRedHilite key:NSLocalizedString(@"RedHilite", @"Color") atIndex:9];
+    [colorList insertColor:config.colorGreenHilite key:NSLocalizedString(@"GreenHilite", @"Color") atIndex:10];
+    [colorList insertColor:config.colorYellowHilite key:NSLocalizedString(@"YellowHilite", @"Color") atIndex:11];
+    [colorList insertColor:config.colorBlueHilite key:NSLocalizedString(@"BlueHilite", @"Color") atIndex:12];
+    [colorList insertColor:config.colorMagentaHilite key:NSLocalizedString(@"MagentaHilite", @"Color") atIndex:13];
+    [colorList insertColor:config.colorCyanHilite key:NSLocalizedString(@"CyanHilite", @"Color") atIndex:14];
+    [colorList insertColor:config.colorWhiteHilite key:NSLocalizedString(@"WhiteHilite", @"Color") atIndex:15];
     [colorPanel attachColorList:colorList];
     [colorList release];
 	
@@ -82,7 +82,7 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(WLComposePanelController);
 	
 	// Propose a warning if necessary
 	if ([telnetView respondsToSelector:@selector(shouldWarnCompose)] &&
-		[telnetView shouldWarnCompose]) {
+		telnetView.shouldWarnCompose) {
         NSAlert *alert = [NSAlert alertWithMessageText:NSLocalizedString(@"Are you sure you want to open the composer?", @"Sheet Title")
                                          defaultButton:NSLocalizedString(@"Confirm", @"Default Button")
                                        alternateButton:NSLocalizedString(@"Cancel", @"Cancel Button")
@@ -128,7 +128,7 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(WLComposePanelController);
 - (IBAction)commitCompose:(id)sender {
 	if ([_telnetView respondsToSelector:@selector(ansiColorKey)]) {
 		NSString *ansiCode = [WLAnsiColorOperationManager ansiCodeStringFromAttributedString:_composeText.textStorage 
-																			 forANSIColorKey:[_telnetView ansiColorKey]];
+																			 forANSIColorKey:_telnetView.ansiColorKey];
 		
 		[_telnetView insertText:ansiCode];
 	} else {
@@ -195,7 +195,7 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(WLComposePanelController);
     NSInteger location = [textView selectedRange].location;
     if (location > 0) 
 		--location;
-    _bgColorWell.color = [[WLGlobalConfig sharedInstance] colorBG];
+    _bgColorWell.color = [WLGlobalConfig sharedInstance].colorBG;
     if (location < storage.length) {
         NSColor *bgColor = [storage attribute:NSBackgroundColorAttributeName
                                       atIndex:location

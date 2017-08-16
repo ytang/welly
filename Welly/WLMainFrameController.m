@@ -90,22 +90,22 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(WLMainFrameController);
 	NSColorPanel *colorPanel = [NSColorPanel sharedColorPanel];
     colorPanel.mode = NSColorListModeColorPanel;
     NSColorList *colorList = [[NSColorList alloc] initWithName:@"Welly"];
-    [colorList insertColor:[config colorBlack] key:NSLocalizedString(@"Black", @"Color") atIndex:0];
-    [colorList insertColor:[config colorRed] key:NSLocalizedString(@"Red", @"Color") atIndex:1];
-    [colorList insertColor:[config colorGreen] key:NSLocalizedString(@"Green", @"Color") atIndex:2];
-    [colorList insertColor:[config colorYellow] key:NSLocalizedString(@"Yellow", @"Color") atIndex:3];
-    [colorList insertColor:[config colorBlue] key:NSLocalizedString(@"Blue", @"Color") atIndex:4];
-    [colorList insertColor:[config colorMagenta] key:NSLocalizedString(@"Magenta", @"Color") atIndex:5];
-    [colorList insertColor:[config colorCyan] key:NSLocalizedString(@"Cyan", @"Color") atIndex:6];
-    [colorList insertColor:[config colorWhite] key:NSLocalizedString(@"White", @"Color") atIndex:7];
-    [colorList insertColor:[config colorBlackHilite] key:NSLocalizedString(@"BlackHilite", @"Color") atIndex:8];
-    [colorList insertColor:[config colorRedHilite] key:NSLocalizedString(@"RedHilite", @"Color") atIndex:9];
-    [colorList insertColor:[config colorGreenHilite] key:NSLocalizedString(@"GreenHilite", @"Color") atIndex:10];
-    [colorList insertColor:[config colorYellowHilite] key:NSLocalizedString(@"YellowHilite", @"Color") atIndex:11];
-    [colorList insertColor:[config colorBlueHilite] key:NSLocalizedString(@"BlueHilite", @"Color") atIndex:12];
-    [colorList insertColor:[config colorMagentaHilite] key:NSLocalizedString(@"MagentaHilite", @"Color") atIndex:13];
-    [colorList insertColor:[config colorCyanHilite] key:NSLocalizedString(@"CyanHilite", @"Color") atIndex:14];
-    [colorList insertColor:[config colorWhiteHilite] key:NSLocalizedString(@"WhiteHilite", @"Color") atIndex:15];
+    [colorList insertColor:config.colorBlack key:NSLocalizedString(@"Black", @"Color") atIndex:0];
+    [colorList insertColor:config.colorRed key:NSLocalizedString(@"Red", @"Color") atIndex:1];
+    [colorList insertColor:config.colorGreen key:NSLocalizedString(@"Green", @"Color") atIndex:2];
+    [colorList insertColor:config.colorYellow key:NSLocalizedString(@"Yellow", @"Color") atIndex:3];
+    [colorList insertColor:config.colorBlue key:NSLocalizedString(@"Blue", @"Color") atIndex:4];
+    [colorList insertColor:config.colorMagenta key:NSLocalizedString(@"Magenta", @"Color") atIndex:5];
+    [colorList insertColor:config.colorCyan key:NSLocalizedString(@"Cyan", @"Color") atIndex:6];
+    [colorList insertColor:config.colorWhite key:NSLocalizedString(@"White", @"Color") atIndex:7];
+    [colorList insertColor:config.colorBlackHilite key:NSLocalizedString(@"BlackHilite", @"Color") atIndex:8];
+    [colorList insertColor:config.colorRedHilite key:NSLocalizedString(@"RedHilite", @"Color") atIndex:9];
+    [colorList insertColor:config.colorGreenHilite key:NSLocalizedString(@"GreenHilite", @"Color") atIndex:10];
+    [colorList insertColor:config.colorYellowHilite key:NSLocalizedString(@"YellowHilite", @"Color") atIndex:11];
+    [colorList insertColor:config.colorBlueHilite key:NSLocalizedString(@"BlueHilite", @"Color") atIndex:12];
+    [colorList insertColor:config.colorMagentaHilite key:NSLocalizedString(@"MagentaHilite", @"Color") atIndex:13];
+    [colorList insertColor:config.colorCyanHilite key:NSLocalizedString(@"CyanHilite", @"Color") atIndex:14];
+    [colorList insertColor:config.colorWhiteHilite key:NSLocalizedString(@"WhiteHilite", @"Color") atIndex:15];
     [colorPanel attachColorList:colorList];
 	[colorPanel setShowsAlpha:YES];
     [colorList release];
@@ -130,9 +130,9 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(WLMainFrameController);
         NSMenuItem *item = [m itemAtIndex:i];
         item.state = NSOffState;
     }
-    if (![_tabView frontMostTerminal])
+    if (!_tabView.frontMostTerminal)
         return;
-    WLEncoding currentEncoding = [_tabView frontMostTerminal].encoding;
+    WLEncoding currentEncoding = _tabView.frontMostTerminal.encoding;
     if (currentEncoding == WLBig5Encoding)
         [m itemAtIndex:1].state = NSOnState;
     if (currentEncoding == WLGBKEncoding)
@@ -193,7 +193,7 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(WLMainFrameController);
 	// We can release it since it is retained by the tab view item
 	[connection release];
 	// Set the view to be focused.
-	[_mainWindow makeFirstResponder:[_tabView frontMostView]];
+	[_mainWindow makeFirstResponder:_tabView.frontMostView];
 	
     [self updateEncodingMenu];
     [_detectDoubleByteButton setState:site.shouldDetectDoubleByte ? NSOnState : NSOffState];
@@ -264,7 +264,7 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(WLMainFrameController);
     NSMutableArray *a = [NSMutableArray array];
     for (i = 0; i < tabNumber; i++) {
         id connection = [[_tabView tabViewItemAtIndex:i].identifier content];
-        if ([connection isKindOfClass:[WLConnection class]] && ![[connection site] isDummy]) // not empty tab
+        if ([connection isKindOfClass:[WLConnection class]] && ![connection site].dummy) // not empty tab
             [a addObject:[[connection site] dictionaryOfSite]];
     }
     [[NSUserDefaults standardUserDefaults] setObject:a forKey:@"LastConnections"];
@@ -277,7 +277,7 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(WLMainFrameController);
     BOOL ddb = [sender state];
     if ([sender isKindOfClass:[NSMenuItem class]])
         ddb = !ddb;
-    [_tabView frontMostConnection].site.shouldDetectDoubleByte = ddb;
+    _tabView.frontMostConnection.site.shouldDetectDoubleByte = ddb;
     [_detectDoubleByteButton setState:(ddb ? NSOnState : NSOffState)];
     _detectDoubleByteMenuItem.state = (ddb ? NSOnState : NSOffState);
 }
@@ -289,20 +289,20 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(WLMainFrameController);
 	// set the state of the button and menuitem
 	[_autoReplyButton setState: ar ? NSOnState : NSOffState];
 	_autoReplyMenuItem.state = ar ? NSOnState : NSOffState;
-	if (!ar && ar != [_tabView frontMostConnection].site.shouldAutoReply) {
+	if (!ar && ar != _tabView.frontMostConnection.site.shouldAutoReply) {
 		// when user is to close auto reply, 
-		if ([_tabView frontMostConnection].messageDelegate.unreadCount > 0) {
+		if (_tabView.frontMostConnection.messageDelegate.unreadCount > 0) {
 			// we should inform him with the unread messages
-			[[_tabView frontMostConnection].messageDelegate showUnreadMessagesOnTextView:_unreadMessageTextView];
+			[_tabView.frontMostConnection.messageDelegate showUnreadMessagesOnTextView:_unreadMessageTextView];
 			[_messageWindow makeKeyAndOrderFront:self];
 		}
 	}
 	
-	[_tabView frontMostConnection].site.shouldAutoReply = ar;
+	_tabView.frontMostConnection.site.shouldAutoReply = ar;
 }
 
 - (IBAction)toggleMouseAction:(id)sender {
-	if (![_tabView frontMostConnection])
+	if (!_tabView.frontMostConnection)
 		return;
 	
     BOOL state = [sender state];
@@ -310,7 +310,7 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(WLMainFrameController);
         state = !state;
     [_mouseButton setState:(state ? NSOnState : NSOffState)];
 	
-	[_tabView frontMostConnection].site.shouldEnableMouse = state;
+	_tabView.frontMostConnection.site.shouldEnableMouse = state;
 
 	// Post a notification to inform observers the site has changed the mouse enable preference
 	[[NSNotificationCenter defaultCenter] postNotificationName:WLNotificationSiteDidChangeShouldEnableMouse
@@ -332,14 +332,14 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(WLMainFrameController);
 }
 
 - (IBAction)setEncoding:(id)sender {
-    if ([_tabView frontMostConnection]) {
+    if (_tabView.frontMostConnection) {
 		WLEncoding encoding = WLGBKEncoding;
 		if ([[sender title] rangeOfString:@"GBK"].location != NSNotFound)
 			encoding = WLGBKEncoding;
 		if ([[sender title] rangeOfString:@"Big5"].location != NSNotFound)
 			encoding = WLBig5Encoding;
 		
-        [_tabView frontMostConnection].site.encoding = encoding;
+        _tabView.frontMostConnection.site.encoding = encoding;
 		[[NSNotificationCenter defaultCenter] postNotificationName:WLNotificationSiteDidChangeEncoding 
 															object:self];
         [self updateEncodingMenu];
@@ -409,13 +409,13 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(WLMainFrameController);
 
 - (IBAction)addCurrentSite:(id)sender {
     if (_tabView.numberOfTabViewItems == 0) return;
-    NSString *address = [_tabView frontMostConnection].site.address;
+    NSString *address = _tabView.frontMostConnection.site.address;
     
     for (WLSite *s in [WLSitesPanelController sites])
         if ([s.address isEqualToString:address]) 
             return;
     
-    WLSite *site = [_tabView frontMostConnection].site;
+    WLSite *site = _tabView.frontMostConnection.site;
     [[WLSitesPanelController sharedInstance] openSitesPanelInWindow:_mainWindow 
 														 andAddSite:site];
 }
@@ -426,19 +426,19 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(WLMainFrameController);
 
 // Open compose panel
 - (IBAction)openComposePanel:(id)sender {
-	if ([[_tabView frontMostView] conformsToProtocol:@protocol(NSTextInput)])
+	if ([_tabView.frontMostView conformsToProtocol:@protocol(NSTextInput)])
 		[[WLComposePanelController sharedInstance] openComposePanelInWindow:_mainWindow 
-																	forView:(NSView <NSTextInput>*)[_tabView frontMostView]];
+																	forView:(NSView <NSTextInput>*)_tabView.frontMostView];
 }
 
 // Download Post
 - (IBAction)downloadPost:(id)sender {
 	[[WLPostDownloadDelegate sharedInstance] beginPostDownloadInWindow:_mainWindow 
-														   forTerminal:[_tabView frontMostTerminal]];
+														   forTerminal:_tabView.frontMostTerminal];
 }
 
 - (BOOL)shouldReconnect {
-	if (![_tabView frontMostConnection].isConnected) return YES;
+	if (!_tabView.frontMostConnection.isConnected) return YES;
     if (![[NSUserDefaults standardUserDefaults] boolForKey:WLConfirmOnCloseEnabledKeyName]) return YES;
     NSBeginAlertSheet(NSLocalizedString(@"Are you sure you want to reconnect?", @"Sheet Title"), 
                       NSLocalizedString(@"Confirm", @"Default Button"), 
@@ -456,13 +456,13 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(WLMainFrameController);
 			  returnCode:(int)returnCode 
 			 contextInfo:(void *)contextInfo {
     if (returnCode == NSAlertDefaultReturn) {
-		[[_tabView frontMostConnection] reconnect];
+		[_tabView.frontMostConnection reconnect];
     }
 }
 
 - (IBAction)reconnect:(id)sender {
-    if (![_tabView frontMostConnection].isConnected || ![[NSUserDefaults standardUserDefaults] boolForKey:WLConfirmOnCloseEnabledKeyName]) {
-		[[_tabView frontMostConnection] reconnect];
+    if (!_tabView.frontMostConnection.isConnected || ![[NSUserDefaults standardUserDefaults] boolForKey:WLConfirmOnCloseEnabledKeyName]) {
+		[_tabView.frontMostConnection reconnect];
         return;
     }
     NSBeginAlertSheet(NSLocalizedString(@"Are you sure you want to reconnect?", @"Sheet Title"), 
@@ -492,8 +492,8 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(WLMainFrameController);
 	if (action == @selector(addCurrentSite:) ||
         action == @selector(reconnect:) ||
 		action == @selector(setEncoding:)) {
-		if (![_tabView frontMostConnection] ||
-			[[_tabView frontMostConnection].site isDummy])
+		if (!_tabView.frontMostConnection ||
+			(_tabView.frontMostConnection.site).dummy)
 			return NO;
 	} else if (action == @selector(selectNextTab:) ||
 			   action == @selector(selectPrevTab:)) {
@@ -502,18 +502,18 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(WLMainFrameController);
 	} else if (action == @selector(toggleMouseAction:) ||
 			   action == @selector(downloadPost:) ||
 			   action == @selector(openComposePanel:)) {
-		if (![_tabView frontMostConnection] ||
-			![_tabView frontMostConnection].isConnected) {
+		if (!_tabView.frontMostConnection ||
+			!_tabView.frontMostConnection.isConnected) {
 			return NO;
 		}
 	} else if (action == @selector(togglePresentationMode:)) {
-		if ([self isInFullScreenMode] && !_presentationModeController.isInPresentationMode) {
+		if (self.inFullScreenMode && !_presentationModeController.isInPresentationMode) {
 			return NO;
 		} else
 			return YES;
 	} else if (action == @selector(increaseFontSize:) ||
 			   action == @selector(decreaseFontSize:)) {
-		if ([self isInFullScreenMode] || _presentationModeController.isInPresentationMode) {
+		if (self.inFullScreenMode || _presentationModeController.isInPresentationMode) {
 			return NO;
 		} else
 			return YES;
@@ -541,7 +541,7 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(WLMainFrameController);
 	// Restore from presentation mode firstly
 	[self exitPresentationMode];
 	// Exit from full screen mode if necessary
-	if ([self isInFullScreenMode]) {
+	if (self.inFullScreenMode) {
 		[_mainWindow toggleFullScreen:self];
 	}
     
@@ -673,7 +673,7 @@ withReplyEvent:(NSAppleEventDescriptor *)replyEvent {
                       @"Please pay attention to our future versions. Thanks for your cooperation.");
     return;
     // TODO: uncomment the following code to enable RSS mode.
-    if (![_tabView frontMostConnection] || ![_tabView frontMostConnection].isConnected) return;
+    if (!_tabView.frontMostConnection || !_tabView.frontMostConnection.isConnected) return;
     if (!_rssThread) {
         [NSThread detachNewThreadSelector:@selector(fetchFeed) toTarget:self withObject:nil];
         NSBeginAlertSheet(@"Welly is now working in RSS mode. (Experimental)",

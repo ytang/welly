@@ -64,7 +64,7 @@ const NSTimeInterval HOLD_RECOGNITION_TIME_INTERVAL=0.4;
 	// we do that check only for the normal button identifiers as we would check for hold support for hold events instead
 	if (identifier > (1 << EVENT_TO_HOLD_EVENT_OFFSET)) return NO; 
 	
-	return [self simulateHoldEvent] && [remoteControl sendsEventForButtonIdentifier: (identifier << EVENT_TO_HOLD_EVENT_OFFSET)]==NO;
+	return self.simulateHoldEvent && [remoteControl sendsEventForButtonIdentifier: (identifier << EVENT_TO_HOLD_EVENT_OFFSET)]==NO;
 }
 
 - (BOOL) clickCountingEnabled {
@@ -72,9 +72,9 @@ const NSTimeInterval HOLD_RECOGNITION_TIME_INTERVAL=0.4;
 }
 - (void) setClickCountingEnabled: (BOOL) value {
 	if (value) {
-		[self setClickCountEnabledButtons: kRemoteButtonPlus | kRemoteButtonMinus | kRemoteButtonPlay | kRemoteButtonLeft | kRemoteButtonRight | kRemoteButtonMenu];
+		self.clickCountEnabledButtons = kRemoteButtonPlus | kRemoteButtonMinus | kRemoteButtonPlay | kRemoteButtonLeft | kRemoteButtonRight | kRemoteButtonMenu;
 	} else {
-		[self setClickCountEnabledButtons: 0];
+		self.clickCountEnabledButtons = 0;
 	}
 }
 
@@ -132,7 +132,7 @@ const NSTimeInterval HOLD_RECOGNITION_TIME_INTERVAL=0.4;
 - (void) sendRemoteButtonEvent: (RemoteControlEventIdentifier) event pressedDown: (BOOL) pressedDown remoteControl: (RemoteControl*) remoteControl {	
 	if (!delegate)  return;
 	
-	BOOL clickCountingForEvent = ([self clickCountEnabledButtons] & event) == event;
+	BOOL clickCountingForEvent = (self.clickCountEnabledButtons & event) == event;
 
 	if ([self simulatesHoldForButtonIdentifier: event remoteControl: remoteControl] && lastClickCountEvent==0) {
 		if (pressedDown) {

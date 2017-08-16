@@ -135,7 +135,7 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(WLEmoticonsPanelController);
 }
 
 - (void)addEmoticon:(YLEmoticon *)emoticon {
-	[self insertObject:emoticon inEmoticonsAtIndex:[self countOfEmoticons]];
+	[self insertObject:emoticon inEmoticonsAtIndex:self.countOfEmoticons];
 }
 
 - (void)addEmoticonFromString:(NSString *)string {

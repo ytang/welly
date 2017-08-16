@@ -48,7 +48,7 @@ const float xscale = 1, yscale = 0.8;
 		[_imageFlowView setHidden:NO];
 
 		// background
-		NSColor *color = [[WLGlobalConfig sharedInstance] colorBG];
+		NSColor *color = [WLGlobalConfig sharedInstance].colorBG;
 		// cover flow doesn't support alpha
 		color = [color colorWithAlphaComponent:1.0];
 		[_imageFlowView setBackgroundColor:color];
@@ -91,7 +91,7 @@ const float xscale = 1, yscale = 0.8;
 #pragma mark Display
 - (void)drawRect:(NSRect)rect {
 	// background
-	NSColor *color = [[WLGlobalConfig sharedInstance] colorBG];
+	NSColor *color = [WLGlobalConfig sharedInstance].colorBG;
 	// cover flow doesn't support alpha
 	color = [color colorWithAlphaComponent:1.0];
 	[color set];
@@ -178,18 +178,18 @@ const float xscale = 1, yscale = 0.8;
 	_draggingItem = [self itemAtLocation:theEvent.locationInWindow];
 	if (_draggingItem) {
 		if (![_draggingItem conformsToProtocol:@protocol(WLDraggingSource)] || 
-			![(id <WLDraggingSource>)_draggingItem acceptsDragging]) {
+			!((id <WLDraggingSource>)_draggingItem).acceptsDragging) {
 			_draggingItem = nil;
 			return;
 		}
 		
 		WLPortalItem <WLDraggingSource> *draggingItem = (WLPortalItem <WLDraggingSource> *)_draggingItem;
-		NSImage *image = [draggingItem draggingImage];
+		NSImage *image = draggingItem.draggingImage;
 		NSSize size = image.size;
 		NSPoint pt = [_imageFlowView convertPoint:theEvent.locationInWindow fromView:nil];
 		pt.x -= size.width/2;
 		pt.y -= size.height/2;
-		NSPasteboard *pboard = [draggingItem draggingPasteboard];
+		NSPasteboard *pboard = draggingItem.draggingPasteboard;
 		[_imageFlowView dragImage:image at:pt offset:NSZeroSize 
 				   event:theEvent pasteboard:pboard source:self slideBack:NO];
 		return;

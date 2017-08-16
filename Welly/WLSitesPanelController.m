@@ -7,7 +7,6 @@
 //
 
 #import "WLSitesPanelController.h"
-#import "WLSite.h"
 #import "WLMainFrameController.h"
 #import "WLGlobalConfig.h"
 #import "SynthesizeSingleton.h"
@@ -75,7 +74,7 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(WLSitesPanelController);
 - (void)loadSites {
     NSArray *array = [[NSUserDefaults standardUserDefaults] arrayForKey:@"Sites"];
     for (NSDictionary *d in array)
-        [self insertObject:[WLSite siteWithDictionary:d] inSitesAtIndex:[self countOfSites]];
+        [self insertObject:[WLSite siteWithDictionary:d] inSitesAtIndex:self.countOfSites];
 
 	[self sitesDidChanged];
 }

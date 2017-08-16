@@ -51,7 +51,7 @@
 }
 
 - (void)updateIPStateForRow:(int)r {
-	cell *currRow = [[_view frontMostTerminal] cellsOfRow:r];
+	cell *currRow = [_view.frontMostTerminal cellsOfRow:r];
 	int state = 0;
 	char ip[4] = {0};
 	int seg = 0;
@@ -132,7 +132,7 @@
 - (void)update {
 	[self clear];
 	
-	if (![_view isConnected]) {
+	if (!_view.connected) {
 		return;	
 	}
 	

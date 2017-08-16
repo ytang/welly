@@ -38,7 +38,7 @@ NSString *const WLCommandSequenceSameAuthorReading = @"\025";	// ^U
 - (void)moveCursorToRow:(int)moveToRow {
 	unsigned char cmd[_maxRow * _maxColumn + 1];
 	unsigned int cmdLength = 0;
-	WLTerminal *ds = [_view frontMostTerminal];
+	WLTerminal *ds = _view.frontMostTerminal;
 	NSInteger cursorRow = ds.cursorRow;
 	
 	// Moving Command
@@ -56,7 +56,7 @@ NSString *const WLCommandSequenceSameAuthorReading = @"\025";	// ^U
 		} 
 	}
 
-	[[_view frontMostConnection] sendBytes:cmd length:cmdLength];
+	[_view.frontMostConnection sendBytes:cmd length:cmdLength];
 }
 
 - (void)enterEntryAtRow:(int)moveToRow {
@@ -110,7 +110,7 @@ NSString *const WLCommandSequenceSameAuthorReading = @"\025";	// ^U
 	// Wait until state change
 	const int sleepTime = 100000, maxAttempt = 300000;
 	int count = 0;
-	while ([_view frontMostTerminal].bbsState.state != BBSViewPost && count < maxAttempt) {
+	while (_view.frontMostTerminal.bbsState.state != BBSViewPost && count < maxAttempt) {
 		++count;
 		usleep(sleepTime);
 	}
@@ -118,7 +118,7 @@ NSString *const WLCommandSequenceSameAuthorReading = @"\025";	// ^U
 	// Do Post Download
 	if (count != maxAttempt) {
 		[[WLPostDownloadDelegate sharedInstance] beginPostDownloadInWindow:NSApp.keyWindow
-															   forTerminal:[_view frontMostTerminal]];
+															   forTerminal:_view.frontMostTerminal];
 	}
 }
 
@@ -157,7 +157,7 @@ NSString *const WLCommandSequenceSameAuthorReading = @"\025";	// ^U
 
 - (NSMenu *)menuForEvent:(NSEvent *)theEvent {
 	NSMenu *menu = [[[NSMenu alloc] init] autorelease];
-	if ([_view frontMostTerminal].bbsState.state == BBSBrowseBoard) {
+	if (_view.frontMostTerminal.bbsState.state == BBSBrowseBoard) {
 		[menu addItemWithTitle:NSLocalizedString(WLMenuTitleDownloadPost, @"Contextual Menu")
 						action:@selector(downloadPost:)
 				 keyEquivalent:@""];
@@ -199,7 +199,7 @@ NSString *const WLCommandSequenceSameAuthorReading = @"\025";	// ^U
 }
 
 - (void)addClickEntryRectAtRow:(NSInteger)r column:(NSInteger)c length:(NSInteger)length {
-    NSString *title = [[_view frontMostTerminal] stringAtIndex:c+r*_maxColumn length:length];
+    NSString *title = [_view.frontMostTerminal stringAtIndex:c+r*_maxColumn length:length];
     [self addClickEntryRect:title row:r column:c length:length];
 }
 
@@ -220,7 +220,7 @@ NSString *const WLCommandSequenceSameAuthorReading = @"\025";	// ^U
 - (BOOL)startsAtRow:(int)row 
 			 column:(int)column 
 			   with:(NSString *)s {
-    cell *currRow = [[_view frontMostTerminal] cellsOfRow:row];
+    cell *currRow = [_view.frontMostTerminal cellsOfRow:row];
     NSInteger i = 0, n = s.length;
     for (; i < n && column < _maxColumn - 1; ++i, ++column)
         if (currRow[column].byte != [s characterAtIndex:i])
@@ -239,7 +239,7 @@ BOOL isPostTitleStarter(unichar c) {
 }
 
 - (void)updatePostClickEntry {
-    WLTerminal *ds = [_view frontMostTerminal];
+    WLTerminal *ds = _view.frontMostTerminal;
 	for (int r = 3; r < _maxRow - 1; ++r) {
 		cell *currRow = [ds cellsOfRow:r];
 		
@@ -262,7 +262,7 @@ BOOL isPostTitleStarter(unichar c) {
                     textBuf[bufLength++] = 0x0000 + (currRow[i].byte ?: ' ');
             } else if (db == 2) {
 				unsigned short code = (((currRow + i - 1)->byte) << 8) + ((currRow + i)->byte) - 0x8000;
-				unichar ch = [WLEncoder toUnicode:code encoding:[[_view frontMostConnection].site encoding]];
+				unichar ch = [WLEncoder toUnicode:code encoding:(_view.frontMostConnection.site).encoding];
                 // smth: 0x25cf (solid circle "●"), 0x251c ("├"), 0x2514 ("└"), 0x2605("★")
                 // free/sjtu: 0x25c6 (solid diamond "◆")
                 // ptt: 0x25a1 (hollow square "□")
@@ -285,7 +285,7 @@ BOOL isPostTitleStarter(unichar c) {
 }
 
 - (void)updateBoardClickEntry {
-    WLTerminal *ds = [_view frontMostTerminal];
+    WLTerminal *ds = _view.frontMostTerminal;
 	for (int r = 3; r < _maxRow - 1; ++r) {
 		cell *currRow = [ds cellsOfRow:r];
 		
@@ -312,7 +312,7 @@ BOOL isPostTitleStarter(unichar c) {
 }
 
 - (void)updateFriendClickEntry {
-	WLTerminal *ds = [_view frontMostTerminal];
+	WLTerminal *ds = _view.frontMostTerminal;
 	for (int r = 3; r < _maxRow - 1; ++r) {
 		cell *currRow = [ds cellsOfRow:r];
 		
@@ -324,7 +324,7 @@ BOOL isPostTitleStarter(unichar c) {
 }
 
 - (void)updateMenuClickEntry {
-	WLTerminal *ds = [_view frontMostTerminal];
+	WLTerminal *ds = _view.frontMostTerminal;
 	for (int r = 3; r < _maxRow - 1; ++r) {
 		cell *currRow = [ds cellsOfRow:r];
 		
@@ -383,7 +383,7 @@ BOOL isPostTitleStarter(unichar c) {
 }
 
 - (void)updateExcerptionClickEntry {
-    WLTerminal *ds = [_view frontMostTerminal];
+    WLTerminal *ds = _view.frontMostTerminal;
 	// Parse the table title line to get ranges
 	NSRange postRange = {0, 0};
 	int c = 0;
@@ -414,12 +414,12 @@ BOOL isPostTitleStarter(unichar c) {
 }
 
 - (BOOL)shouldUpdate {
-	if (![_view shouldEnableMouse] || ![_view isConnected]) {
+	if (!_view.shouldEnableMouse || !_view.connected) {
 		return YES;	
 	}
 	
 	// In the same page, do NOT update/clear
-	WLTerminal *ds = [_view frontMostTerminal];
+	WLTerminal *ds = _view.frontMostTerminal;
 	BBSState bbsState = ds.bbsState;
 	if (bbsState.state == _manager.lastBBSState.state && labs(_manager.lastCursorRow - ds.cursorRow) == 1) {
 		return NO;
@@ -430,12 +430,12 @@ BOOL isPostTitleStarter(unichar c) {
 - (void)update {
 	// Clear
 	[self clear];
-	if (![_view shouldEnableMouse] || ![_view isConnected]) {
+	if (!_view.shouldEnableMouse || !_view.connected) {
 		return;	
 	}
 	
 	// Update
-	WLTerminal *ds = [_view frontMostTerminal];
+	WLTerminal *ds = _view.frontMostTerminal;
 	if (ds.bbsState.state == BBSBrowseBoard || ds.bbsState.state == BBSMailList) {
 		[self updatePostClickEntry];
 	} else if (ds.bbsState.state == BBSBoardList) {

@@ -63,7 +63,7 @@ NSString *const WLAutoReplyGrowlTipFormat = @"AutoReplyGrowlTipFormat";
 	}
 
 	WLTabView *view = [WLMainFrameController sharedInstance].tabView;
-	if (_connection != [view frontMostConnection] || !NSApp.active || _connection.site.shouldAutoReply) {
+	if (_connection != view.frontMostConnection || !NSApp.active || _connection.site.shouldAutoReply) {
 		// not in focus
 		[_connection increaseMessageCount:1];
 		NSString *description;

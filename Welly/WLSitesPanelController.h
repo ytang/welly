@@ -7,10 +7,9 @@
 //
 
 #import <Cocoa/Cocoa.h>
+#import "WLSite.h"
 
 #define floatWindowLevel kCGStatusWindowLevel+1
-
-@class WLSite;
 
 @protocol WLSitesObserver
 

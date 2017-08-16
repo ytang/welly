@@ -74,7 +74,7 @@ NSString *const FBCommandSequenceEnterExcerption = @"x";
 - (void)mouseUp:(NSEvent *)theEvent {
 	NSString *commandSequence = _manager.activeTrackingAreaUserInfo[WLMouseCommandSequenceUserInfoName];
 	if (commandSequence != nil) {
-		[[_view frontMostConnection] sendText:commandSequence];
+		[_view.frontMostConnection sendText:commandSequence];
 		return;
 	}
 }
@@ -155,7 +155,7 @@ NSString *const FBCommandSequenceEnterExcerption = @"x";
 	if (r > 3 && r < _maxRow-1)
 		return;
 	
-	WLTerminal *ds = [_view frontMostTerminal];
+	WLTerminal *ds = _view.frontMostTerminal;
 	BBSState bbsState = ds.bbsState;
 	
 	for (int x = 0; x < _maxColumn; ++x) {
@@ -180,12 +180,12 @@ NSString *const FBCommandSequenceEnterExcerption = @"x";
 }
 
 - (BOOL)shouldUpdate {
-	if (![_view shouldEnableMouse] || ![_view isConnected]) {
+	if (!_view.shouldEnableMouse || !_view.connected) {
 		return YES;
 	}
 	
 	// Only update when BBS state has been changed
-	BBSState bbsState = [_view frontMostTerminal].bbsState;
+	BBSState bbsState = _view.frontMostTerminal.bbsState;
 	BBSState lastBbsState = _manager.lastBBSState;
 	if (bbsState.state == lastBbsState.state &&
 		bbsState.subState == lastBbsState.subState)
@@ -197,7 +197,7 @@ NSString *const FBCommandSequenceEnterExcerption = @"x";
 - (void)update {
 	// Clear & Update
 	[self clear];
-	if (![_view shouldEnableMouse] || ![_view isConnected]) {
+	if (!_view.shouldEnableMouse || !_view.connected) {
 		return;	
 	}
 	for (int r = 0; r < _maxRow; ++r) {

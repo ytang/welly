@@ -113,10 +113,10 @@ NSString *const WLMenuTitleAddAsFriend = @"Add %@ as friend";
 
 - (void)updateAuthorAreaForRow:(int)r {
 	// TODO: enable this for Maple BBS
-	if ([_view frontMostTerminal].bbsType == WLMaple)
+	if (_view.frontMostTerminal.bbsType == WLMaple)
 		return;
 	
-	WLTerminal *ds = [_view frontMostTerminal];
+	WLTerminal *ds = _view.frontMostTerminal;
     cell *currRow = [ds cellsOfRow:r];
 	
 	if (ds.bbsState.state == BBSBrowseBoard || ds.bbsState.state == BBSMailList) {
@@ -174,12 +174,12 @@ NSString *const WLMenuTitleAddAsFriend = @"Add %@ as friend";
 }
 
 - (BOOL)shouldUpdate {
-	if (![_view shouldEnableMouse] || ![_view isConnected]) {
+	if (!_view.shouldEnableMouse || !_view.connected) {
 		return YES;	
 	}
 	
 	// In the same page, do NOT update
-	WLTerminal *ds = [_view frontMostTerminal];
+	WLTerminal *ds = _view.frontMostTerminal;
 	BBSState bbsState = ds.bbsState;
 	if (bbsState.state == _manager.lastBBSState.state && labs(_manager.lastCursorRow - ds.cursorRow) == 1) {
 		return NO;
@@ -189,11 +189,11 @@ NSString *const WLMenuTitleAddAsFriend = @"Add %@ as friend";
 
 - (void)update {
 	[self clear];
-	if (![_view shouldEnableMouse] || ![_view isConnected]) {
+	if (!_view.shouldEnableMouse || !_view.connected) {
 		return;	
 	}
 	
-	BBSState bbsState = [_view frontMostTerminal].bbsState;
+	BBSState bbsState = _view.frontMostTerminal.bbsState;
 	if (bbsState.state != BBSBrowseBoard && bbsState.state != BBSMailList)
 		return;
 	for (int r = 0; r < _maxRow; ++r) {

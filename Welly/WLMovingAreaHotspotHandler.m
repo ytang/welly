@@ -41,7 +41,7 @@ NSString *const WLMenuTitleQuitMode = @"Quit Mode";
 }
 
 - (BOOL)shouldEnablePageUpDown {
-	return [self shouldEnablePageUpDownForState:[_view frontMostTerminal].bbsState];
+	return [self shouldEnablePageUpDownForState:_view.frontMostTerminal.bbsState];
 }
 
 - (BOOL)shouldEnableExitAreaForState:(BBSState)bbsState {
@@ -51,7 +51,7 @@ NSString *const WLMenuTitleQuitMode = @"Quit Mode";
 }
 
 - (BOOL)shouldEnableExitArea {
-	return [self shouldEnableExitAreaForState:[_view frontMostTerminal].bbsState];
+	return [self shouldEnableExitAreaForState:_view.frontMostTerminal.bbsState];
 }
 
 #pragma mark -
@@ -62,7 +62,7 @@ NSString *const WLMenuTitleQuitMode = @"Quit Mode";
 }
 
 - (void)mouseEntered:(NSEvent *)theEvent {
-	if([_view frontMostConnection].isConnected) {
+	if(_view.frontMostConnection.isConnected) {
 		_manager.backgroundTrackingAreaUserInfo = theEvent.trackingArea.userInfo;
 	}
 }
@@ -103,7 +103,7 @@ NSString *const WLMenuTitleQuitMode = @"Quit Mode";
 				 keyEquivalent:@""];
 	}
 	
-	if ([_view frontMostTerminal].bbsState.state == BBSBrowseBoard) {
+	if (_view.frontMostTerminal.bbsState.state == BBSBrowseBoard) {
 		[menu addItemWithTitle:NSLocalizedString(WLMenuTitleQuitMode, @"Contextual Menu") 
 						action:@selector(pressQ:) 
 				 keyEquivalent:@""];
@@ -194,10 +194,10 @@ NSString *const WLMenuTitleQuitMode = @"Quit Mode";
 }
 
 - (BOOL)shouldUpdate {
-	if (![_view shouldEnableMouse] || ![_view isConnected]) {
+	if (!_view.shouldEnableMouse || !_view.connected) {
 		return YES;	
 	}
-	BBSState bbsState = [_view frontMostTerminal].bbsState;
+	BBSState bbsState = _view.frontMostTerminal.bbsState;
 	BBSState lastBBSState = _manager.lastBBSState;
 	if (bbsState.state == lastBBSState.state) {
 		return NO;
@@ -213,7 +213,7 @@ NSString *const WLMenuTitleQuitMode = @"Quit Mode";
 
 - (void)update {
 	[self clear];
-	if (![_view shouldEnableMouse] || ![_view isConnected]) {
+	if (!_view.shouldEnableMouse || !_view.connected) {
 		return;	
 	}
 	[self updateExitArea];

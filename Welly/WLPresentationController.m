@@ -189,7 +189,7 @@ WLGlobalConfig *gConfig;
         NSPoint newOP = {(screenRect.size.width - _targetView.frame.size.width) / 2, (screenRect.size.height - _targetView.frame.size.height) / 2};
 		
 		// Set the window style
-        _fullScreenWindow.backgroundColor = [[WLGlobalConfig sharedInstance] colorBG];
+        _fullScreenWindow.backgroundColor = [WLGlobalConfig sharedInstance].colorBG;
 		
 		[_fullScreenWindow setOpaque:NO];
 		[_fullScreenWindow display];
@@ -213,14 +213,14 @@ WLGlobalConfig *gConfig;
 	// Decide whether to set or to reset the font size
 	if (isEnteringFullScreen) {
 		// Store old parameters
-		_originalSizeParameters = [[gConfig sizeParameters] copy];
+		_originalSizeParameters = [gConfig.sizeParameters copy];
 		
 		// And do it..
-		[gConfig setSizeParameters:[WLMainFrameController sizeParametersForZoomRatio:_screenRatio]];
+		gConfig.sizeParameters = [WLMainFrameController sizeParametersForZoomRatio:_screenRatio];
 		
 	} else {
 		// Restore old parameters
-		[gConfig setSizeParameters:_originalSizeParameters];
+		gConfig.sizeParameters = _originalSizeParameters;
 		[_originalSizeParameters release];
 		_originalSizeParameters = nil;
 	}

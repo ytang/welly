@@ -136,26 +136,26 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(WLGlobalConfig);
 		else
 			self.englishFontPaddingBottom = 2.0;
         
-		[self setColorBlack:[defaults myColorForKey:@"ColorBlack"]];
-		[self setColorBlackHilite:[defaults myColorForKey:@"ColorBlackHilite"]];
-		[self setColorRed:[defaults myColorForKey:@"ColorRed"]];
-		[self setColorRedHilite:[defaults myColorForKey:@"ColorRedHilite"]];
-		[self setColorBlack:[defaults myColorForKey:@"ColorBlack"]];
-		[self setColorBlackHilite:[defaults myColorForKey:@"ColorBlackHilite"]];
-		[self setColorGreen:[defaults myColorForKey:@"ColorGreen"]];
-		[self setColorGreenHilite:[defaults myColorForKey:@"ColorGreenHilite"]];
-		[self setColorYellow:[defaults myColorForKey:@"ColorYellow"]];
-		[self setColorYellowHilite:[defaults myColorForKey:@"ColorYellowHilite"]];
-		[self setColorBlue:[defaults myColorForKey:@"ColorBlue"]];
-		[self setColorBlueHilite:[defaults myColorForKey:@"ColorBlueHilite"]];
-		[self setColorMagenta:[defaults myColorForKey:@"ColorMagenta"]];
-		[self setColorMagentaHilite:[defaults myColorForKey:@"ColorMagentaHilite"]];
-		[self setColorCyan:[defaults myColorForKey:@"ColorCyan"]];
-		[self setColorCyanHilite:[defaults myColorForKey:@"ColorCyanHilite"]];
-		[self setColorWhite:[defaults myColorForKey:@"ColorWhite"]];
-		[self setColorWhiteHilite:[defaults myColorForKey:@"ColorWhiteHilite"]]; // Foreground Color
-		[self setColorBG:[defaults myColorForKey:@"ColorBG"]];
-		[self setColorBGHilite:[defaults myColorForKey:@"ColorBGHilite"]];
+		self.colorBlack = [defaults myColorForKey:@"ColorBlack"];
+		self.colorBlackHilite = [defaults myColorForKey:@"ColorBlackHilite"];
+		self.colorRed = [defaults myColorForKey:@"ColorRed"];
+		self.colorRedHilite = [defaults myColorForKey:@"ColorRedHilite"];
+		self.colorBlack = [defaults myColorForKey:@"ColorBlack"];
+		self.colorBlackHilite = [defaults myColorForKey:@"ColorBlackHilite"];
+		self.colorGreen = [defaults myColorForKey:@"ColorGreen"];
+		self.colorGreenHilite = [defaults myColorForKey:@"ColorGreenHilite"];
+		self.colorYellow = [defaults myColorForKey:@"ColorYellow"];
+		self.colorYellowHilite = [defaults myColorForKey:@"ColorYellowHilite"];
+		self.colorBlue = [defaults myColorForKey:@"ColorBlue"];
+		self.colorBlueHilite = [defaults myColorForKey:@"ColorBlueHilite"];
+		self.colorMagenta = [defaults myColorForKey:@"ColorMagenta"];
+		self.colorMagentaHilite = [defaults myColorForKey:@"ColorMagentaHilite"];
+		self.colorCyan = [defaults myColorForKey:@"ColorCyan"];
+		self.colorCyanHilite = [defaults myColorForKey:@"ColorCyanHilite"];
+		self.colorWhite = [defaults myColorForKey:@"ColorWhite"];
+		self.colorWhiteHilite = [defaults myColorForKey:@"ColorWhiteHilite"]; // Foreground Color
+		self.colorBG = [defaults myColorForKey:@"ColorBG"];
+		self.colorBGHilite = [defaults myColorForKey:@"ColorBGHilite"];
 		//_colorTable[0][8] = [[NSColor colorWithDeviceRed:0.75 green:0.75 blue:0.75 alpha:1.0] retain];
 		//_colorTable[1][8] = [[NSColor colorWithDeviceRed:1.00 green:1.00 blue:1.00 alpha:1.0] retain];
 		_colorTable[0][8] = [NSColor colorWithDeviceRed:0.75 green:0.75 blue:0.75 alpha:1.0];
@@ -275,7 +275,7 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(WLGlobalConfig);
 
 - (NSColor *)bgColorAtIndex:(int)i 
 					 hilite:(BOOL)h {
-	return [[self colorAtIndex:i hilite:h] colorWithAlphaComponent:[self colorBG].alphaComponent];
+	return [[self colorAtIndex:i hilite:h] colorWithAlphaComponent:self.colorBG.alphaComponent];
 }
 
 - (void)setColor:(NSColor *)c 
