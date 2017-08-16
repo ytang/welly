@@ -77,7 +77,7 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(WLComposePanelController);
 #pragma mark -
 #pragma mark Compose
 - (void)openComposePanelInWindow:(NSWindow *)window 
-						 forView:(NSView <NSTextInput>*)telnetView {
+						 forView:(NSView <NSTextInputClient>*)telnetView {
 	[self loadNibFile];
 	
 	// Propose a warning if necessary
@@ -130,9 +130,9 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(WLComposePanelController);
 		NSString *ansiCode = [WLAnsiColorOperationManager ansiCodeStringFromAttributedString:_composeText.textStorage 
 																			 forANSIColorKey:_telnetView.ansiColorKey];
 		
-		[_telnetView insertText:ansiCode];
+		[_telnetView insertText:ansiCode replacementRange:NSMakeRange(0, 0)];
 	} else {
-		[_telnetView insertText:_composeText.string];
+		[_telnetView insertText:_composeText.string replacementRange:NSMakeRange(0, 0)];
 	}
 	[self closeComposePanel];
 }

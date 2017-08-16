@@ -79,7 +79,7 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(WLEmoticonsPanelController);
 
 - (IBAction)inputSelectedEmoticon:(id)sender {
     [self closeEmoticonsPanel:sender];
-	if ([NSApp.keyWindow.firstResponder conformsToProtocol:@protocol(NSTextInput)]) {
+	if ([NSApp.keyWindow.firstResponder conformsToProtocol:@protocol(NSTextInputClient)]) {
 		id <NSTextInputClient> textInput = (id <NSTextInputClient>)NSApp.keyWindow.firstResponder;
 		NSArray *a = _emoticonsController.selectedObjects;
 		

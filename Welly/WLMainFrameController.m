@@ -426,9 +426,9 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(WLMainFrameController);
 
 // Open compose panel
 - (IBAction)openComposePanel:(id)sender {
-	if ([_tabView.frontMostView conformsToProtocol:@protocol(NSTextInput)])
+	if ([_tabView.frontMostView conformsToProtocol:@protocol(NSTextInputClient)])
 		[[WLComposePanelController sharedInstance] openComposePanelInWindow:_mainWindow 
-																	forView:(NSView <NSTextInput>*)_tabView.frontMostView];
+																	forView:(NSView <NSTextInputClient>*)_tabView.frontMostView];
 }
 
 // Download Post

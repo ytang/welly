@@ -853,7 +853,7 @@ BOOL isEnglishNumberAlphabet(unsigned char c) {
 
 #pragma mark -
 #pragma mark NSTextInputClient Protocol
-/* NSTextInput protocol */
+/* NSTextInputClient protocol */
 // instead of keyDown: aString can be NSString or NSAttributedString
 - (void)insertText:(id)aString replacementRange:(NSRange)replacementRange {
     [self insertText:aString withDelay:0];
