@@ -9,6 +9,7 @@
 #import <Cocoa/Cocoa.h>
 #import "CommonType.h"
 #import "WLSitesPanelController.h"
+#import "WLMouseBehaviorManager.h"
 #import "WLTermView.h"
 #import "WLTerminal.h"
 
@@ -20,7 +21,7 @@
 
 #define disableMouseByKeyingTimerInterval 0.3
 
-@interface WLTerminalView : WLTermView <NSTextInputClient, WLTerminalObserver> {
+@interface WLTerminalView : WLTermView <NSTextInputClient, WLTerminalObserver, WLContextualMenuHandler, WLMouseUpHandler> {
 	NSTimer *_timer;
 	
 	id _markedText;
@@ -49,7 +50,7 @@
 @property BOOL isMouseActive;
 @property (readonly) WLEffectView *effectView;
 
-- (BOOL)shouldWarnCompose;
+@property (NS_NONATOMIC_IOSONLY, readonly) BOOL shouldWarnCompose;
 
 - (void)copy:(id)sender;
 - (void)pasteWrap:(id)sender;
@@ -68,11 +69,11 @@
 			 height:(NSInteger)h
 			  width:(NSInteger)w;
 
-- (BOOL)shouldEnableMouse;
+@property (NS_NONATOMIC_IOSONLY, readonly) BOOL shouldEnableMouse;
 
 - (void)sendText:(NSString *)text;
 
-- (NSString *)selectedPlainString ;
+@property (NS_NONATOMIC_IOSONLY, readonly, copy) NSString *selectedPlainString ;
 //- (BOOL)hasBlinkCell ;
 
 - (void)insertText:(id)aString withDelay:(int)microsecond;
@@ -85,5 +86,5 @@
 - (void)activateMouseForKeying:(NSTimer*)timer;
 
 - (NSInteger)convertIndexFromPoint:(NSPoint)aPoint;
-- (NSPoint)mouseLocationInView;
+@property (NS_NONATOMIC_IOSONLY, readonly) NSPoint mouseLocationInView;
 @end

@@ -26,7 +26,7 @@ NSString *const WLMenuTitleAddAsFriend = @"Add %@ as friend";
 #pragma mark -
 #pragma mark Event Handle
 - (void)mouseUp:(NSEvent *)theEvent {
-	NSString *author = [_manager.activeTrackingAreaUserInfo objectForKey:WLMouseAuthorUserInfoName];
+	NSString *author = (_manager.activeTrackingAreaUserInfo)[WLMouseAuthorUserInfoName];
 	if (author == nil) {
 		return;
 	}
@@ -35,17 +35,17 @@ NSString *const WLMenuTitleAddAsFriend = @"Add %@ as friend";
 }
 
 - (void)mouseEntered:(NSEvent *)theEvent {
-	NSDictionary *userInfo = [[theEvent trackingArea] userInfo];
-	if ([_view isMouseActive]) {
-		NSString *buttonTitle = [NSString stringWithFormat:NSLocalizedString(WLButtonNameAuthorMode, @"Mouse Button"), [userInfo objectForKey:WLMouseAuthorUserInfoName]];
-		[[_view effectView] drawButton:[[theEvent trackingArea] rect] withMessage:buttonTitle];
+	NSDictionary *userInfo = theEvent.trackingArea.userInfo;
+	if (_view.isMouseActive) {
+		NSString *buttonTitle = [NSString stringWithFormat:NSLocalizedString(WLButtonNameAuthorMode, @"Mouse Button"), userInfo[WLMouseAuthorUserInfoName]];
+		[_view.effectView drawButton:theEvent.trackingArea.rect withMessage:buttonTitle];
 	}
 	_manager.activeTrackingAreaUserInfo = userInfo;
 	[[NSCursor pointingHandCursor] set];
 }
 
 - (void)mouseExited:(NSEvent *)theEvent {
-	[[_view effectView] clearButton];
+	[_view.effectView clearButton];
 	_manager.activeTrackingAreaUserInfo = nil;
 	// FIXME: Temporally solve the problem in full screen mode.
 	if ([NSCursor currentCursor] == [NSCursor pointingHandCursor])
@@ -61,21 +61,21 @@ NSString *const WLMenuTitleAddAsFriend = @"Add %@ as friend";
 #pragma mark Contextual Menu
 - (IBAction)authorInfo:(id)sender {
 	NSDictionary *userInfo = [sender representedObject];
-	NSString *author = [userInfo objectForKey:WLMouseAuthorUserInfoName];
+	NSString *author = userInfo[WLMouseAuthorUserInfoName];
 	NSString *commandSequence = [NSString stringWithFormat:FBCommandSequenceAuthorInfo, author];
 	[_view sendText:commandSequence];
 }
 
 - (IBAction)addAsFriend:(id)sender {
 	NSDictionary *userInfo = [sender representedObject];
-	NSString *author = [userInfo objectForKey:WLMouseAuthorUserInfoName];
+	NSString *author = userInfo[WLMouseAuthorUserInfoName];
 	NSString *commandSequence = [NSString stringWithFormat:FBCommandSequenceAddAuthorAsFriend, author];
 	[_view sendText:commandSequence];
 }
 
 - (NSMenu *)menuForEvent:(NSEvent *)theEvent {
 	NSMenu *menu = [[[NSMenu alloc] init] autorelease];
-	NSString *author = [_manager.activeTrackingAreaUserInfo objectForKey:WLMouseAuthorUserInfoName];
+	NSString *author = (_manager.activeTrackingAreaUserInfo)[WLMouseAuthorUserInfoName];
 	if (author == nil)
 		return nil;
 	
@@ -87,11 +87,11 @@ NSString *const WLMenuTitleAddAsFriend = @"Add %@ as friend";
 					action:@selector(addAsFriend:)
 			 keyEquivalent:@""];
 	
-	for (NSMenuItem *item in [menu itemArray]) {
-		if ([item isSeparatorItem])
+	for (NSMenuItem *item in menu.itemArray) {
+		if (item.separatorItem)
 			continue;
-		[item setTarget:self];
-		[item setRepresentedObject:_manager.activeTrackingAreaUserInfo];
+		item.target = self;
+		item.representedObject = _manager.activeTrackingAreaUserInfo;
 	}
 	return menu;
 }
@@ -104,8 +104,8 @@ NSString *const WLMenuTitleAddAsFriend = @"Add %@ as friend";
 			   length:(int)length {
 	NSRect rect = [_view rectAtRow:row column:column height:1 width:length];
 	// Generate User Info
-	NSArray *keys = [NSArray arrayWithObjects: WLMouseHandlerUserInfoName, WLMouseAuthorUserInfoName, nil];
-	NSArray *objects = [NSArray arrayWithObjects: self, author, nil];
+	NSArray *keys = @[WLMouseHandlerUserInfoName, WLMouseAuthorUserInfoName];
+	NSArray *objects = @[self, author];
 	NSDictionary *userInfo = [NSDictionary dictionaryWithObjects:objects forKeys:keys];
 	// Add into manager
 	[_trackingAreas addObject:[_manager addTrackingAreaWithRect:rect userInfo:userInfo]];
@@ -113,13 +113,13 @@ NSString *const WLMenuTitleAddAsFriend = @"Add %@ as friend";
 
 - (void)updateAuthorAreaForRow:(int)r {
 	// TODO: enable this for Maple BBS
-	if ([[_view frontMostTerminal] bbsType] == WLMaple)
+	if ([_view frontMostTerminal].bbsType == WLMaple)
 		return;
 	
 	WLTerminal *ds = [_view frontMostTerminal];
     cell *currRow = [ds cellsOfRow:r];
 	
-	if ([ds bbsState].state == BBSBrowseBoard || [ds bbsState].state == BBSMailList) {
+	if (ds.bbsState.state == BBSBrowseBoard || ds.bbsState.state == BBSMailList) {
         // browsing a board
 		// header/footer
 		if (r < 3 || r == _maxRow - 1)
@@ -180,8 +180,8 @@ NSString *const WLMenuTitleAddAsFriend = @"Add %@ as friend";
 	
 	// In the same page, do NOT update
 	WLTerminal *ds = [_view frontMostTerminal];
-	BBSState bbsState = [ds bbsState];
-	if (bbsState.state == [_manager lastBBSState].state && labs([_manager lastCursorRow] - [ds cursorRow]) == 1) {
+	BBSState bbsState = ds.bbsState;
+	if (bbsState.state == _manager.lastBBSState.state && labs(_manager.lastCursorRow - ds.cursorRow) == 1) {
 		return NO;
 	}
 	return YES;
@@ -193,7 +193,7 @@ NSString *const WLMenuTitleAddAsFriend = @"Add %@ as friend";
 		return;	
 	}
 	
-	BBSState bbsState = [[_view frontMostTerminal] bbsState];
+	BBSState bbsState = [_view frontMostTerminal].bbsState;
 	if (bbsState.state != BBSBrowseBoard && bbsState.state != BBSMailList)
 		return;
 	for (int r = 0; r < _maxRow; ++r) {

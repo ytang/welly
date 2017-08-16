@@ -20,19 +20,19 @@
 #pragma mark -
 #pragma mark Event Handler
 - (void)mouseEntered:(NSEvent *)theEvent {
-	if([_view isMouseActive]) {
-		[[_view effectView] drawIPAddrBox:[[theEvent trackingArea] rect]];
+	if(_view.isMouseActive) {
+		[_view.effectView drawIPAddrBox:theEvent.trackingArea.rect];
 	}
 }
 
 - (void)mouseExited:(NSEvent *)theEvent {
-	[[_view effectView] clearIPAddrBox];
+	[_view.effectView clearIPAddrBox];
 }
 
 #pragma mark -
 #pragma mark Generate User Info
 - (NSDictionary *)userInfo {
-	return [NSDictionary dictionaryWithObject:self forKey:WLMouseHandlerUserInfoName];
+	return @{WLMouseHandlerUserInfoName: self};
 }
 
 #pragma mark -

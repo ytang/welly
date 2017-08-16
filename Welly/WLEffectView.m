@@ -22,8 +22,8 @@
 	[CATransaction commit]
 
 @implementation WLEffectView
-- (id)initWithView:(WLTerminalView *)view {
-	self = [self initWithFrame:[view frame]];
+- (instancetype)initWithView:(WLTerminalView *)view {
+	self = [self initWithFrame:view.frame];
 	if (self) {
 		_mainView = [view retain];
 		[self setWantsLayer:YES];
@@ -31,11 +31,11 @@
 	return self;
 }
 
-- (id)initWithFrame:(NSRect)frame {
+- (instancetype)initWithFrame:(NSRect)frame {
     self = [super initWithFrame:frame];
     if (self) {
         // Initialization code here.
-		[self setFrame:frame];
+		self.frame = frame;
 		[self setWantsLayer:YES];
     }
     return self;
@@ -48,7 +48,7 @@
 		[_popUpLayer release];
 	}
 	if (_buttonLayer) {
-		[[[_buttonLayer sublayers] lastObject] removeFromSuperlayer];
+		[_buttonLayer.sublayers.lastObject removeFromSuperlayer];
 		[_buttonLayer release];
 	}
 	
@@ -58,8 +58,8 @@
 }
 
 - (void)setupLayer {
-	NSRect contentFrame = [_mainView frame];
-	[self setFrame:contentFrame];
+	NSRect contentFrame = _mainView.frame;
+	self.frame = contentFrame;
 	
     // mainLayer is the layer that gets scaled. All of its sublayers
     // are automatically scaled with it.
@@ -69,12 +69,12 @@
 		// Make the background color to be a dark gray with a 50% alpha similar to
 		// the real Dashbaord.
 		CGColorRef bgColor = CGColorCreateGenericRGB(0.0, 0.0, 0.0, 0.0);
-		[_mainLayer setBackgroundColor:bgColor];
+		_mainLayer.backgroundColor = bgColor;
 		CGColorRelease(bgColor);
 		
-		[self setLayer:_mainLayer];
+		self.layer = _mainLayer;
 	}
-    [_mainLayer setFrame:NSRectToCGRect(contentFrame)];
+    _mainLayer.frame = NSRectToCGRect(contentFrame);
 }
 
 - (void)clear {
@@ -88,7 +88,7 @@
 }
 
 - (void)resize {
-	[self setFrameSize:[_mainView frame].size];
+	[self setFrameSize:_mainView.frame.size];
 	[self setFrameOrigin:NSMakePoint(0, 0)];
 }
 
@@ -102,12 +102,12 @@
 	// Set up the box
 	CGColorRef ipAddrLayerBGColor = CGColorCreateGenericRGB(0.0, 0.95, 0.95, 0.1f);
 	CGColorRef ipAddrLayerBorderColor = CGColorCreateGenericRGB(1.0, 1.0, 1.0, 1.0f);
-	[_ipAddrLayer setBackgroundColor:ipAddrLayerBGColor];
-	[_ipAddrLayer setBorderColor:ipAddrLayerBorderColor];
+	_ipAddrLayer.backgroundColor = ipAddrLayerBGColor;
+	_ipAddrLayer.borderColor = ipAddrLayerBorderColor;
 	CGColorRelease(ipAddrLayerBGColor);
 	CGColorRelease(ipAddrLayerBorderColor);
-	[_ipAddrLayer setBorderWidth:1.4];
-	[_ipAddrLayer setCornerRadius:6.0];
+	_ipAddrLayer.borderWidth = 1.4;
+	_ipAddrLayer.cornerRadius = 6.0;
 	
     // Insert the layer into the root layer
 	[_mainLayer addSublayer:[_ipAddrLayer retain]];
@@ -123,14 +123,14 @@
 	rect.size.height += 0.0;
 	
     // Set the layer frame to the rect
-    [_ipAddrLayer setFrame:NSRectToCGRect(rect)];
+    _ipAddrLayer.frame = NSRectToCGRect(rect);
     
     // Set the opacity to make the layer appear
-	[_ipAddrLayer setOpacity:1.0f];
+	_ipAddrLayer.opacity = 1.0f;
 }
 
 - (void)clearIPAddrBox {
-	[_ipAddrLayer setOpacity:0.0f];
+	_ipAddrLayer.opacity = 0.0f;
 }
 
 #pragma mark Click Entry
@@ -138,10 +138,10 @@
 	_clickEntryLayer = [CALayer layer];
     
 	CGColorRef clickEntryLayerBGColor = CGColorCreateGenericRGB(0.0, 0.95, 0.95, 0.17f);
-	[_clickEntryLayer setBackgroundColor:clickEntryLayerBGColor];
+	_clickEntryLayer.backgroundColor = clickEntryLayerBGColor;
 	CGColorRelease(clickEntryLayerBGColor);
-	[_clickEntryLayer setBorderWidth:0];
-	[_clickEntryLayer setCornerRadius:6.0];
+	_clickEntryLayer.borderWidth = 0;
+	_clickEntryLayer.cornerRadius = 6.0;
 	
     // Insert the layer into the root layer
 	[_mainLayer addSublayer:[_clickEntryLayer retain]];
@@ -157,14 +157,14 @@
 	rect.size.height += 0.0;
 	
     // Set the layer frame to the rect
-    [_clickEntryLayer setFrame:NSRectToCGRect(rect)];
+    _clickEntryLayer.frame = NSRectToCGRect(rect);
     
     // Set the opacity to make the layer appear
-	[_clickEntryLayer setOpacity:1.0f];
+	_clickEntryLayer.opacity = 1.0f;
 }
 
 - (void)clearClickEntry {
-	[_clickEntryLayer setOpacity:0.0f];
+	_clickEntryLayer.opacity = 0.0f;
 }
 
 #pragma mark Welly Buttons
@@ -174,26 +174,26 @@
 	_buttonLayer = [CALayer layer];
 	// Set the colors of the pop-up layer
 	CGColorRef myColor = CGColorCreateGenericRGB(0.05, 0.05, 0.05, 0.9f);
-	[_buttonLayer setBackgroundColor:myColor];
+	_buttonLayer.backgroundColor = myColor;
 	CGColorRelease(myColor);
 	myColor = CGColorCreateGenericRGB(1.0, 1.0, 1.0, 0.9f);
-	[_buttonLayer setBorderColor:myColor];
+	_buttonLayer.borderColor = myColor;
 	CGColorRelease(myColor);
-	[_buttonLayer setBorderWidth:2.0];
-	[_buttonLayer setCornerRadius:10.0];
+	_buttonLayer.borderWidth = 2.0;
+	_buttonLayer.cornerRadius = 10.0;
 	
     // Create a text layer to add so we can see the messages.
     CATextLayer *textLayer = [CATextLayer layer];
 	[textLayer autorelease];
 	// Set its foreground color
 	myColor = CGColorCreateGenericRGB(1, 1, 1, 1.0f);
-    [textLayer setForegroundColor:myColor];
+    textLayer.foregroundColor = myColor;
 	CGColorRelease(myColor);
 	
 	[_buttonLayer addSublayer:[textLayer retain]];
 	
 	CATransition *buttonTrans = [CATransition new];
-	[buttonTrans setType:kCATransitionFade];
+	buttonTrans.type = kCATransitionFade;
 	[_buttonLayer addAnimation:buttonTrans forKey:kCATransition];
     [buttonTrans autorelease];
 	[_buttonLayer setHidden:YES];
@@ -208,21 +208,18 @@
 	if (!_buttonLayer)
 		[self setupButtonLayer];
 	
-	CATextLayer *textLayer = (CATextLayer *)[[_buttonLayer sublayers] lastObject];
+	CATextLayer *textLayer = (CATextLayer *)_buttonLayer.sublayers.lastObject;
 	
 	// Set the message to the text layer
-	[textLayer setString:message];
+	textLayer.string = message;
 	// Modify its styles
-	[textLayer setTruncationMode:kCATruncationEnd];
-    CGFontRef font = CGFontCreateWithFontName((CFStringRef)[[WLGlobalConfig sharedInstance] englishFontName]);
-    [textLayer setFont:font];
-	[textLayer setFontSize:[[WLGlobalConfig sharedInstance] englishFontSize] - 2];
+	textLayer.truncationMode = kCATruncationEnd;
+    CGFontRef font = CGFontCreateWithFontName((CFStringRef)[WLGlobalConfig sharedInstance].englishFontName);
+    textLayer.font = font;
+	textLayer.fontSize = [WLGlobalConfig sharedInstance].englishFontSize - 2;
 	// Here, calculate the size of the text layer
-	NSDictionary *attributes = [NSDictionary dictionaryWithObjectsAndKeys:
-								[NSFont fontWithName:[[WLGlobalConfig sharedInstance] englishFontName] 
-												size:[textLayer fontSize]], 
-								NSFontAttributeName, 
-								nil];
+	NSDictionary *attributes = @{NSFontAttributeName: [NSFont fontWithName:[WLGlobalConfig sharedInstance].englishFontName 
+												size:textLayer.fontSize]};
 	NSSize messageSize = [message sizeWithAttributes:attributes];
 	
 	// Change the size of text layer automatically
@@ -247,8 +244,8 @@
 	OMIT_IMPLIED_ANIM_BEGIN;
 	
     // Set the layer frame to our rectangle.
-	[textLayer setFrame:NSRectToCGRect(textRect)];
-    [_buttonLayer setFrame:NSRectToCGRect(finalRect)];
+	textLayer.frame = NSRectToCGRect(textRect);
+    _buttonLayer.frame = NSRectToCGRect(finalRect);
 	
 	// Now commit the animation transaction, omit all animations
 	OMIT_IMPLIED_ANIM_END;
@@ -282,23 +279,23 @@
 
 - (void)setupURLIndicatorLayer {
 	_urlIndicatorLayer = [CALayer layer];
-	[_urlIndicatorLayer setContents:(id)[self indicatorImage]];
-	[_urlIndicatorLayer setFrame:CGRectMake(0, 0, 79, 90)];
+	_urlIndicatorLayer.contents = (id)[self indicatorImage];
+	_urlIndicatorLayer.frame = CGRectMake(0, 0, 79, 90);
 	[_mainLayer addSublayer:_urlIndicatorLayer];
 }
 
 - (void)showIndicatorAtPoint:(NSPoint)point {
 	if (!_urlIndicatorLayer)
 		[self setupURLIndicatorLayer];
-	[_urlIndicatorLayer setOpacity:0.9];
-	CGRect rect = [_urlIndicatorLayer frame];
+	_urlIndicatorLayer.opacity = 0.9;
+	CGRect rect = _urlIndicatorLayer.frame;
 	rect.origin = NSPointToCGPoint(point);
-	[_urlIndicatorLayer setFrame:rect];
+	_urlIndicatorLayer.frame = rect;
 }
 
 - (void)removeIndicator {
 	if (_urlIndicatorLayer)
-		[_urlIndicatorLayer setOpacity:0.0f];
+		_urlIndicatorLayer.opacity = 0.0f;
 }
 
 #pragma mark Pop-Up Message
@@ -309,20 +306,20 @@
 	// Set the colors of the pop-up layer
 	CGColorRef popUpLayerBGColor = CGColorCreateGenericRGB(0.1, 0.1, 0.1, 0.5f);
 	CGColorRef popUpLayerBorderColor = CGColorCreateGenericRGB(1.0, 1.0, 1.0, 0.75f);
-	[_popUpLayer setBackgroundColor:popUpLayerBGColor];
-	[_popUpLayer setBorderColor:popUpLayerBorderColor];
+	_popUpLayer.backgroundColor = popUpLayerBGColor;
+	_popUpLayer.borderColor = popUpLayerBorderColor;
 	CGColorRelease(popUpLayerBGColor);
 	CGColorRelease(popUpLayerBorderColor);
-	[_popUpLayer setBorderWidth:2.0];
+	_popUpLayer.borderWidth = 2.0;
     
     // Move to proper position before shows up, avoiding moving on screen
-    NSRect rect = [self frame];
+    NSRect rect = self.frame;
 	rect.origin.x = rect.size.width / 2;
 	rect.origin.y = rect.size.height / 5;
     rect.size.width = 0;
     rect.size.height = 0;
 	
-    [_popUpLayer setFrame:NSRectToCGRect(rect)];
+    _popUpLayer.frame = NSRectToCGRect(rect);
     
 	// Set up text color/font, which would be used many times
 	_popUpLayerTextColor = CGColorCreateGenericRGB(1.0, 1.0, 1.0, 1.0f);
@@ -332,10 +329,10 @@
     CATextLayer *textLayer = [CATextLayer layer];
 	[textLayer autorelease];
 	// Set its foreground color
-    [textLayer setForegroundColor:_popUpLayerTextColor];
+    textLayer.foregroundColor = _popUpLayerTextColor;
 	// Modify its styles
-	[textLayer setTruncationMode:kCATruncationEnd];
-    [textLayer setFont:_popUpLayerTextFont];
+	textLayer.truncationMode = kCATruncationEnd;
+    textLayer.font = _popUpLayerTextFont;
 
 	[_popUpLayer addSublayer:[textLayer retain]];
 	// Insert the layer into the root layer
@@ -352,16 +349,13 @@
 		[self setupPopUpLayer];
     }	
 	
-	CATextLayer *textLayer = (CATextLayer *)[[_popUpLayer sublayers] lastObject];
+	CATextLayer *textLayer = (CATextLayer *)_popUpLayer.sublayers.lastObject;
 	
 	// Set the message to the text layer
-	[textLayer setString:message];
+	textLayer.string = message;
 	// Here, calculate the size of the text layer
-	NSDictionary *attributes = [NSDictionary dictionaryWithObjectsAndKeys:
-								[NSFont fontWithName:DEFAULT_POPUP_BOX_FONT 
-												size:textLayer.fontSize], 
-								NSFontAttributeName, 
-								nil];
+	NSDictionary *attributes = @{NSFontAttributeName: [NSFont fontWithName:DEFAULT_POPUP_BOX_FONT 
+												size:textLayer.fontSize]};
 	NSSize messageSize = [message sizeWithAttributes:attributes];
 	
 	// Change the size of text layer automatically
@@ -372,7 +366,7 @@
     // Create a new rectangle with a suitable size for the inner texts.
 	// Set it to an appropriate position of the whole view
     NSRect rect = textRect;
-	NSRect screenRect = [self frame];
+	NSRect screenRect = self.frame;
 	rect.size.height += 10;
 	rect.size.width += 50;
 	rect.origin.x = screenRect.size.width / 2 - rect.size.width / 2;
@@ -381,11 +375,11 @@
 	// Move the origin point of the message layer, so the message can be 
 	// displayed in the center of the background layer
 	textRect.origin.x += (rect.size.width - textRect.size.width) / 2.0;
-	[textLayer setFrame:NSRectToCGRect(textRect)];
+	textLayer.frame = NSRectToCGRect(textRect);
 	
     // Set the layer frame to our rectangle.
-    [_popUpLayer setFrame:NSRectToCGRect(rect)];
-	[_popUpLayer setCornerRadius:rect.size.height/5];
+    _popUpLayer.frame = NSRectToCGRect(rect);
+	_popUpLayer.cornerRadius = rect.size.height/5;
     
 	[_popUpLayer setHidden:NO];
 }

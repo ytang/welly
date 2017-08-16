@@ -18,7 +18,6 @@
 #import "WLPreviewController.h"
 #import "WLIntegerArray.h"
 #import "IPSeeker.h"
-#import "WLMouseBehaviorManager.h"
 #import "WLURLManager.h"
 #import "WLPopUpMessage.h"
 #import "WLAnsiColorOperationManager.h"
@@ -55,7 +54,7 @@ BOOL isEnglishNumberAlphabet(unsigned char c) {
 @synthesize isMouseActive = _isMouseActive;
 @synthesize effectView = _effectView;
 
-- (id)initWithFrame:(NSRect)frame {
+- (instancetype)initWithFrame:(NSRect)frame {
     if ((self = [super initWithFrame:frame])) {
         _selectionLength = 0;
         _selectionLocation = 0;
@@ -206,7 +205,7 @@ BOOL isEnglishNumberAlphabet(unsigned char c) {
 
 - (void)performPaste {
 	NSPasteboard *pb = [NSPasteboard generalPasteboard];
-	NSArray *types = [pb types];
+	NSArray *types = pb.types;
 	if ([types containsObject:NSStringPboardType]) {
 		NSString *str = [pb stringForType:NSStringPboardType];
 		//[self insertText:str withDelay:100];
@@ -216,7 +215,7 @@ BOOL isEnglishNumberAlphabet(unsigned char c) {
 
 - (void)performPasteWrap {
     NSPasteboard *pb = [NSPasteboard generalPasteboard];
-    NSArray *types = [pb types];
+    NSArray *types = pb.types;
     if (![types containsObject:NSStringPboardType]) return;
 
     NSAutoreleasePool *pool = [NSAutoreleasePool new];
@@ -229,7 +228,7 @@ BOOL isEnglishNumberAlphabet(unsigned char c) {
     for (int j = 0; j < LPADDING; j++)
         [text push_back:0x0020];
     line_width = LPADDING;
-    for (int i = 0; i < [str length]; i++) {
+    for (int i = 0; i < str.length; i++) {
         unichar c = [str characterAtIndex:i];
         if (c == 0x0020 || c == 0x0009) { // space
             for (int j = 0; j < [word size]; j++)
@@ -325,11 +324,11 @@ BOOL isEnglishNumberAlphabet(unsigned char c) {
 
 - (void)performPasteColor {
 	NSPasteboard *pb = [NSPasteboard generalPasteboard];
-	NSArray *types = [pb types];
+	NSArray *types = pb.types;
 	if ([types containsObject:ANSIColorPBoardType]) {
 		NSData *ansiCode = [WLAnsiColorOperationManager ansiCodeFromANSIColorData:[pb dataForType:ANSIColorPBoardType] 
-																  forANSIColorKey:[[[self frontMostConnection] site] ansiColorKey] 
-																		 encoding:[[[self frontMostConnection] site] encoding]];
+																  forANSIColorKey:[self frontMostConnection].site.ansiColorKey 
+																		 encoding:[self frontMostConnection].site.encoding];
 		[[self frontMostConnection] sendMessage:ansiCode];
 		return;
 	} else if ([types containsObject:NSRTFPboardType]) {
@@ -337,7 +336,7 @@ BOOL isEnglishNumberAlphabet(unsigned char c) {
 										 initWithRTF:[pb dataForType:NSRTFPboardType] 
 										 documentAttributes:nil] autorelease];
 		NSString *ansiCode = [WLAnsiColorOperationManager ansiCodeStringFromAttributedString:rtfString 
-																			 forANSIColorKey:[[[self frontMostConnection] site] ansiColorKey]];
+																			 forANSIColorKey:[self frontMostConnection].site.ansiColorKey];
 		[[self frontMostConnection] sendText:ansiCode];
 	} else {
 		[self performPaste];
@@ -384,9 +383,9 @@ BOOL isEnglishNumberAlphabet(unsigned char c) {
     if (![self isConnected]) return;
 	
     NSPasteboard *pb = [NSPasteboard generalPasteboard];
-	NSArray *typesArray = [NSArray arrayWithObject:NSPasteboardTypePDF];
+	NSArray *typesArray = @[NSPasteboardTypePDF];
 	[pb declareTypes:typesArray owner:self];
-	NSRect imageRect = [self frame];
+	NSRect imageRect = self.frame;
 	// If has selected a rectangle area, copy the image inside the rect
 	if (_hasRectangleSelected) {
 		NSRect selectedRect = [self selectedRect];
@@ -405,7 +404,7 @@ BOOL isEnglishNumberAlphabet(unsigned char c) {
 					  NSLocalizedString(@"Confirm", @"Default Button"),
 					  NSLocalizedString(@"Cancel", @"Cancel Button"),
 					  nil,
-					  [self window],
+					  self.window,
 					  self,
 					  didEndSelector,
 					  nil,
@@ -414,7 +413,7 @@ BOOL isEnglishNumberAlphabet(unsigned char c) {
 }
 
 - (BOOL)shouldWarnPaste {
-	return [[NSUserDefaults standardUserDefaults] boolForKey:WLSafePasteEnabledKeyName] && [[self frontMostTerminal] bbsState].state != BBSComposePost;
+	return [[NSUserDefaults standardUserDefaults] boolForKey:WLSafePasteEnabledKeyName] && [self frontMostTerminal].bbsState.state != BBSComposePost;
 }
 
 - (void)pasteColor:(id)sender {
@@ -452,7 +451,7 @@ BOOL isEnglishNumberAlphabet(unsigned char c) {
 }
 
 - (BOOL)validateMenuItem:(NSMenuItem *)item {
-    SEL action = [item action];
+    SEL action = item.action;
     if (action == @selector(copy:) && (![self isConnected] || _selectionLength == 0)) {
         return NO;
     } else if ((action == @selector(paste:) || 
@@ -505,23 +504,23 @@ BOOL isEnglishNumberAlphabet(unsigned char c) {
     [self hasMouseActivity];
 	
     [[self frontMostConnection] resetMessageCount];
-    [[self window] makeFirstResponder:self];
+    [self.window makeFirstResponder:self];
     if (![self isConnected]) {
 		return;
 	}
 	// Disable the mouse if we cancelled any selection
     if(labs(_selectionLength) > 0)
         _isNotCancelingSelection = NO;
-    NSPoint p = [self convertPoint:[theEvent locationInWindow] fromView:nil];
+    NSPoint p = [self convertPoint:theEvent.locationInWindow fromView:nil];
     _selectionLocation = [self convertIndexFromPoint:p];
     _selectionLength = 0;
     
-    if (([theEvent modifierFlags] & NSCommandKeyMask) == 0x00 &&
-        [theEvent clickCount] == 3) {
+    if ((theEvent.modifierFlags & NSCommandKeyMask) == 0x00 &&
+        theEvent.clickCount == 3) {
         _selectionLocation = _selectionLocation - (_selectionLocation % _maxColumn);
         _selectionLength = _maxColumn;
-    } else if (([theEvent modifierFlags] & NSCommandKeyMask) == 0x00 &&
-               [theEvent clickCount] == 2) {
+    } else if ((theEvent.modifierFlags & NSCommandKeyMask) == 0x00 &&
+               theEvent.clickCount == 2) {
 		[self selectWordAtPoint:p];
     }
     
@@ -534,7 +533,7 @@ BOOL isEnglishNumberAlphabet(unsigned char c) {
 		return;
 	}
 
-    NSPoint p = [theEvent locationInWindow];
+    NSPoint p = theEvent.locationInWindow;
     p = [self convertPoint:p fromView:nil];
     NSInteger index = [self convertIndexFromPoint:p];
     NSInteger oldValue = _selectionLength;
@@ -568,12 +567,12 @@ BOOL isEnglishNumberAlphabet(unsigned char c) {
 }
 
 - (void)swipeWithEvent:(NSEvent *)event {
-	if ([[[self frontMostTerminal] connection] isConnected]) {
+	if ([self frontMostTerminal].connection.isConnected) {
 		// For Y-Axis
-		if ([event deltaY] > 0) {
+		if (event.deltaY > 0) {
 			[self sendText:termKeyPageUp];
 			return;
-		} else if ([event deltaY] < 0) {
+		} else if (event.deltaY < 0) {
 			[self sendText:termKeyPageDown];
 			return;
 		}
@@ -653,10 +652,10 @@ BOOL isEnglishNumberAlphabet(unsigned char c) {
 		 c == NSDownArrowFunctionKey ||
 		 c == NSRightArrowFunctionKey || 
 		 c == NSLeftArrowFunctionKey)) {
-        [ds updateDoubleByteStateForRow:[ds cursorRow]];
-        if ((c == NSRightArrowFunctionKey && [ds attrAtRow:[ds cursorRow] column:[ds cursorColumn]].f.doubleByte == 1) || 
-            (c == NSLeftArrowFunctionKey && [ds cursorColumn] > 0 && [ds attrAtRow:[ds cursorRow] column:[ds cursorColumn] - 1].f.doubleByte == 2))
-            if ([[[self frontMostConnection] site] shouldDetectDoubleByte]) {
+        [ds updateDoubleByteStateForRow:ds.cursorRow];
+        if ((c == NSRightArrowFunctionKey && [ds attrAtRow:ds.cursorRow column:ds.cursorColumn].f.doubleByte == 1) || 
+            (c == NSLeftArrowFunctionKey && ds.cursorColumn > 0 && [ds attrAtRow:ds.cursorRow column:ds.cursorColumn - 1].f.doubleByte == 2))
+            if ([self frontMostConnection].site.shouldDetectDoubleByte) {
                 [[self frontMostConnection] sendBytes:arrow length:6];
                 return;
             }
@@ -669,19 +668,19 @@ BOOL isEnglishNumberAlphabet(unsigned char c) {
 		//buf[0] = buf[1] = NSBackspaceCharacter;
 		// Modified by K.O.ed: using 0x7F instead of 0x08
 		buf[0] = buf[1] = NSDeleteCharacter;
-        if ([[[self frontMostConnection] site] shouldDetectDoubleByte] &&
-            [ds cursorColumn] > 0 && [ds attrAtRow:[ds cursorRow] column:[ds cursorColumn] - 1].f.doubleByte == 2)
+        if ([self frontMostConnection].site.shouldDetectDoubleByte &&
+            ds.cursorColumn > 0 && [ds attrAtRow:ds.cursorRow column:ds.cursorColumn - 1].f.doubleByte == 2)
             [[self frontMostConnection] sendBytes:buf length:2];
         else
             [[self frontMostConnection] sendBytes:buf length:1];
         return;
 	}
 
-	[self interpretKeyEvents:[NSArray arrayWithObject:theEvent]];
+	[self interpretKeyEvents:@[theEvent]];
 }
 
 - (void)flagsChanged:(NSEvent *)event {
-	unsigned int currentFlags = [event modifierFlags];
+	unsigned int currentFlags = event.modifierFlags;
 	// For rectangle selection
 	if ((currentFlags & NSAlternateKeyMask) == NSAlternateKeyMask) {
 		_wantsRectangleSelection = YES;
@@ -798,7 +797,7 @@ BOOL isEnglishNumberAlphabet(unsigned char c) {
 }
 
 - (void)setFrame:(NSRect)frameRect {
-	[super setFrame:frameRect];
+	super.frame = frameRect;
 	[_effectView resize];
 }
 
@@ -835,15 +834,15 @@ BOOL isEnglishNumberAlphabet(unsigned char c) {
 }
 
 - (BOOL)shouldEnableMouse {
-	return [[[self frontMostConnection] site] shouldEnableMouse];
+	return [self frontMostConnection].site.shouldEnableMouse;
 }
 
 - (YLANSIColorKey)ansiColorKey {
-	return [[[self frontMostConnection] site] ansiColorKey];
+	return [self frontMostConnection].site.ansiColorKey;
 }
 
 - (BOOL)shouldWarnCompose {
-	return ([[self frontMostTerminal] bbsState].state != BBSComposePost);
+	return ([self frontMostTerminal].bbsState.state != BBSComposePost);
 }
 
 - (void) showCustomizedPopUpMessage:(NSString *) message {
@@ -862,7 +861,7 @@ BOOL isEnglishNumberAlphabet(unsigned char c) {
 
 - (void)insertText:(id)aString 
 		 withDelay:(int)microsecond {
-	if (![self frontMostConnection] || ![[self frontMostConnection] isConnected])
+	if (![self frontMostConnection] || ![self frontMostConnection].isConnected)
 		return;
 	
     NSAutoreleasePool *pool = [NSAutoreleasePool new];
@@ -909,7 +908,7 @@ BOOL isEnglishNumberAlphabet(unsigned char c) {
 		ch[4] = 0x1B; ch[5] = '['; ch[6] = '3'; ch[7] = '~';
         int len = 4;
         id ds = [self frontMostTerminal];
-        if ([[[self frontMostConnection] site] shouldDetectDoubleByte] && 
+        if ([self frontMostConnection].site.shouldDetectDoubleByte && 
             [ds cursorColumn] < (_maxColumn - 1) && 
             [ds attrAtRow:[ds cursorRow] column:[ds cursorColumn] + 1].f.doubleByte == 2)
             len += 4;
@@ -942,23 +941,23 @@ BOOL isEnglishNumberAlphabet(unsigned char c) {
 	_markedRange.location = 0;
 	_markedRange.length = [aString length];
 		
-	[_textField setString:aString];
-	[_textField setSelectedRange:selRange];
-	[_textField setMarkedRange:_markedRange];
+	_textField.string = aString;
+	_textField.selectedRange = selRange;
+	_textField.markedRange = _markedRange;
 
-	NSPoint o = NSMakePoint([ds cursorColumn] * _fontWidth, (_maxRow - 1 - [ds cursorRow]) * _fontHeight + 5.0);
+	NSPoint o = NSMakePoint(ds.cursorColumn * _fontWidth, (_maxRow - 1 - ds.cursorRow) * _fontHeight + 5.0);
 	CGFloat dy;
-	if (o.x + [_textField frame].size.width > _maxColumn * _fontWidth) 
-		o.x = _maxColumn * _fontWidth - [_textField frame].size.width;
-	if (o.y + [_textField frame].size.height > _maxRow * _fontHeight) {
-		o.y = (_maxRow - [ds cursorRow]) * _fontHeight - 5.0 - [_textField frame].size.height;
-		dy = o.y + [_textField frame].size.height;
+	if (o.x + _textField.frame.size.width > _maxColumn * _fontWidth) 
+		o.x = _maxColumn * _fontWidth - _textField.frame.size.width;
+	if (o.y + _textField.frame.size.height > _maxRow * _fontHeight) {
+		o.y = (_maxRow - ds.cursorRow) * _fontHeight - 5.0 - _textField.frame.size.height;
+		dy = o.y + _textField.frame.size.height;
 	} else {
 		dy = o.y;
 	}
 	[_textField setFrameOrigin:o];
-	[_textField setDestination:[_textField convertPoint:NSMakePoint(([ds cursorColumn] + 0.5) * _fontWidth, dy)
-											   fromView:self]];
+	_textField.destination = [_textField convertPoint:NSMakePoint((ds.cursorColumn + 0.5) * _fontWidth, dy)
+											   fromView:self];
 	[_textField setHidden:NO];
 }
 
@@ -992,7 +991,7 @@ BOOL isEnglishNumberAlphabet(unsigned char c) {
 
 // This method returns the first frame of rects for theRange in screen coordindate system.
 - (NSRect)firstRectForCharacterRange:(NSRange)theRange actualRange:(nullable NSRangePointer)actualRange {
-    return [[_textField window] convertRectToScreen:[_textField frame]];
+    return [_textField.window convertRectToScreen:_textField.frame];
 }
 
 // This method returns the index for character that is nearest to thePoint.  thPoint is in screen coordinate system.
@@ -1075,7 +1074,7 @@ BOOL isEnglishNumberAlphabet(unsigned char c) {
 		[_effectView setHidden:NO];
 		
 		// Pop up a message indicating the selected site
-		[WLPopUpMessage showPopUpMessage:[[(WLConnection *)content site] name]
+		[WLPopUpMessage showPopUpMessage:((WLConnection *)content).site.name
 								duration:1.2
 							  effectView:_effectView];
 	}
@@ -1116,7 +1115,7 @@ BOOL isEnglishNumberAlphabet(unsigned char c) {
 		if (_selectionLength != 0) {
 			return [NSNumber numberWithUnsignedInteger:_selectionLength];
 		} else {
-			return [NSNumber numberWithUnsignedInteger:[self rangeForWordAtPoint:[self mouseLocationInView]].length];
+			return @([self rangeForWordAtPoint:[self mouseLocationInView]].length);
 		}
 	}
 	return nil;
@@ -1124,31 +1123,31 @@ BOOL isEnglishNumberAlphabet(unsigned char c) {
 
 - (id)accessibilityAttributeValue:(NSString *)attribute forParameter:(id)parameter {
 	if ([attribute isEqual:NSAccessibilityRangeForPositionParameterizedAttribute]) {
-        NSPoint point = [(NSValue *)parameter pointValue];
-		point = [self convertPoint:[[self window] convertRectFromScreen:NSMakeRect(point.x, point.y, 0.0, 0.0)].origin fromView:nil];
+        NSPoint point = ((NSValue *)parameter).pointValue;
+		point = [self convertPoint:[self.window convertRectFromScreen:NSMakeRect(point.x, point.y, 0.0, 0.0)].origin fromView:nil];
 		return [NSValue valueWithRange:[self rangeForWordAtPoint:point]];
 	} else if ([attribute isEqual:NSAccessibilityStringForRangeParameterizedAttribute]) {
-		NSRange range = [(NSValue *)parameter rangeValue];
+		NSRange range = ((NSValue *)parameter).rangeValue;
 		return [[self frontMostTerminal] stringAtIndex:range.location length:range.length];
 	} else if ([attribute isEqual:NSAccessibilityRTFForRangeParameterizedAttribute]) {
-		NSRange range = [(NSValue *)parameter rangeValue];
+		NSRange range = ((NSValue *)parameter).rangeValue;
 		NSAttributedString *attrString = [[self frontMostTerminal] attributedStringAtIndex:range.location 
 																					length:range.length];
-        return [attrString RTFFromRange:NSMakeRange(0, [attrString length]) documentAttributes:@{NSDocumentTypeDocumentAttribute:NSRTFTextDocumentType}];
+        return [attrString RTFFromRange:NSMakeRange(0, attrString.length) documentAttributes:@{NSDocumentTypeDocumentAttribute:NSRTFTextDocumentType}];
 	} else if ([attribute isEqual:NSAccessibilityLineForIndexParameterizedAttribute]) {
-		NSUInteger index = [(NSNumber *)parameter unsignedIntegerValue];
-		return [NSNumber numberWithUnsignedInteger:(index/_maxColumn)];
+		NSUInteger index = ((NSNumber *)parameter).unsignedIntegerValue;
+		return @(index/_maxColumn);
 	} else if ([attribute isEqual:NSAccessibilityRangeForLineParameterizedAttribute]) {
-		NSUInteger line = [(NSNumber *)parameter unsignedIntegerValue];
+		NSUInteger line = ((NSNumber *)parameter).unsignedIntegerValue;
 		return [NSValue valueWithRange:NSMakeRange(line * _maxColumn, _maxColumn)];
 	} else if ([attribute isEqual:NSAccessibilityBoundsForRangeParameterizedAttribute]) {
-		NSRange range = [(NSValue *)parameter rangeValue];
+		NSRange range = ((NSValue *)parameter).rangeValue;
 		NSRect rect = [self rectAtRow:range.location/_maxColumn 
 							   column:range.location%_maxColumn
 							   height:1 
 								width:range.length];
 		rect = [self convertRect:rect toView:nil];
-		rect = [[self window] convertRectToScreen:rect];
+		rect = [self.window convertRectToScreen:rect];
 		return [NSValue valueWithRect:rect];
 	}
 	return nil;

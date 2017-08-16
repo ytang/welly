@@ -13,15 +13,15 @@
     NSPointerArray *_array;
 }
 
-+ integerArray;
++ (instancetype) integerArray;
 
 - (void)push_back:(NSInteger)integer;
 - (void)pop_front;
 - (NSInteger)at:(NSUInteger)index;
 - (void)set:(NSInteger)value at:(NSUInteger)index;
-- (NSInteger)front;
-- (BOOL)empty;
-- (NSUInteger)size;
+@property (NS_NONATOMIC_IOSONLY, readonly) NSInteger front;
+@property (NS_NONATOMIC_IOSONLY, readonly) BOOL empty;
+@property (NS_NONATOMIC_IOSONLY, readonly) NSUInteger size;
 - (void)clear;
 
 @end

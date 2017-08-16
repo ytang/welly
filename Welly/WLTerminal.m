@@ -28,10 +28,10 @@
 @synthesize bbsState = _bbsState;
 @synthesize connection = _connection;
 
-- (id)init {
+- (instancetype)init {
 	if (self = [super init]) {
-        _maxRow = [[WLGlobalConfig sharedInstance] row];
-		_maxColumn = [[WLGlobalConfig sharedInstance] column];
+        _maxRow = [WLGlobalConfig sharedInstance].row;
+		_maxColumn = [WLGlobalConfig sharedInstance].column;
 		_grid = (cell **)malloc(sizeof(cell *) * _maxRow);
 		_dirty = (BOOL **)malloc(sizeof(BOOL *) * _maxRow);
         int i;
@@ -187,7 +187,7 @@
             int index = (firstByte << 8) + _grid[y][x].byte - 0x8000;
             for (j = 0; j < spacebuf; j++)
                 _textBuf[bufLength++] = ' ';
-            _textBuf[bufLength++] = [WLEncoder toUnicode:index encoding:[[[self connection] site] encoding]];
+            _textBuf[bufLength++] = [WLEncoder toUnicode:index encoding:self.connection.site.encoding];
 			
             spacebuf = 0;
         }
@@ -201,10 +201,10 @@
 // Different from the method 'stringAtIndex:length'!!
 - (NSAttributedString *)attributedStringAtIndex:(NSInteger)location
 										 length:(NSInteger)length {
-	NSFont *englishFont = [NSFont fontWithName:[[WLGlobalConfig sharedInstance] englishFontName] 
-										  size:[[WLGlobalConfig sharedInstance] englishFontSize]];
-	NSFont *chineseFont = [NSFont fontWithName:[[WLGlobalConfig sharedInstance] chineseFontName]
-										  size:[[WLGlobalConfig sharedInstance] chineseFontSize]];
+	NSFont *englishFont = [NSFont fontWithName:[WLGlobalConfig sharedInstance].englishFontName 
+										  size:[WLGlobalConfig sharedInstance].englishFontSize];
+	NSFont *chineseFont = [NSFont fontWithName:[WLGlobalConfig sharedInstance].chineseFontName
+										  size:[WLGlobalConfig sharedInstance].chineseFontSize];
 	// Get twice length and then trim it to 'length' characters
 	NSString *s = [[self stringAtIndex:location length:length*2] substringToIndex:length];
 	
@@ -212,16 +212,16 @@
 	// Set all characters with english font at first
 	[attrStr addAttribute:NSFontAttributeName 
 					value:englishFont
-					range:NSMakeRange(0, [attrStr length])];
+					range:NSMakeRange(0, attrStr.length)];
 	// Fix the non-English characters' font
-	[attrStr fixFontAttributeInRange:NSMakeRange(0, [attrStr length])];
+	[attrStr fixFontAttributeInRange:NSMakeRange(0, attrStr.length)];
 	
 	// Now replace all the fixed characters' font to be Chinese Font
 	NSRange limitRange;
 	NSRange effectiveRange;
 	id attributeValue;
 	
-	limitRange = NSMakeRange(0, [attrStr length]);
+	limitRange = NSMakeRange(0, attrStr.length);
 	
 	while (limitRange.length > 0) {
 		attributeValue = [attrStr attribute:NSFontAttributeName
@@ -308,55 +308,55 @@ inline static BOOL hasAnyString(NSString *row, NSArray *array) {
 	_bbsState.subState = BBSSubStateNone;
     if (NO) {
         // just for align
-    } else if (hasAnyString(bottomLine, [NSArray arrayWithObjects:@"【  】", @"【信】", @"編輯文章", nil])) {
+    } else if (hasAnyString(bottomLine, @[@"【  】", @"【信】", @"編輯文章"])) {
         //NSLog(@"发表文章");
         _bbsState.state = BBSComposePost;
-	} else if (hasAnyString(secondLine, [NSArray arrayWithObjects:@"目前", nil])
-			   || hasAnyString(topLine, [NSArray arrayWithObjects:/*@"选单",*/ @"主功能表", @"聊天說話", @"個人設定", @"工具程式", @"網路遊樂場", @"白色恐怖", nil])) {
+	} else if (hasAnyString(secondLine, @[@"目前"])
+			   || hasAnyString(topLine, @[@"主功能表", @"聊天說話", @"個人設定", @"工具程式", @"網路遊樂場", @"白色恐怖"])) {
         //NSLog(@"主选单");
         _bbsState.state = BBSMainMenu;
-    } else if (hasAnyString(topLine, [NSArray arrayWithObjects:@"讨论区列表", @"个人定制区", @"看板列表", @"板板列表", nil])) {
+    } else if (hasAnyString(topLine, @[@"讨论区列表", @"个人定制区", @"看板列表", @"板板列表"])) {
         //NSLog(@"讨论区列表");
         _bbsState.state = BBSBoardList;
-    } else if (hasAnyString(topLine, [NSArray arrayWithObjects:@"好朋友列表", @"使用者列表", @"休閒聊天", nil])) {
+    } else if (hasAnyString(topLine, @[@"好朋友列表", @"使用者列表", @"休閒聊天"])) {
         //NSLog(@"好朋友列表");
         _bbsState.state = BBSFriendList;
-    } else if (hasAnyString(topLine, [NSArray arrayWithObjects:@"处理信笺选单", @"電子郵件", nil])) {
+    } else if (hasAnyString(topLine, @[@"处理信笺选单", @"電子郵件"])) {
         //NSLog(@"处理信笺选单");
         _bbsState.state = BBSMailMenu;
-    } else if (hasAnyString(topLine, [NSArray arrayWithObjects:@"邮件选单", nil])) {
+    } else if (hasAnyString(topLine, @[@"邮件选单"])) {
         //NSLog(@"邮件选单");
         _bbsState.state = BBSMailList;
-    } else if (hasAnyString(topLine, [NSArray arrayWithObjects:@"版主", @"板主", @"诚征版主中", @"徵求中", nil])) {
+    } else if (hasAnyString(topLine, @[@"版主", @"板主", @"诚征版主中", @"徵求中"])) {
         //NSLog(@"版面");
         _bbsState.state = BBSBrowseBoard;
 //        _bbsState.boardName = extractString(topLine, @"[", @"]");      // smth
 //        if (_bbsState.boardName == nil)
 //            _bbsState.boardName = extractString(topLine, @"《", @"》"); // ptt
-		if (hasAnyString(thirdLine, [NSArray arrayWithObject:@"一般模式"]))
+		if (hasAnyString(thirdLine, @[@"一般模式"]))
 			_bbsState.subState = BBSBrowseBoardNormalMode;
-		else if (hasAnyString(thirdLine, [NSArray arrayWithObject:@"文摘模式"]))
+		else if (hasAnyString(thirdLine, @[@"文摘模式"]))
 			_bbsState.subState = BBSBrowseBoardDigestMode;
-		else if (hasAnyString(thirdLine, [NSArray arrayWithObject:@"主题模式"]))
+		else if (hasAnyString(thirdLine, @[@"主题模式"]))
 			_bbsState.subState = BBSBrowseBoardThreadMode;
-		else if (hasAnyString(thirdLine, [NSArray arrayWithObject:@"精华模式"]))
+		else if (hasAnyString(thirdLine, @[@"精华模式"]))
 			_bbsState.subState = BBSBrowseBoardMarkMode;
-		else if (hasAnyString(thirdLine, [NSArray arrayWithObject:@"原作模式"]))
+		else if (hasAnyString(thirdLine, @[@"原作模式"]))
 			_bbsState.subState = BBSBrowseBoardOriginMode;
-		else if (hasAnyString(thirdLine, [NSArray arrayWithObject:@"作者模式"]))
+		else if (hasAnyString(thirdLine, @[@"作者模式"]))
 			_bbsState.subState = BBSBrowseBoardAuthorMode;
         //NSLog(@"%@, cursor @ row %d", _bbsState.boardName, _bbsState.cursorRow);
-    } else if (hasAnyString(bottomLine, [NSArray arrayWithObjects:@"阅读文章", @"主题阅读", @"同作者阅读", @"下面还有喔", @"瀏覽", nil])) {
+    } else if (hasAnyString(bottomLine, @[@"阅读文章", @"主题阅读", @"同作者阅读", @"下面还有喔", @"瀏覽"])) {
         //NSLog(@"阅读文章");
         _bbsState.state = BBSViewPost;
-    } else if (hasAnyString([self stringAtRow:4], [NSArray arrayWithObjects:@"个人说明档如下", @"没有个人说明档", nil])
-			   || hasAnyString([self stringAtRow:6], [NSArray arrayWithObjects:@"个人说明档如下", @"没有个人说明档", nil])) {
+    } else if (hasAnyString([self stringAtRow:4], @[@"个人说明档如下", @"没有个人说明档"])
+			   || hasAnyString([self stringAtRow:6], @[@"个人说明档如下", @"没有个人说明档"])) {
 		//NSLog(@"用户信息");
 		_bbsState.state = BBSUserInfo;
-	} else if (hasAnyString(bottomLine, [NSArray arrayWithObjects:@"[功能键]", @"[版  主]", nil])) {
+	} else if (hasAnyString(bottomLine, @[@"[功能键]", @"[版  主]"])) {
 		//NSLog(@"浏览精华区");
 		_bbsState.state = BBSBrowseExcerption;
-    } else if (hasAnyString(wholePage, [NSArray arrayWithObjects:@"按任意键继续", @"按回车键", @"按 [RETURN] 继续", @"按 ◆Enter◆ 继续", @"按 <ENTER> 继续", @"按任何键继续", @"上次连线时间为", @"按任意鍵繼續", @"請按空白鍵或是Enter繼續", nil])) {
+    } else if (hasAnyString(wholePage, @[@"按任意键继续", @"按回车键", @"按 [RETURN] 继续", @"按 ◆Enter◆ 继续", @"按 <ENTER> 继续", @"按任何键继续", @"上次连线时间为", @"按任意鍵繼續", @"請按空白鍵或是Enter繼續"])) {
 		//NSLog(@"按回车继续");
 		_bbsState.state = BBSWaitingEnter;
 	} else {
@@ -368,18 +368,18 @@ inline static BOOL hasAnyString(NSString *row, NSArray *array) {
 # pragma mark -
 # pragma mark Accessor
 - (WLEncoding)encoding {
-    return [[[self connection] site] encoding];
+    return self.connection.site.encoding;
 }
 
 - (void)setEncoding:(WLEncoding)encoding {
-    [[[self connection] site] setEncoding:encoding];
+    self.connection.site.encoding = encoding;
 }
 
 - (void)setConnection:(WLConnection *)value {
     _connection = value;
 	// FIXME: BBS type is temoprarily determined by the ansi color key.
 	// remove #import "YLSite.h" when fixed.
-	[self setBbsType:[[_connection site] encoding] == WLBig5Encoding ? WLMaple : WLFirebird];
+	self.bbsType = _connection.site.encoding == WLBig5Encoding ? WLMaple : WLFirebird;
 }
 
 #pragma mark -

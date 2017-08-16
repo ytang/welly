@@ -301,6 +301,7 @@
 		9CC8E75B1F42C83200737A3E /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		9CC8E75D1F42C88E00737A3E /* System.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = System.framework; path = /System/Library/Frameworks/System.framework; sourceTree = "<absolute>"; };
 		9CC8E75F1F42C8A700737A3E /* IOKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = IOKit.framework; path = System/Library/Frameworks/IOKit.framework; sourceTree = SDKROOT; };
+		9CE63CBC1F43FB1F00712447 /* WLFullScreenProcessor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLFullScreenProcessor.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -541,6 +542,7 @@
 		9C76A27E1F42B74A0044F830 /* Fullscreen */ = {
 			isa = PBXGroup;
 			children = (
+				9CE63CBC1F43FB1F00712447 /* WLFullScreenProcessor.h */,
 				9C76A2A11F42B7C60044F830 /* WLPresentationController.h */,
 				9C76A2A21F42B7C60044F830 /* WLPresentationController.m */,
 			);

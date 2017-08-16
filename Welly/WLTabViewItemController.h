@@ -13,5 +13,5 @@
 }
 // Get a controller with dummy content
 + (WLTabViewItemController *)emptyTabViewItemController;
-- (id)initWithContent:(id)content;
+- (instancetype)initWithContent:(id)content;
 @end

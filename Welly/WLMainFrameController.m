@@ -14,9 +14,6 @@
 #import "WLConnection.h"
 #import "WLSite.h"
 
-// Views
-#import "WLTabView.h"
-
 // Panel Controllers
 #import "WLSitesPanelController.h"
 #import "WLEmoticonsPanelController.h"
@@ -56,12 +53,12 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(WLMainFrameController);
     // Register URL
     [[NSAppleEventManager sharedAppleEventManager] setEventHandler:self andSelector:@selector(getUrl:withReplyEvent:) forEventClass:kInternetEventClass andEventID:kAEGetURL];
     
-    NSArray *observeKeys = [NSArray arrayWithObjects:@"shouldSmoothFonts", @"showHiddenText", @"messageCount", @"cellWidth", @"cellHeight", @"cellSize",
+    NSArray *observeKeys = @[@"shouldSmoothFonts", @"showHiddenText", @"messageCount", @"cellWidth", @"cellHeight", @"cellSize",
                             @"chineseFontName", @"chineseFontSize", @"chineseFontPaddingLeft", @"chineseFontPaddingBottom",
                             @"englishFontName", @"englishFontSize", @"englishFontPaddingLeft", @"englishFontPaddingBottom", 
                             @"colorBlack", @"colorBlackHilite", @"colorRed", @"colorRedHilite", @"colorGreen", @"colorGreenHilite",
                             @"colorYellow", @"colorYellowHilite", @"colorBlue", @"colorBlueHilite", @"colorMagenta", @"colorMagentaHilite", 
-                            @"colorCyan", @"colorCyanHilite", @"colorWhite", @"colorWhiteHilite", @"colorBG", @"colorBGHilite", nil];
+                            @"colorCyan", @"colorCyanHilite", @"colorWhite", @"colorWhiteHilite", @"colorBG", @"colorBGHilite"];
     for (NSString *key in observeKeys)
         [[WLGlobalConfig sharedInstance] addObserver:self
                                            forKeyPath:key
@@ -70,8 +67,8 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(WLMainFrameController);
 
 	[self initializeTabControl];
     // Trigger the KVO to update the information properly.
-    [[WLGlobalConfig sharedInstance] setShowsHiddenText:[[WLGlobalConfig sharedInstance] showsHiddenText]];
-    [[WLGlobalConfig sharedInstance] setCellWidth:[[WLGlobalConfig sharedInstance] cellWidth]];
+    [WLGlobalConfig sharedInstance].showsHiddenText = [WLGlobalConfig sharedInstance].showsHiddenText;
+    [WLGlobalConfig sharedInstance].cellWidth = [WLGlobalConfig sharedInstance].cellWidth;
 
     //[_mainWindow setHasShadow:YES];
     [_mainWindow setOpaque:NO];
@@ -84,14 +81,14 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(WLMainFrameController);
 	// FIXME: Remove this controller
 	// For full screen, initiallize the full screen controller
 	_presentationModeController = [[WLPresentationController alloc] initWithTargetView:_tabView
-																	 superView:[_tabView superview] 
+																	 superView:_tabView.superview 
 																originalWindow:_mainWindow];
 	
 	// Set up color panel
 	[[NSUserDefaults standardUserDefaults] setObject:@"1Welly" forKey:@"NSColorPickerPageableNameListDefaults"];
     WLGlobalConfig *config = [WLGlobalConfig sharedInstance];
 	NSColorPanel *colorPanel = [NSColorPanel sharedColorPanel];
-    [colorPanel setMode:NSColorListModeColorPanel];
+    colorPanel.mode = NSColorListModeColorPanel;
     NSColorList *colorList = [[NSColorList alloc] initWithName:@"Welly"];
     [colorList insertColor:[config colorBlack] key:NSLocalizedString(@"Black", @"Color") atIndex:0];
     [colorList insertColor:[config colorRed] key:NSLocalizedString(@"Red", @"Color") atIndex:1];
@@ -128,40 +125,40 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(WLMainFrameController);
 #pragma mark Update Menus
 - (void)updateEncodingMenu {
     // update encoding menu status
-    NSMenu *m = [_encodingMenuItem submenu];
-    for (int i = 0; i < [m numberOfItems]; i++) {
+    NSMenu *m = _encodingMenuItem.submenu;
+    for (int i = 0; i < m.numberOfItems; i++) {
         NSMenuItem *item = [m itemAtIndex:i];
-        [item setState:NSOffState];
+        item.state = NSOffState;
     }
     if (![_tabView frontMostTerminal])
         return;
-    WLEncoding currentEncoding = [[_tabView frontMostTerminal] encoding];
+    WLEncoding currentEncoding = [_tabView frontMostTerminal].encoding;
     if (currentEncoding == WLBig5Encoding)
-        [[m itemAtIndex:1] setState:NSOnState];
+        [m itemAtIndex:1].state = NSOnState;
     if (currentEncoding == WLGBKEncoding)
-        [[m itemAtIndex:0] setState:NSOnState];
+        [m itemAtIndex:0].state = NSOnState;
 }
 
 - (void)updateSitesMenuWithSites:(NSArray *)sites {
 	// Update Sites Menus
-	NSInteger total = [[_sitesMenu submenu] numberOfItems];
+	NSInteger total = _sitesMenu.submenu.numberOfItems;
     NSInteger i = total - 1;
     // search the last seperator from the bottom
     for (; i > 0; i--)
-        if ([[[_sitesMenu submenu] itemAtIndex:i] isSeparatorItem])
+        if ([_sitesMenu.submenu itemAtIndex:i].separatorItem)
             break;
 	
     // then remove all menuitems below it, since we need to refresh the site menus
     ++i;
     for (NSInteger j = i; j < total; j++) {
-        [[_sitesMenu submenu] removeItemAtIndex:i];
+        [_sitesMenu.submenu removeItemAtIndex:i];
     }
     
     // Now add items of site one by one
     for (WLSite *s in sites) {
-        NSMenuItem *menuItem = [[NSMenuItem alloc] initWithTitle:[s name] ?: @"" action:@selector(openSiteMenu:) keyEquivalent:@""];
-        [menuItem setRepresentedObject:s];
-        [[_sitesMenu submenu] addItem:menuItem];
+        NSMenuItem *menuItem = [[NSMenuItem alloc] initWithTitle:s.name ?: @"" action:@selector(openSiteMenu:) keyEquivalent:@""];
+        menuItem.representedObject = s;
+        [_sitesMenu.submenu addItem:menuItem];
         [menuItem release];
     }	
 }
@@ -173,13 +170,13 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(WLMainFrameController);
 - (void)antiIdle:(NSTimer *)timer {
     if (![[NSUserDefaults standardUserDefaults] boolForKey:@"AntiIdle"]) 
 		return;
-    NSArray *a = [_tabView tabViewItems];
+    NSArray *a = _tabView.tabViewItems;
     for (NSTabViewItem *item in a) {
-        WLConnection *connection = [[item identifier] content];
+        WLConnection *connection = [item.identifier content];
         if ([connection isKindOfClass:[WLConnection class]] &&
-            [connection isConnected] &&
-            [connection lastTouchDate] &&
-            [[NSDate date] timeIntervalSinceDate:[connection lastTouchDate]] >= 119) {
+            connection.isConnected &&
+            connection.lastTouchDate &&
+            [[NSDate date] timeIntervalSinceDate:connection.lastTouchDate] >= 119) {
 //            unsigned char msg[] = {0x1B, 'O', 'A', 0x1B, 'O', 'B'};
             unsigned char msg[] = {0x00, 0x00, 0x00, 0x00, 0x00, 0x00};
             [connection sendBytes:msg length:6];
@@ -192,18 +189,18 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(WLMainFrameController);
 
     WLConnection *connection = [[WLConnection alloc] initWithSite:site];
 	
-	[_tabView newTabWithConnection:connection label:[site name]];
+	[_tabView newTabWithConnection:connection label:site.name];
 	// We can release it since it is retained by the tab view item
 	[connection release];
 	// Set the view to be focused.
 	[_mainWindow makeFirstResponder:[_tabView frontMostView]];
 	
     [self updateEncodingMenu];
-    [_detectDoubleByteButton setState:[site shouldDetectDoubleByte] ? NSOnState : NSOffState];
-    [_detectDoubleByteMenuItem setState:[site shouldDetectDoubleByte] ? NSOnState : NSOffState];
-    [_autoReplyButton setState:[site shouldAutoReply] ? NSOnState : NSOffState];
-    [_autoReplyMenuItem setState:[site shouldAutoReply] ? NSOnState : NSOffState];
-    [_mouseButton setState:[site shouldEnableMouse] ? NSOnState : NSOffState];
+    [_detectDoubleByteButton setState:site.shouldDetectDoubleByte ? NSOnState : NSOffState];
+    _detectDoubleByteMenuItem.state = site.shouldDetectDoubleByte ? NSOnState : NSOffState;
+    [_autoReplyButton setState:site.shouldAutoReply ? NSOnState : NSOffState];
+    _autoReplyMenuItem.state = site.shouldAutoReply ? NSOnState : NSOffState;
+    [_mouseButton setState:site.shouldEnableMouse ? NSOnState : NSOffState];
 
     [pool release];
 }
@@ -215,31 +212,31 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(WLMainFrameController);
                         change:(NSDictionary *)change
                        context:(void *)context {
     if ([keyPath isEqualToString:@"showHiddenText"]) {
-        if ([[WLGlobalConfig sharedInstance] showsHiddenText]) 
-            [_showHiddenTextMenuItem setState:NSOnState];
+        if ([WLGlobalConfig sharedInstance].showsHiddenText) 
+            _showHiddenTextMenuItem.state = NSOnState;
         else
-            [_showHiddenTextMenuItem setState:NSOffState];        
+            _showHiddenTextMenuItem.state = NSOffState;        
     } else if ([keyPath isEqualToString:@"messageCount"]) {
-        NSDockTile *dockTile = [NSApp dockTile];
-        if ([[WLGlobalConfig sharedInstance] messageCount] == 0) {
+        NSDockTile *dockTile = NSApp.dockTile;
+        if ([WLGlobalConfig sharedInstance].messageCount == 0) {
             [dockTile setBadgeLabel:nil];
         } else {
-            [dockTile setBadgeLabel:[NSString stringWithFormat:@"%ld", (long)[[WLGlobalConfig sharedInstance] messageCount]]];
+            dockTile.badgeLabel = [NSString stringWithFormat:@"%ld", (long)[WLGlobalConfig sharedInstance].messageCount];
         }
         [dockTile display];
     } else if ([keyPath isEqualToString:@"shouldSmoothFonts"]) {
     } else if ([keyPath hasPrefix:@"cell"]) {
         WLGlobalConfig *config = [WLGlobalConfig sharedInstance];
-        NSRect r = [_mainWindow frame];
+        NSRect r = _mainWindow.frame;
         CGFloat topLeftCorner = r.origin.y + r.size.height;
 
         CGFloat shift = 0.0;
 
         // Calculate the toolbar height
-        shift = NSHeight([_mainWindow frame]) - NSHeight([[_mainWindow contentView] frame]) + 22;
+        shift = NSHeight(_mainWindow.frame) - NSHeight(_mainWindow.contentView.frame) + 22;
 
-        r.size.width = [config cellWidth] * [config column];
-        r.size.height = [config cellHeight] * [config row] + shift;
+        r.size.width = config.cellWidth * config.column;
+        r.size.height = config.cellHeight * config.row + shift;
         r.origin.y = topLeftCorner - r.size.height;
         [_mainWindow setFrame:r display:YES animate:NO];
 
@@ -262,11 +259,11 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(WLMainFrameController);
 }
 
 - (void)saveLastConnections {
-    NSInteger tabNumber = [_tabView numberOfTabViewItems];
+    NSInteger tabNumber = _tabView.numberOfTabViewItems;
     NSInteger i;
     NSMutableArray *a = [NSMutableArray array];
     for (i = 0; i < tabNumber; i++) {
-        id connection = [[[_tabView tabViewItemAtIndex:i] identifier] content];
+        id connection = [[_tabView tabViewItemAtIndex:i].identifier content];
         if ([connection isKindOfClass:[WLConnection class]] && ![[connection site] isDummy]) // not empty tab
             [a addObject:[[connection site] dictionaryOfSite]];
     }
@@ -280,9 +277,9 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(WLMainFrameController);
     BOOL ddb = [sender state];
     if ([sender isKindOfClass:[NSMenuItem class]])
         ddb = !ddb;
-    [[[_tabView frontMostConnection] site] setShouldDetectDoubleByte:ddb];
+    [_tabView frontMostConnection].site.shouldDetectDoubleByte = ddb;
     [_detectDoubleByteButton setState:(ddb ? NSOnState : NSOffState)];
-    [_detectDoubleByteMenuItem setState:(ddb ? NSOnState : NSOffState)];
+    _detectDoubleByteMenuItem.state = (ddb ? NSOnState : NSOffState);
 }
 
 - (IBAction)toggleAutoReply:(id)sender {
@@ -291,17 +288,17 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(WLMainFrameController);
 		ar = !ar;
 	// set the state of the button and menuitem
 	[_autoReplyButton setState: ar ? NSOnState : NSOffState];
-	[_autoReplyMenuItem setState: ar ? NSOnState : NSOffState];
-	if (!ar && ar != [[[_tabView frontMostConnection] site] shouldAutoReply]) {
+	_autoReplyMenuItem.state = ar ? NSOnState : NSOffState;
+	if (!ar && ar != [_tabView frontMostConnection].site.shouldAutoReply) {
 		// when user is to close auto reply, 
-		if ([[[_tabView frontMostConnection] messageDelegate] unreadCount] > 0) {
+		if ([_tabView frontMostConnection].messageDelegate.unreadCount > 0) {
 			// we should inform him with the unread messages
-			[[[_tabView frontMostConnection] messageDelegate] showUnreadMessagesOnTextView:_unreadMessageTextView];
+			[[_tabView frontMostConnection].messageDelegate showUnreadMessagesOnTextView:_unreadMessageTextView];
 			[_messageWindow makeKeyAndOrderFront:self];
 		}
 	}
 	
-	[[[_tabView frontMostConnection] site] setShouldAutoReply:ar];
+	[_tabView frontMostConnection].site.shouldAutoReply = ar;
 }
 
 - (IBAction)toggleMouseAction:(id)sender {
@@ -313,7 +310,7 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(WLMainFrameController);
         state = !state;
     [_mouseButton setState:(state ? NSOnState : NSOffState)];
 	
-	[[[_tabView frontMostConnection] site] setShouldEnableMouse:state];
+	[_tabView frontMostConnection].site.shouldEnableMouse = state;
 
 	// Post a notification to inform observers the site has changed the mouse enable preference
 	[[NSNotificationCenter defaultCenter] postNotificationName:WLNotificationSiteDidChangeShouldEnableMouse
@@ -326,8 +323,8 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(WLMainFrameController);
         show = !show;
     }
 	
-	[_showHiddenTextMenuItem setState:show];
-    [[WLGlobalConfig sharedInstance] setShowsHiddenText:show];
+	_showHiddenTextMenuItem.state = show;
+    [WLGlobalConfig sharedInstance].showsHiddenText = show;
 }
 
 - (IBAction)closeMessageWindow:(id)sender {
@@ -342,7 +339,7 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(WLMainFrameController);
 		if ([[sender title] rangeOfString:@"Big5"].location != NSNotFound)
 			encoding = WLBig5Encoding;
 		
-        [[[_tabView frontMostConnection] site] setEncoding:encoding];
+        [_tabView frontMostConnection].site.encoding = encoding;
 		[[NSNotificationCenter defaultCenter] postNotificationName:WLNotificationSiteDidChangeEncoding 
 															object:self];
         [self updateEncodingMenu];
@@ -351,16 +348,16 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(WLMainFrameController);
 
 - (IBAction)connectLocation:(id)sender {
 	[sender abortEditing];
-	[[_tabView window] makeFirstResponder:_tabView];
+	[_tabView.window makeFirstResponder:_tabView];
     BOOL ssh = NO;
     
     NSString *name = [sender stringValue];
-    if ([[name lowercaseString] hasPrefix:@"ssh://"]) 
+    if ([name.lowercaseString hasPrefix:@"ssh://"]) 
         ssh = YES;
 //        name = [name substringFromIndex: 6];
-    if ([[name lowercaseString] hasPrefix:@"telnet://"])
+    if ([name.lowercaseString hasPrefix:@"telnet://"])
         name = [name substringFromIndex: 9];
-    if ([[name lowercaseString] hasPrefix:@"bbs://"])
+    if ([name.lowercaseString hasPrefix:@"bbs://"])
         name = [name substringFromIndex: 6];
     
     NSMutableArray *matchedSites = [NSMutableArray array];
@@ -369,37 +366,37 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(WLMainFrameController);
         
     if ([name rangeOfString:@"."].location != NSNotFound) { /* Normal address */        
         for (WLSite *site in sites) 
-            if ([[site address] rangeOfString:name].location != NSNotFound && !(ssh ^ [[site address] hasPrefix:@"ssh://"])) 
+            if ([site.address rangeOfString:name].location != NSNotFound && !(ssh ^ [site.address hasPrefix:@"ssh://"])) 
                 [matchedSites addObject:site];
-        if ([matchedSites count] > 0) {
-            [matchedSites sortUsingDescriptors:[NSArray arrayWithObject:[[[NSSortDescriptor alloc] initWithKey:@"address.length" ascending:YES] autorelease]]];
-            s = [[[matchedSites objectAtIndex:0] copy] autorelease];
+        if (matchedSites.count > 0) {
+            [matchedSites sortUsingDescriptors:@[[[[NSSortDescriptor alloc] initWithKey:@"address.length" ascending:YES] autorelease]]];
+            s = [[matchedSites[0] copy] autorelease];
         } else {
             s = [WLSite site];
-            [s setAddress:name];
-            [s setName:name];
+            s.address = name;
+            s.name = name;
         }
     } else { /* Short Address? */
         for (WLSite *site in sites) 
-            if ([[site name] rangeOfString:name].location != NSNotFound) 
+            if ([site.name rangeOfString:name].location != NSNotFound) 
                 [matchedSites addObject:site];
-        [matchedSites sortUsingDescriptors: [NSArray arrayWithObject:[[[NSSortDescriptor alloc] initWithKey:@"name.length" ascending:YES] autorelease]]];
-        if ([matchedSites count] == 0) {
+        [matchedSites sortUsingDescriptors: @[[[[NSSortDescriptor alloc] initWithKey:@"name.length" ascending:YES] autorelease]]];
+        if (matchedSites.count == 0) {
             for (WLSite *site in sites) 
-                if ([[site address] rangeOfString:name].location != NSNotFound)
+                if ([site.address rangeOfString:name].location != NSNotFound)
                     [matchedSites addObject:site];
-            [matchedSites sortUsingDescriptors:[NSArray arrayWithObject:[[[NSSortDescriptor alloc] initWithKey:@"address.length" ascending:YES] autorelease]]];
+            [matchedSites sortUsingDescriptors:@[[[[NSSortDescriptor alloc] initWithKey:@"address.length" ascending:YES] autorelease]]];
         } 
-        if ([matchedSites count] > 0) {
-            s = [[[matchedSites objectAtIndex:0] copy] autorelease];
+        if (matchedSites.count > 0) {
+            s = [[matchedSites[0] copy] autorelease];
         } else {
             s = [WLSite site];
-            [s setAddress:[sender stringValue]];
-            [s setName:name];
+            s.address = [sender stringValue];
+            s.name = name;
         }
     }
     [self newConnectionWithSite:s];
-    [sender setStringValue:[s address]];
+    [sender setStringValue:s.address];
 }
 
 - (IBAction)openLocation:(id)sender {
@@ -411,14 +408,14 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(WLMainFrameController);
 }
 
 - (IBAction)addCurrentSite:(id)sender {
-    if ([_tabView numberOfTabViewItems] == 0) return;
-    NSString *address = [[[_tabView frontMostConnection] site] address];
+    if (_tabView.numberOfTabViewItems == 0) return;
+    NSString *address = [_tabView frontMostConnection].site.address;
     
     for (WLSite *s in [WLSitesPanelController sites])
-        if ([[s address] isEqualToString:address]) 
+        if ([s.address isEqualToString:address]) 
             return;
     
-    WLSite *site = [[_tabView frontMostConnection] site];
+    WLSite *site = [_tabView frontMostConnection].site;
     [[WLSitesPanelController sharedInstance] openSitesPanelInWindow:_mainWindow 
 														 andAddSite:site];
 }
@@ -441,7 +438,7 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(WLMainFrameController);
 }
 
 - (BOOL)shouldReconnect {
-	if (![[_tabView frontMostConnection] isConnected]) return YES;
+	if (![_tabView frontMostConnection].isConnected) return YES;
     if (![[NSUserDefaults standardUserDefaults] boolForKey:WLConfirmOnCloseEnabledKeyName]) return YES;
     NSBeginAlertSheet(NSLocalizedString(@"Are you sure you want to reconnect?", @"Sheet Title"), 
                       NSLocalizedString(@"Confirm", @"Default Button"), 
@@ -464,7 +461,7 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(WLMainFrameController);
 }
 
 - (IBAction)reconnect:(id)sender {
-    if (![[_tabView frontMostConnection] isConnected] || ![[NSUserDefaults standardUserDefaults] boolForKey:WLConfirmOnCloseEnabledKeyName]) {
+    if (![_tabView frontMostConnection].isConnected || ![[NSUserDefaults standardUserDefaults] boolForKey:WLConfirmOnCloseEnabledKeyName]) {
 		[[_tabView frontMostConnection] reconnect];
         return;
     }
@@ -496,17 +493,17 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(WLMainFrameController);
         action == @selector(reconnect:) ||
 		action == @selector(setEncoding:)) {
 		if (![_tabView frontMostConnection] ||
-			[[[_tabView frontMostConnection] site] isDummy])
+			[[_tabView frontMostConnection].site isDummy])
 			return NO;
 	} else if (action == @selector(selectNextTab:) ||
 			   action == @selector(selectPrevTab:)) {
-		if ([_tabView numberOfTabViewItems] == 0)
+		if (_tabView.numberOfTabViewItems == 0)
 			return NO;
 	} else if (action == @selector(toggleMouseAction:) ||
 			   action == @selector(downloadPost:) ||
 			   action == @selector(openComposePanel:)) {
 		if (![_tabView frontMostConnection] ||
-			![[_tabView frontMostConnection] isConnected]) {
+			![_tabView frontMostConnection].isConnected) {
 			return NO;
 		}
 	} else if (action == @selector(togglePresentationMode:)) {
@@ -527,11 +524,11 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(WLMainFrameController);
 
 - (BOOL)validateToolbarItem:(NSToolbarItem *)theItem {
 	// TODO: this is not working. We need to set the toolbar items' enable or not manually.
-	return [self validateAction:[theItem action]];
+	return [self validateAction:theItem.action];
 }
 
 - (BOOL)validateMenuItem:(NSMenuItem *)menuItem {
-	return [self validateAction:[menuItem action]];
+	return [self validateAction:menuItem.action];
 }
 
 - (BOOL)applicationShouldHandleReopen:(id)s 
@@ -554,10 +551,10 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(WLMainFrameController);
     if (![[NSUserDefaults standardUserDefaults] boolForKey:WLConfirmOnCloseEnabledKeyName]) 
         return YES;
     
-    NSInteger tabNumber = [_tabView numberOfTabViewItems];
+    NSInteger tabNumber = _tabView.numberOfTabViewItems;
 	NSInteger connectedConnection = 0;
     for (NSInteger i = 0; i < tabNumber; i++) {
-        id connection = [[[_tabView tabViewItemAtIndex:i] identifier] content];
+        id connection = [[_tabView tabViewItemAtIndex:i].identifier content];
         if ([connection isKindOfClass:[WLConnection class]] && [connection isConnected])
             ++connectedConnection;
     }
@@ -603,20 +600,20 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(WLMainFrameController);
 
 - (void)windowDidBecomeKey:(NSNotification *)notification {
 	// TODO:[_telnetView deactivateMouseForKeying];
-    [_closeWindowMenuItem setKeyEquivalentModifierMask:NSCommandKeyMask|NSShiftKeyMask];
-    [_closeTabMenuItem setKeyEquivalent:@"w"];
+    _closeWindowMenuItem.keyEquivalentModifierMask = NSCommandKeyMask|NSShiftKeyMask;
+    _closeTabMenuItem.keyEquivalent = @"w";
 }
 
 - (void)windowDidResignKey:(NSNotification *)notification {
-    [_closeWindowMenuItem setKeyEquivalentModifierMask:NSCommandKeyMask];
-    [_closeTabMenuItem setKeyEquivalent:@""];
+    _closeWindowMenuItem.keyEquivalentModifierMask = NSCommandKeyMask;
+    _closeTabMenuItem.keyEquivalent = @"";
 }
 
 - (void)getUrl:(NSAppleEventDescriptor *)event 
 withReplyEvent:(NSAppleEventDescriptor *)replyEvent {
-	NSString *url = [[event paramDescriptorForKeyword:keyDirectObject] stringValue];
+	NSString *url = [event paramDescriptorForKeyword:keyDirectObject].stringValue;
 	// now you can create an NSURL and grab the necessary parts
-    if ([[url lowercaseString] hasPrefix:@"bbs://"])
+    if ([url.lowercaseString hasPrefix:@"bbs://"])
         url = [url substringFromIndex:6];
     [_addressBar setStringValue:url];
     [self connectLocation:_addressBar];
@@ -638,8 +635,7 @@ withReplyEvent:(NSAppleEventDescriptor *)replyEvent {
 
 - (IBAction)togglePresentationMode:(id)sender {
 	[_presentationModeController togglePresentationMode];
-	[_presentationModeMenuItem setTitle:
-	 _presentationModeController.isInPresentationMode ? NSLocalizedString(@"Exit Presentation Mode", "Presentation Mode") : NSLocalizedString(@"Enter Presentation Mode", "Presentaion Mode")];
+	_presentationModeMenuItem.title = _presentationModeController.isInPresentationMode ? NSLocalizedString(@"Exit Presentation Mode", "Presentation Mode") : NSLocalizedString(@"Enter Presentation Mode", "Presentaion Mode");
 }
 
 - (void)exitPresentationMode {
@@ -677,7 +673,7 @@ withReplyEvent:(NSAppleEventDescriptor *)replyEvent {
                       @"Please pay attention to our future versions. Thanks for your cooperation.");
     return;
     // TODO: uncomment the following code to enable RSS mode.
-    if (![_tabView frontMostConnection] || ![[_tabView frontMostConnection] isConnected]) return;
+    if (![_tabView frontMostConnection] || ![_tabView frontMostConnection].isConnected) return;
     if (!_rssThread) {
         [NSThread detachNewThreadSelector:@selector(fetchFeed) toTarget:self withObject:nil];
         NSBeginAlertSheet(@"Welly is now working in RSS mode. (Experimental)",
@@ -697,7 +693,7 @@ withReplyEvent:(NSAppleEventDescriptor *)replyEvent {
               returnCode:(int)returnCode
              contextInfo:(void *)contextInfo {
     if (_rssThread) {
-        [[_rssThread threadDictionary] setValue:[NSNumber numberWithBool:YES] forKey:@"ThreadShouldExitNow"];
+        [_rssThread.threadDictionary setValue:@YES forKey:@"ThreadShouldExitNow"];
         _rssThread = nil;
     }
 }

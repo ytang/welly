@@ -11,11 +11,11 @@
 
 @implementation WLIntegerArray
 
-+ integerArray {
++ (instancetype) integerArray {
     return [[[WLIntegerArray alloc] init] autorelease];
 }
 
-- (id)init {
+- (instancetype)init {
     if (self = [super init]) {
         [self clear];
     }
@@ -48,11 +48,11 @@
 }
 
 - (BOOL)empty {
-    return [_array count] == 0;
+    return _array.count == 0;
 }
 
 - (NSUInteger)size {
-    return [_array count];
+    return _array.count;
 }
 
 - (void)clear {

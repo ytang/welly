@@ -49,48 +49,48 @@ const char* AppleRemoteDeviceName = "AppleIRController";
 - (void) setCookieMappingInDictionary: (NSMutableDictionary*) _cookieToButtonMapping	{	
 	if (floor(NSAppKitVersionNumber) <= NSAppKitVersionNumber10_4) {
 		// 10.4.x Tiger
-		[_cookieToButtonMapping setObject:[NSNumber numberWithInt:kRemoteButtonPlus]		forKey:@"14_12_11_6_"];
-		[_cookieToButtonMapping setObject:[NSNumber numberWithInt:kRemoteButtonMinus]		forKey:@"14_13_11_6_"];		
-		[_cookieToButtonMapping setObject:[NSNumber numberWithInt:kRemoteButtonMenu]		forKey:@"14_7_6_14_7_6_"];			
-		[_cookieToButtonMapping setObject:[NSNumber numberWithInt:kRemoteButtonPlay]		forKey:@"14_8_6_14_8_6_"];
-		[_cookieToButtonMapping setObject:[NSNumber numberWithInt:kRemoteButtonRight]		forKey:@"14_9_6_14_9_6_"];
-		[_cookieToButtonMapping setObject:[NSNumber numberWithInt:kRemoteButtonLeft]		forKey:@"14_10_6_14_10_6_"];
-		[_cookieToButtonMapping setObject:[NSNumber numberWithInt:kRemoteButtonRight_Hold]	forKey:@"14_6_4_2_"];
-		[_cookieToButtonMapping setObject:[NSNumber numberWithInt:kRemoteButtonLeft_Hold]	forKey:@"14_6_3_2_"];
-		[_cookieToButtonMapping setObject:[NSNumber numberWithInt:kRemoteButtonMenu_Hold]	forKey:@"14_6_14_6_"];
-		[_cookieToButtonMapping setObject:[NSNumber numberWithInt:kRemoteButtonPlay_Hold]	forKey:@"18_14_6_18_14_6_"];
-		[_cookieToButtonMapping setObject:[NSNumber numberWithInt:kRemoteControl_Switched]	forKey:@"19_"];			
+		_cookieToButtonMapping[@"14_12_11_6_"] = @(kRemoteButtonPlus);
+		_cookieToButtonMapping[@"14_13_11_6_"] = @(kRemoteButtonMinus);		
+		_cookieToButtonMapping[@"14_7_6_14_7_6_"] = @(kRemoteButtonMenu);			
+		_cookieToButtonMapping[@"14_8_6_14_8_6_"] = @(kRemoteButtonPlay);
+		_cookieToButtonMapping[@"14_9_6_14_9_6_"] = @(kRemoteButtonRight);
+		_cookieToButtonMapping[@"14_10_6_14_10_6_"] = @(kRemoteButtonLeft);
+		_cookieToButtonMapping[@"14_6_4_2_"] = @(kRemoteButtonRight_Hold);
+		_cookieToButtonMapping[@"14_6_3_2_"] = @(kRemoteButtonLeft_Hold);
+		_cookieToButtonMapping[@"14_6_14_6_"] = @(kRemoteButtonMenu_Hold);
+		_cookieToButtonMapping[@"18_14_6_18_14_6_"] = @(kRemoteButtonPlay_Hold);
+		_cookieToButtonMapping[@"19_"] = @(kRemoteControl_Switched);			
 	} else if (floor(NSAppKitVersionNumber) <= NSAppKitVersionNumber10_5){
 		// 10.5.x Leopard
-		[_cookieToButtonMapping setObject:[NSNumber numberWithInt:kRemoteButtonPlus]		forKey:@"31_29_28_19_18_"];
-		[_cookieToButtonMapping setObject:[NSNumber numberWithInt:kRemoteButtonMinus]		forKey:@"31_30_28_19_18_"];	
-		[_cookieToButtonMapping setObject:[NSNumber numberWithInt:kRemoteButtonMenu]		forKey:@"31_20_19_18_31_20_19_18_"];
-		[_cookieToButtonMapping setObject:[NSNumber numberWithInt:kRemoteButtonPlay]		forKey:@"31_21_19_18_31_21_19_18_"];
-		[_cookieToButtonMapping setObject:[NSNumber numberWithInt:kRemoteButtonRight]		forKey:@"31_22_19_18_31_22_19_18_"];
-		[_cookieToButtonMapping setObject:[NSNumber numberWithInt:kRemoteButtonLeft]		forKey:@"31_23_19_18_31_23_19_18_"];
-		[_cookieToButtonMapping setObject:[NSNumber numberWithInt:kRemoteButtonRight_Hold]	forKey:@"31_19_18_4_2_"];
-		[_cookieToButtonMapping setObject:[NSNumber numberWithInt:kRemoteButtonLeft_Hold]	forKey:@"31_19_18_3_2_"];
-		[_cookieToButtonMapping setObject:[NSNumber numberWithInt:kRemoteButtonMenu_Hold]	forKey:@"31_19_18_31_19_18_"];
-		[_cookieToButtonMapping setObject:[NSNumber numberWithInt:kRemoteButtonPlay_Hold]	forKey:@"35_31_19_18_35_31_19_18_"];
-		[_cookieToButtonMapping setObject:[NSNumber numberWithInt:kRemoteControl_Switched]	forKey:@"19_"];			
+		_cookieToButtonMapping[@"31_29_28_19_18_"] = @(kRemoteButtonPlus);
+		_cookieToButtonMapping[@"31_30_28_19_18_"] = @(kRemoteButtonMinus);	
+		_cookieToButtonMapping[@"31_20_19_18_31_20_19_18_"] = @(kRemoteButtonMenu);
+		_cookieToButtonMapping[@"31_21_19_18_31_21_19_18_"] = @(kRemoteButtonPlay);
+		_cookieToButtonMapping[@"31_22_19_18_31_22_19_18_"] = @(kRemoteButtonRight);
+		_cookieToButtonMapping[@"31_23_19_18_31_23_19_18_"] = @(kRemoteButtonLeft);
+		_cookieToButtonMapping[@"31_19_18_4_2_"] = @(kRemoteButtonRight_Hold);
+		_cookieToButtonMapping[@"31_19_18_3_2_"] = @(kRemoteButtonLeft_Hold);
+		_cookieToButtonMapping[@"31_19_18_31_19_18_"] = @(kRemoteButtonMenu_Hold);
+		_cookieToButtonMapping[@"35_31_19_18_35_31_19_18_"] = @(kRemoteButtonPlay_Hold);
+		_cookieToButtonMapping[@"19_"] = @(kRemoteControl_Switched);			
 	} else {
 		// 10.6.x Snow Leopard
-		[_cookieToButtonMapping setObject:[NSNumber numberWithInt:kRemoteButtonPlus]		forKey:@"33_31_30_21_20_2_"];
-		[_cookieToButtonMapping setObject:[NSNumber numberWithInt:kRemoteButtonMinus]		forKey:@"33_32_30_21_20_2_"];	
-		[_cookieToButtonMapping setObject:[NSNumber numberWithInt:kRemoteButtonMenu]		forKey:@"33_22_21_20_2_33_22_21_20_2_"];
-		[_cookieToButtonMapping setObject:[NSNumber numberWithInt:kRemoteButtonPlay]		forKey:@"33_21_20_3_2_33_21_20_3_2_"];
-		[_cookieToButtonMapping setObject:[NSNumber numberWithInt:kRemoteButtonRight]		forKey:@"33_24_21_20_2_33_24_21_20_2_"];
-		[_cookieToButtonMapping setObject:[NSNumber numberWithInt:kRemoteButtonLeft]		forKey:@"33_25_21_20_2_33_25_21_20_2_"];
-		[_cookieToButtonMapping setObject:[NSNumber numberWithInt:kRemoteButtonRight_Hold]	forKey:@"33_21_20_14_12_2_"];
-		[_cookieToButtonMapping setObject:[NSNumber numberWithInt:kRemoteButtonLeft_Hold]	forKey:@"33_21_20_13_12_2_"];
-		[_cookieToButtonMapping setObject:[NSNumber numberWithInt:kRemoteButtonMenu_Hold]	forKey:@"33_21_20_2_33_21_20_2_"];
-		[_cookieToButtonMapping setObject:[NSNumber numberWithInt:kRemoteButtonPlay_Hold]	forKey:@"33_21_20_11_2_33_21_20_11_2_"];
-		[_cookieToButtonMapping setObject:[NSNumber numberWithInt:kRemoteControl_Switched]	forKey:@"19_"];
+		_cookieToButtonMapping[@"33_31_30_21_20_2_"] = @(kRemoteButtonPlus);
+		_cookieToButtonMapping[@"33_32_30_21_20_2_"] = @(kRemoteButtonMinus);	
+		_cookieToButtonMapping[@"33_22_21_20_2_33_22_21_20_2_"] = @(kRemoteButtonMenu);
+		_cookieToButtonMapping[@"33_21_20_3_2_33_21_20_3_2_"] = @(kRemoteButtonPlay);
+		_cookieToButtonMapping[@"33_24_21_20_2_33_24_21_20_2_"] = @(kRemoteButtonRight);
+		_cookieToButtonMapping[@"33_25_21_20_2_33_25_21_20_2_"] = @(kRemoteButtonLeft);
+		_cookieToButtonMapping[@"33_21_20_14_12_2_"] = @(kRemoteButtonRight_Hold);
+		_cookieToButtonMapping[@"33_21_20_13_12_2_"] = @(kRemoteButtonLeft_Hold);
+		_cookieToButtonMapping[@"33_21_20_2_33_21_20_2_"] = @(kRemoteButtonMenu_Hold);
+		_cookieToButtonMapping[@"33_21_20_11_2_33_21_20_11_2_"] = @(kRemoteButtonPlay_Hold);
+		_cookieToButtonMapping[@"19_"] = @(kRemoteControl_Switched);
 		// Old model of remote control (the play and next functions are on the same key)
-		[_cookieToButtonMapping setObject:[NSNumber numberWithInt:kRemoteButtonPlay]		forKey:@"33_23_21_20_2_33_23_21_20_2_"];
+		_cookieToButtonMapping[@"33_23_21_20_2_33_23_21_20_2_"] = @(kRemoteButtonPlay);
 		// For the new remote control - Al version, a new button is added
 		// Here this button acts as the play key
-		[_cookieToButtonMapping setObject:[NSNumber numberWithInt:kRemoteButtonPlay]		forKey:@"33_21_20_8_2_33_21_20_8_2_"];
+		_cookieToButtonMapping[@"33_21_20_8_2_33_21_20_8_2_"] = @(kRemoteButtonPlay);
 
 	}
 

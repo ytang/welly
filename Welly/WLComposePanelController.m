@@ -15,8 +15,8 @@
 
 @interface NSView (Composable)
 
-- (BOOL)shouldWarnCompose;
-- (YLANSIColorKey)ansiColorKey;
+@property (NS_NONATOMIC_IOSONLY, readonly) BOOL shouldWarnCompose;
+@property (NS_NONATOMIC_IOSONLY, readonly) YLANSIColorKey ansiColorKey;
 
 @end
 
@@ -35,17 +35,17 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(WLComposePanelController);
 }
 
 - (void)awakeFromNib {
-	[_composeText setString:@""];
-	[_composeText setBackgroundColor:[NSColor whiteColor]];
-    [_composeText setTextColor:[NSColor blackColor]];
-    [_composeText setInsertionPointColor:[NSColor blackColor]];
-    [_composeText setFont:[NSFont fontWithName:WLComposeFontName size:[[WLGlobalConfig sharedInstance] englishFontSize]*0.8]];
+	_composeText.string = @"";
+	_composeText.backgroundColor = [NSColor whiteColor];
+    _composeText.textColor = [NSColor blackColor];
+    _composeText.insertionPointColor = [NSColor blackColor];
+    _composeText.font = [NSFont fontWithName:WLComposeFontName size:[WLGlobalConfig sharedInstance].englishFontSize*0.8];
 	
 	// Prepare Color Panel
 	[[NSUserDefaults standardUserDefaults] setObject:@"1Welly" forKey:@"NSColorPickerPageableNameListDefaults"];
     WLGlobalConfig *config = [WLGlobalConfig sharedInstance];
     NSColorPanel *colorPanel = [NSColorPanel sharedColorPanel];
-    [colorPanel setMode:NSColorListModeColorPanel];
+    colorPanel.mode = NSColorListModeColorPanel;
     NSColorList *colorList = [[NSColorList alloc] initWithName:@"Welly"];
     [colorList insertColor:[config colorBlack] key:NSLocalizedString(@"Black", @"Color") atIndex:0];
     [colorList insertColor:[config colorRed] key:NSLocalizedString(@"Red", @"Color") atIndex:1];
@@ -67,11 +67,11 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(WLComposePanelController);
     [colorList release];
 	
 	_shadowForBlink = [[NSShadow alloc] init];
-	[_shadowForBlink setShadowOffset:NSMakeSize(3.0, -3.0)];
-	[_shadowForBlink setShadowBlurRadius:5.0];
+	_shadowForBlink.shadowOffset = NSMakeSize(3.0, -3.0);
+	_shadowForBlink.shadowBlurRadius = 5.0;
 	
 	// Use a partially transparent color for shapes that overlap.
-	[_shadowForBlink setShadowColor:[[NSColor blackColor] colorWithAlphaComponent:0.8]];
+	_shadowForBlink.shadowColor = [[NSColor blackColor] colorWithAlphaComponent:0.8];
 }
 
 #pragma mark -
@@ -104,14 +104,14 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(WLComposePanelController);
 
 /* compose actions */
 - (void)clearAll {
-    [_composeText setString:@"\n"];
-    [[_composeText textStorage] removeAttribute:NSBackgroundColorAttributeName
+    _composeText.string = @"\n";
+    [_composeText.textStorage removeAttribute:NSBackgroundColorAttributeName
                                           range:NSMakeRange(0, 1)];
     [_composeText setSelectedRange:NSMakeRange(0, 0)];
-    [_composeText setString:@""];
-	[_composeText setBackgroundColor:[NSColor whiteColor]];
-    [_composeText setTextColor:[NSColor blackColor]];
-	[_composeText setFont:[NSFont fontWithName:WLComposeFontName size:[[WLGlobalConfig sharedInstance] englishFontSize]*0.8]];
+    _composeText.string = @"";
+	_composeText.backgroundColor = [NSColor whiteColor];
+    _composeText.textColor = [NSColor blackColor];
+	_composeText.font = [NSFont fontWithName:WLComposeFontName size:[WLGlobalConfig sharedInstance].englishFontSize*0.8];
 	// TODO: reset the background color
 }
 
@@ -127,12 +127,12 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(WLComposePanelController);
 
 - (IBAction)commitCompose:(id)sender {
 	if ([_telnetView respondsToSelector:@selector(ansiColorKey)]) {
-		NSString *ansiCode = [WLAnsiColorOperationManager ansiCodeStringFromAttributedString:[_composeText textStorage] 
+		NSString *ansiCode = [WLAnsiColorOperationManager ansiCodeStringFromAttributedString:_composeText.textStorage 
 																			 forANSIColorKey:[_telnetView ansiColorKey]];
 		
 		[_telnetView insertText:ansiCode];
 	} else {
-		[_telnetView insertText:[_composeText string]];
+		[_telnetView insertText:_composeText.string];
 	}
 	[self closeComposePanel];
 }
@@ -142,7 +142,7 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(WLComposePanelController);
 }
 
 - (IBAction)setUnderline:(id)sender {
-	NSTextStorage *storage = [_composeText textStorage];
+	NSTextStorage *storage = _composeText.textStorage;
 	NSRange selectedRange = [_composeText selectedRange];
 	// get the underline style attribute of the first character in the text view
 	id underlineStyle = [storage attribute:NSUnderlineStyleAttributeName atIndex:selectedRange.location effectiveRange:nil];
@@ -155,7 +155,7 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(WLComposePanelController);
 }
 
 - (IBAction)setBlink:(id)sender {
-	NSTextStorage *storage = [_composeText textStorage];
+	NSTextStorage *storage = _composeText.textStorage;
 	NSRange selectedRange = [_composeText selectedRange];
 	
 	NSShadow *shadowAttribute = [storage attribute:NSShadowAttributeName atIndex:selectedRange.location effectiveRange:nil];
@@ -182,7 +182,7 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(WLComposePanelController);
 }
 
 - (IBAction)changeBackgroundColor:(id)sender {
-    [[_composeText textStorage] addAttribute:NSBackgroundColorAttributeName
+    [_composeText.textStorage addAttribute:NSBackgroundColorAttributeName
                                        value:[sender color]
                                        range:[_composeText selectedRange]];
 }
@@ -190,18 +190,18 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(WLComposePanelController);
 #pragma mark -
 #pragma mark Delegate Method
 - (void)textViewDidChangeSelection:(NSNotification *)aNotification {
-    NSTextView *textView = [aNotification object];
-    NSTextStorage *storage = [textView textStorage];
+    NSTextView *textView = aNotification.object;
+    NSTextStorage *storage = textView.textStorage;
     NSInteger location = [textView selectedRange].location;
     if (location > 0) 
 		--location;
-    [_bgColorWell setColor:[[WLGlobalConfig sharedInstance] colorBG]];
-    if (location < [storage length]) {
+    _bgColorWell.color = [[WLGlobalConfig sharedInstance] colorBG];
+    if (location < storage.length) {
         NSColor *bgColor = [storage attribute:NSBackgroundColorAttributeName
                                       atIndex:location
                                effectiveRange:nil];
         if (bgColor) {
-            [_bgColorWell setColor:bgColor];
+            _bgColorWell.color = bgColor;
         }
     }
 }

@@ -33,11 +33,11 @@ NSString *const WLMenuTitleOpenWithBrowser = @"Open With Browser";
 @end
 
 @implementation WLURLParser
-- (id)initWithManager:(WLURLManager *)manager {
+- (instancetype)initWithManager:(WLURLManager *)manager {
 	self = [self init];
 	if (self) {
-		_maxRow = [[WLGlobalConfig sharedInstance] row];
-		_maxColumn = [[WLGlobalConfig sharedInstance] column];
+		_maxRow = [WLGlobalConfig sharedInstance].row;
+		_maxColumn = [WLGlobalConfig sharedInstance].column;
 		_currentURLStringBuffer = [[NSMutableString alloc] initWithCapacity:40];
 		_manager = manager;
 	}
@@ -51,9 +51,9 @@ NSString *const WLMenuTitleOpenWithBrowser = @"Open With Browser";
 	
 	// Trimming special characters at the end of url
 	NSCharacterSet *trimmingSet = [NSCharacterSet characterSetWithCharactersInString:@",.:;?!"];
-	NSInteger lenBeforeTrimming = [urlString length];
+	NSInteger lenBeforeTrimming = urlString.length;
 	urlString = [urlString stringByTrimmingCharactersInSet:trimmingSet];
-	NSInteger trimmedLength = lenBeforeTrimming - [urlString length];
+	NSInteger trimmedLength = lenBeforeTrimming - urlString.length;
 	for (NSInteger index=_index-1; index>_index-1-trimmedLength; --index) {
 		_grid[index/_maxColumn][index%_maxColumn].attr.f.url = NO;
 	}
@@ -64,7 +64,7 @@ NSString *const WLMenuTitleOpenWithBrowser = @"Open With Browser";
 }
 
 - (void)parse:(WLTerminal *)terminal {
-	_grid = [terminal grid];
+	_grid = terminal.grid;
 	_isReadingURL = NO;
 	const char *protocols[] = {"http://", "https://", "ftp://", "telnet://", "bbs://", "ssh://", "mailto:", "www."};
 	const int protocolNum = 8;
@@ -147,7 +147,7 @@ NSString *const WLMenuTitleOpenWithBrowser = @"Open With Browser";
 @end
 
 @implementation WLURLManager
-- (id)init {
+- (instancetype)init {
 	self = [super init];
 	if (self) {
 		_currentURLList = [[NSMutableArray alloc] initWithCapacity:10];
@@ -164,9 +164,9 @@ NSString *const WLMenuTitleOpenWithBrowser = @"Open With Browser";
 #pragma mark -
 #pragma mark Mouse Event Handler
 - (void)mouseUp:(NSEvent *)theEvent {
-	NSString *url = [[_manager activeTrackingAreaUserInfo] objectForKey:WLURLUserInfoName];
+	NSString *url = _manager.activeTrackingAreaUserInfo[WLURLUserInfoName];
 	if (url != nil) {
-		if (([theEvent modifierFlags] & NSShiftKeyMask) == NSShiftKeyMask) {
+		if ((theEvent.modifierFlags & NSShiftKeyMask) == NSShiftKeyMask) {
 			// click while holding shift key or navigate web pages
 			// open the URL with browser
 			[[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:url]];
@@ -178,9 +178,9 @@ NSString *const WLMenuTitleOpenWithBrowser = @"Open With Browser";
 }
 
 - (void)mouseEntered:(NSEvent *)theEvent {
-	NSDictionary *userInfo = [[theEvent trackingArea] userInfo];
-	if([[_view frontMostConnection] isConnected]) {
-		[_manager setActiveTrackingAreaUserInfo:userInfo];
+	NSDictionary *userInfo = theEvent.trackingArea.userInfo;
+	if([_view frontMostConnection].isConnected) {
+		_manager.activeTrackingAreaUserInfo = userInfo;
 		[[NSCursor pointingHandCursor] set];
 	}
 }
@@ -205,14 +205,14 @@ NSString *const WLMenuTitleOpenWithBrowser = @"Open With Browser";
     [pb declareTypes:types owner:self];
 	
 	NSDictionary *userInfo = [sender representedObject];
-	NSString *urlString = [userInfo objectForKey:WLURLUserInfoName];
+	NSString *urlString = userInfo[WLURLUserInfoName];
     [pb setString:urlString forType:NSStringPboardType];
 	[pb setString:urlString forType:NSURLPboardType];
 }
 
 - (IBAction)openWithBrower:(id)sender {
 	NSDictionary *userInfo = [sender representedObject];
-	NSString *urlString = [userInfo objectForKey:WLURLUserInfoName];
+	NSString *urlString = userInfo[WLURLUserInfoName];
 	
 	[[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:urlString]];
 }
@@ -226,11 +226,11 @@ NSString *const WLMenuTitleOpenWithBrowser = @"Open With Browser";
 					action:@selector(openWithBrower:)
 			 keyEquivalent:@""];
 	
-	for (NSMenuItem *item in [menu itemArray]) {
-		if ([item isSeparatorItem])
+	for (NSMenuItem *item in menu.itemArray) {
+		if (item.separatorItem)
 			continue;
-		[item setTarget:self];
-		[item setRepresentedObject:_manager.activeTrackingAreaUserInfo];
+		item.target = self;
+		item.representedObject = _manager.activeTrackingAreaUserInfo;
 	}
 	return menu;
 }
@@ -242,12 +242,12 @@ NSString *const WLMenuTitleOpenWithBrowser = @"Open With Browser";
 	ret.x = -1.0;
 	ret.y = -1.0;
 	// Return if there's no url in current terminal
-	if([_currentURLList count] < 1)
+	if(_currentURLList.count < 1)
 		return ret;
 	// Get current URL info
-	NSDictionary *urlInfo = [_currentURLList objectAtIndex:_currentSelectedURLIndex];
-	int index = [[urlInfo objectForKey:WLRangeLocationUserInfoName] intValue];
-	int length = [[urlInfo objectForKey:WLRangeLengthUserInfoName] intValue];
+	NSDictionary *urlInfo = _currentURLList[_currentSelectedURLIndex];
+	int index = [urlInfo[WLRangeLocationUserInfoName] intValue];
+	int length = [urlInfo[WLRangeLengthUserInfoName] intValue];
 	int column_start = index % _maxColumn;
 	int row_start = index / _maxColumn;
 	int column_end = (index + length) % _maxColumn;
@@ -264,26 +264,26 @@ NSString *const WLMenuTitleOpenWithBrowser = @"Open With Browser";
 	else
 		col_in_grid = (column_start + column_end) / 2.0f;
 	float row_in_grid = (row_start + row_end) / 2.0f;
-	ret.x = col_in_grid * [[WLGlobalConfig sharedInstance] cellWidth];
-	ret.y = (_maxRow - row_in_grid - 0.6) * [[WLGlobalConfig sharedInstance] cellHeight];
+	ret.x = col_in_grid * [WLGlobalConfig sharedInstance].cellWidth;
+	ret.y = (_maxRow - row_in_grid - 0.6) * [WLGlobalConfig sharedInstance].cellHeight;
 	return ret;
 }
 
 - (NSPoint)moveNext {
-	_currentSelectedURLIndex = (_currentSelectedURLIndex + 1) % [_currentURLList count];
+	_currentSelectedURLIndex = (_currentSelectedURLIndex + 1) % _currentURLList.count;
 	return [self currentSelectedURLPos];
 }
 
 - (NSPoint)movePrev {
-	_currentSelectedURLIndex = (_currentSelectedURLIndex - 1 + [_currentURLList count]) % [_currentURLList count];
+	_currentSelectedURLIndex = (_currentSelectedURLIndex - 1 + _currentURLList.count) % _currentURLList.count;
 	return [self currentSelectedURLPos];
 }
 
 - (BOOL)openCurrentURL:(NSEvent *)theEvent {
-	NSDictionary *urlInfo = [_currentURLList objectAtIndex:_currentSelectedURLIndex];
-	NSString *url = [urlInfo objectForKey:WLURLUserInfoName];
+	NSDictionary *urlInfo = _currentURLList[_currentSelectedURLIndex];
+	NSString *url = urlInfo[WLURLUserInfoName];
 	if (url != nil) {
-		if (([theEvent modifierFlags] & NSShiftKeyMask) == NSShiftKeyMask) {
+		if ((theEvent.modifierFlags & NSShiftKeyMask) == NSShiftKeyMask) {
 			// click while holding shift key or navigate web pages
 			// open the URL with browser
 			[[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:url]];
@@ -292,7 +292,7 @@ NSString *const WLMenuTitleOpenWithBrowser = @"Open With Browser";
 			[WLPreviewController downloadWithURL:[NSURL URLWithString:url]];
 		}
 	}
-	if([_currentURLList count] > 2)
+	if(_currentURLList.count > 2)
 		return NO;
 	else
 		return YES;
@@ -312,8 +312,8 @@ NSString *const WLMenuTitleOpenWithBrowser = @"Open With Browser";
 	range.location = index;
 	range.length = length;
 	
-	NSArray *keys = [NSArray arrayWithObjects:WLMouseHandlerUserInfoName, WLURLUserInfoName, WLRangeLocationUserInfoName, WLRangeLengthUserInfoName, nil];
-	NSArray *objects = [NSArray arrayWithObjects:self, [[urlString copy] autorelease], [NSNumber numberWithInteger:index], [NSNumber numberWithInteger:length], nil];
+	NSArray *keys = @[WLMouseHandlerUserInfoName, WLURLUserInfoName, WLRangeLocationUserInfoName, WLRangeLengthUserInfoName];
+	NSArray *objects = @[self, [[urlString copy] autorelease], @(index), @(length)];
 	NSDictionary *userInfo = [NSDictionary dictionaryWithObjects:objects forKeys:keys];
 	[_currentURLList addObject:userInfo];
 	
@@ -336,13 +336,13 @@ NSString *const WLMenuTitleOpenWithBrowser = @"Open With Browser";
 
 - (void)clearAllURL {
 	// If we are in URL mode, exit it first to avoid crash
-	if ([_view isInUrlMode]) {
+	if (_view.isInUrlMode) {
 		[_view exitURL];
 	}
 	
 	for (NSDictionary *urlInfo in _currentURLList) {
-		int index = [[urlInfo objectForKey:WLRangeLocationUserInfoName] intValue];
-		int length = [[urlInfo objectForKey:WLRangeLengthUserInfoName] intValue];
+		int index = [urlInfo[WLRangeLocationUserInfoName] intValue];
+		int length = [urlInfo[WLRangeLengthUserInfoName] intValue];
 		
 		WLTerminal *ds = [_view frontMostTerminal];
 		// Set all involved row to be dirty. Reduce the number of [ds setDirty] call.

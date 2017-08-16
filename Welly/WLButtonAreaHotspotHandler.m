@@ -72,7 +72,7 @@ NSString *const FBCommandSequenceEnterExcerption = @"x";
 #pragma mark -
 #pragma mark Mouse Event Handler
 - (void)mouseUp:(NSEvent *)theEvent {
-	NSString *commandSequence = [[_manager activeTrackingAreaUserInfo] objectForKey:WLMouseCommandSequenceUserInfoName];
+	NSString *commandSequence = _manager.activeTrackingAreaUserInfo[WLMouseCommandSequenceUserInfoName];
 	if (commandSequence != nil) {
 		[[_view frontMostConnection] sendText:commandSequence];
 		return;
@@ -80,17 +80,17 @@ NSString *const FBCommandSequenceEnterExcerption = @"x";
 }
 
 - (void)mouseEntered:(NSEvent *)theEvent {
-	NSDictionary *userInfo = [[theEvent trackingArea] userInfo];
-	if ([_view isMouseActive]) {
-		NSString *buttonText = [userInfo objectForKey:WLMouseButtonTextUserInfoName];
-		[[_view effectView] drawButton:[[theEvent trackingArea] rect] withMessage:buttonText];
+	NSDictionary *userInfo = theEvent.trackingArea.userInfo;
+	if (_view.isMouseActive) {
+		NSString *buttonText = userInfo[WLMouseButtonTextUserInfoName];
+		[_view.effectView drawButton:theEvent.trackingArea.rect withMessage:buttonText];
 	}
-	[_manager setActiveTrackingAreaUserInfo:userInfo];
+	_manager.activeTrackingAreaUserInfo = userInfo;
 	[[NSCursor pointingHandCursor] set];
 }
 
 - (void)mouseExited:(NSEvent *)theEvent {
-	[[_view effectView] clearButton];
+	[_view.effectView clearButton];
 	[_manager setActiveTrackingAreaUserInfo:nil];
 	// FIXME: Temporally solve the problem in full screen mode.
 	if ([NSCursor currentCursor] == [NSCursor pointingHandCursor])
@@ -111,8 +111,8 @@ NSString *const FBCommandSequenceEnterExcerption = @"x";
 			   length:(int)len {
 	NSRect rect = [_view rectAtRow:r column:c height:1 width:len];
 	// Generate User Info
-	NSArray *keys = [NSArray arrayWithObjects:WLMouseHandlerUserInfoName, WLMouseCommandSequenceUserInfoName, WLMouseButtonTextUserInfoName, nil];
-	NSArray *objects = [NSArray arrayWithObjects:self, cmd, NSLocalizedString(buttonName, @"Mouse Button"), nil];
+	NSArray *keys = @[WLMouseHandlerUserInfoName, WLMouseCommandSequenceUserInfoName, WLMouseButtonTextUserInfoName];
+	NSArray *objects = @[self, cmd, NSLocalizedString(buttonName, @"Mouse Button")];
 	NSDictionary *userInfo = [NSDictionary dictionaryWithObjects:objects forKeys:keys];
 	[_trackingAreas addObject:[_manager addTrackingAreaWithRect:rect userInfo:userInfo]];
 }
@@ -156,7 +156,7 @@ NSString *const FBCommandSequenceEnterExcerption = @"x";
 		return;
 	
 	WLTerminal *ds = [_view frontMostTerminal];
-	BBSState bbsState = [ds bbsState];
+	BBSState bbsState = ds.bbsState;
 	
 	for (int x = 0; x < _maxColumn; ++x) {
 		for (int i = 0; i < sizeof(buttonsDefinition) / sizeof(WLButtonDescription); ++i) {
@@ -185,8 +185,8 @@ NSString *const FBCommandSequenceEnterExcerption = @"x";
 	}
 	
 	// Only update when BBS state has been changed
-	BBSState bbsState = [[_view frontMostTerminal] bbsState];
-	BBSState lastBbsState = [_manager lastBBSState];
+	BBSState bbsState = [_view frontMostTerminal].bbsState;
+	BBSState lastBbsState = _manager.lastBBSState;
 	if (bbsState.state == lastBbsState.state &&
 		bbsState.subState == lastBbsState.subState)
 		return NO;

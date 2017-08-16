@@ -29,18 +29,17 @@ typedef struct {
 	attribute attr;
 } cell;
 
-typedef enum {C0, INTERMEDIATE, ALPHABETIC, DELETE, C1, G1, SPECIAL, ERROR} ASCII_CODE;
+typedef NS_ENUM(unsigned int, ASCII_CODE) {C0, INTERMEDIATE, ALPHABETIC, DELETE, C1, G1, SPECIAL, ERROR};
 
-typedef enum YLANSIColorKey {
-    YLCtrlUANSIColorKey = 1, 
-    YLEscEscANSIColorKey = 0
-} YLANSIColorKey;
+typedef NS_ENUM(unsigned int, YLANSIColorKey) {
+    YLEscEscANSIColorKey, YLCtrlUANSIColorKey
+};
 
-typedef enum {WLNoneProxy, WLAutoProxy, WLSocksProxy, WLHttpProxy, WLHttpsProxy} WLProxyType;
+typedef NS_ENUM(unsigned int, WLProxyType) {WLNoneProxy, WLAutoProxy, WLSocksProxy, WLHttpProxy, WLHttpsProxy};
 
-typedef enum {
+typedef NS_ENUM(unsigned int, WLBBSType) {
 	WLFirebird, WLMaple, WLUnix
-} WLBBSType;
+};
 
 typedef struct {
 	/*!

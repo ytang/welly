@@ -44,7 +44,7 @@ const float WLHorizontalScrollReactivateTimeInteval = 1.0;
 
 #pragma mark -
 #pragma mark Initialization
-- (id)initWithView:(WLTerminalView *)view {
+- (instancetype)initWithView:(WLTerminalView *)view {
 	self = [self init];
 	if (self) {
 		_view = view;
@@ -70,7 +70,7 @@ const float WLHorizontalScrollReactivateTimeInteval = 1.0;
 	return self;
 }
 
-- (id)init {
+- (instancetype)init {
 	self = [super init];
 	if (self)
 		_normalCursor = [NSCursor arrowCursor];
@@ -89,8 +89,8 @@ const float WLHorizontalScrollReactivateTimeInteval = 1.0;
 - (void)mouseEntered:(NSEvent *)theEvent {
 	if (![_view isConnected])
 		return;
-	if ([theEvent trackingArea]) {
-		NSDictionary *userInfo = [[theEvent trackingArea] userInfo];
+	if (theEvent.trackingArea) {
+		NSDictionary *userInfo = theEvent.trackingArea.userInfo;
 		if (!userInfo)
 			return;
 		WLMouseHotspotHandler *handler = [userInfo valueForKey:WLMouseHandlerUserInfoName];
@@ -101,8 +101,8 @@ const float WLHorizontalScrollReactivateTimeInteval = 1.0;
 - (void)mouseExited:(NSEvent *)theEvent {
 	if (![_view isConnected])
 		return;
-	if ([theEvent trackingArea]) {
-		NSDictionary *userInfo = [[theEvent trackingArea] userInfo];
+	if (theEvent.trackingArea) {
+		NSDictionary *userInfo = theEvent.trackingArea.userInfo;
 		if (!userInfo)
 			return;
 		WLMouseHotspotHandler *handler = [userInfo valueForKey:WLMouseHandlerUserInfoName];
@@ -138,25 +138,25 @@ const float WLHorizontalScrollReactivateTimeInteval = 1.0;
 		return;
 	}
 	
-	if ([[_view frontMostTerminal] bbsState].state == BBSWaitingEnter) {
+	if ([_view frontMostTerminal].bbsState.state == BBSWaitingEnter) {
 		[_view sendText:termKeyEnter];
 	}
 }
 
 - (void)scrollWheel:(NSEvent *)theEvent {
 	const int WLScrollWheelHorizontalThreshold = 3;
-	if ([[[_view frontMostTerminal] connection] isConnected]) {
+	if ([_view frontMostTerminal].connection.isConnected) {
 		// For Y-Axis
-		if ([theEvent deltaY] < 0)
+		if (theEvent.deltaY < 0)
 			[_view sendText:termKeyDown];
-		else if ([theEvent deltaY] > 0)
+		else if (theEvent.deltaY > 0)
 			[_view sendText:termKeyUp];
-		else if (_lastHorizontalScrollDirection != WLHorizontalScrollLeft && [theEvent deltaX] > WLScrollWheelHorizontalThreshold) {
+		else if (_lastHorizontalScrollDirection != WLHorizontalScrollLeft && theEvent.deltaX > WLScrollWheelHorizontalThreshold) {
 			// Disable horizontal scroll, in order to prevent multiple action
 			_lastHorizontalScrollDirection = WLHorizontalScrollLeft;
 			[_view sendText:termKeyLeft];
 		}
-		else if (_lastHorizontalScrollDirection != WLHorizontalScrollRight && [theEvent deltaX] < -WLScrollWheelHorizontalThreshold){
+		else if (_lastHorizontalScrollDirection != WLHorizontalScrollRight && theEvent.deltaX < -WLScrollWheelHorizontalThreshold){
 			// Disable horizontal scroll, in order to prevent multiple action
 			_lastHorizontalScrollDirection = WLHorizontalScrollRight;
 			[_view sendText:termKeyRight];
@@ -200,7 +200,7 @@ const float WLHorizontalScrollReactivateTimeInteval = 1.0;
 												location:[NSEvent mouseLocation] 
 										   modifierFlags:NSMouseEnteredMask 
 											   timestamp:0
-											windowNumber:[[_view window] windowNumber] 
+											windowNumber:_view.window.windowNumber 
 												 context:nil
 											 eventNumber:0
 										  trackingNumber:(NSInteger)area
@@ -218,13 +218,13 @@ const float WLHorizontalScrollReactivateTimeInteval = 1.0;
 }
 
 - (void)removeTrackingArea:(NSTrackingArea *)area {
-	NSRect rect = [area rect];
+	NSRect rect = area.rect;
 	if ([self isMouseInsideRect:rect]) {
 		NSEvent *event = [NSEvent enterExitEventWithType:NSMouseExited 
 												location:[NSEvent mouseLocation] 
 										   modifierFlags:NSMouseExitedMask 
 											   timestamp:0
-											windowNumber:[[_view window] windowNumber] 
+											windowNumber:_view.window.windowNumber 
 												 context:nil
 											 eventNumber:0
 										  trackingNumber:(NSInteger)area
@@ -250,8 +250,8 @@ const float WLHorizontalScrollReactivateTimeInteval = 1.0;
 				[updater update];
 		}
 	}
-	_lastBBSState = [[_view frontMostTerminal] bbsState];
-	_lastCursorRow = [[_view frontMostTerminal] cursorRow];
+	_lastBBSState = [_view frontMostTerminal].bbsState;
+	_lastCursorRow = [_view frontMostTerminal].cursorRow;
 }
 
 - (void)forceUpdate {
@@ -261,8 +261,8 @@ const float WLHorizontalScrollReactivateTimeInteval = 1.0;
 		if ([obj conformsToProtocol:@protocol(WLUpdatable)])
 			[(NSObject <WLUpdatable> *)obj update];
 	}
-	_lastBBSState = [[_view frontMostTerminal] bbsState];
-	_lastCursorRow = [[_view frontMostTerminal] cursorRow];
+	_lastBBSState = [_view frontMostTerminal].bbsState;
+	_lastCursorRow = [_view frontMostTerminal].cursorRow;
 }
 
 #pragma mark -
@@ -273,7 +273,7 @@ const float WLHorizontalScrollReactivateTimeInteval = 1.0;
 
 - (void)addHandler:(WLMouseHotspotHandler *)handler {
 	[_handlers addObject:handler];
-	[handler setManager:self];
+	handler.manager = self;
 }
 
 - (void)reactiveHorizontalScroll:(id)sender {

@@ -39,7 +39,7 @@ NSString *const WLCommandSequenceSameAuthorReading = @"\025";	// ^U
 	unsigned char cmd[_maxRow * _maxColumn + 1];
 	unsigned int cmdLength = 0;
 	WLTerminal *ds = [_view frontMostTerminal];
-	NSInteger cursorRow = [ds cursorRow];
+	NSInteger cursorRow = ds.cursorRow;
 	
 	// Moving Command
 	if (moveToRow > cursorRow) {
@@ -67,26 +67,26 @@ NSString *const WLCommandSequenceSameAuthorReading = @"\025";	// ^U
 }
 
 - (void)mouseUp:(NSEvent *)theEvent {
-	NSString *commandSequence = [_manager.activeTrackingAreaUserInfo objectForKey:WLMouseCommandSequenceUserInfoName];
+	NSString *commandSequence = (_manager.activeTrackingAreaUserInfo)[WLMouseCommandSequenceUserInfoName];
 	if (commandSequence != nil) {
 		[_view sendText:commandSequence];
 		return;
 	}
-	int moveToRow = [[_manager.activeTrackingAreaUserInfo objectForKey:WLMouseRowUserInfoName] intValue];
+	int moveToRow = [(_manager.activeTrackingAreaUserInfo)[WLMouseRowUserInfoName] intValue];
 	
 	[self enterEntryAtRow:moveToRow];
 }
 
 - (void)mouseEntered:(NSEvent *)theEvent {
-	_manager.activeTrackingAreaUserInfo = [[theEvent trackingArea] userInfo];
-	if ([_view isMouseActive]) {
-		[[_view effectView] drawClickEntry:[[theEvent trackingArea] rect]];
+	_manager.activeTrackingAreaUserInfo = theEvent.trackingArea.userInfo;
+	if (_view.isMouseActive) {
+		[_view.effectView drawClickEntry:theEvent.trackingArea.rect];
 	}
 	[[NSCursor pointingHandCursor] set];
 }
 
 - (void)mouseExited:(NSEvent *)theEvent {
-	[[_view effectView] clearClickEntry];
+	[_view.effectView clearClickEntry];
 	_manager.activeTrackingAreaUserInfo = nil;
 	// FIXME: Temporally solve the problem in full screen mode.
 	if ([NSCursor currentCursor] == [NSCursor pointingHandCursor])
@@ -104,20 +104,20 @@ NSString *const WLCommandSequenceSameAuthorReading = @"\025";	// ^U
 	NSDictionary *userInfo = [sender representedObject];
 	
 	// Enter the entry
-	int moveToRow = [[userInfo objectForKey:WLMouseRowUserInfoName] intValue];
+	int moveToRow = [userInfo[WLMouseRowUserInfoName] intValue];
 	[self enterEntryAtRow:moveToRow];
 	
 	// Wait until state change
 	const int sleepTime = 100000, maxAttempt = 300000;
 	int count = 0;
-	while ([[_view frontMostTerminal] bbsState].state != BBSViewPost && count < maxAttempt) {
+	while ([_view frontMostTerminal].bbsState.state != BBSViewPost && count < maxAttempt) {
 		++count;
 		usleep(sleepTime);
 	}
 	
 	// Do Post Download
 	if (count != maxAttempt) {
-		[[WLPostDownloadDelegate sharedInstance] beginPostDownloadInWindow:[NSApp keyWindow]
+		[[WLPostDownloadDelegate sharedInstance] beginPostDownloadInWindow:NSApp.keyWindow
 															   forTerminal:[_view frontMostTerminal]];
 	}
 }
@@ -131,7 +131,7 @@ NSString *const WLCommandSequenceSameAuthorReading = @"\025";	// ^U
 	NSDictionary *userInfo = [sender representedObject];
 	
 	// Move the cursor to the entry
-	int moveToRow = [[userInfo objectForKey:WLMouseRowUserInfoName] intValue];
+	int moveToRow = [userInfo[WLMouseRowUserInfoName] intValue];
 	[self moveCursorToRow:moveToRow];
 }
 
@@ -157,7 +157,7 @@ NSString *const WLCommandSequenceSameAuthorReading = @"\025";	// ^U
 
 - (NSMenu *)menuForEvent:(NSEvent *)theEvent {
 	NSMenu *menu = [[[NSMenu alloc] init] autorelease];
-	if ([[_view frontMostTerminal] bbsState].state == BBSBrowseBoard) {
+	if ([_view frontMostTerminal].bbsState.state == BBSBrowseBoard) {
 		[menu addItemWithTitle:NSLocalizedString(WLMenuTitleDownloadPost, @"Contextual Menu")
 						action:@selector(downloadPost:)
 				 keyEquivalent:@""];
@@ -175,11 +175,11 @@ NSString *const WLCommandSequenceSameAuthorReading = @"\025";	// ^U
 				 keyEquivalent:@""];
 	}
 	
-	for (NSMenuItem *item in [menu itemArray]) {
-		if ([item isSeparatorItem])
+	for (NSMenuItem *item in menu.itemArray) {
+		if (item.separatorItem)
 			continue;
-		[item setTarget:self];
-		[item setRepresentedObject:_manager.activeTrackingAreaUserInfo];
+		item.target = self;
+		item.representedObject = _manager.activeTrackingAreaUserInfo;
 	}
 	return menu;
 }
@@ -192,8 +192,8 @@ NSString *const WLCommandSequenceSameAuthorReading = @"\025";	// ^U
 				   length:(NSInteger)length {
 	NSRect rect = [_view rectAtRow:r column:c height:1 width:length];
 	// Generate User Info
-	NSArray *keys = [NSArray arrayWithObjects:WLMouseHandlerUserInfoName, WLMouseRowUserInfoName, nil];
-	NSArray *objects = [NSArray arrayWithObjects:self, [NSNumber numberWithInteger:r], nil];
+	NSArray *keys = @[WLMouseHandlerUserInfoName, WLMouseRowUserInfoName];
+	NSArray *objects = @[self, @(r)];
 	NSDictionary *userInfo = [NSDictionary dictionaryWithObjects:objects forKeys:keys];
 	[_trackingAreas addObject:[_manager addTrackingAreaWithRect:rect userInfo:userInfo]];
 }
@@ -209,8 +209,8 @@ NSString *const WLCommandSequenceSameAuthorReading = @"\025";	// ^U
 					   length:(NSInteger)len {
 	NSRect rect = [_view rectAtRow:r column:c height:1 width:len];
 	// Generate User Info
-	NSArray *keys = [NSArray arrayWithObjects:WLMouseHandlerUserInfoName, WLMouseCommandSequenceUserInfoName, nil];
-	NSArray *objects = [NSArray arrayWithObjects:self, cmd, nil];
+	NSArray *keys = @[WLMouseHandlerUserInfoName, WLMouseCommandSequenceUserInfoName];
+	NSArray *objects = @[self, cmd];
 	NSDictionary *userInfo = [NSDictionary dictionaryWithObjects:objects forKeys:keys];
 	[_trackingAreas addObject:[_manager addTrackingAreaWithRect:rect userInfo:userInfo]];
 }
@@ -221,7 +221,7 @@ NSString *const WLCommandSequenceSameAuthorReading = @"\025";	// ^U
 			 column:(int)column 
 			   with:(NSString *)s {
     cell *currRow = [[_view frontMostTerminal] cellsOfRow:row];
-    NSInteger i = 0, n = [s length];
+    NSInteger i = 0, n = s.length;
     for (; i < n && column < _maxColumn - 1; ++i, ++column)
         if (currRow[column].byte != [s characterAtIndex:i])
             return NO;
@@ -262,7 +262,7 @@ BOOL isPostTitleStarter(unichar c) {
                     textBuf[bufLength++] = 0x0000 + (currRow[i].byte ?: ' ');
             } else if (db == 2) {
 				unsigned short code = (((currRow + i - 1)->byte) << 8) + ((currRow + i)->byte) - 0x8000;
-				unichar ch = [WLEncoder toUnicode:code encoding:[[[_view frontMostConnection] site] encoding]];
+				unichar ch = [WLEncoder toUnicode:code encoding:[[_view frontMostConnection].site encoding]];
                 // smth: 0x25cf (solid circle "●"), 0x251c ("├"), 0x2514 ("└"), 0x2605("★")
                 // free/sjtu: 0x25c6 (solid diamond "◆")
                 // ptt: 0x25a1 (hollow square "□")
@@ -420,8 +420,8 @@ BOOL isPostTitleStarter(unichar c) {
 	
 	// In the same page, do NOT update/clear
 	WLTerminal *ds = [_view frontMostTerminal];
-	BBSState bbsState = [ds bbsState];
-	if (bbsState.state == [_manager lastBBSState].state && labs([_manager lastCursorRow] - [ds cursorRow]) == 1) {
+	BBSState bbsState = ds.bbsState;
+	if (bbsState.state == _manager.lastBBSState.state && labs(_manager.lastCursorRow - ds.cursorRow) == 1) {
 		return NO;
 	}
 	return YES;
@@ -436,15 +436,15 @@ BOOL isPostTitleStarter(unichar c) {
 	
 	// Update
 	WLTerminal *ds = [_view frontMostTerminal];
-	if ([ds bbsState].state == BBSBrowseBoard || [ds bbsState].state == BBSMailList) {
+	if (ds.bbsState.state == BBSBrowseBoard || ds.bbsState.state == BBSMailList) {
 		[self updatePostClickEntry];
-	} else if ([ds bbsState].state == BBSBoardList) {
+	} else if (ds.bbsState.state == BBSBoardList) {
 		[self updateBoardClickEntry];
-	} else if ([ds bbsState].state == BBSFriendList) {
+	} else if (ds.bbsState.state == BBSFriendList) {
 		[self updateFriendClickEntry];
-	} else if ([ds bbsState].state == BBSMainMenu || [ds bbsState].state == BBSMailMenu) {
+	} else if (ds.bbsState.state == BBSMainMenu || ds.bbsState.state == BBSMailMenu) {
 		[self updateMenuClickEntry];
-	} else if ([ds bbsState].state == BBSBrowseExcerption) {
+	} else if (ds.bbsState.state == BBSBrowseExcerption) {
 		[self updateExcerptionClickEntry];
 	}
 }

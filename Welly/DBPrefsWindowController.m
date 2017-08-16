@@ -46,17 +46,17 @@ static DBPrefsWindowController *_sharedPrefsWindowController = nil;
 
 - (void)setupMenuOfURLScheme:(NSString *)scheme 
 			  forPopUpButton:(NSPopUpButton *)button {
-    NSString *wellyIdentifier = [[[NSBundle mainBundle] bundleIdentifier] lowercaseString];
+    NSString *wellyIdentifier = [NSBundle mainBundle].bundleIdentifier.lowercaseString;
     NSMutableArray *array = [NSMutableArray arrayWithArray: [DBPrefsWindowController applicationIdentifierArrayForURLScheme: scheme]];
     NSWorkspace *ws = [NSWorkspace sharedWorkspace];
     NSMutableArray *menuItems = [NSMutableArray array];
 
     int wellyCount = 0;
     for (NSString *appId in array) 
-        if ([[appId lowercaseString] isEqualToString: wellyIdentifier]) 
+        if ([appId.lowercaseString isEqualToString: wellyIdentifier]) 
             wellyCount++;
     if (wellyCount == 0)
-        [array addObject: [[NSBundle mainBundle] bundleIdentifier]];
+        [array addObject: [NSBundle mainBundle].bundleIdentifier];
         
     for (NSString *appId in array) {
         CFStringRef appNameInCFString;
@@ -67,15 +67,15 @@ static DBPrefsWindowController *_sharedPrefsWindowController = nil;
                 NSString *appName = [NSString stringWithString: (NSString *) appNameInCFString];
                 CFRelease(appNameInCFString);
                 
-                if (wellyCount > 1 && [[appId lowercaseString] isEqualToString: wellyIdentifier])
-                    appName = [NSString stringWithFormat:@"%@ (%@)", appName, [[[NSBundle bundleWithPath: appPath] infoDictionary] objectForKey: @"CFBundleVersion"]];
+                if (wellyCount > 1 && [appId.lowercaseString isEqualToString: wellyIdentifier])
+                    appName = [NSString stringWithFormat:@"%@ (%@)", appName, [NSBundle bundleWithPath: appPath].infoDictionary[@"CFBundleVersion"]];
                 
                 NSImage *appIcon = [ws iconForFile:appPath];
-                [appIcon setSize: NSMakeSize(16, 16)];
+                appIcon.size = NSMakeSize(16, 16);
                 
                 NSMenuItem *item = [[[NSMenuItem alloc] initWithTitle: (NSString *)appName action: NULL keyEquivalent: @""] autorelease];
-                [item setRepresentedObject: appId];
-                if (appIcon) [item setImage: appIcon];
+                item.representedObject = appId;
+                if (appIcon) item.image = appIcon;
                 [menuItems addObject: item];
             }            
         }
@@ -84,7 +84,7 @@ static DBPrefsWindowController *_sharedPrefsWindowController = nil;
     NSMenu *menu = [[[NSMenu alloc] initWithTitle: @"PopUp Menu"] autorelease];
     for (NSMenuItem *item in menuItems) 
         [menu addItem: item];
-    [button setMenu: menu];
+    button.menu = menu;
     
     /* Select the default client */
     CFStringRef defaultHandler = LSCopyDefaultHandlerForURLScheme((CFStringRef) scheme);
@@ -101,7 +101,7 @@ static DBPrefsWindowController *_sharedPrefsWindowController = nil;
     [self setupMenuOfURLScheme:@"ssh" forPopUpButton:_sshPopUpButton];
 }
 
-- (id)initWithWindow:(NSWindow *)window
+- (instancetype)initWithWindow:(NSWindow *)window
   // -initWithWindow: is the designated initializer for NSWindowController.
 {
 	self = [super initWithWindow:nil];
@@ -114,9 +114,9 @@ static DBPrefsWindowController *_sharedPrefsWindowController = nil;
 
 			// Set up an NSViewAnimation to animate the transitions.
 		viewAnimation = [[NSViewAnimation alloc] init];
-		[viewAnimation setAnimationBlockingMode:NSAnimationNonblocking];
-		[viewAnimation setAnimationCurve:NSAnimationEaseInOut];
-		[viewAnimation setDelegate:self];
+		viewAnimation.animationBlockingMode = NSAnimationNonblocking;
+		viewAnimation.animationCurve = NSAnimationEaseInOut;
+		viewAnimation.delegate = self;
 		
 		[self setCrossFade:YES]; 
 		[self setShiftSlowsAnimation:YES];
@@ -138,11 +138,11 @@ static DBPrefsWindowController *_sharedPrefsWindowController = nil;
 															   NSMiniaturizableWindowMask)
 													  backing:NSBackingStoreBuffered
 													    defer:YES] autorelease];
-	[self setWindow:window];
-	contentSubview = [[[NSView alloc] initWithFrame:[[[self window] contentView] frame]] autorelease];
-	[contentSubview setAutoresizingMask:(NSViewMinYMargin | NSViewWidthSizable)];
-	[[[self window] contentView] addSubview:contentSubview];
-	[[self window] setShowsToolbarButton:NO];
+	self.window = window;
+	contentSubview = [[[NSView alloc] initWithFrame:self.window.contentView.frame] autorelease];
+	contentSubview.autoresizingMask = (NSViewMinYMargin | NSViewWidthSizable);
+	[self.window.contentView addSubview:contentSubview];
+	[self.window setShowsToolbarButton:NO];
 }
 
 
@@ -162,56 +162,56 @@ static DBPrefsWindowController *_sharedPrefsWindowController = nil;
 
 
 - (IBAction) setChineseFont: (id) sender {
-    [[NSFontManager sharedFontManager] setAction: @selector(changeChineseFont:)];
+    [NSFontManager sharedFontManager].action = @selector(changeChineseFont:);
     [[sender window] makeFirstResponder: [sender window]];
     NSFontPanel *fp = [NSFontPanel sharedFontPanel];
-    [fp setPanelFont: [NSFont fontWithName: [[WLGlobalConfig sharedInstance] chineseFontName] size: [[WLGlobalConfig sharedInstance] chineseFontSize]] isMultiple: NO];
+    [fp setPanelFont: [NSFont fontWithName: [WLGlobalConfig sharedInstance].chineseFontName size: [WLGlobalConfig sharedInstance].chineseFontSize] isMultiple: NO];
     [fp orderFront: self];
 }
 
 - (IBAction) setEnglishFont: (id) sender {
-    [[NSFontManager sharedFontManager] setAction: @selector(changeEnglishFont:)];
+    [NSFontManager sharedFontManager].action = @selector(changeEnglishFont:);
     [[sender window] makeFirstResponder: [sender window]];
     NSFontPanel *fp = [NSFontPanel sharedFontPanel];
-    [fp setPanelFont: [NSFont fontWithName: [[WLGlobalConfig sharedInstance] englishFontName] size: [[WLGlobalConfig sharedInstance] englishFontSize]] isMultiple: NO];
+    [fp setPanelFont: [NSFont fontWithName: [WLGlobalConfig sharedInstance].englishFontName size: [WLGlobalConfig sharedInstance].englishFontSize] isMultiple: NO];
     [fp orderFront: self];
 }
 
 - (void) changeChineseFont: (id) sender {
     NSFontManager *fontManager = [NSFontManager sharedFontManager];
-	NSFont *selectedFont = [fontManager selectedFont];
+	NSFont *selectedFont = fontManager.selectedFont;
     
     if (selectedFont == nil) {
 		selectedFont = [NSFont systemFontOfSize:[NSFont systemFontSize]];
 	}
     
 	NSFont *panelFont = [fontManager convertFont:selectedFont];
-    [[WLGlobalConfig sharedInstance] setChineseFontName: [panelFont fontName]];
-    [[WLGlobalConfig sharedInstance] setChineseFontSize: [panelFont pointSize]];
+    [WLGlobalConfig sharedInstance].chineseFontName = panelFont.fontName;
+    [WLGlobalConfig sharedInstance].chineseFontSize = panelFont.pointSize;
 }
 
 - (void) changeEnglishFont: (id) sender {
     NSFontManager *fontManager = [NSFontManager sharedFontManager];
-	NSFont *selectedFont = [fontManager selectedFont];
+	NSFont *selectedFont = fontManager.selectedFont;
     
     if (selectedFont == nil) {
 		selectedFont = [NSFont systemFontOfSize:[NSFont systemFontSize]];
 	}
     
 	NSFont *panelFont = [fontManager convertFont:selectedFont];
-    [[WLGlobalConfig sharedInstance] setEnglishFontName: [panelFont fontName]];
-    [[WLGlobalConfig sharedInstance] setEnglishFontSize: [panelFont pointSize]];
+    [WLGlobalConfig sharedInstance].englishFontName = panelFont.fontName;
+    [WLGlobalConfig sharedInstance].englishFontSize = panelFont.pointSize;
     
 }
 
 - (IBAction) setDefaultTelnetClient: (id) sender {
-    NSString *appId = [[sender selectedItem] representedObject];
+    NSString *appId = [sender selectedItem].representedObject;
     if (appId) 
         LSSetDefaultHandlerForURLScheme(CFSTR("telnet"), (CFStringRef)appId);
 }
 
 - (IBAction) setDefaultSSHClient: (id) sender {
-    NSString *appId = [[sender selectedItem] representedObject];
+    NSString *appId = [sender selectedItem].representedObject;
     if (appId) 
         LSSetDefaultHandlerForURLScheme(CFSTR("ssh"), (CFStringRef)appId);    
 }
@@ -247,15 +247,15 @@ static DBPrefsWindowController *_sharedPrefsWindowController = nil;
 	NSString *identifier = [[label copy] autorelease];
 	
 	[toolbarIdentifiers addObject:identifier];
-	[toolbarViews setObject:view forKey:identifier];
+	toolbarViews[identifier] = view;
 	
 	NSToolbarItem *item = [[[NSToolbarItem alloc] initWithItemIdentifier:identifier] autorelease];
-	[item setLabel:label];
-	[item setImage:image];
-	[item setTarget:self];
-	[item setAction:@selector(toggleActivePreferenceView:)];
+	item.label = label;
+	item.image = image;
+	item.target = self;
+	item.action = @selector(toggleActivePreferenceView:);
 	
-	[toolbarItems setObject:item forKey:identifier];
+	toolbarItems[identifier] = item;
 }
 
 
@@ -302,7 +302,7 @@ static DBPrefsWindowController *_sharedPrefsWindowController = nil;
 - (IBAction)showWindow:(id)sender 
 {
 		// This forces the resources in the nib to load.
-	(void)[self window];
+	(void)self.window;
 
 		// Clear the last setup and get a fresh one.
 	[toolbarIdentifiers removeAllObjects];
@@ -313,22 +313,22 @@ static DBPrefsWindowController *_sharedPrefsWindowController = nil;
 	NSAssert (([toolbarIdentifiers count] > 0),
 			  @"No items were added to the toolbar in -setupToolbar.");
 	
-	if ([[self window] toolbar] == nil) {
+	if (self.window.toolbar == nil) {
 		NSToolbar *toolbar = [[NSToolbar alloc] initWithIdentifier:@"DBPreferencesToolbar"];
 		[toolbar setAllowsUserCustomization:NO];
 		[toolbar setAutosavesConfiguration:NO];
-		[toolbar setSizeMode:NSToolbarSizeModeDefault];
-		[toolbar setDisplayMode:NSToolbarDisplayModeIconAndLabel];
-		[toolbar setDelegate:self];
-		[[self window] setToolbar:toolbar];
+		toolbar.sizeMode = NSToolbarSizeModeDefault;
+		toolbar.displayMode = NSToolbarDisplayModeIconAndLabel;
+		toolbar.delegate = self;
+		self.window.toolbar = toolbar;
 		[toolbar release];
 	}
 	
-	NSString *firstIdentifier = [toolbarIdentifiers objectAtIndex:0];
-	[[[self window] toolbar] setSelectedItemIdentifier:firstIdentifier];
+	NSString *firstIdentifier = toolbarIdentifiers[0];
+	self.window.toolbar.selectedItemIdentifier = firstIdentifier;
 	[self displayViewForIdentifier:firstIdentifier animate:NO];
 	
-	[[self window] center];
+	[self.window center];
 
 	[super showWindow:sender];
 }
@@ -366,7 +366,7 @@ static DBPrefsWindowController *_sharedPrefsWindowController = nil;
 
 - (NSToolbarItem *)toolbar:(NSToolbar *)toolbar itemForItemIdentifier:(NSString *)identifier willBeInsertedIntoToolbar:(BOOL)willBeInserted 
 {
-	return [toolbarItems objectForKey:identifier];
+	return toolbarItems[identifier];
 }
 
 
@@ -374,7 +374,7 @@ static DBPrefsWindowController *_sharedPrefsWindowController = nil;
 
 - (void)toggleActivePreferenceView:(NSToolbarItem *)toolbarItem
 {
-	[self displayViewForIdentifier:[toolbarItem itemIdentifier] animate:YES];
+	[self displayViewForIdentifier:toolbarItem.itemIdentifier animate:YES];
 }
 
 
@@ -383,15 +383,15 @@ static DBPrefsWindowController *_sharedPrefsWindowController = nil;
 - (void)displayViewForIdentifier:(NSString *)identifier animate:(BOOL)animate
 {	
 		// Find the view we want to display.
-	NSView *newView = [toolbarViews objectForKey:identifier];
+	NSView *newView = toolbarViews[identifier];
 
 		// See if there are any visible views.
 	NSView *oldView = nil;
-	if ([[contentSubview subviews] count] > 0) {
+	if (contentSubview.subviews.count > 0) {
 			// Get a list of all of the views in the window. Usually at this
 			// point there is just one visible view. But if the last fade
 			// hasn't finished, we need to get rid of it now before we move on.
-		NSEnumerator *subviewsEnum = [[contentSubview subviews] reverseObjectEnumerator];
+		NSEnumerator *subviewsEnum = [contentSubview.subviews reverseObjectEnumerator];
 		
 			// The first one (last one added) is our visible view.
 		oldView = [subviewsEnum nextObject];
@@ -404,21 +404,21 @@ static DBPrefsWindowController *_sharedPrefsWindowController = nil;
 	}
 	
 	if (![newView isEqualTo:oldView]) {		
-		NSRect frame = [newView bounds];
-		frame.origin.y = NSHeight([contentSubview frame]) - NSHeight([newView bounds]);
-		[newView setFrame:frame];
+		NSRect frame = newView.bounds;
+		frame.origin.y = NSHeight(contentSubview.frame) - NSHeight(newView.bounds);
+		newView.frame = frame;
 		[contentSubview addSubview:newView];
-		[[self window] setInitialFirstResponder:newView];
+		self.window.initialFirstResponder = newView;
 
 		if (animate && [self crossFade])
 			[self crossFadeView:oldView withView:newView];
 		else {
 			[oldView removeFromSuperviewWithoutNeedingDisplay];
 			[newView setHidden:NO];
-			[[self window] setFrame:[self frameForView:newView] display:YES animate:animate];
+			[self.window setFrame:[self frameForView:newView] display:YES animate:animate];
 		}
 		
-		[[self window] setTitle:[[toolbarItems objectForKey:identifier] label]];
+		self.window.title = [toolbarItems[identifier] label];
 	}
 }
 
@@ -433,34 +433,26 @@ static DBPrefsWindowController *_sharedPrefsWindowController = nil;
 {
 	[viewAnimation stopAnimation];
 	
-    if ([self shiftSlowsAnimation] && [[[self window] currentEvent] modifierFlags] & NSShiftKeyMask)
-		[viewAnimation setDuration:1.25];
+    if ([self shiftSlowsAnimation] && self.window.currentEvent.modifierFlags & NSShiftKeyMask)
+		viewAnimation.duration = 1.25;
     else
-		[viewAnimation setDuration:0.25];
+		viewAnimation.duration = 0.25;
 	
-	NSDictionary *fadeOutDictionary = [NSDictionary dictionaryWithObjectsAndKeys:
-		oldView, NSViewAnimationTargetKey,
-		NSViewAnimationFadeOutEffect, NSViewAnimationEffectKey,
-		nil];
+	NSDictionary *fadeOutDictionary = @{NSViewAnimationTargetKey: oldView,
+		NSViewAnimationEffectKey: NSViewAnimationFadeOutEffect};
 
-	NSDictionary *fadeInDictionary = [NSDictionary dictionaryWithObjectsAndKeys:
-		newView, NSViewAnimationTargetKey,
-		NSViewAnimationFadeInEffect, NSViewAnimationEffectKey,
-		nil];
+	NSDictionary *fadeInDictionary = @{NSViewAnimationTargetKey: newView,
+		NSViewAnimationEffectKey: NSViewAnimationFadeInEffect};
 
-	NSDictionary *resizeDictionary = [NSDictionary dictionaryWithObjectsAndKeys:
-		[self window], NSViewAnimationTargetKey,
-		[NSValue valueWithRect:[[self window] frame]], NSViewAnimationStartFrameKey,
-		[NSValue valueWithRect:[self frameForView:newView]], NSViewAnimationEndFrameKey,
-		nil];
+	NSDictionary *resizeDictionary = @{NSViewAnimationTargetKey: self.window,
+		NSViewAnimationStartFrameKey: [NSValue valueWithRect:self.window.frame],
+		NSViewAnimationEndFrameKey: [NSValue valueWithRect:[self frameForView:newView]]};
 	
-	NSArray *animationArray = [NSArray arrayWithObjects:
-		fadeOutDictionary,
+	NSArray *animationArray = @[fadeOutDictionary,
 		fadeInDictionary,
-		resizeDictionary,
-		nil];
+		resizeDictionary];
 	
-	[viewAnimation setViewAnimations:animationArray];
+	viewAnimation.viewAnimations = animationArray;
 	[viewAnimation startAnimation];
 }
 
@@ -473,7 +465,7 @@ static DBPrefsWindowController *_sharedPrefsWindowController = nil;
 	
 		// Get a list of all of the views in the window. Hopefully
 		// at this point there are two. One is visible and one is hidden.
-	NSEnumerator *subviewsEnum = [[contentSubview subviews] reverseObjectEnumerator];
+	NSEnumerator *subviewsEnum = [contentSubview.subviews reverseObjectEnumerator];
 	
 		// This is our visible view. Just get past it.
 	//subview = [subviewsEnum nextObject];
@@ -488,7 +480,7 @@ static DBPrefsWindowController *_sharedPrefsWindowController = nil;
 
 		// This is a work-around that prevents the first
 		// toolbar icon from becoming highlighted.
-	[[self window] makeFirstResponder:nil];
+	[self.window makeFirstResponder:nil];
 
 	(void)animation;
 }
@@ -499,13 +491,13 @@ static DBPrefsWindowController *_sharedPrefsWindowController = nil;
 - (NSRect)frameForView:(NSView *)view
 	// Calculate the window size for the new view.
 {
-	NSRect windowFrame = [[self window] frame];
-	NSRect contentRect = [[self window] contentRectForFrameRect:windowFrame];
+	NSRect windowFrame = self.window.frame;
+	NSRect contentRect = [self.window contentRectForFrameRect:windowFrame];
 	float windowTitleAndToolbarHeight = NSHeight(windowFrame) - NSHeight(contentRect);
 
-	windowFrame.size.height = NSHeight([view frame]) + windowTitleAndToolbarHeight;
-	windowFrame.size.width = NSWidth([view frame]);
-	windowFrame.origin.y = NSMaxY([[self window] frame]) - NSHeight(windowFrame);
+	windowFrame.size.height = NSHeight(view.frame) + windowTitleAndToolbarHeight;
+	windowFrame.size.width = NSWidth(view.frame);
+	windowFrame.origin.y = NSMaxY(self.window.frame) - NSHeight(windowFrame);
 	
 	return windowFrame;
 }

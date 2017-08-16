@@ -9,10 +9,11 @@
 #import <Cocoa/Cocoa.h>
 #import "WLSitesPanelController.h"
 
+#import "WLTerminal.h"
+
 @class WLTerminalView;
 @class WLCoverFlowPortal;
 @class WLConnection;
-@class WLTerminal;
 @class WLTabBarControl;
 
 @protocol WLTabItemContentObserver
@@ -40,8 +41,8 @@
 					   label:(NSString *)theLabel;
 - (void)newTabWithCoverFlowPortal;
 
-- (NSView *)frontMostView;
-- (WLConnection *)frontMostConnection;
-- (WLTerminal *)frontMostTerminal;
+@property (NS_NONATOMIC_IOSONLY, readonly, strong) NSView *frontMostView;
+@property (NS_NONATOMIC_IOSONLY, readonly, strong) WLConnection *frontMostConnection;
+@property (NS_NONATOMIC_IOSONLY, readonly, strong) WLTerminal *frontMostTerminal;
 
 @end

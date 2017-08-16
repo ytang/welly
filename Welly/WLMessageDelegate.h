@@ -17,7 +17,7 @@
 }
 @property (readonly) int unreadCount;
 
-- (id)initWithConnection:(WLConnection *)connection;
+- (instancetype)initWithConnection:(WLConnection *)connection;
 
 - (void)setConnection:(WLConnection *)connection;
 - (void)connectionDidReceiveNewMessage:(NSString *)message

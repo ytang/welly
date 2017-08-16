@@ -39,5 +39,5 @@
 + (WLSite *)siteWithDictionary:(NSDictionary *)d;
 - (NSDictionary *)dictionaryOfSite ;
 
-- (BOOL)isDummy;
+@property (NS_NONATOMIC_IOSONLY, getter=isDummy, readonly) BOOL dummy;
 @end

@@ -24,7 +24,7 @@ static NSCursor *gMoveCursor = nil;
     NSRectFill(NSMakeRect(0, 0, 11, 20));
     [[NSColor whiteColor] set];
     NSBezierPath *path = [NSBezierPath bezierPath];
-    [path setLineCapStyle: NSRoundLineCapStyle];
+    path.lineCapStyle = NSRoundLineCapStyle;
     [path moveToPoint: NSMakePoint(1.5, 1.5)];
     [path lineToPoint: NSMakePoint(2.5, 1.5)];
     [path lineToPoint: NSMakePoint(5.5, 4.5)];
@@ -39,9 +39,9 @@ static NSCursor *gMoveCursor = nil;
     [path lineToPoint: NSMakePoint(9.5, 18.5)];
     [path moveToPoint: NSMakePoint(3.5, 9.5)];
     [path lineToPoint: NSMakePoint(7.5, 9.5)];
-    [path setLineWidth: 3];
+    path.lineWidth = 3;
     [path stroke];
-    [path setLineWidth: 1];
+    path.lineWidth = 1;
     [[NSColor blackColor] set];
     [path stroke];
     [cursorImage unlockFocus];
@@ -49,7 +49,7 @@ static NSCursor *gMoveCursor = nil;
     [cursorImage release];
 }
 
-- (id)init {
+- (instancetype)init {
 	self = [super init];
 	if (self) {
 		if (!gMoveCursor)
@@ -62,7 +62,7 @@ static NSCursor *gMoveCursor = nil;
 #pragma mark Event Handle
 - (void)mouseUp:(NSEvent *)theEvent {
 	// click to move cursor
-	NSPoint p = [_view convertPoint:[theEvent locationInWindow] fromView:nil];
+	NSPoint p = [_view convertPoint:theEvent.locationInWindow fromView:nil];
 	NSInteger _selectionLocation = [_view convertIndexFromPoint: p];
 	
 	unsigned char cmd[_maxRow * _maxColumn * 3];
@@ -96,7 +96,7 @@ static NSCursor *gMoveCursor = nil;
 		cell *currRow = [[_view frontMostTerminal] cellsOfRow:moveToRow];
 		if (home) {
 			for (int i = 0; i < moveToCol; i++) {
-				if (currRow[i].attr.f.doubleByte != 2 || [[[_view frontMostConnection] site] shouldDetectDoubleByte]) {
+				if (currRow[i].attr.f.doubleByte != 2 || [_view frontMostConnection].site.shouldDetectDoubleByte) {
 					cmd[cmdLength++] = 0x1B;
 					cmd[cmdLength++] = 0x4F;
 					cmd[cmdLength++] = 0x43;                    
@@ -104,7 +104,7 @@ static NSCursor *gMoveCursor = nil;
 			}
 		} else if (moveToCol > [ds cursorColumn]) {
 			for (NSInteger i = [ds cursorColumn]; i < moveToCol; i++) {
-				if (currRow[i].attr.f.doubleByte != 2 || [[[_view frontMostConnection] site] shouldDetectDoubleByte]) {
+				if (currRow[i].attr.f.doubleByte != 2 || [_view frontMostConnection].site.shouldDetectDoubleByte) {
 					cmd[cmdLength++] = 0x1B;
 					cmd[cmdLength++] = 0x4F;
 					cmd[cmdLength++] = 0x43;
@@ -112,7 +112,7 @@ static NSCursor *gMoveCursor = nil;
 			}
 		} else if (moveToCol < [ds cursorColumn]) {
 			for (NSInteger i = [ds cursorColumn]; i > moveToCol; i--) {
-				if (currRow[i].attr.f.doubleByte != 2 || [[[_view frontMostConnection] site] shouldDetectDoubleByte]) {
+				if (currRow[i].attr.f.doubleByte != 2 || [_view frontMostConnection].site.shouldDetectDoubleByte) {
 					cmd[cmdLength++] = 0x1B;
 					cmd[cmdLength++] = 0x4F;
 					cmd[cmdLength++] = 0x44;
@@ -137,7 +137,7 @@ static NSCursor *gMoveCursor = nil;
 				}
 				if (i % _maxColumn <= lastEffectiveChar
 					&& ([ds attrAtRow:i / _maxColumn column:i % _maxColumn].f.doubleByte != 2
-						|| [[[_view frontMostConnection] site] shouldDetectDoubleByte])) {
+						|| [_view frontMostConnection].site.shouldDetectDoubleByte)) {
 					cmd[cmdLength++] = 0x1B;
 					cmd[cmdLength++] = 0x4F;
 					cmd[cmdLength++] = 0x43;                    
@@ -156,7 +156,7 @@ static NSCursor *gMoveCursor = nil;
 				}
 				if (i % _maxColumn <= lastEffectiveChar
 					&& ([ds attrAtRow:i / _maxColumn column:i % _maxColumn].f.doubleByte != 2
-						|| [[[_view frontMostConnection] site] shouldDetectDoubleByte])) {
+						|| [_view frontMostConnection].site.shouldDetectDoubleByte)) {
 					cmd[cmdLength++] = 0x1B;
 					cmd[cmdLength++] = 0x4F;
 					cmd[cmdLength++] = 0x44;                    
@@ -170,7 +170,7 @@ static NSCursor *gMoveCursor = nil;
 
 - (void)mouseEntered:(NSEvent *)theEvent {
 	[[NSCursor IBeamCursor] set];
-	_manager.activeTrackingAreaUserInfo = [[theEvent trackingArea] userInfo];
+	_manager.activeTrackingAreaUserInfo = theEvent.trackingArea.userInfo;
 }
 
 - (void)mouseExited:(NSEvent *)theEvent {
@@ -191,8 +191,8 @@ static NSCursor *gMoveCursor = nil;
 	if (![_view shouldEnableMouse] || ![_view isConnected]) {
 		return YES;
 	}
-	BBSState bbsState = [[_view frontMostTerminal] bbsState];
-	if ([_manager lastBBSState].state == bbsState.state)
+	BBSState bbsState = [_view frontMostTerminal].bbsState;
+	if (_manager.lastBBSState.state == bbsState.state)
 		return NO;
 	return YES;
 }
@@ -202,10 +202,10 @@ static NSCursor *gMoveCursor = nil;
 	if (![_view shouldEnableMouse] || ![_view isConnected]) {
 		return;
 	}
-	BBSState bbsState = [[_view frontMostTerminal] bbsState];
+	BBSState bbsState = [_view frontMostTerminal].bbsState;
 	if (bbsState.state == BBSComposePost) {
-		[_trackingAreas addObject:[_manager addTrackingAreaWithRect:[_view frame]
-														   userInfo:[NSDictionary dictionaryWithObject:self forKey:WLMouseHandlerUserInfoName] 
+		[_trackingAreas addObject:[_manager addTrackingAreaWithRect:_view.frame
+														   userInfo:@{WLMouseHandlerUserInfoName: self} 
 															 cursor:gMoveCursor]];
 	}
 }

@@ -16,18 +16,18 @@
 
 #pragma mark -
 #pragma mark Init & dealloc
-- (id)initWithSite:(WLSite *)site {
+- (instancetype)initWithSite:(WLSite *)site {
 	if (self = [self init]) {
-		[self setSite:site];
+		self.site = site;
 	}
 	return self;
 }
 
-- (id)initWithPath:(NSString *)path 
+- (instancetype)initWithPath:(NSString *)path 
 			 title:(NSString *)title {
 	self = [super initWithTitle:title];
     if (self) {
-		[self setPath:path];
+		self.path = path;
 	}
     return self;
 }
@@ -46,7 +46,7 @@
         NSFileManager *fileMgr = [NSFileManager defaultManager];
         NSArray *paths = NSSearchPathForDirectoriesInDomains(NSApplicationSupportDirectory, NSUserDomainMask, YES);
         NSAssert([paths count] > 0, @"~/Library/Application Support");
-        NSString *dir = [[paths objectAtIndex:0] stringByAppendingPathComponent:@"Welly"];
+        NSString *dir = [paths[0] stringByAppendingPathComponent:@"Welly"];
         [fileMgr createDirectoryAtPath:dir withIntermediateDirectories:YES attributes:nil error:nil];
         sCoverDir = [[dir stringByAppendingPathComponent:@"Covers"] retain];
         [fileMgr createDirectoryAtPath:sCoverDir withIntermediateDirectories:YES attributes:nil error:nil];
@@ -57,8 +57,8 @@
 - (void)loadCover {
 	if (!_site)
 		return;
-	NSString *siteName = [_site name];
-	if ([siteName length] == 0)
+	NSString *siteName = _site.name;
+	if (siteName.length == 0)
 		return;
 	// guess the image file name
 	NSArray *paths = nil;
@@ -66,9 +66,9 @@
 	[[[dir stringByAppendingPathComponent:siteName] stringByAppendingString:@"."]
 	 completePathIntoString:nil caseSensitive:NO matchesIntoArray:&paths filterTypes:nil];
 	NSString *path = nil;
-	if ([paths count])
-		path = [paths objectAtIndex:0];
-	[self setPath:path];
+	if (paths.count)
+		path = paths[0];
+	self.path = path;
 }
 
 - (BOOL)setCoverWithFile:(NSString *)src {
@@ -80,7 +80,7 @@
     NSString *dst = nil;
     if (src) {
         NSString *dir = [[self class] directoryForSiteCovers];
-        dst = [[dir stringByAppendingPathComponent:_title] stringByAppendingPathExtension:[src pathExtension]];
+        dst = [[dir stringByAppendingPathComponent:_title] stringByAppendingPathExtension:src.pathExtension];
         // try to clean up dst first
         [fileMgr removeItemAtPath:dst error:nil];
         NSError *error = nil;
@@ -93,7 +93,7 @@
     }
 	
     // update
-    [self setPath:dst];
+    self.path = dst;
 	return YES;
 }
 
@@ -112,7 +112,7 @@
 - (void)setSite:(WLSite *)site {
 	[_site release];
 	_site = [site retain];
-	_title = [_site name];
+	_title = _site.name;
 	[self loadCover];
 }
 
@@ -126,7 +126,7 @@
 #pragma mark -
 #pragma mark WLPBoardReceiver protocol
 - (BOOL)acceptsPBoard:(NSPasteboard *)pboard {
-	if (![[pboard types] containsObject:NSFilenamesPboardType])
+	if (![pboard.types containsObject:NSFilenamesPboardType])
 		return NO;
 	
     id files = [pboard propertyListForType:NSFilenamesPboardType];
@@ -134,7 +134,7 @@
     if ([files count] != 1)
         return NO;
     NSFileManager *fileMgr = [NSFileManager defaultManager];
-    NSString *path = [files objectAtIndex:0];
+    NSString *path = files[0];
     BOOL isDir;
     if (![fileMgr fileExistsAtPath:path isDirectory:&isDir] || isDir)
         return NO;
@@ -148,7 +148,7 @@
 		return NO;
 	
     id files = [pboard propertyListForType:NSFilenamesPboardType];
-    NSString *src = [files objectAtIndex:0];
+    NSString *src = files[0];
 	return [self setCoverWithFile:src];
 }
 
@@ -167,7 +167,7 @@
 
 - (NSPasteboard *)draggingPasteboard {
 	NSPasteboard *pboard = [NSPasteboard pasteboardWithName:NSDragPboard];
-    [pboard declareTypes:[NSArray arrayWithObject:NSFilenamesPboardType] owner:nil];
+    [pboard declareTypes:@[NSFilenamesPboardType] owner:nil];
     [pboard setString:_path forType:NSFilenamesPboardType];
 	return pboard;
 }

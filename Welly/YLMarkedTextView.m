@@ -16,19 +16,19 @@
 @synthesize defaultFont = _defaultFont;
 @synthesize destination = _destination;
 
-- (id)initWithFrame:(NSRect)frame {
+- (instancetype)initWithFrame:(NSRect)frame {
     self = [super initWithFrame:frame];
     if (self) {
-		[self setDefaultFont:[NSFont fontWithName:@"Lucida Grande" size:20]];
+		self.defaultFont = [NSFont fontWithName:@"Lucida Grande" size:20];
     }
     return self;
 }
 
 - (void)drawRect:(NSRect)rect {
-	CGContextRef context = (CGContextRef) [[NSGraphicsContext currentContext] graphicsPort];
+	CGContextRef context = (CGContextRef) [NSGraphicsContext currentContext].graphicsPort;
 	CGContextSaveGState(context);
 	
-	CGFloat half = ([self frame].size.height / 2.0);
+	CGFloat half = (self.frame.size.height / 2.0);
 	BOOL fromTop = _destination.y > half;
 	
 	CGContextTranslateCTM(context, 1.0,  1.0);
@@ -45,8 +45,8 @@
 	CGFloat ovalSize = 6.0;
 	CGContextTranslateCTM(context, 1.0,  1.0);
 
-    CGFloat fw = ([self bounds].size.width - 3);
-    CGFloat fh = ([self bounds].size.height - 3 - 5);
+    CGFloat fw = (self.bounds.size.width - 3);
+    CGFloat fh = (self.bounds.size.height - 3 - 5);
 
 	CGContextBeginPath(context);
     CGContextMoveToPoint(context, 0, fh - ovalSize); 
@@ -118,17 +118,17 @@
 	NSMutableAttributedString *as = [[NSMutableAttributedString alloc] initWithAttributedString: value];
 	[as addAttribute:NSFontAttributeName 
 			   value:_defaultFont
-			   range:NSMakeRange(0, [value length])];
+			   range:NSMakeRange(0, value.length)];
 	[as addAttribute:NSForegroundColorAttributeName 
 			   value:[NSColor whiteColor]
-			   range:NSMakeRange(0, [value length])];
+			   range:NSMakeRange(0, value.length)];
 	[_string release];
 	_string = as;
 	[self setNeedsDisplay:YES];
 
 	CTLineRef line = CTLineCreateWithAttributedString((CFAttributedStringRef)_string);
 	double w = CTLineGetTypographicBounds(line, NULL, NULL, NULL) ;
-	NSSize size = [self frame].size;
+	NSSize size = self.frame.size;
 	size.width = w + 12;
 	size.height = _lineHeight + 8 + 5;
 	[self setFrameSize:size];

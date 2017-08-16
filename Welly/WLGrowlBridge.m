@@ -29,10 +29,10 @@ NSString *const WLGrowlClickObjectKeyName = @"ClickRepresentedObject";
 }
 
 - (NSDictionary *)registrationDictionaryForGrowl {
-	NSArray *notifications = [NSArray arrayWithObjects:kGrowlNotificationNameFileTransfer, kGrowlNotificationNameEXIFInformation, kGrowlNotificationNameNewMessageReceived, nil];
+	NSArray *notifications = @[kGrowlNotificationNameFileTransfer, kGrowlNotificationNameEXIFInformation, kGrowlNotificationNameNewMessageReceived];
 	NSMutableDictionary *dict = [NSMutableDictionary dictionary];
-	[dict setObject:notifications forKey: GROWL_NOTIFICATIONS_ALL];
-	[dict setObject:notifications forKey: GROWL_NOTIFICATIONS_DEFAULT];
+	dict[GROWL_NOTIFICATIONS_ALL] = notifications;
+	dict[GROWL_NOTIFICATIONS_DEFAULT] = notifications;
 	return dict;
 }
 
@@ -64,7 +64,7 @@ NSString *const WLGrowlClickObjectKeyName = @"ClickRepresentedObject";
 	}
 	
     // hack identifier that must be a string
-    NSString *stringId = [[NSNumber numberWithLong:(long)identifier] stringValue];
+    NSString *stringId = @((long)identifier).stringValue;
     [GrowlApplicationBridge notifyWithTitle:title
                                 description:description
                            notificationName:notifName
@@ -85,10 +85,10 @@ NSString *const WLGrowlClickObjectKeyName = @"ClickRepresentedObject";
 	// capsulate target, selector and object.
 	// Note: Growl only accepts pure p-list contents as click context
 	//   i.e. only occurs NSDictionary, NSString, NSNumber, NSArray
-    NSDictionary *clickContext = @{WLGrowlClickTargetKeyName:[NSNumber  numberWithUnsignedLong:(unsigned long)target], WLGrowlClickSelectorKeyName:NSStringFromSelector(selector), WLGrowlClickObjectKeyName:[NSNumber  numberWithUnsignedLong:(unsigned long)identifier]};
+    NSDictionary *clickContext = @{WLGrowlClickTargetKeyName:@((unsigned long)target), WLGrowlClickSelectorKeyName:NSStringFromSelector(selector), WLGrowlClickObjectKeyName:@((unsigned long)identifier)};
 	
     // hack identifier that must be a string
-    NSString *stringId = [[NSNumber numberWithLong:(long)identifier] stringValue];
+    NSString *stringId = @((long)identifier).stringValue;
     [GrowlApplicationBridge notifyWithTitle:title
                                 description:description
                            notificationName:notifName
@@ -102,9 +102,9 @@ NSString *const WLGrowlClickObjectKeyName = @"ClickRepresentedObject";
 - (void)growlNotificationWasClicked:(id)contextId {
 	NSDictionary *context = (NSDictionary *)contextId;
 	// encapsulate target/selector/object
-	id target = (id)[[context objectForKey:WLGrowlClickTargetKeyName] unsignedLongValue];
-	SEL selector = NSSelectorFromString([context objectForKey:WLGrowlClickSelectorKeyName]);
-	id object = (id)[[context objectForKey:WLGrowlClickObjectKeyName] unsignedLongValue];
+	id target = (id)[context[WLGrowlClickTargetKeyName] unsignedLongValue];
+	SEL selector = NSSelectorFromString(context[WLGrowlClickSelectorKeyName]);
+	id object = (id)[context[WLGrowlClickObjectKeyName] unsignedLongValue];
 	// perform action
 	[target performSelector:selector withObject:object];
 }

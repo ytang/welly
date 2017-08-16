@@ -10,6 +10,6 @@
 
 
 @interface WLMainFrameController (FullScreen)
-- (BOOL)isInFullScreenMode;
+@property (NS_NONATOMIC_IOSONLY, getter=isInFullScreenMode, readonly) BOOL inFullScreenMode;
 + (NSDictionary *)sizeParametersForZoomRatio:(CGFloat)zoomRatio;
 @end

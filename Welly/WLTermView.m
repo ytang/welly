@@ -9,7 +9,6 @@
 #import "WLTermView.h"
 #import "CommonType.h"
 #import "WLGlobalConfig.h"
-#import "WLTerminal.h"
 #import "WLConnection.h"
 #import "WLAsciiArtRender.h"
 
@@ -44,10 +43,10 @@ static NSImage *gLeftImage;
 - (void)configure {
     if (!gConfig) 
 		gConfig = [WLGlobalConfig sharedInstance];
-	_maxColumn = [gConfig column];
-	_maxRow = [gConfig row];
-    _fontWidth = [gConfig cellWidth];
-    _fontHeight = [gConfig cellHeight];
+	_maxColumn = gConfig.column;
+	_maxRow = gConfig.row;
+    _fontWidth = gConfig.cellWidth;
+    _fontHeight = gConfig.cellHeight;
 	
     [self setFrameSize:[gConfig contentSize]];
 	
@@ -73,19 +72,19 @@ static NSImage *gLeftImage;
 	[_asciiArtRender configure];
 }
 
-- (id)initWithFrame:(NSRect)frame {
+- (instancetype)initWithFrame:(NSRect)frame {
     if ((self = [super initWithFrame:frame])) {
 		_asciiArtRender = [WLAsciiArtRender new];
 		
         [self configure];
 		
 		// Register KVO
-		NSArray *observeKeys = [NSArray arrayWithObjects:@"shouldSmoothFonts", @"showsHiddenText", @"cellWidth", @"cellHeight", @"cellSize",
+		NSArray *observeKeys = @[@"shouldSmoothFonts", @"showsHiddenText", @"cellWidth", @"cellHeight", @"cellSize",
 								@"chineseFontName", @"chineseFontSize", @"chineseFontPaddingLeft", @"chineseFontPaddingBottom",
 								@"englishFontName", @"englishFontSize", @"englishFontPaddingLeft", @"englishFontPaddingBottom", 
 								@"colorBlack", @"colorBlackHilite", @"colorRed", @"colorRedHilite", @"colorGreen", @"colorGreenHilite",
 								@"colorYellow", @"colorYellowHilite", @"colorBlue", @"colorBlueHilite", @"colorMagenta", @"colorMagentaHilite", 
-								@"colorCyan", @"colorCyanHilite", @"colorWhite", @"colorWhiteHilite", @"colorBG", @"colorBGHilite", nil];
+								@"colorCyan", @"colorCyanHilite", @"colorWhite", @"colorWhiteHilite", @"colorBG", @"colorBGHilite"];
 		for (NSString *key in observeKeys)
 			[[WLGlobalConfig sharedInstance] addObserver:self
 											  forKeyPath:key
@@ -121,13 +120,13 @@ static NSImage *gLeftImage;
 - (WLTerminal *)frontMostTerminal {
 	if (!_connection)
 		return nil;
-    return (WLTerminal *)[[self frontMostConnection] terminal];
+    return (WLTerminal *)[self frontMostConnection].terminal;
 }
 
 - (BOOL)isConnected {
 	if (!_connection)
 		return NO;
-	return [[self frontMostConnection] isConnected];
+	return [self frontMostConnection].isConnected;
 }
 
 - (BOOL)hasBlinkCell {
@@ -186,11 +185,11 @@ static NSImage *gLeftImage;
 	[self updateBackedImage];
     WLTerminal *ds = [self frontMostTerminal];
 	
-	if (ds && (_x != [ds cursorColumn] || _y != [ds cursorRow])) {
+	if (ds && (_x != ds.cursorColumn || _y != ds.cursorRow)) {
 		[self setNeedsDisplayInRect:NSMakeRect(_x * _fontWidth, (_maxRow - 1 - _y) * _fontHeight, _fontWidth, _fontHeight)];
-		[self setNeedsDisplayInRect:NSMakeRect([ds cursorColumn] * _fontWidth, (_maxRow - 1 - [ds cursorRow]) * _fontHeight, _fontWidth, _fontHeight)];
-		_x = [ds cursorColumn];
-		_y = [ds cursorRow];
+		[self setNeedsDisplayInRect:NSMakeRect(ds.cursorColumn * _fontWidth, (_maxRow - 1 - ds.cursorRow) * _fontHeight, _fontWidth, _fontHeight)];
+		_x = ds.cursorColumn;
+		_y = ds.cursorRow;
 	}
     [pool release];
 }
@@ -210,7 +209,7 @@ static NSImage *gLeftImage;
 		// Modified by gtCarrera
 		// Draw the background color first!!!
 		[[gConfig colorBG] set];
-        NSRect retangle = [self bounds];
+        NSRect retangle = self.bounds;
 		NSRectFill(retangle);
         /* Draw the backed image */
 		
@@ -241,16 +240,16 @@ static NSImage *gLeftImage;
 		/* Draw the cursor */
 		[[NSColor whiteColor] set];
 		[NSBezierPath setDefaultLineWidth:2.0];
-		[NSBezierPath strokeLineFromPoint:NSMakePoint([ds cursorColumn] * _fontWidth, (_maxRow - 1 - [ds cursorRow]) * _fontHeight + 1) 
-								  toPoint:NSMakePoint(([ds cursorColumn] + 1) * _fontWidth, (_maxRow - 1 - [ds cursorRow]) * _fontHeight + 1) ];
+		[NSBezierPath strokeLineFromPoint:NSMakePoint(ds.cursorColumn * _fontWidth, (_maxRow - 1 - ds.cursorRow) * _fontHeight + 1) 
+								  toPoint:NSMakePoint((ds.cursorColumn + 1) * _fontWidth, (_maxRow - 1 - ds.cursorRow) * _fontHeight + 1) ];
         [NSBezierPath setDefaultLineWidth:1.0];
-        _x = [ds cursorColumn], _y = [ds cursorRow];
+        _x = ds.cursorColumn, _y = ds.cursorRow;
 		
         /* Draw the selection */
 		//[self drawSelection];
 	} else {
 		[[gConfig colorBG] set];
-        NSRect r = [self bounds];
+        NSRect r = self.bounds;
         NSRectFill(r);
 	}
 	
@@ -265,7 +264,7 @@ static NSImage *gLeftImage;
 }
 
 - (void)drawBlink {
-    if (![gConfig blinkTicker])
+    if (!gConfig.blinkTicker)
 		return;
 	
     int c, r;
@@ -344,7 +343,7 @@ static NSImage *gLeftImage;
 	int x, y;
     WLTerminal *ds = [self frontMostTerminal];
 	[_backedImage lockFocus];
-	CGContextRef myCGContext = (CGContextRef)[[NSGraphicsContext currentContext] graphicsPort];
+	CGContextRef myCGContext = (CGContextRef)[NSGraphicsContext currentContext].graphicsPort;
 	if (ds) {
         /* Draw Background */
         for (y = 0; y < _maxRow; y++) {
@@ -358,7 +357,7 @@ static NSImage *gLeftImage;
         }
         CGContextSaveGState(myCGContext);
         CGContextSetShouldSmoothFonts(myCGContext, 
-                                      [gConfig shouldSmoothFonts] ? true : false);
+                                      gConfig.shouldSmoothFonts ? true : false);
         
         /* Draw String row by row */
         for (y = 0; y < _maxRow; y++) {
@@ -394,8 +393,8 @@ static NSImage *gLeftImage;
 	CGPoint position[_maxColumn];
 	int bufLength = 0;
     
-    CGFloat ePaddingLeft = [gConfig englishFontPaddingLeft], ePaddingBottom = [gConfig englishFontPaddingBottom];
-    CGFloat cPaddingLeft = [gConfig chineseFontPaddingLeft], cPaddingBottom = [gConfig chineseFontPaddingBottom];
+    CGFloat ePaddingLeft = gConfig.englishFontPaddingLeft, ePaddingBottom = gConfig.englishFontPaddingBottom;
+    CGFloat cPaddingLeft = gConfig.chineseFontPaddingLeft, cPaddingBottom = gConfig.chineseFontPaddingBottom;
     
     WLTerminal *ds = [self frontMostTerminal];
     [ds updateDoubleByteStateForRow:r];
@@ -434,10 +433,10 @@ static NSImage *gLeftImage;
 		} else if (db == 2) {
 			unsigned short code = (((currRow + x - 1)->byte) << 8) + ((currRow + x)->byte) - 0x8000;
 			unichar ch = [WLEncoder toUnicode:code 
-									 encoding:[[[self frontMostConnection] site] encoding]];
+									 encoding:[[self frontMostConnection].site encoding]];
 			
 			if ([WLAsciiArtRender isAsciiArtSymbol:ch] 
-				&& !([gConfig showsHiddenText]					// If the user desires anti-hidden
+				&& !(gConfig.showsHiddenText					// If the user desires anti-hidden
 					 && (isHiddenAttribute((currRow + x)->attr) // And this is a hidden special symbol
 						 || isHiddenAttribute((currRow + x - 1)->attr)))) {	// We shall leave it for later part to deal with
 				[self drawSpecialSymbol:ch 
@@ -516,9 +515,9 @@ static NSImage *gLeftImage;
 		CGContextSetFont(myCGContext, cgFont);
 		CGContextSetFontSize(myCGContext, CTFontGetSize(runFont));
 		CGContextSetRGBFillColor(myCGContext, 
-								 [runColor redComponent], 
-								 [runColor greenComponent], 
-								 [runColor blueComponent], 
+								 runColor.redComponent, 
+								 runColor.greenComponent, 
+								 runColor.blueComponent, 
 								 1.0);
         CGContextSetRGBStrokeColor(myCGContext, 1.0, 1.0, 1.0, 1.0);
         CGContextSetLineWidth(myCGContext, 1.0);
@@ -531,14 +530,14 @@ static NSImage *gLeftImage;
         for (runGlyphIndex = 0; runGlyphIndex <= runGlyphCount; runGlyphIndex++) {
             int index = bufIndex[glyphOffset + runGlyphIndex];
             if (runGlyphIndex == runGlyphCount || 
-                ([gConfig showsHiddenText] && isHiddenAttribute(currRow[index].attr) != hidden) ||
+                (gConfig.showsHiddenText && isHiddenAttribute(currRow[index].attr) != hidden) ||
                 (isDoubleByte[runGlyphIndex + glyphOffset] && index != lastIndex + 2) ||
                 (!isDoubleByte[runGlyphIndex + glyphOffset] && index != lastIndex + 1) ||
                 (isDoubleByte[runGlyphIndex + glyphOffset] != lastDoubleByte)) {
                 lastDoubleByte = isDoubleByte[runGlyphIndex + glyphOffset];
                 NSInteger len = runGlyphIndex - location;
                 
-                CGContextSetTextDrawingMode(myCGContext, ([gConfig showsHiddenText] && hidden) ? kCGTextStroke : kCGTextFill);
+                CGContextSetTextDrawingMode(myCGContext, (gConfig.showsHiddenText && hidden) ? kCGTextStroke : kCGTextFill);
                 CGGlyph glyph[_maxColumn];
                 CFRange glyphRange = CFRangeMake(location, len);
                 CTRunGetGlyphs(run, glyphRange, glyph);
@@ -572,21 +571,21 @@ static NSImage *gLeftImage;
                 [gLeftImage lockFocus];
                 [[gConfig bgColorAtIndex:bgColor hilite:bgBoldOfAttribute(currRow[index].attr)] set];
                 NSRect rect;
-                rect.size = [gLeftImage size];
+                rect.size = gLeftImage.size;
                 rect.origin = NSZeroPoint;
                 NSRectFill(rect);
                 
-                CGContextRef tempContext = (CGContextRef)[[NSGraphicsContext currentContext] graphicsPort];
+                CGContextRef tempContext = (CGContextRef)[NSGraphicsContext currentContext].graphicsPort;
                 
-                CGContextSetShouldSmoothFonts(tempContext, [gConfig shouldSmoothFonts] ? true : false);
+                CGContextSetShouldSmoothFonts(tempContext, gConfig.shouldSmoothFonts ? true : false);
                 
                 NSColor *tempColor = [gConfig colorAtIndex:fgColor hilite:fgBoldOfAttribute(currRow[index].attr)];
                 CGContextSetFont(tempContext, cgFont);
                 CGContextSetFontSize(tempContext, CTFontGetSize(runFont));
                 CGContextSetRGBFillColor(tempContext, 
-                                         [tempColor redComponent], 
-                                         [tempColor greenComponent], 
-                                         [tempColor blueComponent], 
+                                         tempColor.redComponent, 
+                                         tempColor.greenComponent, 
+                                         tempColor.blueComponent, 
                                          1.0);
                 
                 CGContextShowGlyphsAtPoint(tempContext, cPaddingLeft, CTFontGetDescent(gConfig->_cCTFont) + cPaddingBottom, &glyph, 1);
@@ -709,7 +708,7 @@ static NSImage *gLeftImage;
 // Get current BBS image
 - (NSImage *)image {
 	// Leave for others to release it
-	return [[[NSImage alloc] initWithData:[self dataWithPDFInsideRect:[self frame]]] autorelease];
+	return [[[NSImage alloc] initWithData:[self dataWithPDFInsideRect:self.frame]] autorelease];
 }
 
 #pragma mark -

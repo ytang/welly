@@ -9,10 +9,10 @@
 #import <Cocoa/Cocoa.h>
 #import <QuartzCore/CoreAnimation.h>
 
+#import "WLTerminalView.h"
+
 #define DEFAULT_POPUP_BOX_FONT @"Helvetica"
 #define DEFAULT_POPUP_MENU_FONT @"Lucida Grande"
-
-@class WLTerminalView;
 
 @interface WLEffectView : NSView {
     CALayer *_mainLayer;

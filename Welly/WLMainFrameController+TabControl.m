@@ -61,10 +61,10 @@
 }
 
 - (IBAction)closeTab:(id)sender {
-    if ([_tabView numberOfTabViewItems] == 0) return;
+    if (_tabView.numberOfTabViewItems == 0) return;
 	// Here, sometimes it may throw a exception...
 	@try {
-		[_tabBarControl removeTabViewItem:[_tabView selectedTabViewItem]];
+		[_tabBarControl removeTabViewItem:_tabView.selectedTabViewItem];
 	}
 	@catch (NSException * e) {
 	}
@@ -77,8 +77,8 @@
 	[self exitPresentationMode];
 	
 	// TODO: why not put these in WLTabView?
-    if (![[[tabViewItem identifier] content] isKindOfClass:[WLConnection class]] ||
-		![[[tabViewItem identifier] content] isConnected]) 
+    if (![[tabViewItem.identifier content] isKindOfClass:[WLConnection class]] ||
+		![[tabViewItem.identifier content] isConnected]) 
 		return YES;
     if (![[NSUserDefaults standardUserDefaults] boolForKey:WLConfirmOnCloseEnabledKeyName]) 
 		return YES;
@@ -95,18 +95,18 @@
 
 - (void)tabView:(NSTabView *)tabView willCloseTabViewItem:(NSTabViewItem *)tabViewItem {
     // close the connection
-	if ([[[tabViewItem identifier] content] isKindOfClass:[WLConnection class]])
-		[[[tabViewItem identifier] content] close];
+	if ([[tabViewItem.identifier content] isKindOfClass:[WLConnection class]])
+		[[tabViewItem.identifier content] close];
 }
 
 - (void)tabView:(NSTabView *)tabView didSelectTabViewItem:(NSTabViewItem *)tabViewItem {
     NSAssert(tabView == _tabView, @"tabView");
 	[_addressBar setStringValue:@""];
-	if ([[[tabViewItem identifier] content] isKindOfClass:[WLConnection class]]) {
-		WLConnection *connection = [[tabViewItem identifier] content];
-		WLSite *site = [connection site];
-		if (connection && [site address]) {
-			[_addressBar setStringValue:[site address]];
+	if ([[tabViewItem.identifier content] isKindOfClass:[WLConnection class]]) {
+		WLConnection *connection = [tabViewItem.identifier content];
+		WLSite *site = connection.site;
+		if (connection && site.address) {
+			[_addressBar setStringValue:site.address];
 			[connection resetMessageCount];
 		}
 		
@@ -125,7 +125,7 @@
 
 - (void)tabViewDidChangeNumberOfTabViewItems:(NSTabView *)tabView {
     // all tab closed, no didSelectTabViewItem will happen
-    if ([tabView numberOfTabViewItems] == 0) {
+    if (tabView.numberOfTabViewItems == 0) {
         if ([WLGlobalConfig shouldEnableCoverFlow]) {
             [_mainWindow makeFirstResponder:tabView];
         } else {

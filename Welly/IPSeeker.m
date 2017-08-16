@@ -39,7 +39,7 @@ NSString* L(NSString* key) {
 	return s_instance;
 }
 
-- (id)init {
+- (instancetype)init {
 	self = [super init];
 	if(self) {
 		m_cache = [[NSMutableDictionary dictionary] retain];
@@ -79,16 +79,16 @@ NSString* L(NSString* key) {
 		return L(@"LQIPBadFile");
 	
 	NSString* ipStr = [NSString stringWithFormat:@"%d.%d.%d.%d", ip[0] & 0xFF, ip[1] & 0xFF, ip[2] & 0xFF, ip[3] & 0xFF];
-	NSString* loc = [m_cache objectForKey:ipStr];
+	NSString* loc = m_cache[ipStr];
 	if(loc == nil) {
 		UInt32 offset = [self locateIP:ip];
 		if(offset != -1) {
 			loc = [self getLocationByOffset:offset];
-			[m_cache setObject:loc forKey:ipStr];
+			m_cache[ipStr] = loc;
 		} else
 			loc = [NSString stringWithFormat:@"%@ %@", L(@"LQCountryUnknown"), L(@"LQAreaUnknown")];
 	} else
-		loc = [m_cache objectForKey:ipStr];
+		loc = m_cache[ipStr];
 	
 	if(locationOnly)
 		return loc;
@@ -108,7 +108,7 @@ NSString* L(NSString* key) {
 	
 	// check whether first byte is a flag byte
 	NSData* data = [m_file readDataOfLength:1];
-	char byte = ((const char*)[data bytes])[0];
+	char byte = ((const char*)data.bytes)[0];
 	if(byte == REDIRECT_MODE_1) {
 		// read offset of country
 		UInt32 countryOffset = [self readInt3];
@@ -118,7 +118,7 @@ NSString* L(NSString* key) {
 		
 		// check first byte again because it could still be flag byte
 		data = [m_file readDataOfLength:1];
-		byte = ((const char*)[data bytes])[0];
+		byte = ((const char*)data.bytes)[0];
 		if(byte == REDIRECT_MODE_2) {
 			country = [self readString:[self readInt3]];
 			[m_file seekToFileOffset:(countryOffset + 4)];
@@ -126,13 +126,13 @@ NSString* L(NSString* key) {
 			country = [self readString:countryOffset];
 		
 		// read area
-		area = [self readArea:[m_file offsetInFile]];
+		area = [self readArea:m_file.offsetInFile];
 	} else if(byte == REDIRECT_MODE_2) {
 		country = [self readString:[self readInt3]];
 		area = [self readArea:(offset + 8)];
 	} else {
-		country = [self readString:([m_file offsetInFile] - 1)];
-		area = [self readArea:[m_file offsetInFile]];
+		country = [self readString:(m_file.offsetInFile - 1)];
+		area = [self readArea:m_file.offsetInFile];
 	}
 	
 	return [NSString stringWithFormat:@"%@ %@", country, area];
@@ -173,7 +173,7 @@ NSString* L(NSString* key) {
 	
 	// compare first entry
 	NSData* ipData = [self readIP:m_indexBegin];
-	r = [self compareIP:ip withIP:(const char*)[ipData bytes]];
+	r = [self compareIP:ip withIP:(const char*)ipData.bytes];
 	if(r == 0) 
 		return m_indexBegin;
 	else if(r < 0) 
@@ -183,7 +183,7 @@ NSString* L(NSString* key) {
 	for(UInt32 i = m_indexBegin, j = m_indexEnd; i < j; ) {
 		m = [self getMiddleOffset:i end:j];
 		ipData = [self readIP:m];
-		r = [self compareIP:ip withIP:(const char*)[ipData bytes]];
+		r = [self compareIP:ip withIP:(const char*)ipData.bytes];
 
 		if(r > 0)
 			i = m;
@@ -201,7 +201,7 @@ NSString* L(NSString* key) {
 	// but not sure, so we need a check
 	m = [self readInt3:(m + 4)];
 	ipData = [self readIP:m];
-	r = [self compareIP:ip withIP:(const char*)[ipData bytes]];
+	r = [self compareIP:ip withIP:(const char*)ipData.bytes];
 	if(r <= 0) 
 		return m;
 	else 
@@ -214,7 +214,7 @@ NSString* L(NSString* key) {
 - (UInt32)readInt3 {
 	NSData* data = [m_file readDataOfLength:3];
 	UInt32 ret = 0;
-	const char* bytes = (const char*)[data bytes];
+	const char* bytes = (const char*)data.bytes;
 	ret |= bytes[0] & 0xFF;
 	ret |= (bytes[1] << 8) & 0xFF00;
 	ret |= (bytes[2] << 16) & 0xFF0000;
@@ -229,7 +229,7 @@ NSString* L(NSString* key) {
 - (UInt32)readInt4 {
 	NSData* data = [m_file readDataOfLength:4];
 	UInt32 ret = 0;
-	const char* bytes = (const char*)[data bytes];
+	const char* bytes = (const char*)data.bytes;
 	ret |= bytes[0] & 0xFF;
 	ret |= (bytes[1] << 8) & 0xFF00;
 	ret |= (bytes[2] << 16) & 0xFF0000;
@@ -247,11 +247,11 @@ NSString* L(NSString* key) {
     NSMutableData* data = [NSMutableData data];
     NSData* tmp;
     while ((tmp = [m_file readDataOfLength:1])) {
-        char byte = ((const char*)[tmp bytes])[0];
+        char byte = ((const char*)tmp.bytes)[0];
         if (byte == 0)
             break;
         else
-            [data appendBytes:[tmp bytes] length:1];
+            [data appendBytes:tmp.bytes length:1];
 	}
 	return [(NSString*)CFStringCreateFromExternalRepresentation(kCFAllocatorDefault, (CFDataRef)data, kCFStringEncodingGB_18030_2000) autorelease];
 }
@@ -263,7 +263,7 @@ NSString* L(NSString* key) {
 	[m_file seekToFileOffset:offset];
 	NSData* data = [m_file readDataOfLength:1];
 	if(data) {
-		char mode = ((const char*)[data bytes])[0];
+		char mode = ((const char*)data.bytes)[0];
 		if(mode == REDIRECT_MODE_1 || mode == REDIRECT_MODE_2) {
 			UInt32 areaOffset = [self readInt3:(offset + 1)];
 			if(areaOffset != 0)
@@ -279,7 +279,7 @@ NSString* L(NSString* key) {
 - (NSData*)readIP:(unsigned long long)offset {
 	[m_file seekToFileOffset:offset];
 	NSMutableData* data = [NSMutableData dataWithData:[m_file readDataOfLength:4]];
-	char* ip = (char*)[data mutableBytes];
+	char* ip = (char*)data.mutableBytes;
 	char tmp = ip[0];
 	ip[0] = ip[3];
 	ip[3] = tmp;

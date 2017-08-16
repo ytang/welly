@@ -7,17 +7,18 @@
 //
 
 #import <Cocoa/Cocoa.h>
+#import "WLFullScreenProcessor.h"
 @protocol WLPresentationModeProcessor;
 
-@interface WLPresentationController : NSObject
+@interface WLPresentationController : NSObject<WLFullScreenProcessor> 
 @property (readonly) BOOL isInPresentationMode;
 
 // Init functions
-- (id)initWithProcessor:(NSObject <WLPresentationModeProcessor>*)pro 
+- (instancetype)initWithProcessor:(NSObject <WLPresentationModeProcessor>*)pro 
 			 targetView:(NSView*)tview 
 			  superView:(NSView*)sview
 		 originalWindow:(NSWindow*)owin;
-- (id)initWithTargetView:(NSView*)tview 
+- (instancetype)initWithTargetView:(NSView*)tview 
 				 superView:(NSView*)sview
 			originalWindow:(NSWindow*)owin;
 // Handle functions

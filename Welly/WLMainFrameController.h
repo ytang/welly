@@ -9,9 +9,11 @@
 #import <Cocoa/Cocoa.h>
 #import "WLSitesPanelController.h"
 
+// Views
+#import "WLTabView.h"
+
 #define scrollTimerInterval 0.12
 
-@class WLTabView;
 @class WLFeedGenerator;
 @class WLTabBarControl;
 @class WLPresentationController;

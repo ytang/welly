@@ -78,13 +78,11 @@ typedef enum _RemoteControlEventIdentifier {
 }
 
 // returns nil if the remote control device is not available
-- (id) initWithDelegate: (id) remoteControlDelegate;
+- (instancetype) initWithDelegate: (id) remoteControlDelegate;
 
-- (void) setListeningToRemote: (BOOL) value;
-- (BOOL) isListeningToRemote;
+@property (NS_NONATOMIC_IOSONLY, getter=isListeningToRemote) BOOL listeningToRemote;
 
-- (BOOL) isOpenInExclusiveMode;
-- (void) setOpenInExclusiveMode: (BOOL) value;
+@property (NS_NONATOMIC_IOSONLY, getter=isOpenInExclusiveMode) BOOL openInExclusiveMode;
 
 - (IBAction) startListening: (id) sender;
 - (IBAction) stopListening: (id) sender;

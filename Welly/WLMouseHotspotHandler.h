@@ -99,7 +99,7 @@
 	@param		view	Relative <code>YLView</code> object.
 	@discussion	This method should be rarely called. In most of time, developers should use @link initWithManager: <code>initWithManager:</code>@/link instead. Using this initializing method requires <code>setManager:</code> manually.
 */
-- (id)initWithView:(WLTerminalView *)view;
+- (instancetype)initWithView:(WLTerminalView *)view;
 
 /*!
     @method     
@@ -107,7 +107,7 @@
 	@param		manager	relative <code>WLMouseBehaviorManager</code> object.
     @discussion This method would call <code>initWithView:</code> firstly.
 */
-- (id)initWithManager:(WLMouseBehaviorManager *)manager;
+- (instancetype)initWithManager:(WLMouseBehaviorManager *)manager;
 
 /*!
     @method     

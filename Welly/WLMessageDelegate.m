@@ -22,7 +22,7 @@ NSString *const WLAutoReplyGrowlTipFormat = @"AutoReplyGrowlTipFormat";
 @implementation WLMessageDelegate
 @synthesize unreadCount = _unreadCount;
 
-- (id)init {
+- (instancetype)init {
 	self = [super init];
 	if (self) {
 		_unreadMessage = [[NSMutableString alloc] initWithCapacity:400];
@@ -32,7 +32,7 @@ NSString *const WLAutoReplyGrowlTipFormat = @"AutoReplyGrowlTipFormat";
 	return self;
 }
 
-- (id)initWithConnection:(WLConnection *)connection {
+- (instancetype)initWithConnection:(WLConnection *)connection {
 	self = [self init];
 	if (self)
 		[self setConnection:connection];
@@ -50,9 +50,9 @@ NSString *const WLAutoReplyGrowlTipFormat = @"AutoReplyGrowlTipFormat";
 
 - (void)connectionDidReceiveNewMessage:(NSString *)message
 							fromCaller:(NSString *)callerName {
-	if ([[_connection site] shouldAutoReply]) {
+	if (_connection.site.shouldAutoReply) {
 		// enclose the autoReplyString with two '\r'
-		NSString *aString = [NSString stringWithFormat:@"\r%@\r", [[_connection site] autoReplyString]];
+		NSString *aString = [NSString stringWithFormat:@"\r%@\r", _connection.site.autoReplyString];
 		
 		// send to the connection
 		[_connection sendText:aString];
@@ -62,13 +62,13 @@ NSString *const WLAutoReplyGrowlTipFormat = @"AutoReplyGrowlTipFormat";
 		_unreadCount++;
 	}
 
-	WLTabView *view = [[WLMainFrameController sharedInstance] tabView];
-	if (_connection != [view frontMostConnection] || ![NSApp isActive] || [[_connection site] shouldAutoReply]) {
+	WLTabView *view = [WLMainFrameController sharedInstance].tabView;
+	if (_connection != [view frontMostConnection] || !NSApp.active || _connection.site.shouldAutoReply) {
 		// not in focus
 		[_connection increaseMessageCount:1];
 		NSString *description;
 		// notify auto replied
-		if ([[_connection site] shouldAutoReply]) {
+		if (_connection.site.shouldAutoReply) {
 			description = [NSString stringWithFormat:NSLocalizedString(WLAutoReplyGrowlTipFormat, @"Auto Reply"), message];
 		} else {
 			description = message;
@@ -87,9 +87,9 @@ NSString *const WLAutoReplyGrowlTipFormat = @"AutoReplyGrowlTipFormat";
 }
 
 - (void)showUnreadMessagesOnTextView:(NSTextView *)textView {
-	[[textView window] setTitle:[NSString stringWithFormat:NSLocalizedString(@"MessageWindowTitle", @"Auto Reply"), _unreadCount]];
-	[textView setString:_unreadMessage];
-	[textView setTextColor:[NSColor whiteColor]];
+	textView.window.title = [NSString stringWithFormat:NSLocalizedString(@"MessageWindowTitle", @"Auto Reply"), _unreadCount];
+	textView.string = _unreadMessage;
+	textView.textColor = [NSColor whiteColor];
 	[_unreadMessage setString:@""];
 	_unreadCount = 0;
 }
@@ -98,8 +98,8 @@ NSString *const WLAutoReplyGrowlTipFormat = @"AutoReplyGrowlTipFormat";
     // bring the window to front
     [NSApp activateIgnoringOtherApps:YES];
 	
-	WLTabView *view = [[WLMainFrameController sharedInstance] tabView];
-    [[view window] makeKeyAndOrderFront:nil];
+	WLTabView *view = [WLMainFrameController sharedInstance].tabView;
+    [view.window makeKeyAndOrderFront:nil];
     // select the tab
     [view selectTabViewItemWithIdentifier:[connection tabViewItemController]];
 }

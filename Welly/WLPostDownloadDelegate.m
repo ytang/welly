@@ -27,7 +27,7 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(WLPostDownloadDelegate);
 }
 
 - (void)awakeFromNib {
-    [_postText setFont:[NSFont fontWithName:@"Monaco" size:12]];
+    _postText.font = [NSFont fontWithName:@"Monaco" size:12];
 }
 
 #pragma mark -
@@ -35,12 +35,12 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(WLPostDownloadDelegate);
 + (NSString *)downloadPostFromTerminal:(WLTerminal *)terminal {
     const int sleepTime = 100000, maxAttempt = 300000;
 
-	WLConnection *connection = [terminal connection];
+	WLConnection *connection = terminal.connection;
 
-    const NSInteger linesPerPage = [[WLGlobalConfig sharedInstance] row] - 1;
+    const NSInteger linesPerPage = [WLGlobalConfig sharedInstance].row - 1;
     NSString *lastPage[linesPerPage], *newPage[linesPerPage];
 
-    NSString *bottomLine = [terminal stringAtIndex:linesPerPage * [[WLGlobalConfig sharedInstance] column] length:[[WLGlobalConfig sharedInstance] column]] ?: @"";
+    NSString *bottomLine = [terminal stringAtIndex:linesPerPage * [WLGlobalConfig sharedInstance].column length:[WLGlobalConfig sharedInstance].column] ?: @"";
     NSString *newBottomLine = bottomLine;
 
     NSMutableString *buf = [NSMutableString string];
@@ -52,7 +52,7 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(WLPostDownloadDelegate);
         // read in the whole page, and store in 'newPage' array
         for (; j < linesPerPage; ++j) {
             // read one line
-            NSString *line = [terminal stringAtIndex:j * [[WLGlobalConfig sharedInstance] column] length:[[WLGlobalConfig sharedInstance] column]] ?: @"";
+            NSString *line = [terminal stringAtIndex:j * [WLGlobalConfig sharedInstance].column length:[WLGlobalConfig sharedInstance].column] ?: @"";
             newPage[j] = line;
             // check the post ending symbol "※"
             // ptt may include the symbol in the middle for re post
@@ -64,7 +64,7 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(WLPostDownloadDelegate);
             }
         }
         // smth && ptt
-        if ((![bottomLine hasPrefix:@"下面还有喔"]) && ([bottomLine length] > 10)
+        if ((![bottomLine hasPrefix:@"下面还有喔"]) && (bottomLine.length > 10)
             && ((![bottomLine rangeOfString:@"瀏覽"].length) || ([bottomLine rangeOfString:@"(100%)"].length > 0))) {
 			// bottom line should have this prefix if the post has not ended.
             isFinished = YES;
@@ -116,7 +116,7 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(WLPostDownloadDelegate);
         while ([newBottomLine isEqualToString:bottomLine] && i < maxAttempt) {
             // wait for the screen to refresh
             usleep(sleepTime);
-            newBottomLine = [terminal stringAtIndex:linesPerPage * [[WLGlobalConfig sharedInstance] column] length:[[WLGlobalConfig sharedInstance] column]] ?: @"";
+            newBottomLine = [terminal stringAtIndex:linesPerPage * [WLGlobalConfig sharedInstance].column length:[WLGlobalConfig sharedInstance].column] ?: @"";
             ++i;
         }
         bottomLine = newBottomLine;
@@ -141,7 +141,7 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(WLPostDownloadDelegate);
 					  forTerminal:(WLTerminal *)terminal {
 	[self loadNibFile];
 	
-    [_postText setString:@""];
+    _postText.string = @"";
     [NSThread detachNewThreadSelector:@selector(preparePostDownload:) 
 							 toTarget:self
 						   withObject:terminal];

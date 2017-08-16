@@ -14,7 +14,7 @@ NSString *const WLNewBookmarkPortalItemTitle = @"New Bookmark";
 
 @implementation WLNewBookmarkPortalItem
 
-- (id)init {
+- (instancetype)init {
 	self = [super initWithTitle:NSLocalizedString(WLNewBookmarkPortalItemTitle, 
 												  @"The title for New Bookmark Portal Item")];
 	if (self) {
@@ -26,7 +26,7 @@ NSString *const WLNewBookmarkPortalItemTitle = @"New Bookmark";
 #pragma mark -
 #pragma mark WLPortalSource protocol
 - (void)didSelect:(id)sender {
-	[[WLSitesPanelController sharedInstance] openSitesPanelInWindow:[NSApp keyWindow] 
+	[[WLSitesPanelController sharedInstance] openSitesPanelInWindow:NSApp.keyWindow 
 														 andAddSite:[WLSite site]];
 }
 

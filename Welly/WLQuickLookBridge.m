@@ -13,7 +13,7 @@
 @end
 
 @interface QLPreviewPanel : NSPanel
-+ (id)sharedPreviewPanel;
++ (QLPreviewPanel*)sharedPreviewPanel;
 - (void)close;
 - (void)makeKeyAndOrderFrontWithEffect:(int)flag canClose:(BOOL)canClose;
 // 10.5 only
@@ -28,8 +28,7 @@
 @end
 
 @interface QLPreviewView : NSView
-- (void)setEnableDragNDrop:(BOOL)flag;
-- (BOOL)enableDragNDrop;
+@property (NS_NONATOMIC_IOSONLY) BOOL enableDragNDrop;
 - (void)setDelegate:(id)delegate;
 - (void)setAutomaticallyMakePreviewFirstResponder:(BOOL)arg1;
 @end
@@ -60,7 +59,7 @@ static BOOL isLion;
     isLion = NO; // Gestalt(gestaltSystemVersion, &ver) == noErr && ver >= 0x1070;
 }
 
-- (id)init {
+- (instancetype)init {
 	self = [super init];
 	if (self) {
 		_URLs = [[NSMutableArray alloc] init];
@@ -108,7 +107,7 @@ static BOOL isLion;
 }
 
 - (BOOL)previewView:(id)aView writePreviewItem:(id)item toPasteboard:(id)pboard {
-    [pboard declareTypes:[NSArray arrayWithObject:NSURLPboardType] owner:nil];
+    [pboard declareTypes:@[NSURLPboardType] owner:nil];
     [item writeToPasteboard:pboard];
     return YES;
 }
@@ -139,7 +138,7 @@ static BOOL isLion;
     // check if the url is already under preview
     NSUInteger index = [URLs indexOfObject:URL];
     if (index == NSNotFound) {
-        index = [URLs count];
+        index = URLs.count;
         [URLs addObject:URL];
     }
     // update
@@ -162,11 +161,11 @@ static BOOL isLion;
 #pragma mark QLPreviewPanelDataSource protocol
 
 - (NSInteger)numberOfPreviewItemsInPreviewPanel:(id)panel {
-    return [_URLs count];
+    return _URLs.count;
 }
 
 - (id)previewPanel:(id)panel previewItemAtIndex:(NSInteger)index {
-    return [_URLs objectAtIndex:index];
+    return _URLs[index];
 }
 
 @end

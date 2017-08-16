@@ -8,10 +8,11 @@
 
 #import <Cocoa/Cocoa.h>
 #import "WLTabView.h"
+#import "WLTerminal.h"
 
 @class WLTerminal, WLConnection, WLAsciiArtRender;
 
-@interface WLTermView : NSView <WLTabItemContentObserver> {
+@interface WLTermView : NSView <WLTabItemContentObserver, WLTerminalObserver> {
 	CGFloat _fontWidth;
 	CGFloat _fontHeight;
     
@@ -36,13 +37,13 @@
 - (void)updateBackedImage;
 - (void)configure;
 
-- (WLTerminal *)frontMostTerminal;
-- (WLConnection *)frontMostConnection;
-- (BOOL)isConnected;
+@property (NS_NONATOMIC_IOSONLY, readonly, strong) WLTerminal *frontMostTerminal;
+@property (NS_NONATOMIC_IOSONLY, readonly, strong) WLConnection *frontMostConnection;
+@property (NS_NONATOMIC_IOSONLY, getter=isConnected, readonly) BOOL connected;
 
 - (void)refreshDisplay;
 - (void)terminalDidUpdate:(WLTerminal *)terminal;
 
 // get current BBS image
-- (NSImage *)image;
+@property (NS_NONATOMIC_IOSONLY, readonly, copy) NSImage *image;
 @end

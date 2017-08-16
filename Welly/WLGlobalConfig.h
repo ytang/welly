@@ -103,56 +103,38 @@ NSString *const WLEnglishFontSizeKeyName;
 
 - (void)updateBlinkTicker;
 
-- (NSSize)contentSize;
+@property (NS_NONATOMIC_IOSONLY, readonly) NSSize contentSize;
 
 /* Set font size */
 - (void)setFontSizeRatio:(CGFloat)ratio;
 
 /* Color */
-- (NSColor *)colorBlack;
-- (void)setColorBlack:(NSColor *)c;
-- (NSColor *)colorBlackHilite;
-- (void)setColorBlackHilite:(NSColor *)c;
+@property (NS_NONATOMIC_IOSONLY, copy) NSColor *colorBlack;
+@property (NS_NONATOMIC_IOSONLY, copy) NSColor *colorBlackHilite;
 
-- (NSColor *)colorRed;
-- (void)setColorRed:(NSColor *)c;
-- (NSColor *)colorRedHilite;
-- (void)setColorRedHilite:(NSColor *)c;
+@property (NS_NONATOMIC_IOSONLY, copy) NSColor *colorRed;
+@property (NS_NONATOMIC_IOSONLY, copy) NSColor *colorRedHilite;
 
-- (NSColor *)colorGreen;
-- (void)setColorGreen:(NSColor *)c;
-- (NSColor *)colorGreenHilite;
-- (void)setColorGreenHilite:(NSColor *)c;
+@property (NS_NONATOMIC_IOSONLY, copy) NSColor *colorGreen;
+@property (NS_NONATOMIC_IOSONLY, copy) NSColor *colorGreenHilite;
 
-- (NSColor *)colorYellow;
-- (void)setColorYellow:(NSColor *)c;
-- (NSColor *)colorYellowHilite;
-- (void)setColorYellowHilite:(NSColor *)c;
+@property (NS_NONATOMIC_IOSONLY, copy) NSColor *colorYellow;
+@property (NS_NONATOMIC_IOSONLY, copy) NSColor *colorYellowHilite;
 
-- (NSColor *)colorBlue;
-- (void)setColorBlue:(NSColor *)c;
-- (NSColor *)colorBlueHilite;
-- (void)setColorBlueHilite:(NSColor *)c;
+@property (NS_NONATOMIC_IOSONLY, copy) NSColor *colorBlue;
+@property (NS_NONATOMIC_IOSONLY, copy) NSColor *colorBlueHilite;
 
-- (NSColor *)colorMagenta;
-- (void)setColorMagenta:(NSColor *)c;
-- (NSColor *)colorMagentaHilite;
-- (void)setColorMagentaHilite:(NSColor *)c;
+@property (NS_NONATOMIC_IOSONLY, copy) NSColor *colorMagenta;
+@property (NS_NONATOMIC_IOSONLY, copy) NSColor *colorMagentaHilite;
 
-- (NSColor *)colorCyan;
-- (void)setColorCyan:(NSColor *)c;
-- (NSColor *)colorCyanHilite;
-- (void)setColorCyanHilite:(NSColor *)c;
+@property (NS_NONATOMIC_IOSONLY, copy) NSColor *colorCyan;
+@property (NS_NONATOMIC_IOSONLY, copy) NSColor *colorCyanHilite;
 
-- (NSColor *)colorWhite;
-- (void)setColorWhite:(NSColor *)c;
-- (NSColor *)colorWhiteHilite;
-- (void)setColorWhiteHilite:(NSColor *)c;
+@property (NS_NONATOMIC_IOSONLY, copy) NSColor *colorWhite;
+@property (NS_NONATOMIC_IOSONLY, copy) NSColor *colorWhiteHilite;
 
-- (NSColor *)colorBG;
-- (void)setColorBG:(NSColor *)c;
-- (NSColor *)colorBGHilite;
-- (void)setColorBGHilite:(NSColor *)c;
+@property (NS_NONATOMIC_IOSONLY, copy) NSColor *colorBG;
+@property (NS_NONATOMIC_IOSONLY, copy) NSColor *colorBGHilite;
 
 + (void)initializeCache;
 + (NSString *)cacheDirectory;
@@ -160,6 +142,5 @@ NSString *const WLEnglishFontSizeKeyName;
 + (BOOL)shouldEnableCoverFlow;
 
 - (void)restoreSettings;
-- (NSDictionary *)sizeParameters;
-- (void)setSizeParameters:(NSDictionary *)sizeParameters;
+@property (NS_NONATOMIC_IOSONLY, copy) NSDictionary *sizeParameters;
 @end

@@ -34,9 +34,9 @@
 #import <IOKit/hid/IOHIDKeys.h>
 
 @interface HIDRemoteControlDevice (PrivateMethods) 
-- (NSDictionary*) cookieToButtonMapping;
-- (IOHIDQueueInterface**) queue;
-- (IOHIDDeviceInterface**) hidDeviceInterface;
+@property (NS_NONATOMIC_IOSONLY, readonly, copy) NSDictionary *cookieToButtonMapping;
+@property (NS_NONATOMIC_IOSONLY, readonly) IOHIDQueueInterface **queue;
+@property (NS_NONATOMIC_IOSONLY, readonly) IOHIDDeviceInterface **hidDeviceInterface;
 - (void) handleEventWithCookieString: (NSString*) cookieString sumOfValues: (SInt32) sumOfValues; 
 - (void) removeNotifcationObserver;
 - (void) remoteControlAvailable:(NSNotification *)notification;
@@ -45,9 +45,9 @@
 
 @interface HIDRemoteControlDevice (IOKitMethods) 
 + (io_object_t) findRemoteDevice;
-- (IOHIDDeviceInterface**) createInterfaceForDevice: (io_object_t) hidDevice;
-- (BOOL) initializeCookies;
-- (BOOL) openDevice;
+- (IOHIDDeviceInterface**) createInterfaceForDevice: (io_object_t) hidDevice NS_RETURNS_INNER_POINTER;
+@property (NS_NONATOMIC_IOSONLY, readonly) BOOL initializeCookies;
+@property (NS_NONATOMIC_IOSONLY, readonly) BOOL openDevice;
 @end
 
 @implementation HIDRemoteControlDevice
@@ -66,7 +66,7 @@
 	}
 }
 
-- (id) initWithDelegate: (id) _remoteControlDelegate {	
+- (instancetype) initWithDelegate: (id) _remoteControlDelegate {	
 	if ([[self class] isRemoteAvailable] == NO) return nil;
 	
 	if ( self = [super initWithDelegate: _remoteControlDelegate] ) {
@@ -81,7 +81,7 @@
 		NSNumber* identifier;
 		supportedButtonEvents = 0;
 		while(identifier = [enumerator nextObject]) {
-			supportedButtonEvents |= [identifier intValue];
+			supportedButtonEvents |= identifier.intValue;
 		}
 		
 		fixSecureEventInputBug = [[NSUserDefaults standardUserDefaults] boolForKey: @"remoteControlWrapperFixSecureEventInputBug"];
@@ -251,7 +251,7 @@ cleanup:
 }
 
 - (NSString*) validCookieSubstring: (NSString*) cookieString {
-	if (cookieString == nil || [cookieString length] == 0) return nil;
+	if (cookieString == nil || cookieString.length == 0) return nil;
 	NSEnumerator* keyEnum = [[self cookieToButtonMapping] keyEnumerator];
 	NSString* key;
 	while(key = [keyEnum nextObject]) {
@@ -268,18 +268,18 @@ cleanup:
 		NSLog(@"New cookie string is %@", cookieString);
 		[previousRemainingCookieString release], previousRemainingCookieString=nil;							
 	}*/
-	if (cookieString == nil || [cookieString length] == 0) return;
+	if (cookieString == nil || cookieString.length == 0) return;
 		
-	NSNumber* buttonId = [[self cookieToButtonMapping] objectForKey: cookieString];
+	NSNumber* buttonId = [self cookieToButtonMapping][cookieString];
 	if (buttonId != nil) {
-		[self sendRemoteButtonEvent: [buttonId intValue] pressedDown: (sumOfValues>0)];
+		[self sendRemoteButtonEvent: buttonId.intValue pressedDown: (sumOfValues>0)];
 	} else {
 		// let's see if a number of events are stored in the cookie string. this does
 		// happen when the main thread is too busy to handle all incoming events in time.
 		NSString* subCookieString;
 		NSString* lastSubCookieString=nil;
 		while((subCookieString = [self validCookieSubstring: cookieString])) {
-			cookieString = [cookieString substringFromIndex: [subCookieString length]];
+			cookieString = [cookieString substringFromIndex: subCookieString.length];
 			lastSubCookieString = subCookieString;
 			if (processesBacklog) [self handleEventWithCookieString: subCookieString sumOfValues:sumOfValues];
 		}
@@ -290,7 +290,7 @@ cleanup:
 			// NSLog(@"processing last event of backlog");
 			[self handleEventWithCookieString: lastSubCookieString sumOfValues:0];
 		}
-		if ([cookieString length] > 0) {
+		if (cookieString.length > 0) {
 			NSLog(@"Unknown button for cookiestring %@", cookieString);
 		}		
 	}
@@ -423,7 +423,7 @@ static void QueueCallbackFunction(void* target,  IOReturn result, void* refcon, 
 			if (object == nil || ![object isKindOfClass:[NSNumber class]]) continue;			
 			usagePage = [object longValue];
 
-			[allCookies addObject: [NSNumber numberWithInt:(int)cookie]];
+			[allCookies addObject: @((int)cookie)];
 		}
 	} else {
 		return NO;

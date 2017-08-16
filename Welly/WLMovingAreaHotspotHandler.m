@@ -24,7 +24,7 @@ NSString *const WLMenuTitlePressEnd = @"Press End";
 NSString *const WLMenuTitleQuitMode = @"Quit Mode";
 
 @implementation WLMovingAreaHotspotHandler
-- (id)init {
+- (instancetype)init {
 	self = [super init];
 	_leftArrowCursor = [NSCursor resizeLeftCursor];
 	_pageUpCursor = [NSCursor resizeUpCursor];
@@ -41,7 +41,7 @@ NSString *const WLMenuTitleQuitMode = @"Quit Mode";
 }
 
 - (BOOL)shouldEnablePageUpDown {
-	return [self shouldEnablePageUpDownForState:[[_view frontMostTerminal] bbsState]];
+	return [self shouldEnablePageUpDownForState:[_view frontMostTerminal].bbsState];
 }
 
 - (BOOL)shouldEnableExitAreaForState:(BBSState)bbsState {
@@ -51,31 +51,31 @@ NSString *const WLMenuTitleQuitMode = @"Quit Mode";
 }
 
 - (BOOL)shouldEnableExitArea {
-	return [self shouldEnableExitAreaForState:[[_view frontMostTerminal] bbsState]];
+	return [self shouldEnableExitAreaForState:[_view frontMostTerminal].bbsState];
 }
 
 #pragma mark -
 #pragma mark Mouse Event Handler
 - (void)mouseUp:(NSEvent *)theEvent {
-	NSString *commandSequence = [_manager.backgroundTrackingAreaUserInfo objectForKey:WLMouseCommandSequenceUserInfoName];
+	NSString *commandSequence = (_manager.backgroundTrackingAreaUserInfo)[WLMouseCommandSequenceUserInfoName];
 	[_view sendText:commandSequence];
 }
 
 - (void)mouseEntered:(NSEvent *)theEvent {
-	if([[_view frontMostConnection] isConnected]) {
-		_manager.backgroundTrackingAreaUserInfo = [[theEvent trackingArea] userInfo];
+	if([_view frontMostConnection].isConnected) {
+		_manager.backgroundTrackingAreaUserInfo = theEvent.trackingArea.userInfo;
 	}
 }
 
 - (void)mouseExited:(NSEvent *)theEvent {
-	if ([NSCursor currentCursor] == [_manager.backgroundTrackingAreaUserInfo objectForKey:WLMouseCursorUserInfoName])
+	if ([NSCursor currentCursor] == (_manager.backgroundTrackingAreaUserInfo)[WLMouseCursorUserInfoName])
 		[_manager restoreNormalCursor];
 	_manager.backgroundTrackingAreaUserInfo = nil;
 }
 
 - (void)mouseMoved:(NSEvent *)theEvent {
 	if ([NSCursor currentCursor] == _manager.normalCursor)
-		[(NSCursor *)[_manager.backgroundTrackingAreaUserInfo objectForKey:WLMouseCursorUserInfoName] set];
+		[(NSCursor *)(_manager.backgroundTrackingAreaUserInfo)[WLMouseCursorUserInfoName] set];
 }
 
 #pragma mark -
@@ -103,17 +103,17 @@ NSString *const WLMenuTitleQuitMode = @"Quit Mode";
 				 keyEquivalent:@""];
 	}
 	
-	if ([[_view frontMostTerminal] bbsState].state == BBSBrowseBoard) {
+	if ([_view frontMostTerminal].bbsState.state == BBSBrowseBoard) {
 		[menu addItemWithTitle:NSLocalizedString(WLMenuTitleQuitMode, @"Contextual Menu") 
 						action:@selector(pressQ:) 
 				 keyEquivalent:@""];
 	}
 
-	for (NSMenuItem *item in [menu itemArray]) {
-		if ([item isSeparatorItem])
+	for (NSMenuItem *item in menu.itemArray) {
+		if (item.separatorItem)
 			continue;
-		[item setTarget:self];
-		[item setRepresentedObject:_manager.backgroundTrackingAreaUserInfo];
+		item.target = self;
+		item.representedObject = _manager.backgroundTrackingAreaUserInfo;
 	}
 	return menu;
 }
@@ -128,8 +128,8 @@ NSString *const WLMenuTitleQuitMode = @"Quit Mode";
 				   width:(int)w {
 	NSRect rect = [_view rectAtRow:r column:c height:h width:w];
 	// Generate User Info
-	NSArray *keys = [NSArray arrayWithObjects:WLMouseHandlerUserInfoName, WLMouseCommandSequenceUserInfoName, WLMouseCursorUserInfoName, nil];
-	NSArray *objects = [NSArray arrayWithObjects:self, WLCommandSequenceLeftArrow, _leftArrowCursor, nil];
+	NSArray *keys = @[WLMouseHandlerUserInfoName, WLMouseCommandSequenceUserInfoName, WLMouseCursorUserInfoName];
+	NSArray *objects = @[self, WLCommandSequenceLeftArrow, _leftArrowCursor];
 	NSDictionary *userInfo = [NSDictionary dictionaryWithObjects:objects forKeys:keys];
 	[_trackingAreas addObject:[_manager addTrackingAreaWithRect:rect userInfo:userInfo cursor: _leftArrowCursor]];
 }
@@ -151,8 +151,8 @@ NSString *const WLMenuTitleQuitMode = @"Quit Mode";
 					height:(NSInteger)h
 					 width:(NSInteger)w {
 	NSRect rect = [_view rectAtRow:r column:c height:h width:w];
-	NSArray *keys = [NSArray arrayWithObjects:WLMouseHandlerUserInfoName, WLMouseCommandSequenceUserInfoName, WLMouseCursorUserInfoName, nil];
-	NSArray *objects = [NSArray arrayWithObjects:self, WLCommandSequencePageUp, _pageUpCursor, nil];
+	NSArray *keys = @[WLMouseHandlerUserInfoName, WLMouseCommandSequenceUserInfoName, WLMouseCursorUserInfoName];
+	NSArray *objects = @[self, WLCommandSequencePageUp, _pageUpCursor];
 	NSDictionary *userInfo = [NSDictionary dictionaryWithObjects:objects forKeys:keys];
 	[_trackingAreas addObject:[_manager addTrackingAreaWithRect:rect userInfo:userInfo cursor:_pageUpCursor]];
 }
@@ -172,8 +172,8 @@ NSString *const WLMenuTitleQuitMode = @"Quit Mode";
 					   width:(NSInteger)w {
 	NSRect rect = [_view rectAtRow:r column:c height:h width:w];
 	// Generate User Info
-	NSArray *keys = [NSArray arrayWithObjects:WLMouseHandlerUserInfoName, WLMouseCommandSequenceUserInfoName, WLMouseCursorUserInfoName, nil];
-	NSArray *objects = [NSArray arrayWithObjects:self, WLCommandSequencePageDown, _pageDownCursor, nil];
+	NSArray *keys = @[WLMouseHandlerUserInfoName, WLMouseCommandSequenceUserInfoName, WLMouseCursorUserInfoName];
+	NSArray *objects = @[self, WLCommandSequencePageDown, _pageDownCursor];
 	NSDictionary *userInfo = [NSDictionary dictionaryWithObjects:objects forKeys:keys];
 	[_trackingAreas addObject:[_manager addTrackingAreaWithRect:rect userInfo:userInfo cursor:_pageDownCursor]];
 }
@@ -197,8 +197,8 @@ NSString *const WLMenuTitleQuitMode = @"Quit Mode";
 	if (![_view shouldEnableMouse] || ![_view isConnected]) {
 		return YES;	
 	}
-	BBSState bbsState = [[_view frontMostTerminal] bbsState];
-	BBSState lastBBSState = [_manager lastBBSState];
+	BBSState bbsState = [_view frontMostTerminal].bbsState;
+	BBSState lastBBSState = _manager.lastBBSState;
 	if (bbsState.state == lastBBSState.state) {
 		return NO;
 	}

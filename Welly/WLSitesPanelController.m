@@ -37,7 +37,7 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(WLSitesPanelController);
 
 #pragma mark -
 #pragma mark Initialize and Destruction
-- (id)init {
+- (instancetype)init {
     if (self = [super init]) {
 		@synchronized(self) {
 			// init may be called multiple times, 
@@ -61,7 +61,7 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(WLSitesPanelController);
 
 - (void)awakeFromNib {
 	// register drag & drop in site view
-	[_tableView registerForDraggedTypes:[NSArray arrayWithObject:SiteTableViewDataType]];
+	[_tableView registerForDraggedTypes:@[SiteTableViewDataType]];
 }
 
 - (void)dealloc {
@@ -130,17 +130,17 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(WLSitesPanelController);
     //[self performSelector:@selector(openSitesPanelInWindow:) withObject:mainWindow afterDelay:0.1];
 	[self openSitesPanelInWindow:mainWindow];
 	[_sitesController addObject:site];
-    [_sitesController setSelectedObjects:[NSArray arrayWithObject:site]];
-    if ([_siteNameField acceptsFirstResponder])
+    [_sitesController setSelectedObjects:@[site]];
+    if (_siteNameField.acceptsFirstResponder)
         [_sitesPanel makeFirstResponder:_siteNameField];
 }
 
 - (IBAction)connectSelectedSite:(id)sender {
-    NSArray *a = [_sitesController selectedObjects];
+    NSArray *a = _sitesController.selectedObjects;
     [self closeSitesPanel:sender];
     
-    if ([a count] == 1) {
-        WLSite *s = [a objectAtIndex:0];
+    if (a.count == 1) {
+        WLSite *s = a[0];
         [[WLMainFrameController sharedInstance] newConnectionWithSite:[[s copy] autorelease]];
     }
 }
@@ -153,16 +153,16 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(WLSitesPanelController);
 }
 
 - (IBAction)proxyTypeDidChange:(id)sender {
-    [_proxyAddressField setEnabled:([_proxyTypeButton indexOfSelectedItem] >= 2)];
+    _proxyAddressField.enabled = (_proxyTypeButton.indexOfSelectedItem >= 2);
 }
 
 #pragma mark -
 #pragma mark Password Window Actions
 - (IBAction)openPasswordDialog:(id)sender {
-    NSString *siteAddress = [_siteAddressField stringValue];
-    if ([siteAddress length] == 0)
+    NSString *siteAddress = _siteAddressField.stringValue;
+    if (siteAddress.length == 0)
         return;
-	[_sitesPanel setLevel:0];
+	_sitesPanel.level = 0;
     if (![siteAddress hasPrefix:@"ssh"] && [siteAddress rangeOfString:@"@"].location == NSNotFound) {
         NSBeginAlertSheet(NSLocalizedString(@"Site address format error", @"Sheet Title"),
                           nil,
@@ -186,7 +186,7 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(WLSitesPanelController);
 - (IBAction)confirmPassword:(id)sender {
     [_passwordPanel endEditingFor:nil];
     const char *service = "Welly";
-    const char *account = [[_siteAddressField stringValue] UTF8String];
+    const char *account = _siteAddressField.stringValue.UTF8String;
     SecKeychainItemRef itemRef;
     if (!SecKeychainFindGenericPassword(nil,
                                         (UInt32)strlen(service), service,
@@ -194,7 +194,7 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(WLSitesPanelController);
                                         nil, nil,
                                         &itemRef))
         SecKeychainItemDelete(itemRef);
-    const char *pass = [[_passwordField stringValue] UTF8String];
+    const char *pass = _passwordField.stringValue.UTF8String;
     if (*pass) {
         SecKeychainAddGenericPassword(nil,
                                       (UInt32)strlen(service), service,
@@ -202,14 +202,14 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(WLSitesPanelController);
                                       (UInt32)strlen(pass), pass,
                                       nil);
     }
-    [_passwordField setStringValue:@""];
+    _passwordField.stringValue = @"";
     [NSApp endSheet:_passwordPanel];
     [_passwordPanel orderOut:self];
 }
 
 - (IBAction)cancelPassword:(id)sender {
     [_passwordPanel endEditingFor:nil];
-    [_passwordField setStringValue:@""];
+    _passwordField.stringValue = @"";
     [NSApp endSheet:_passwordPanel];
     [_passwordPanel orderOut:self];
 }
@@ -219,7 +219,7 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(WLSitesPanelController);
 - (BOOL)tableView:(NSTableView *)tv writeRowsWithIndexes:(NSIndexSet *)rowIndexes toPasteboard:(NSPasteboard*)pboard {
     // copy to the pasteboard.
     NSData *data = [NSKeyedArchiver archivedDataWithRootObject:rowIndexes];
-    [pboard declareTypes:[NSArray arrayWithObject:SiteTableViewDataType] owner:self];
+    [pboard declareTypes:@[SiteTableViewDataType] owner:self];
     [pboard setData:data forType:SiteTableViewDataType];
     return YES;
 }
@@ -241,9 +241,9 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(WLSitesPanelController);
     NSPasteboard* pboard = [info draggingPasteboard];
     NSData* rowData = [pboard dataForType:SiteTableViewDataType];
     NSIndexSet* rowIndexes = [NSKeyedUnarchiver unarchiveObjectWithData:rowData];
-    NSInteger dragRow = [rowIndexes firstIndex];
+    NSInteger dragRow = rowIndexes.firstIndex;
     // move
-    NSObject *obj = [_sites objectAtIndex:dragRow];
+    NSObject *obj = _sites[dragRow];
     [_sitesController insertObject:obj atArrangedObjectIndex:row];
     if (row < dragRow)
         ++dragRow;
@@ -255,7 +255,7 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(WLSitesPanelController);
 #pragma mark -
 #pragma mark Sites Accessors
 + (NSArray *)sites {
-	return [[self sharedInstance] sites];
+	return [self sharedInstance].sites;
 }
 
 + (WLSite *)siteAtIndex:(NSUInteger)index {
@@ -263,13 +263,13 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(WLSitesPanelController);
 }
 
 - (NSUInteger)countOfSites {
-    return [_sites count];
+    return _sites.count;
 }
 
 - (id)objectInSitesAtIndex:(NSUInteger)index {
-	if (index >= [_sites count])
+	if (index >= _sites.count)
 		return NULL;
-    return [_sites objectAtIndex:index];
+    return _sites[index];
 }
 
 - (void)getSites:(id *)objects 
@@ -288,6 +288,6 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(WLSitesPanelController);
 
 - (void)replaceObjectInSitesAtIndex:(NSUInteger)index 
 						 withObject:(id)anObject {
-    [_sites replaceObjectAtIndex:index withObject:anObject];
+    _sites[index] = anObject;
 }
 @end

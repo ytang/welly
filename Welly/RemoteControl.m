@@ -44,7 +44,7 @@ NSString* kTargetApplicationIdentifier = @"TargetBundleIdentifier";
 @implementation RemoteControl
 
 // returns nil if the remote control device is not available
-- (id) initWithDelegate: (id) _remoteControlDelegate {	
+- (instancetype) initWithDelegate: (id) _remoteControlDelegate {	
 	if (self = [super init]) {
 		delegate = [_remoteControlDelegate retain];
 	}
@@ -79,9 +79,8 @@ NSString* kTargetApplicationIdentifier = @"TargetBundleIdentifier";
 }
 
 + (void) sendDistributedNotification: (NSString*) notificationName targetBundleIdentifier: (NSString*) targetIdentifier {
-	NSDictionary* userInfo = [NSDictionary dictionaryWithObjectsAndKeys: [NSString stringWithCString:[self remoteControlDeviceName] encoding:NSASCIIStringEncoding],
-		kRemoteControlDeviceName, [[NSBundle mainBundle] bundleIdentifier], kApplicationIdentifier, 
-		targetIdentifier, kTargetApplicationIdentifier, nil];
+	NSDictionary* userInfo = @{kRemoteControlDeviceName: @([self remoteControlDeviceName]), kApplicationIdentifier: [NSBundle mainBundle].bundleIdentifier, 
+		kTargetApplicationIdentifier: targetIdentifier};
 	
 	[[NSDistributedNotificationCenter defaultCenter] postNotificationName:notificationName
 																   object:nil

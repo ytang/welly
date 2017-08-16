@@ -24,7 +24,7 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(WLContextualMenuManager);
 
 @synthesize openURLItemArray = _openURLItemArray;
 
-- (id)init {
+- (instancetype)init {
 	if (self = [super init]) {
 		@synchronized(self) {
 			// init may be called multiple times, 
@@ -32,7 +32,7 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(WLContextualMenuManager);
 			// So we need to make sure this array have been initialized only once
 			if (!_openURLItemArray) {
 				NSBundle *mainBundle = [NSBundle mainBundle];
-				NSString *preferredLocalizationName = (NSString *)[[mainBundle preferredLocalizations] objectAtIndex:0];
+				NSString *preferredLocalizationName = (NSString *)mainBundle.preferredLocalizations[0];
 				_openURLItemArray = [[NSArray arrayWithContentsOfFile:
 									  [mainBundle pathForResource:WLOpenURLMenuItemFilename 
 														   ofType:@"plist" 
@@ -55,8 +55,8 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(WLContextualMenuManager);
 	NSMenuItem *item = [[NSMenuItem alloc] initWithTitle:title 
 												  action:@selector(openURL:) 
 										   keyEquivalent:@""];
-	[item setToolTip:url];
-	[item setRepresentedObject:url];
+	item.toolTip = url;
+	item.representedObject = url;
 	return [item autorelease];
 }
 
@@ -68,7 +68,7 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(WLContextualMenuManager);
 	longURL = [longURL stringByReplacingOccurrencesOfString:@"　" withString:@""];
 	longURL = [longURL stringByReplacingOccurrencesOfString:@"\r" withString:@""];
 	
-	if ([[longURL componentsSeparatedByString:@"."] count] > 1) {
+	if ([longURL componentsSeparatedByString:@"."].count > 1) {
 		if (![longURL hasPrefix:@"http://"])
 			longURL = [@"http://" stringByAppendingString:longURL];
 		[menu addItemWithTitle:longURL
@@ -76,7 +76,7 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(WLContextualMenuManager);
 				 keyEquivalent:@""];
 	}
 
-    if ([selectedString length] > 0) {
+    if (selectedString.length > 0) {
     
         [menu addItemWithTitle:NSLocalizedString(@"Search in Spotlight", @"Menu")
                         action:@selector(spotlight:)
@@ -88,7 +88,7 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(WLContextualMenuManager);
 
         [menu addItem:[NSMenuItem separatorItem]];
 #ifdef DEBUG
-		if ([selectedString length] >= 1) {
+		if (selectedString.length >= 1) {
 			unichar ch = [selectedString characterAtIndex:0];
 			if (ch >= 0x007F) {
 				unichar u2bCode = [WLEncoder fromUnicode:ch encoding:WLBig5Encoding];
@@ -99,11 +99,11 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(WLContextualMenuManager);
 		}
 #endif
 		
-		if ([[[NSApp keyWindow] firstResponder] respondsToSelector:@selector(copy:)]) {
+		if ([NSApp.keyWindow.firstResponder respondsToSelector:@selector(copy:)]) {
 			NSMenuItem *item = [[[NSMenuItem alloc] initWithTitle:NSLocalizedString(@"Copy", @"Menu") 
 														  action:@selector(copy:) 
 												   keyEquivalent:@""] autorelease];
-			[item setTarget:[[NSApp keyWindow] firstResponder]];
+			item.target = NSApp.keyWindow.firstResponder;
 			[menu addItem:item];
 		}
 				
@@ -111,11 +111,11 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(WLContextualMenuManager);
 						action:@selector(saveAsEmoticon:) 
 				 keyEquivalent:@""];
 		
-		if ([[[WLContextualMenuManager sharedInstance] openURLItemArray] count] > 0) {
+		if ([WLContextualMenuManager sharedInstance].openURLItemArray.count > 0) {
 			// User customized menu items
 			[menu addItem:[NSMenuItem separatorItem]];
 			
-			for (NSObject *obj in [[WLContextualMenuManager sharedInstance] openURLItemArray]) {
+			for (NSObject *obj in [WLContextualMenuManager sharedInstance].openURLItemArray) {
 				if ([obj isKindOfClass:[NSDictionary class]]) {
 					NSMenuItem *item = [WLContextualMenuManager menuItemWithDictionary:(NSDictionary *)obj 
 																		selectedString:selectedString];
@@ -125,14 +125,14 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(WLContextualMenuManager);
 		}
     }
 
-    for (int i = 0; i < [menu numberOfItems]; ++i) {
+    for (int i = 0; i < menu.numberOfItems; ++i) {
         NSMenuItem *item = [menu itemAtIndex:i];
-        if ([item isSeparatorItem])
+        if (item.separatorItem)
             continue;
-        if ([item target] == nil)
-			[item setTarget:self];
-        if ([item representedObject] == nil)
-			[item setRepresentedObject:selectedString];
+        if (item.target == nil)
+			item.target = self;
+        if (item.representedObject == nil)
+			item.representedObject = selectedString;
     }
 
     return menu;
@@ -168,7 +168,7 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(WLContextualMenuManager);
 + (void)lookupDictionary:(id)sender {
     NSString *u = [sender representedObject];
     NSPasteboard *spb = [NSPasteboard pasteboardWithUniqueName];
-    [spb declareTypes:[NSArray arrayWithObject:NSStringPboardType] owner:self];
+    [spb declareTypes:@[NSStringPboardType] owner:self];
     [spb setString:u forType:NSStringPboardType];
     NSPerformService(@"Look Up in Dictionary", spb);
 }

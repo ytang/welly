@@ -16,13 +16,11 @@ const float xscale = 1, yscale = 0.8;
 // hack
 @interface IKImageFlowView : NSOpenGLView
 - (void)reloadData;
-- (id)cacheManager;
-- (void)setSelectedIndex:(NSUInteger)index;
-- (NSUInteger)selectedIndex;
-- (NSUInteger)focusedIndex;
+@property (NS_NONATOMIC_IOSONLY, readonly, strong) id cacheManager;
+@property (NS_NONATOMIC_IOSONLY) NSUInteger selectedIndex;
+@property (NS_NONATOMIC_IOSONLY, readonly) NSUInteger focusedIndex;
 - (NSUInteger)cellIndexAtLocation:(NSPoint)point;
-- (void)setBackgroundColor:(NSColor *)color;
-- (NSColor *)backgroundColor;
+@property (NS_NONATOMIC_IOSONLY, copy) NSColor *backgroundColor;
 - (void)setDraggingDestinationDelegate:(id)delegate;
 @end
 
@@ -40,7 +38,7 @@ const float xscale = 1, yscale = 0.8;
     [super dealloc];
 }
 
-- (id)initWithFrame:(NSRect)frame {
+- (instancetype)initWithFrame:(NSRect)frame {
 	if ((self = [super initWithFrame:frame])) {
 		// Initialize the imageFlowView
 		_imageFlowView = [[NSClassFromString(@"IKImageFlowView") alloc] initWithFrame:frame];
@@ -55,25 +53,25 @@ const float xscale = 1, yscale = 0.8;
 		color = [color colorWithAlphaComponent:1.0];
 		[_imageFlowView setBackgroundColor:color];
 		// re-scale the image flow view
-		[self setFrame:self.frame];
+		self.frame = self.frame;
 	}
 	return self;
 }
 
 - (void)awakeFromNib {
 	[self addSubview:_imageFlowView];
-	[[self window] makeFirstResponder:self];
+	[self.window makeFirstResponder:self];
 	// event hanlding
 	// Add self to _imageFlowView's next responder
 	NSResponder *next = [_imageFlowView nextResponder];
 	if (self != next) {
 		[_imageFlowView setNextResponder:self];
-		[self setNextResponder:next];
+		self.nextResponder = next;
 	}
 }
 
 - (void)setFrame:(NSRect)frame {
-	[super setFrame:frame];
+	super.frame = frame;
 	frame.origin.x += frame.size.width * (1 - xscale) / 2;
 	frame.origin.y += frame.size.height * (1 - yscale) / 2;
 	frame.size.width *= xscale;
@@ -82,7 +80,7 @@ const float xscale = 1, yscale = 0.8;
 	//[_imageFlowView setNeedsDisplay:YES];
 }
 
-- (id)initWithPortalItems:(NSArray *)portalItems {
+- (instancetype)initWithPortalItems:(NSArray *)portalItems {
 	if ((self = [self init])) {
 		[self setPortalItems:_portalItems];
 	}
@@ -114,7 +112,7 @@ const float xscale = 1, yscale = 0.8;
 }
 
 - (void)select {
-	WLPortalItem *item = [_portalItems objectAtIndex:[_imageFlowView selectedIndex]];
+	WLPortalItem *item = _portalItems[[_imageFlowView selectedIndex]];
 	[item didSelect:self];
 }
 
@@ -131,11 +129,11 @@ const float xscale = 1, yscale = 0.8;
 #pragma mark -
 #pragma mark IKImageFlowDataSource protocol
 - (NSUInteger)numberOfItemsInImageFlow:(id)aFlow {
-	return [_portalItems count];
+	return _portalItems.count;
 }
 
 - (id)imageFlow:(id)aFlow itemAtIndex:(NSUInteger)index {
-	return [_portalItems objectAtIndex:index];
+	return _portalItems[index];
 }
 
 #pragma mark -
@@ -147,7 +145,7 @@ const float xscale = 1, yscale = 0.8;
 #pragma mark -
 #pragma mark Event handler
 - (void)keyDown:(NSEvent *)theEvent {
-	switch ([[theEvent charactersIgnoringModifiers] characterAtIndex:0]) {
+	switch ([theEvent.charactersIgnoringModifiers characterAtIndex:0]) {
         case WLWhitespaceCharacter:
         case WLReturnCharacter:
             [self select];
@@ -170,14 +168,14 @@ const float xscale = 1, yscale = 0.8;
 
 - (id)itemAtLocation:(NSPoint)p {
 	NSUInteger index = [self cellIndexAtLocation:p];
-    if (index == NSNotFound || [_portalItems count] <= index)
+    if (index == NSNotFound || _portalItems.count <= index)
         return nil;
 	
-    return [_portalItems objectAtIndex:index];
+    return _portalItems[index];
 }
 
 - (void)mouseDragged:(NSEvent *)theEvent {
-	_draggingItem = [self itemAtLocation:[theEvent locationInWindow]];
+	_draggingItem = [self itemAtLocation:theEvent.locationInWindow];
 	if (_draggingItem) {
 		if (![_draggingItem conformsToProtocol:@protocol(WLDraggingSource)] || 
 			![(id <WLDraggingSource>)_draggingItem acceptsDragging]) {
@@ -187,8 +185,8 @@ const float xscale = 1, yscale = 0.8;
 		
 		WLPortalItem <WLDraggingSource> *draggingItem = (WLPortalItem <WLDraggingSource> *)_draggingItem;
 		NSImage *image = [draggingItem draggingImage];
-		NSSize size = [image size];
-		NSPoint pt = [_imageFlowView convertPoint:[theEvent locationInWindow] fromView:nil];
+		NSSize size = image.size;
+		NSPoint pt = [_imageFlowView convertPoint:theEvent.locationInWindow fromView:nil];
 		pt.x -= size.width/2;
 		pt.y -= size.height/2;
 		NSPasteboard *pboard = [draggingItem draggingPasteboard];

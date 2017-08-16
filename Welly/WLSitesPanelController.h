@@ -47,7 +47,7 @@
 + (void)addSitesObserver:(NSObject<WLSitesObserver> *)observer;
 + (NSArray *)sites;
 + (WLSite *)siteAtIndex:(NSUInteger)index;
-- (NSUInteger)countOfSites;
+@property (NS_NONATOMIC_IOSONLY, readonly) NSUInteger countOfSites;
 
 /* Site Panel Actions */
 - (IBAction)connectSelectedSite:(id)sender;

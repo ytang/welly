@@ -41,7 +41,7 @@
     BOOL ssh;
     NSString *port = nil;
     NSRange range;
-    if ([[addr lowercaseString] hasPrefix: @"ssh://"]) {
+    if ([addr.lowercaseString hasPrefix: @"ssh://"]) {
         ssh = YES;
         addr = [addr substringFromIndex:6];
     } else {
@@ -76,7 +76,7 @@
     return r;
 } 
 
-- (id)init {
+- (instancetype)init {
 	self = [super init];
     if (self) {
         _pid = 0;
@@ -133,24 +133,24 @@
 	
     term.c_ispeed = B38400;
     term.c_ospeed = B38400;
-    size.ws_col = [[WLGlobalConfig sharedInstance] column];
-    size.ws_row = [[WLGlobalConfig sharedInstance] row];
+    size.ws_col = [WLGlobalConfig sharedInstance].column;
+    size.ws_row = [WLGlobalConfig sharedInstance].row;
     size.ws_xpixel = 0;
     size.ws_ypixel = 0;
 
     _pid = forkpty(&_fd, slaveName, &term, &size);
     if (_pid == 0) { /* child */
         NSArray *a = [[WLPTY parse:addr] componentsSeparatedByString:@" "];
-        if ([(NSString *)[a objectAtIndex:0] hasSuffix:@"ssh"]) {
+        if ([(NSString *)a[0] hasSuffix:@"ssh"]) {
             NSString *proxyCommand = [WLProxy proxyCommandWithAddress:_proxyAddress type:_proxyType];
             if (proxyCommand) {
                 a = [[a arrayByAddingObject:@"-o"] arrayByAddingObject:proxyCommand];
             }
         }
-        NSInteger n = [a count];
+        NSInteger n = a.count;
         char *argv[n+1];
         for (int i = 0; i < n; ++i)
-            argv[i] = (char *)[[a objectAtIndex:i] UTF8String];
+            argv[i] = (char *)[a[i] UTF8String];
         argv[n] = NULL;
         execvp(argv[0], argv);
         perror(argv[0]);
@@ -186,8 +186,8 @@
     
     [_delegate protocolWillSend:self data:data];
 
-    const char *msg = [data bytes];
-    NSInteger length = [data length];
+    const char *msg = data.bytes;
+    NSInteger length = data.length;
     while (length > 0) {
         FD_ZERO(&writefds);
         FD_ZERO(&errorfds);

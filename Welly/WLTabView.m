@@ -8,7 +8,6 @@
 
 #import "WLTabView.h"
 #import "WLConnection.h"
-#import "WLTerminal.h"
 #import "WLTerminalView.h"
 #import "WLMainFrameController.h"
 #import "WLTabBarControl.h"
@@ -31,7 +30,7 @@
 
 @implementation WLTabView
 
-- (id)initWithFrame:(NSRect)frame {
+- (instancetype)initWithFrame:(NSRect)frame {
     self = [super initWithFrame:frame];
     // Comments added by gtCarrera
     // I moved cover flow initialization to awakeFromNib. 
@@ -45,13 +44,13 @@
 }
 
 - (void)awakeFromNib {
-	[self setTabViewType:NSNoTabsNoBorder];
+	self.tabViewType = NSNoTabsNoBorder;
 	
 	// Register as sites observer
 	[WLSitesPanelController addSitesObserver:self];
 	
 	// Register KVO
-	NSArray *observeKeys = [NSArray arrayWithObjects:@"cellWidth", @"cellHeight", @"cellSize", nil];
+	NSArray *observeKeys = @[@"cellWidth", @"cellHeight", @"cellSize"];
 	for (NSString *key in observeKeys)
 		[[WLGlobalConfig sharedInstance] addObserver:self
 										  forKeyPath:key
@@ -62,11 +61,11 @@
 	[self setFrameOrigin:NSZeroPoint];
 	[self setFrameSize:[[WLGlobalConfig sharedInstance] contentSize]];
     // Initialize the portal
-    _portal = [[WLCoverFlowPortal alloc] initWithFrame:[self frame]];
+    _portal = [[WLCoverFlowPortal alloc] initWithFrame:self.frame];
 	[self updatePortal];
 	
 	// If no active tabs, we should show the coverflow portal if necessary.
-	if ([self numberOfTabViewItems] == 0) {
+	if (self.numberOfTabViewItems == 0) {
 		[self showPortal];
 	}
 	[_portal awakeFromNib];
@@ -84,26 +83,26 @@
 	// Show the coverflow portal if necessary.
 	if ([WLGlobalConfig shouldEnableCoverFlow]) {
 		[self addSubview:_portal];
-		[[self window] makeFirstResponder:_portal];
+		[self.window makeFirstResponder:_portal];
 	}	
 }
 
 #pragma mark -
 #pragma mark Accessor
 - (NSView *)frontMostView {
-	return [[self selectedTabViewItem] view];
+	return self.selectedTabViewItem.view;
 }
 
 - (WLConnection *)frontMostConnection {
-	if ([[[[self selectedTabViewItem] identifier] content] isKindOfClass:[WLConnection class]]) {
-		return [[[self selectedTabViewItem] identifier] content];
+	if ([[self.selectedTabViewItem.identifier content] isKindOfClass:[WLConnection class]]) {
+		return [self.selectedTabViewItem.identifier content];
 	}
 	
 	return nil;
 }
 
 - (WLTerminal *)frontMostTerminal {
-	return [[self frontMostConnection] terminal];
+	return [self frontMostConnection].terminal;
 }
 
 - (BOOL)isFrontMostTabPortal {
@@ -120,7 +119,7 @@
     NSTabViewItem *tabViewItem;
 	if ([self isSelectedTabEmpty]) {
 		// reuse the empty tab
-        tabViewItem = [self selectedTabViewItem];
+        tabViewItem = self.selectedTabViewItem;
 	} else {	
 		// open a new tab
 		tabViewItem = [[[NSTabViewItem alloc] initWithIdentifier:[WLTabViewItemController emptyTabViewItemController]] autorelease];
@@ -134,21 +133,21 @@
 					   label:(NSString *)theLabel {	
 	NSTabViewItem *tabViewItem = [self emptyTab];
 
-	[[tabViewItem identifier] setContent:theConnection];
+	[tabViewItem.identifier setContent:theConnection];
 	
 	// set appropriate label
 	if (theLabel) {
-		[tabViewItem setLabel:theLabel];
+		tabViewItem.label = theLabel;
 	}
 	
 	// set the view
-	[tabViewItem setView:_terminalView];
+	tabViewItem.view = _terminalView;
 	
-	if (![[theConnection site] isDummy]) {
+	if (![theConnection.site isDummy]) {
 		// Create a new terminal for receiving connection's content, and forward to view
 		WLTerminal *terminal = [[WLTerminal alloc] init];
 		[terminal addObserver:_terminalView];
-		[theConnection setTerminal:terminal];
+		theConnection.terminal = terminal;
 		[terminal release];
 	}
 	
@@ -160,8 +159,8 @@
 - (void)newTabWithCoverFlowPortal {
 	NSTabViewItem *tabViewItem = [self emptyTab];
 	
-	[tabViewItem setView:_portal];
-	[tabViewItem setLabel:@"Cover Flow"];
+	tabViewItem.view = _portal;
+	tabViewItem.label = @"Cover Flow";
 	
 	[self selectTabViewItem:tabViewItem];
 }
@@ -171,7 +170,7 @@
 // Show the portal, initiallize it if necessary
 - (void)updatePortal {
 	NSArray *sites = [[NSUserDefaults standardUserDefaults] arrayForKey:@"Sites"];
-	NSMutableArray *portalItems = [NSMutableArray arrayWithCapacity:[sites count]];
+	NSMutableArray *portalItems = [NSMutableArray arrayWithCapacity:sites.count];
 	for (NSDictionary *d in sites) {
 		WLBookmarkPortalItem *item = [[WLBookmarkPortalItem alloc] initWithSite:[WLSite siteWithDictionary:d]];
 		[portalItems addObject:item];
@@ -194,22 +193,22 @@
 #pragma mark Override
 - (void)addTabViewItem:(NSTabViewItem *)tabViewItem {
 	// TODO: better solutions?
-	if ([[self subviews] containsObject:_portal]) {
+	if ([self.subviews containsObject:_portal]) {
 		[_portal removeFromSuperview];
 	}
 	[super addTabViewItem:tabViewItem];
 }
 
 - (void)selectTabViewItem:(NSTabViewItem *)tabViewItem {
-	NSView *oldView = [[self selectedTabViewItem] view];
+	NSView *oldView = self.selectedTabViewItem.view;
 	[super selectTabViewItem:tabViewItem];
 	
-	NSView *currentView = [[self selectedTabViewItem] view];
-	[[self window] makeFirstResponder:currentView];
-	[[self window] makeKeyWindow];
+	NSView *currentView = self.selectedTabViewItem.view;
+	[self.window makeFirstResponder:currentView];
+	[self.window makeKeyWindow];
 
 	if ([currentView conformsToProtocol:@protocol(WLTabItemContentObserver)]) {
-		[(id <WLTabItemContentObserver>)currentView didChangeContent:[[[self selectedTabViewItem] identifier] content]];
+		[(id <WLTabItemContentObserver>)currentView didChangeContent:[self.selectedTabViewItem.identifier content]];
 	}
 	
 	if ((oldView != currentView) && [oldView conformsToProtocol:@protocol(WLTabItemContentObserver)]) {
@@ -218,10 +217,10 @@
 }
 
 - (void)removeTabViewItem:(NSTabViewItem *)tabViewItem {
-	NSView *oldView = [tabViewItem view];
+	NSView *oldView = tabViewItem.view;
 	[super removeTabViewItem:tabViewItem];
 	
-	if ([self numberOfTabViewItems] == 0) {
+	if (self.numberOfTabViewItems == 0) {
 		if ([oldView conformsToProtocol:@protocol(WLTabItemContentObserver)]) {
 			[(id <WLTabItemContentObserver>)oldView didChangeContent:nil];
 		}
@@ -231,14 +230,14 @@
 }
 
 - (void)selectNextTabViewItem:(NSTabViewItem *)tabViewItem {
-	if([self indexOfTabViewItem:[self selectedTabViewItem]] == [self numberOfTabViewItems] - 1)
+	if([self indexOfTabViewItem:self.selectedTabViewItem] == self.numberOfTabViewItems - 1)
 		[self selectFirstTabViewItem:self];
 	else
 		[super selectNextTabViewItem:self];
 }
 
 - (void)selectPreviousTabViewItem:(NSTabViewItem *)tabViewItem {
-	if([self indexOfTabViewItem:[self selectedTabViewItem]] == 0)
+	if([self indexOfTabViewItem:self.selectedTabViewItem] == 0)
 		[self selectLastTabViewItem:self];
 	else
 		[super selectPreviousTabViewItem:self];
@@ -249,10 +248,10 @@
 }
 
 - (BOOL)becomeFirstResponder {
-	if ([self numberOfTabViewItems] == 0 && [[self subviews] containsObject:_portal]) {
-		return [[self window] makeFirstResponder:_portal];
+	if (self.numberOfTabViewItems == 0 && [self.subviews containsObject:_portal]) {
+		return [self.window makeFirstResponder:_portal];
 	} else {
-		return [[self window] makeFirstResponder:[self frontMostView]];
+		return [self.window makeFirstResponder:[self frontMostView]];
 	}
 }
 
@@ -262,42 +261,42 @@
 // Cmd+[0-9], Ctrl+Tab, Cmd+Shift+Left/Right (I don't know if we should keep this)
 // Added by K.O.ed, 2009.02.02
 - (BOOL)performKeyEquivalent:(NSEvent *)event {
-	if ((([event modifierFlags] & NSCommandKeyMask) == NSCommandKeyMask) && 
-		(([event modifierFlags] & NSShiftKeyMask) == NSShiftKeyMask) &&
-		([[event charactersIgnoringModifiers] isEqualToString:keyStringLeft] ||
-		 [[event charactersIgnoringModifiers] isEqualToString:@"{"])) {
+	if (((event.modifierFlags & NSCommandKeyMask) == NSCommandKeyMask) && 
+		((event.modifierFlags & NSShiftKeyMask) == NSShiftKeyMask) &&
+		([event.charactersIgnoringModifiers isEqualToString:keyStringLeft] ||
+		 [event.charactersIgnoringModifiers isEqualToString:@"{"])) {
 		[self selectPreviousTabViewItem:self];
 		return YES;
-	} else if ((([event modifierFlags] & NSCommandKeyMask) == NSCommandKeyMask) && 
-			   (([event modifierFlags] & NSShiftKeyMask) == NSShiftKeyMask) &&
-			   ([[event charactersIgnoringModifiers] isEqualToString:keyStringRight] ||
-				[[event charactersIgnoringModifiers] isEqualToString:@"}"])) {
+	} else if (((event.modifierFlags & NSCommandKeyMask) == NSCommandKeyMask) && 
+			   ((event.modifierFlags & NSShiftKeyMask) == NSShiftKeyMask) &&
+			   ([event.charactersIgnoringModifiers isEqualToString:keyStringRight] ||
+				[event.charactersIgnoringModifiers isEqualToString:@"}"])) {
 		[self selectNextTabViewItem:self];
 		return YES;
-	} else if (([event modifierFlags] & NSCommandKeyMask) == NSCommandKeyMask && 
-			   ([event modifierFlags] & NSAlternateKeyMask) == 0 && 
-			   ([event modifierFlags] & NSControlKeyMask) == 0 && 
-			   ([event modifierFlags] & NSShiftKeyMask) == 0 && 
-			   [[event characters] intValue] > 0 && 
-			   [[event characters] intValue] < 10) {
+	} else if ((event.modifierFlags & NSCommandKeyMask) == NSCommandKeyMask && 
+			   (event.modifierFlags & NSAlternateKeyMask) == 0 && 
+			   (event.modifierFlags & NSControlKeyMask) == 0 && 
+			   (event.modifierFlags & NSShiftKeyMask) == 0 && 
+			   event.characters.intValue > 0 && 
+			   event.characters.intValue < 10) {
 		// User may drag and re-order tabs using tabBarControl
 		// These re-ordering will not reflect when calling
 		//  [self selectTabViewItemAtIndex:index];
 		// We here call method from tabBarControl to choose correct tab
-		[_tabBarControl selectTabViewItemAtIndex:([[event characters] intValue]-1)];
+		[_tabBarControl selectTabViewItemAtIndex:(event.characters.intValue-1)];
 		return YES;
-	} else if (([event modifierFlags] & NSCommandKeyMask) == 0 && 
-			   ([event modifierFlags] & NSAlternateKeyMask) == 0 && 
-			   ([event modifierFlags] & NSControlKeyMask) && 
-			   ([event modifierFlags] & NSShiftKeyMask) == 0 && 
-			   [[event characters] characterAtIndex:0] == '\t') {
+	} else if ((event.modifierFlags & NSCommandKeyMask) == 0 && 
+			   (event.modifierFlags & NSAlternateKeyMask) == 0 && 
+			   (event.modifierFlags & NSControlKeyMask) && 
+			   (event.modifierFlags & NSShiftKeyMask) == 0 && 
+			   [event.characters characterAtIndex:0] == '\t') {
 		[self selectNextTabViewItem:self];
 		return YES;
-    } else if (([event modifierFlags] & NSCommandKeyMask) == 0 && 
-        ([event modifierFlags] & NSAlternateKeyMask) == 0 && 
-        ([event modifierFlags] & NSControlKeyMask)  && 
-        ([event modifierFlags] & NSShiftKeyMask) && 
-        ([event keyCode] == 48)) {
+    } else if ((event.modifierFlags & NSCommandKeyMask) == 0 && 
+        (event.modifierFlags & NSAlternateKeyMask) == 0 && 
+        (event.modifierFlags & NSControlKeyMask)  && 
+        (event.modifierFlags & NSShiftKeyMask) && 
+        (event.keyCode == 48)) {
 		//keyCode 48: back-tab
 		[self selectPreviousTabViewItem:self];
 		return YES;
@@ -314,8 +313,8 @@
     if ([keyPath hasPrefix:@"cell"]) {
 		[self setFrameSize:[[WLGlobalConfig sharedInstance] contentSize]];
 		// Don't set frame origin here, leave for main controller
-		if ([[self subviews] containsObject:_portal]) {
-			[_portal setFrame:self.frame];
+		if ([self.subviews containsObject:_portal]) {
+			_portal.frame = self.frame;
 		}
     }
 }
@@ -354,11 +353,11 @@
 //}
 
 - (void)swipeWithEvent:(NSEvent *)event {
-	if ([event deltaX] < 0) {
+	if (event.deltaX < 0) {
 		// Swiping to right
 		[self selectNextTabViewItem:event];
 		return;
-	} else if ([event deltaX] > 0) {
+	} else if (event.deltaX > 0) {
 		// Swiping to left
 		[self selectPreviousTabViewItem:event];
 		return;

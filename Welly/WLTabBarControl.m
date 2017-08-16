@@ -12,7 +12,7 @@
 
 // suppress warnings
 @interface PSMTabBarControl ()
-- (NSArray *)cells;
+@property (NS_NONATOMIC_IOSONLY, readonly, copy) NSArray *cells;
 - (id)cellForPoint:(NSPoint)mousePt 
 		 cellFrame:(NSRect *)cellFrame;
 - (void)closeTabClick:(id)sender;
@@ -21,9 +21,9 @@
 @implementation WLTabBarControl
 - (void)mouseDown:(NSEvent *)theEvent {
     // double click
-    if ([theEvent clickCount] > 1) {
+    if (theEvent.clickCount > 1) {
         // PSMTabBarControl: detect if on cells
-        NSPoint mousePt = [self convertPoint:[theEvent locationInWindow] fromView:nil];
+        NSPoint mousePt = [self convertPoint:theEvent.locationInWindow fromView:nil];
         NSRect cellFrame;
         id cell = [self cellForPoint:mousePt cellFrame:&cellFrame];
         // not on any cell: new tab
@@ -36,42 +36,42 @@
 }
 
 - (void)selectTabViewItemAtIndex:(NSInteger)index {
-    NSTabViewItem *tabViewItem = [[[self cells] objectAtIndex:index] representedObject];
+    NSTabViewItem *tabViewItem = [[self cells][index] representedObject];
     [[self tabView] selectTabViewItem:tabViewItem];
 }
 
 - (void)selectFirstTabViewItem:(id)sender {
-    if ([[self cells] count] > 0)
+    if ([self cells].count > 0)
         [self selectTabViewItemAtIndex:0];
 }
 
 - (void)selectLastTabViewItem:(id)sender {
-    NSUInteger count = [[self cells] count];
+    NSUInteger count = [self cells].count;
     if (count > 0)
         [self selectTabViewItemAtIndex:count-1];
 }
 
 - (NSInteger)indexOfTabViewItem:(NSTabViewItem *)tabViewItem {
-    size_t count = [[self cells] count];
+    size_t count = [self cells].count;
     for (size_t i = 0; i < count; ++i) {
-        if ([[[[self cells] objectAtIndex:i] representedObject] isEqualTo:tabViewItem])
+        if ([[[self cells][i] representedObject] isEqualTo:tabViewItem])
             return i;
     }
     return -1;
 }
 
 - (void)selectNextTabViewItem:(id)sender {
-    NSTabViewItem *sel = [[self tabView] selectedTabViewItem];
+    NSTabViewItem *sel = [self tabView].selectedTabViewItem;
     if (sel == nil)
         return;
     NSInteger index = [self indexOfTabViewItem:sel] + 1;
-    if (index == [[self cells] count])
+    if (index == [self cells].count)
         index = 0;
     [self selectTabViewItemAtIndex:index];
 }
 
 - (void)selectPreviousTabViewItem:(id)sender {
-    NSTabViewItem *sel = [[self tabView] selectedTabViewItem];
+    NSTabViewItem *sel = [self tabView].selectedTabViewItem;
     if (sel == nil)
         return;
     NSInteger index = [self indexOfTabViewItem:sel];
@@ -84,7 +84,7 @@
 #pragma mark -
 - (void)removeTabViewItem:(NSTabViewItem *)tabViewItem {
     NSInteger index = [self indexOfTabViewItem:tabViewItem];
-    [self closeTabClick:[[self cells] objectAtIndex:index]];
+    [self closeTabClick:[self cells][index]];
 }
 
 #pragma mark - Set main controller

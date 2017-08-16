@@ -13,26 +13,26 @@
 
 @implementation WLMouseHotspotHandler
 @synthesize manager = _manager;
-- (id)init {
+- (instancetype)init {
 	self = [super init];
 	if (self)
 		_trackingAreas = [[NSMutableArray alloc] initWithCapacity:10];
 	return self;
 }
 
-- (id)initWithView:(WLTerminalView *)view {
+- (instancetype)initWithView:(WLTerminalView *)view {
 	self = [self init];
 	if (self) {
 		_view = view;
-		_maxRow = [[WLGlobalConfig sharedInstance] row];
-		_maxColumn = [[WLGlobalConfig sharedInstance] column];
+		_maxRow = [WLGlobalConfig sharedInstance].row;
+		_maxColumn = [WLGlobalConfig sharedInstance].column;
 	}
 	return self;
 }
 
-- (id)initWithManager:(WLMouseBehaviorManager *)manager {
+- (instancetype)initWithManager:(WLMouseBehaviorManager *)manager {
 	_manager = manager;
-	return [self initWithView:[_manager view]];
+	return [self initWithView:_manager.view];
 }
 
 - (void)dealloc {

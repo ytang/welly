@@ -14,7 +14,7 @@
     NSXMLDocument *_xmlDoc;
 }
 
-- (id)initWithSiteName:(NSString *)siteName;
+- (instancetype)initWithSiteName:(NSString *)siteName;
 - (void)addItemWithTitle:(NSString *)aTitle description:(NSString *)aDescription author:(NSString *) anAuthor pubDate:(NSString *)aPubDate;
 - (BOOL)writeFeedToFile:(NSString *)fileName;
 

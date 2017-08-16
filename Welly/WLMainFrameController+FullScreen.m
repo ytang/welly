@@ -18,12 +18,12 @@
 @implementation WLMainFrameController (FullScreen)
 
 - (BOOL)isInFullScreenMode {
-	return ([_mainWindow styleMask] & NSFullScreenWindowMask) ? YES : NO;
+	return (_mainWindow.styleMask & NSFullScreenWindowMask) ? YES : NO;
 }
 
 + (NSDictionary *)sizeParametersForZoomRatio:(CGFloat)zoomRatio {
 	WLGlobalConfig *gConfig = [WLGlobalConfig sharedInstance];
-	return @{WLCellWidthKeyName:@(floor([gConfig cellWidth] * zoomRatio)), WLCellHeightKeyName:@(floor([gConfig cellHeight] * zoomRatio)), WLChineseFontSizeKeyName:@(floor([gConfig chineseFontSize] * zoomRatio)), WLEnglishFontSizeKeyName:@(floor([gConfig englishFontSize] * zoomRatio))};
+	return @{WLCellWidthKeyName:@(floor(gConfig.cellWidth * zoomRatio)), WLCellHeightKeyName:@(floor(gConfig.cellHeight * zoomRatio)), WLChineseFontSizeKeyName:@(floor(gConfig.chineseFontSize * zoomRatio)), WLEnglishFontSizeKeyName:@(floor(gConfig.englishFontSize * zoomRatio))};
 }
 
 // Set and reset font size
@@ -67,13 +67,13 @@
 	[_tabBarControl setHidden:YES];
 		
 	// Back up the original frame of _targetView
-	_originalFrame = [_tabView frame];
+	_originalFrame = _tabView.frame;
 	
 	// Get the fittest ratio for the expansion
-	NSRect screenRect = [[NSScreen mainScreen] frame];
+	NSRect screenRect = [NSScreen mainScreen].frame;
 	
-	CGFloat ratioH = screenRect.size.height / [_tabView frame].size.height;
-	CGFloat ratioW = screenRect.size.width / [_tabView frame].size.width;
+	CGFloat ratioH = screenRect.size.height / _tabView.frame.size.height;
+	CGFloat ratioW = screenRect.size.width / _tabView.frame.size.width;
 	_screenRatio = (ratioH > ratioW) ? ratioW : ratioH;
 	
 	// Then, do the expansion
@@ -81,14 +81,14 @@
 	
 	// Record new origin
 	
-	NSPoint newOP = {(screenRect.size.width - [_tabView frame].size.width) / 2, (screenRect.size.height - [_tabView frame].size.height) / 2};
+	NSPoint newOP = {(screenRect.size.width - _tabView.frame.size.width) / 2, (screenRect.size.height - _tabView.frame.size.height) / 2};
 	
 	// Set the window style
 	[_mainWindow setOpaque:YES];
 	// Back up original bg color
-	_originalWindowBackgroundColor = [_mainWindow backgroundColor];
+	_originalWindowBackgroundColor = _mainWindow.backgroundColor;
 	// Now set to bg color of the tab view to ensure consistency
-	[_mainWindow setBackgroundColor:[[WLGlobalConfig sharedInstance] colorBG]];
+	_mainWindow.backgroundColor = [[WLGlobalConfig sharedInstance] colorBG];
 	
 	// Move the origin point
 	[_tabView setFrameOrigin:newOP];
@@ -106,8 +106,8 @@
 	
 	[_mainWindow setOpaque:NO];
 	// Move view back
-	[_tabView setFrame:_originalFrame];
-	[_mainWindow setBackgroundColor:_originalWindowBackgroundColor];
+	_tabView.frame = _originalFrame;
+	_mainWindow.backgroundColor = _originalWindowBackgroundColor;
 }
 
 - (void)windowDidExitFullScreen:(NSNotification *)notification {

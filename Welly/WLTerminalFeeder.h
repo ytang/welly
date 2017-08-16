@@ -56,8 +56,8 @@
 @property NSInteger cursorY;
 @property cell **grid;
 
-- (id)init;
-- (id)initWithConnection:(WLConnection *)connection;
+- (instancetype)init;
+- (instancetype)initWithConnection:(WLConnection *)connection;
 - (void)dealloc;
 
 /* Input Interface */
@@ -71,5 +71,5 @@
 /* Clear */
 - (void)clearAll;
 
-- (cell *)cellsOfRow:(NSInteger)r;
+- (cell *)cellsOfRow:(NSInteger)r NS_RETURNS_INNER_POINTER;
 @end

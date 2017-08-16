@@ -62,7 +62,7 @@ WLGlobalConfig *gConfig;
 #pragma mark -
 #pragma mark Init
 // Initiallize the controller with a given processor
-- (id)initWithProcessor:(NSObject <WLPresentationModeProcessor>*)pro 
+- (instancetype)initWithProcessor:(NSObject <WLPresentationModeProcessor>*)pro 
 			 targetView:(NSView *)tview 
 			  superView:(NSView *)sview
 		 originalWindow:(NSWindow *)owin {
@@ -82,7 +82,7 @@ WLGlobalConfig *gConfig;
 // Initiallize the controller with non-processor
 // This function ONLY makes the target view showed in full
 // screen but cannot resize it
-- (id)initWithTargetView:(NSView*)tview 
+- (instancetype)initWithTargetView:(NSView*)tview 
 			   superView:(NSView*)sview
 		  originalWindow:(NSWindow*)owin {
 	if (self = [super init]) {
@@ -118,26 +118,26 @@ WLGlobalConfig *gConfig;
 		_originalWindow.collectionBehavior ^= NSWindowCollectionBehaviorFullScreenPrimary;
 		
 		// Init the window and show
-		NSRect screenRect = [[NSScreen mainScreen] frame];
+		NSRect screenRect = [NSScreen mainScreen].frame;
 		_fullScreenWindow = [[WLFullScreenWindow alloc] initWithContentRect:screenRect
 														styleMask:NSBorderlessWindowMask
 														  backing:NSBackingStoreBuffered
 															defer:NO];
-		[_fullScreenWindow setAlphaValue:0];
+		_fullScreenWindow.alphaValue = 0;
         if (floor(NSAppKitVersionNumber)>NSAppKitVersionNumber10_6) {
-            [_fullScreenWindow setCollectionBehavior:NSWindowCollectionBehaviorFullScreenAuxiliary];
+            _fullScreenWindow.collectionBehavior = NSWindowCollectionBehaviorFullScreenAuxiliary;
         }
-		[_fullScreenWindow setBackgroundColor:[NSColor blackColor]];
+		_fullScreenWindow.backgroundColor = [NSColor blackColor];
 		[_fullScreenWindow setAcceptsMouseMovedEvents:YES];
 		// Order front now
 		[_fullScreenWindow makeKeyAndOrderFront:nil];
 		// Initiallize the animation
 		CAAnimation * anim = [CABasicAnimation animation];
-		[anim setDelegate:self];
-		[anim setDuration:0.8];
+		anim.delegate = self;
+		anim.duration = 0.8;
 		// Set the animation to full screen window
-		[_fullScreenWindow setAnimations:[NSDictionary dictionaryWithObject:anim forKey:@"alphaValue"]];
-		[_fullScreenWindow.animator setAlphaValue:1.0];	
+		_fullScreenWindow.animations = @{@"alphaValue": anim};
+		(_fullScreenWindow.animator).alphaValue = 1.0;	
 		// Change UI mode by carbon
 		SetSystemUIMode(kUIModeAllHidden, kUIOptionAutoShowMenuBar);
 		// Then, let the delegate function do it...
@@ -154,11 +154,11 @@ WLGlobalConfig *gConfig;
 		
 		// Set the super view back
 		[_superView addSubview:_targetView];
-		[_targetView setFrame:_originalFrame];
+		_targetView.frame = _originalFrame;
 		// Pre-process if necessary
 		// Do not move it to else where!
 		[self processBeforeExit];
-		[_fullScreenWindow.animator setAlphaValue:0];
+		(_fullScreenWindow.animator).alphaValue = 0;
 		// Change UI mode by carbon
 		SetSystemUIMode(kUIModeNormal, 0);
 		// Now, the delegate function will close the window
@@ -177,26 +177,26 @@ WLGlobalConfig *gConfig;
 		// Close the window!
 		[_fullScreenWindow close];
 		// Show the main window
-		[_originalWindow setAlphaValue:100.0f];
+		_originalWindow.alphaValue = 100.0f;
 	} else { // Set the window when the animation is over
 		// Hide the main window
-        [_originalWindow setAlphaValue:0.0f];
+        _originalWindow.alphaValue = 0.0f;
 		// Pre-process if necessary
 		[self processBeforeEnter];
 		// Record new origin
-		NSRect screenRect = [[NSScreen mainScreen] frame];
+		NSRect screenRect = [NSScreen mainScreen].frame;
 		
-        NSPoint newOP = {(screenRect.size.width - [_targetView frame].size.width) / 2, (screenRect.size.height - [_targetView frame].size.height) / 2};
+        NSPoint newOP = {(screenRect.size.width - _targetView.frame.size.width) / 2, (screenRect.size.height - _targetView.frame.size.height) / 2};
 		
 		// Set the window style
-        [_fullScreenWindow setBackgroundColor:[[WLGlobalConfig sharedInstance] colorBG]];
+        _fullScreenWindow.backgroundColor = [[WLGlobalConfig sharedInstance] colorBG];
 		
 		[_fullScreenWindow setOpaque:NO];
 		[_fullScreenWindow display];
         // Set the view to the full screen window
-        [_fullScreenWindow setContentView:_targetView];
+        _fullScreenWindow.contentView = _targetView;
         // Move the origin point
-        [[_fullScreenWindow contentView] setFrameOrigin:newOP];
+        [_fullScreenWindow.contentView setFrameOrigin:newOP];
 		// Focus on the view
 		[_fullScreenWindow makeFirstResponder:_targetView];
 	}
@@ -229,12 +229,12 @@ WLGlobalConfig *gConfig;
 // Overrided functions
 - (void)processBeforeEnter {
 	// Back up the original frame of _targetView
-	_originalFrame = [_targetView frame];
+	_originalFrame = _targetView.frame;
 	
 	// Get the fittest ratio for the expansion
-	NSRect screenRect = [[NSScreen mainScreen] frame];
-	CGFloat ratioH = screenRect.size.height / [_targetView frame].size.height;
-	CGFloat ratioW = screenRect.size.width / [_targetView frame].size.width;
+	NSRect screenRect = [NSScreen mainScreen].frame;
+	CGFloat ratioH = screenRect.size.height / _targetView.frame.size.height;
+	CGFloat ratioW = screenRect.size.width / _targetView.frame.size.width;
 	_screenRatio = (ratioH > ratioW) ? ratioW : ratioH;
 	
 	// Then, do the expansion

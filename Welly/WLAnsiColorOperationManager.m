@@ -64,8 +64,8 @@ const cell WLWhiteSpaceCell = {WLWhitespaceCharacter, 0};
 + (NSData *)ansiColorDataFromTerminal:(WLTerminal *)terminal 
 						   atLocation:(NSInteger)location
 							   length:(NSInteger)length {
-	NSInteger maxRow = [[WLGlobalConfig sharedInstance] row];
-	NSInteger maxColumn = [[WLGlobalConfig sharedInstance] column];
+	NSInteger maxRow = [WLGlobalConfig sharedInstance].row;
+	NSInteger maxColumn = [WLGlobalConfig sharedInstance].column;
 	cell *buffer = (cell *)malloc((length + maxRow + maxColumn + 1) * sizeof(cell));
     NSInteger i, j;
     NSInteger bufferLength = 0;
@@ -98,7 +98,7 @@ const cell WLWhiteSpaceCell = {WLWhitespaceCharacter, 0};
 		}
 	}
 	
-	convertToUTF8(buffer, bufferLength, [[[terminal connection] site] encoding]);
+	convertToUTF8(buffer, bufferLength, terminal.connection.site.encoding);
 	NSData *returnValue = [NSData dataWithBytes:buffer length:bufferLength * sizeof(cell)];
 	free(buffer);
 	return returnValue;
@@ -106,8 +106,8 @@ const cell WLWhiteSpaceCell = {WLWhitespaceCharacter, 0};
 
 + (NSData *)ansiColorDataFromTerminal:(WLTerminal *)terminal 
 							   inRect:(NSRect)rect {
-	NSInteger maxRow = [[WLGlobalConfig sharedInstance] row];
-	NSInteger maxColumn = [[WLGlobalConfig sharedInstance] column];
+	NSInteger maxRow = [WLGlobalConfig sharedInstance].row;
+	NSInteger maxColumn = [WLGlobalConfig sharedInstance].column;
 	cell *buffer = (cell *)malloc(((rect.size.height * rect.size.width) + maxRow + maxColumn + 1) * sizeof(cell));
     NSInteger j;
     NSInteger bufferLength = 0;
@@ -159,7 +159,7 @@ const cell WLWhiteSpaceCell = {WLWhitespaceCharacter, 0};
 		emptyCount = 0;
 	}
 	
-	convertToUTF8(buffer, bufferLength, [[[terminal connection] site] encoding]);
+	convertToUTF8(buffer, bufferLength, terminal.connection.site.encoding);
 	NSData *returnValue = [NSData dataWithBytes:buffer length:bufferLength * sizeof(cell)];
 	free(buffer);
 	return returnValue;
@@ -177,8 +177,8 @@ const cell WLWhiteSpaceCell = {WLWhitespaceCharacter, 0};
 		escData = [NSData dataWithBytes:"\x1B" length:1];
 	}
 	
-	cell *buffer = (cell *)[ansiColorData bytes];
-	NSInteger bufferLength = [ansiColorData length] / sizeof(cell);
+	cell *buffer = (cell *)ansiColorData.bytes;
+	NSInteger bufferLength = ansiColorData.length / sizeof(cell);
 	convertFromUTF8(buffer, bufferLength, encoding);
 	
 	attribute defaultANSI;
@@ -342,7 +342,7 @@ static NSColor* colorUsingNearestAnsiColor(NSColor *rawColor, BOOL isBackground)
     
     //NSFontManager *fontManager = [NSFontManager sharedFontManager];
     NSMutableString *writeBuffer = [NSMutableString string];
-    NSString *rawString = [storage string];
+    NSString *rawString = storage.string;
     BOOL underline, preUnderline = NO;
     BOOL blink, preBlink = NO;
     WLGlobalConfig *config = [WLGlobalConfig sharedInstance];
@@ -350,7 +350,7 @@ static NSColor* colorUsingNearestAnsiColor(NSColor *rawColor, BOOL isBackground)
     NSColor *bgColor, *preBgColor = nil;
     BOOL hasColor = NO;
     
-    for (int i = 0; i < [storage length]; ++i) {
+    for (int i = 0; i < storage.length; ++i) {
         char tmp[100] = "";
         // get attributes of i-th character
         
@@ -421,7 +421,7 @@ static NSColor* colorUsingNearestAnsiColor(NSColor *rawColor, BOOL isBackground)
             else
                 sprintf(tmp, "[%s%s%s%sm", (underline || blink || *bgColorCode) ? "0" : "", underline ? ";4" : "", blink ? ";5" : "", bgColorCode);
             [writeBuffer appendString:escString];
-            [writeBuffer appendString:[NSString stringWithCString:tmp encoding:NSASCIIStringEncoding]];
+            [writeBuffer appendString:@(tmp)];
             preUnderline = underline;
             preBlink = blink;
             preColor = color;

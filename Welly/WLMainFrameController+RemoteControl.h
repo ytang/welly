@@ -13,8 +13,8 @@
 - (void)initializeRemoteControl;
 
 // for bindings access
-- (RemoteControl*)remoteControl;
-- (MultiClickRemoteBehavior*)remoteBehavior;
+@property (NS_NONATOMIC_IOSONLY, readonly, strong) RemoteControl *remoteControl;
+@property (NS_NONATOMIC_IOSONLY, readonly, strong) MultiClickRemoteBehavior *remoteBehavior;
 
 
 // for timer

@@ -38,7 +38,7 @@
 	return [[[WLTabViewItemController alloc] initWithContent:nil] autorelease];
 }
 
-- (id)initWithContent:(id)content {
+- (instancetype)initWithContent:(id)content {
 	NSAssert(!content || [content conformsToProtocol:@protocol(WLTabBarCellContentProvider)], @"should be tab bar cell content provider!!");
 	return [super initWithContent:content];
 }
@@ -46,11 +46,11 @@
 - (void)setContent:(id)content {
 	NSAssert(!content || [content conformsToProtocol:@protocol(WLTabBarCellContentProvider)], @"should be tab bar cell content provider!!");
 	if (content) {
-		[super setContent:content];
+		super.content = content;
 		if ([content respondsToSelector:NSSelectorFromString(@"setTabViewItemController:")])
 			[content performSelector:NSSelectorFromString(@"setTabViewItemController:") withObject:self];
 	} else {
-		[super setContent:[WLDummyCellContentProvider dummyContentProvider]];
+		super.content = [WLDummyCellContentProvider dummyContentProvider];
 	}
 }
 

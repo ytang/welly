@@ -70,7 +70,7 @@
 					 length:(NSInteger)length;
 - (NSAttributedString *)attributedStringAtIndex:(NSInteger)location
 										 length:(NSInteger)length;
-- (cell *)cellsOfRow:(NSInteger)r;
+- (cell *)cellsOfRow:(NSInteger)r NS_RETURNS_INNER_POINTER;
 - (cell)cellAtIndex:(NSInteger)index;
 
 /* Update State */
@@ -78,8 +78,7 @@
 - (void)updateBBSState;
 
 /* Accessor */
-- (WLEncoding)encoding;
-- (void)setEncoding:(WLEncoding)encoding;
+@property (NS_NONATOMIC_IOSONLY) WLEncoding encoding;
 
 /* Input Interface */
 - (void)feedGrid:(cell **)grid;

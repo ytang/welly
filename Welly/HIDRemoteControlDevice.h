@@ -51,8 +51,7 @@
 // may already be received which are put on a backlog. As soon as your main thread
 // has some spare time this backlog is processed and may flood your delegate with calls.
 // Backlog processing is turned off by default.
-- (BOOL) processesBacklog;
-- (void) setProcessesBacklog: (BOOL) value;
+@property (NS_NONATOMIC_IOSONLY) BOOL processesBacklog;
 
 // methods that should be overwritten by subclasses
 - (void) setCookieMappingInDictionary: (NSMutableDictionary*) cookieToButtonMapping;

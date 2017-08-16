@@ -52,7 +52,7 @@ static NSBezierPath *gSymbolLowerLinePath;
 	CGFloat ypts2[5] = {0, _fontHeight/2*(1-gapRatio/2), _fontHeight/2, _fontHeight/2*(1+gapRatio/2), _fontHeight};
 	
 	gSymbolDualLinePath[index] = [[NSBezierPath alloc] init];
-	[gSymbolDualLinePath[index] setLineWidth:2.0];
+	gSymbolDualLinePath[index].lineWidth = 2.0;
 	
 #define DLPoint(x, y) NSMakePoint(xpts2[(x)], ypts2[(y)])
 	switch (index) {
@@ -311,7 +311,7 @@ static NSBezierPath *gSymbolLowerLinePath;
 	};
 	
 	gSymbolArcPath[index] = [[NSBezierPath alloc] init];
-	[gSymbolArcPath[index] setLineWidth:2.0];
+	gSymbolArcPath[index].lineWidth = 2.0;
 	[gSymbolArcPath[index] moveToPoint:pts[index]];
 	[gSymbolArcPath[index] appendBezierPathWithArcFromPoint:NSMakePoint(_fontWidth, _fontHeight/2) 
 													toPoint:pts[(index+1)%4] 
@@ -356,8 +356,8 @@ static NSBezierPath *gSymbolLowerLinePath;
 			if (gSymbolSingleLinePathComponent[i][j])
 				[gSymbolSingleLinePathComponent[i][j] release];
 			gSymbolSingleLinePathComponent[i][j] = [[NSBezierPath alloc] init];
-			[gSymbolSingleLinePathComponent[i][j] setLineWidth:(j-1)+2.0];
-			[gSymbolSingleLinePathComponent[i][j] setLineCapStyle:NSSquareLineCapStyle];
+			gSymbolSingleLinePathComponent[i][j].lineWidth = (j-1)+2.0;
+			gSymbolSingleLinePathComponent[i][j].lineCapStyle = NSSquareLineCapStyle;
 			[gSymbolSingleLinePathComponent[i][j] moveToPoint:mid];
 			[gSymbolSingleLinePathComponent[i][j] lineToPoint:pts[i]];
 		}
@@ -380,17 +380,17 @@ static NSBezierPath *gSymbolLowerLinePath;
 	};
 	[gSymbolStraightLinePath[0] moveToPoint:pts[0]];
 	[gSymbolStraightLinePath[0] lineToPoint:pts[2]];
-	[gSymbolStraightLinePath[0] setLineWidth:2.0];
+	gSymbolStraightLinePath[0].lineWidth = 2.0;
 	
 	[gSymbolStraightLinePath[1] appendBezierPath:gSymbolStraightLinePath[0]];
-	[gSymbolStraightLinePath[1] setLineWidth:3.0];
+	gSymbolStraightLinePath[1].lineWidth = 3.0;
 	
 	[gSymbolStraightLinePath[2] moveToPoint:pts[1]];
 	[gSymbolStraightLinePath[2] lineToPoint:pts[3]];
-	[gSymbolStraightLinePath[2] setLineWidth:2.0];
+	gSymbolStraightLinePath[2].lineWidth = 2.0;
 	
 	[gSymbolStraightLinePath[3] appendBezierPath:gSymbolStraightLinePath[2]];
-	[gSymbolStraightLinePath[3] setLineWidth:3.0];
+	gSymbolStraightLinePath[3].lineWidth = 3.0;
 }
 
 - (void)createSymbolPath {
@@ -448,17 +448,17 @@ static NSBezierPath *gSymbolLowerLinePath;
 			[gSymbolDiagonalPath[i] release];		
 	}
 	gSymbolDiagonalPath[0] = [[NSBezierPath alloc] init];
-	[gSymbolDiagonalPath[0] setLineWidth:2.0];
+	gSymbolDiagonalPath[0].lineWidth = 2.0;
 	[gSymbolDiagonalPath[0] moveToPoint:NSMakePoint(0, 0)];
 	[gSymbolDiagonalPath[0] lineToPoint:NSMakePoint(_fontWidth*2, _fontHeight)];
 	
 	gSymbolDiagonalPath[1] = [[NSBezierPath alloc] init];
-	[gSymbolDiagonalPath[1] setLineWidth:2.0];
+	gSymbolDiagonalPath[1].lineWidth = 2.0;
 	[gSymbolDiagonalPath[1] moveToPoint:NSMakePoint(0, _fontHeight)];
 	[gSymbolDiagonalPath[1] lineToPoint:NSMakePoint(_fontWidth*2, 0)];
 	
 	gSymbolDiagonalPath[2] = [[NSBezierPath alloc] init];
-	[gSymbolDiagonalPath[2] setLineWidth:2.0];
+	gSymbolDiagonalPath[2].lineWidth = 2.0;
 	[gSymbolDiagonalPath[2] appendBezierPath:gSymbolDiagonalPath[0]];
 	[gSymbolDiagonalPath[2] appendBezierPath:gSymbolDiagonalPath[1]];
 	
@@ -467,7 +467,7 @@ static NSBezierPath *gSymbolLowerLinePath;
 		[gSymbolUpperLinePath removeAllPoints];
 	else {
 		gSymbolUpperLinePath = [[NSBezierPath alloc] init];
-		[gSymbolUpperLinePath setLineWidth:2.0];
+		gSymbolUpperLinePath.lineWidth = 2.0;
 	}
 	[gSymbolUpperLinePath moveToPoint:NSMakePoint(0, _fontHeight-1)];
 	[gSymbolUpperLinePath lineToPoint:NSMakePoint(_fontWidth*2, _fontHeight-1)];
@@ -476,7 +476,7 @@ static NSBezierPath *gSymbolLowerLinePath;
 		[gSymbolLowerLinePath removeAllPoints];
 	else {
 		gSymbolLowerLinePath = [[NSBezierPath alloc] init];
-		[gSymbolLowerLinePath setLineWidth:2.0];
+		gSymbolLowerLinePath.lineWidth = 2.0;
 	}
 	[gSymbolLowerLinePath moveToPoint:NSMakePoint(0, 1)];
 	[gSymbolLowerLinePath lineToPoint:NSMakePoint(_fontWidth*2, 1)];
@@ -485,7 +485,7 @@ static NSBezierPath *gSymbolLowerLinePath;
 		[gSymbolLeftLinePath removeAllPoints];
 	else {
 		gSymbolLeftLinePath = [[NSBezierPath alloc] init];
-		[gSymbolLeftLinePath setLineWidth:2.0];
+		gSymbolLeftLinePath.lineWidth = 2.0;
 	}
 	[gSymbolLeftLinePath moveToPoint:NSMakePoint(1, 0)];
 	[gSymbolLeftLinePath lineToPoint:NSMakePoint(1, _fontHeight)];
@@ -499,10 +499,10 @@ static NSBezierPath *gSymbolLowerLinePath;
 - (void)configure {
     if (!gConfig) 
 		gConfig = [WLGlobalConfig sharedInstance];
-	_maxColumn = [gConfig column];
-	_maxRow = [gConfig row];
-    _fontWidth = [gConfig cellWidth];
-    _fontHeight = [gConfig cellHeight];
+	_maxColumn = gConfig.column;
+	_maxRow = gConfig.row;
+    _fontWidth = gConfig.cellWidth;
+    _fontHeight = gConfig.cellHeight;
 	
 	if (gLeftImage)
 		[gLeftImage release];
@@ -515,7 +515,7 @@ static NSBezierPath *gSymbolLowerLinePath;
     [self createSymbolPath];
 }
 
-- (id)init {
+- (instancetype)init {
 	if ((self = [super init])) {
 		[self configure];
 	}
@@ -566,7 +566,7 @@ static NSBezierPath *gSymbolLowerLinePath;
 		[gLeftImage lockFocus];
 		[[gConfig bgColorAtIndex:bgColorIndexOfAttribute(attrL) hilite:bgBoldOfAttribute(attrL)] set];
 		NSRect rect;
-		rect.size = [gLeftImage size];
+		rect.size = gLeftImage.size;
 		rect.origin = NSZeroPoint;
 		NSRectFill(rect);
 		
@@ -608,7 +608,7 @@ static NSBezierPath *gSymbolLowerLinePath;
 	[gSymbolImage lockFocus];
 	[[gConfig bgColorAtIndex:bgColorIndexOfAttribute(attrR) hilite:bgBoldOfAttribute(attrR)] set];
 	NSRect rect;
-	rect.size = [gSymbolImage size];
+	rect.size = gSymbolImage.size;
 	rect.origin = NSZeroPoint;
 	NSRectFill(rect);
 	[colorR set];
@@ -626,7 +626,7 @@ static NSBezierPath *gSymbolLowerLinePath;
 		[gLeftImage lockFocus];
 		[[gConfig bgColorAtIndex:bgColorIndexOfAttribute(attrL) hilite:bgBoldOfAttribute(attrL)] set];
 		NSRect rect;
-		rect.size = [gLeftImage size];
+		rect.size = gLeftImage.size;
 		rect.origin = NSZeroPoint;
 		NSRectFill(rect);
 		

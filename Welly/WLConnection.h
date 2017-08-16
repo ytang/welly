@@ -50,7 +50,7 @@
 @property (readwrite, assign) NSInteger objectCount;
 @property (readwrite, assign) id tabViewItemController;
 
-- (id)initWithSite:(WLSite *)site;
+- (instancetype)initWithSite:(WLSite *)site;
 
 - (void)close;
 - (void)reconnect;

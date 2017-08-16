@@ -81,29 +81,29 @@ NSString *const WLEnglishFontSizeKeyName = @"EnglishFontSize";
 
 SYNTHESIZE_SINGLETON_FOR_CLASS(WLGlobalConfig);
 
-- (id)init {
+- (instancetype)init {
 	self = [super init];
 	if (self) {
 		NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
 		
-		[self setShowsHiddenText:[defaults boolForKey:@"ShowHiddenText"]];
-		[self setShouldSmoothFonts:[defaults boolForKey:@"ShouldSmoothFonts"]];
-		[self setShouldDetectDoubleByte:[defaults boolForKey:@"DetectDoubleByte"]];
-		[self setShouldEnableMouse:[defaults boolForKey:@"EnableMouse"]];
-		[self setDefaultEncoding:(WLEncoding) [defaults integerForKey:@"DefaultEncoding"]];
-		[self setDefaultANSIColorKey:(YLANSIColorKey) [defaults integerForKey:@"DefaultANSIColorKey"]];
-		[self setShouldRepeatBounce:[defaults boolForKey:@"RepeatBounce"]];
+		self.showsHiddenText = [defaults boolForKey:@"ShowHiddenText"];
+		self.shouldSmoothFonts = [defaults boolForKey:@"ShouldSmoothFonts"];
+		self.shouldDetectDoubleByte = [defaults boolForKey:@"DetectDoubleByte"];
+		self.shouldEnableMouse = [defaults boolForKey:@"EnableMouse"];
+		self.defaultEncoding = (WLEncoding) [defaults integerForKey:@"DefaultEncoding"];
+		self.defaultANSIColorKey = (YLANSIColorKey) [defaults integerForKey:@"DefaultANSIColorKey"];
+		self.shouldRepeatBounce = [defaults boolForKey:@"RepeatBounce"];
 		
 		// init code
 		_row = 24;
 		_column = 80;
-		[self setCellWidth:[defaults floatForKey:@"CellWidth"]];
-		[self setCellHeight:[defaults floatForKey:@"CellHeight"]];
+		self.cellWidth = [defaults floatForKey:@"CellWidth"];
+		self.cellHeight = [defaults floatForKey:@"CellHeight"];
 		
-		[self setChineseFontName:[defaults stringForKey:@"ChineseFontName"]];
-		[self setEnglishFontName:[defaults stringForKey:@"EnglishFontName"]];
-		[self setChineseFontSize:[defaults floatForKey:@"ChineseFontSize"]];
-		[self setEnglishFontSize:[defaults floatForKey:@"EnglishFontSize"]];
+		self.chineseFontName = [defaults stringForKey:@"ChineseFontName"];
+		self.englishFontName = [defaults stringForKey:@"EnglishFontName"];
+		self.chineseFontSize = [defaults floatForKey:@"ChineseFontSize"];
+		self.englishFontSize = [defaults floatForKey:@"EnglishFontSize"];
 		
 		// If it is too small, we shall restore settings
 		if (self.cellWidth < 4 || self.cellHeight < 4 || self.chineseFontSize < 6 || self.englishFontSize < 4) {
@@ -111,30 +111,30 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(WLGlobalConfig);
 		}
 		
 		// Too large, restore it
-		if (self.contentSize.width > [[NSScreen mainScreen] frame].size.width ||
-			self.contentSize.height > [[NSScreen mainScreen] frame].size.height) {
+		if (self.contentSize.width > [NSScreen mainScreen].frame.size.width ||
+			self.contentSize.height > [NSScreen mainScreen].frame.size.height) {
 			[self restoreSettings];
 		}
         
 		if ([defaults objectForKey:@"ChinesePaddingLeft"])
-			[self setChineseFontPaddingLeft:[defaults floatForKey:@"ChinesePaddingLeft"]];
+			self.chineseFontPaddingLeft = [defaults floatForKey:@"ChinesePaddingLeft"];
 		else
-			[self setChineseFontPaddingLeft:1.0];
+			self.chineseFontPaddingLeft = 1.0;
 		
 		if ([defaults objectForKey:@"EnglishPaddingLeft"])
-			[self setEnglishFontPaddingLeft:[defaults floatForKey:@"EnglishPaddingLeft"]];
+			self.englishFontPaddingLeft = [defaults floatForKey:@"EnglishPaddingLeft"];
 		else
-			[self setEnglishFontPaddingLeft:1.0];
+			self.englishFontPaddingLeft = 1.0;
         
 		if ([defaults objectForKey:@"ChinesePaddingBottom"])
-			[self setChineseFontPaddingBottom:[defaults floatForKey:@"ChinesePaddingBottom"]];
+			self.chineseFontPaddingBottom = [defaults floatForKey:@"ChinesePaddingBottom"];
 		else
-			[self setChineseFontPaddingBottom:1.0];
+			self.chineseFontPaddingBottom = 1.0;
         
 		if ([defaults objectForKey:@"EnglishPaddingBottom"])
-			[self setEnglishFontPaddingBottom:[defaults floatForKey:@"EnglishPaddingBottom"]];
+			self.englishFontPaddingBottom = [defaults floatForKey:@"EnglishPaddingBottom"];
 		else
-			[self setEnglishFontPaddingBottom:2.0];
+			self.englishFontPaddingBottom = 2.0;
         
 		[self setColorBlack:[defaults myColorForKey:@"ColorBlack"]];
 		[self setColorBlackHilite:[defaults myColorForKey:@"ColorBlackHilite"]];
@@ -191,10 +191,10 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(WLGlobalConfig);
 }
 
 - (void)setFontSizeRatio:(CGFloat)ratio {
-	[self setEnglishFontSize:_englishFontSize * ratio];
-	[self setChineseFontSize:_chineseFontSize * ratio];
-	[self setCellWidth:_cellWidth * ratio];
-	[self setCellHeight:_cellHeight * ratio];
+	self.englishFontSize = _englishFontSize * ratio;
+	self.chineseFontSize = _chineseFontSize * ratio;
+	self.cellWidth = _cellWidth * ratio;
+	self.cellHeight = _cellHeight * ratio;
 }
 
 - (void)refreshFont {
@@ -275,7 +275,7 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(WLGlobalConfig);
 
 - (NSColor *)bgColorAtIndex:(int)i 
 					 hilite:(BOOL)h {
-	return [[self colorAtIndex:i hilite:h] colorWithAlphaComponent:[[self colorBG] alphaComponent]];
+	return [[self colorAtIndex:i hilite:h] colorWithAlphaComponent:[self colorBG].alphaComponent];
 }
 
 - (void)setColor:(NSColor *)c 
@@ -323,7 +323,7 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(WLGlobalConfig);
 }
 
 - (void)updateBlinkTicker {
-    [self setBlinkTicker:!_blinkTicker];
+    self.blinkTicker = !_blinkTicker;
 }
 
 - (CGFloat)chineseFontSize {
@@ -568,7 +568,7 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(WLGlobalConfig);
 + (NSString *)cacheDirectory {
     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES);
     NSAssert([paths count] > 0, @"~/Library/Caches");
-    NSString *cacheDir = [[paths objectAtIndex:0] stringByAppendingPathComponent:@"Welly"];
+    NSString *cacheDir = [paths[0] stringByAppendingPathComponent:@"Welly"];
     return cacheDir;
 }
 
@@ -576,9 +576,9 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(WLGlobalConfig);
     // clean cache at startup
     NSString *cacheDir = [WLGlobalConfig cacheDirectory];
     BOOL flag = NO;
-    int pid = [[NSProcessInfo processInfo] processIdentifier];
+    int pid = [NSProcessInfo processInfo].processIdentifier;
     // detect if another Welly exists
-    for (NSDictionary *dict in [[NSWorkspace sharedWorkspace] runningApplications]) {
+    for (NSDictionary *dict in [NSWorkspace sharedWorkspace].runningApplications) {
         if ([[dict valueForKey:@"localizedName"] isEqualToString:@"Welly"] &&
             [[dict valueForKey:@"processIdentifier"] intValue] != pid) {
             flag = YES;
@@ -599,18 +599,18 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(WLGlobalConfig);
 
 - (NSSize)contentSize {
 	// Return the proper size of all the content
-	return NSMakeSize(_column * [self cellWidth], _row * [self cellHeight]);
+	return NSMakeSize(_column * self.cellWidth, _row * self.cellHeight);
 }
 
 #pragma mark -
 #pragma mark Restoring Settrings
 - (void)restoreSettings {
-	[self setCellWidth:12];
-	[self setCellHeight:24];
-	[self setChineseFontName:@"STHeiti"];
-	[self setEnglishFontName:@"Monaco"];
-	[self setChineseFontSize:22];
-	[self setEnglishFontSize:18];
+	self.cellWidth = 12;
+	self.cellHeight = 24;
+	self.chineseFontName = @"STHeiti";
+	self.englishFontName = @"Monaco";
+	self.chineseFontSize = 22;
+	self.englishFontSize = 18;
 }
 
 - (NSDictionary *)sizeParameters {
@@ -618,13 +618,13 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(WLGlobalConfig);
 }
 
 - (void)setSizeParameters:(NSDictionary *)sizeParameters {
-	if ([sizeParameters objectForKey:WLCellWidthKeyName])
-		self.cellWidth = [[sizeParameters objectForKey:WLCellWidthKeyName] floatValue];
-	if ([sizeParameters objectForKey:WLCellHeightKeyName])
-		self.cellHeight = [[sizeParameters objectForKey:WLCellHeightKeyName] floatValue];
-	if ([sizeParameters objectForKey:WLChineseFontSizeKeyName])
-		self.chineseFontSize = [[sizeParameters objectForKey:WLChineseFontSizeKeyName] floatValue];
-	if ([sizeParameters objectForKey:WLEnglishFontSizeKeyName])
-		self.englishFontSize = [[sizeParameters objectForKey:WLEnglishFontSizeKeyName] floatValue];
+	if (sizeParameters[WLCellWidthKeyName])
+		self.cellWidth = [sizeParameters[WLCellWidthKeyName] floatValue];
+	if (sizeParameters[WLCellHeightKeyName])
+		self.cellHeight = [sizeParameters[WLCellHeightKeyName] floatValue];
+	if (sizeParameters[WLChineseFontSizeKeyName])
+		self.chineseFontSize = [sizeParameters[WLChineseFontSizeKeyName] floatValue];
+	if (sizeParameters[WLEnglishFontSizeKeyName])
+		self.englishFontSize = [sizeParameters[WLEnglishFontSizeKeyName] floatValue];
 }
 @end

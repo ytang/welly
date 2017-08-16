@@ -124,7 +124,7 @@ Boolean GetProxySetting(const char *protocol, char *host, size_t hostSize, UInt1
     NSUInteger colon = [proxyAddress rangeOfString:@":"].location;
     NSString *hostString, *portString = nil;
     if (colon == NSNotFound) {
-        if ([proxyAddress length] != 0)
+        if (proxyAddress.length != 0)
             hostString = [NSString stringWithString:proxyAddress];
         else
             hostString = @"localhost";
