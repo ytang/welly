@@ -9,7 +9,6 @@
 #import "WLComposePanelController.h"
 #import "WLAnsiColorOperationManager.h"
 #import "WLGlobalConfig.h"
-#import "SynthesizeSingleton.h"
 
 #define kComposePanelNibFilename @"ComposePanel"
 
@@ -23,7 +22,16 @@
 
 @implementation WLComposePanelController
 NSString *const WLComposeFontName = @"Helvetica";
-SYNTHESIZE_SINGLETON_FOR_CLASS(WLComposePanelController);
+
+static WLComposePanelController *_instance = nil;
+
++ (WLComposePanelController *)sharedInstance {
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        _instance = [[self alloc] init];
+    });
+    return _instance;
+}
 
 - (void)loadNibFile {
 	if (_composePanel) {
@@ -64,7 +72,6 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(WLComposePanelController);
     [colorList insertColor:config.colorCyanHilite key:NSLocalizedString(@"CyanHilite", @"Color") atIndex:14];
     [colorList insertColor:config.colorWhiteHilite key:NSLocalizedString(@"WhiteHilite", @"Color") atIndex:15];
     [colorPanel attachColorList:colorList];
-    [colorList release];
 	
 	_shadowForBlink = [[NSShadow alloc] init];
 	_shadowForBlink.shadowOffset = NSMakeSize(3.0, -3.0);

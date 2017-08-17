@@ -8,7 +8,6 @@
 
 #import <Cocoa/Cocoa.h>
 
-@class WLTerminalView;
 @interface WLComposePanelController : NSObject {
     NSView <NSTextInputClient> *_telnetView;
 	
