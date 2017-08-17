@@ -8,7 +8,6 @@
 
 #import "WLEmoticonsPanelController.h"
 #import "YLEmoticon.h"
-#import "SynthesizeSingleton.h"
 
 #define kEmoticonPanelNibFilename @"EmoticonsPanel"
 
@@ -21,7 +20,7 @@
 - (void)addEmoticon:(YLEmoticon *)emoticon;
 @property (NS_NONATOMIC_IOSONLY, readonly) NSUInteger countOfEmoticons;
 - (id)objectInEmoticonsAtIndex:(NSUInteger)theIndex;
-- (void)getEmoticons:(id *)objsPtr 
+- (void)getEmoticons:(__unsafe_unretained id *)objsPtr
 			   range:(NSRange)range;
 - (void)insertObject:(id)obj 
   inEmoticonsAtIndex:(NSUInteger)theIndex;
@@ -32,7 +31,15 @@
 @implementation WLEmoticonsPanelController
 @synthesize emoticons = _emoticons;
 
-SYNTHESIZE_SINGLETON_FOR_CLASS(WLEmoticonsPanelController);
+static WLEmoticonsPanelController *_instance = nil;
+
++ (WLEmoticonsPanelController *)sharedInstance {
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        _instance = [[self alloc] init];
+    });
+    return _instance;
+}
 
 - (instancetype)init {
     if (self = [super init]) {
@@ -43,11 +50,6 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(WLEmoticonsPanelController);
 		}
     }
     return self;
-}
-
-- (void)dealloc {
-    [_emoticons release];
-    [super dealloc];
 }
 
 - (void)loadNibFile {
@@ -116,7 +118,7 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(WLEmoticonsPanelController);
     return _emoticons[theIndex];
 }
 
-- (void)getEmoticons:(id *)objsPtr 
+- (void)getEmoticons:(__unsafe_unretained id *)objsPtr
 			   range:(NSRange)range {
     [_emoticons getObjects:objsPtr range:range];
 }

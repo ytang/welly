@@ -35,7 +35,7 @@
 		9C76A2681F42B69D0044F830 /* WLMainFrameController+TabControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C76A2631F42B69D0044F830 /* WLMainFrameController+TabControl.m */; };
 		9C76A2691F42B69D0044F830 /* WLMainFrameController+FullScreen.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C76A2651F42B69D0044F830 /* WLMainFrameController+FullScreen.m */; };
 		9C76A2721F42B6AD0044F830 /* WLComposePanelController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C76A26B1F42B6AD0044F830 /* WLComposePanelController.m */; };
-		9C76A2731F42B6AD0044F830 /* WLEmoticonsPanelController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C76A26D1F42B6AD0044F830 /* WLEmoticonsPanelController.m */; };
+		9C76A2731F42B6AD0044F830 /* WLEmoticonsPanelController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C76A26D1F42B6AD0044F830 /* WLEmoticonsPanelController.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
 		9C76A2741F42B6AD0044F830 /* WLPostDownloadDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C76A26F1F42B6AD0044F830 /* WLPostDownloadDelegate.m */; };
 		9C76A2751F42B6AD0044F830 /* WLSitesPanelController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C76A2711F42B6AD0044F830 /* WLSitesPanelController.m */; };
 		9C76A27A1F42B6CC0044F830 /* DBPrefsWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C76A2771F42B6CC0044F830 /* DBPrefsWindowController.m */; };
