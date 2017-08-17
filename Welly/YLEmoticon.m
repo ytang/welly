@@ -10,8 +10,6 @@
 
 
 @implementation YLEmoticon
-@synthesize name = _name;
-@synthesize content = _content;
 
 #pragma mark -
 #pragma mark init and dealloc
@@ -23,19 +21,11 @@
     return self;
 }
 
-- (void)dealloc {
-    [_content release];
-    [_name release];
-    [super dealloc];
-}
-
-- (instancetype)initWithName:(NSString *)name 
-		   content:(NSString *)content {
+- (instancetype)initWithName:(NSString *)name
+                     content:(NSString *)content {
 	if (self = [self init]) {
-		//_name = name;
-		//_content = content;
-		self.name = name;
-		self.content = content;
+		_name = name;
+		_content = content;
 	}
 	return self;
 }
@@ -46,18 +36,16 @@
     YLEmoticon *e = [[YLEmoticon alloc] init];
 //    [e setName: [d valueForKey: @"name"]];
     e.content = [d valueForKey:@"content"];
-    return [e autorelease];    
+    return e;    
 }
 
 + (YLEmoticon *)emoticonWithName:(NSString *)n 
 						 content:(NSString *)c {
-    YLEmoticon *e = [[YLEmoticon alloc] initWithName:n content:c];
-    return [e autorelease];
+    return [[YLEmoticon alloc] initWithName:n content:c];
 }
 
 + (YLEmoticon *)emoticonWithString:(NSString *)string {
-	YLEmoticon *e = [[YLEmoticon alloc] initWithName:string content:string];
-	return [e autorelease];
+	return [[YLEmoticon alloc] initWithName:string content:string];
 }
 
 #pragma mark -

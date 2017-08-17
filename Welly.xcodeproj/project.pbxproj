@@ -16,7 +16,7 @@
 		9C769D7E1F42B55A0044F830 /* WLTerminal.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C769D751F42B55A0044F830 /* WLTerminal.m */; };
 		9C769D7F1F42B55A0044F830 /* WLTerminalFeeder.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C769D771F42B55A0044F830 /* WLTerminalFeeder.m */; };
 		9C769D801F42B55A0044F830 /* WLSite.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C769D791F42B55A0044F830 /* WLSite.m */; };
-		9C769D811F42B55A0044F830 /* YLEmoticon.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C769D7B1F42B55A0044F830 /* YLEmoticon.m */; };
+		9C769D811F42B55A0044F830 /* YLEmoticon.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C769D7B1F42B55A0044F830 /* YLEmoticon.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
 		9C76A23F1F42B6300044F830 /* WLTermView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C76A2341F42B6300044F830 /* WLTermView.m */; };
 		9C76A2401F42B6300044F830 /* WLTerminalView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C76A2361F42B6300044F830 /* WLTerminalView.m */; };
 		9C76A2411F42B6300044F830 /* YLMarkedTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C76A2381F42B6300044F830 /* YLMarkedTextView.m */; };

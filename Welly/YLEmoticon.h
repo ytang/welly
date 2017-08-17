@@ -9,15 +9,14 @@
 #import <Cocoa/Cocoa.h>
 
 
-@interface YLEmoticon : NSObject {
-    NSString *_name;
-    NSString *_content;
-}
+@interface YLEmoticon : NSObject
+
 @property (readwrite, copy) NSString *name;
 @property (readwrite, copy) NSString *content;
 
 + (YLEmoticon *)emoticonWithDictionary:(NSDictionary *)d;
 + (YLEmoticon *)emoticonWithString:(NSString *)string;
+
 - (NSDictionary *)dictionaryOfEmoticon;
 
 @end
