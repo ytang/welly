@@ -12,15 +12,15 @@
 typedef union {
 	unsigned short v;
 	struct {
-		NSUInteger fgColor      : 4;
-		NSUInteger bgColor      : 4;
-		NSUInteger bold         : 1;
-		NSUInteger underline    : 1;
-		NSUInteger blink        : 1;
-		NSUInteger reverse      : 1;
-		NSUInteger doubleByte   : 2;
-        NSUInteger url          : 1;
-		NSUInteger nothing      : 1;
+		unsigned short fgColor      : 4;
+		unsigned short bgColor      : 4;
+		unsigned short bold         : 1;
+		unsigned short underline    : 1;
+		unsigned short blink        : 1;
+		unsigned short reverse      : 1;
+		unsigned short doubleByte   : 2;
+        unsigned short url          : 1;
+		unsigned short nothing      : 1;
 	} f;
 } attribute;
 
@@ -29,15 +29,19 @@ typedef struct {
 	attribute attr;
 } cell;
 
-typedef NS_ENUM(unsigned int, ASCII_CODE) {C0, INTERMEDIATE, ALPHABETIC, DELETE, C1, G1, SPECIAL, ERROR};
+typedef NS_ENUM(NSUInteger, ASCII_CODE) {
+    C0, INTERMEDIATE, ALPHABETIC, DELETE, C1, G1, SPECIAL, ERROR
+};
 
-typedef NS_ENUM(unsigned int, YLANSIColorKey) {
+typedef NS_ENUM(NSUInteger, YLANSIColorKey) {
     YLEscEscANSIColorKey, YLCtrlUANSIColorKey
 };
 
-typedef NS_ENUM(unsigned int, WLProxyType) {WLNoneProxy, WLAutoProxy, WLSocksProxy, WLHttpProxy, WLHttpsProxy};
+typedef NS_ENUM(NSUInteger, WLProxyType) {
+    WLNoneProxy, WLAutoProxy, WLSocksProxy, WLHttpProxy, WLHttpsProxy
+};
 
-typedef NS_ENUM(unsigned int, WLBBSType) {
+typedef NS_ENUM(NSUInteger, WLBBSType) {
 	WLFirebird, WLMaple, WLUnix
 };
 
