@@ -1009,8 +1009,8 @@ static unsigned short gEmptyAttr;
     _cursorX = _cursorY = 0;
 	
     attribute t;
-    t.f.fgColor = [WLGlobalConfig sharedInstance]->_fgColorIndex;
-    t.f.bgColor = [WLGlobalConfig sharedInstance]->_bgColorIndex;
+    t.f.fgColor = [WLGlobalConfig sharedInstance].fgColorIndex;
+    t.f.bgColor = [WLGlobalConfig sharedInstance].bgColorIndex;
     t.f.bold = 0;
     t.f.underline = 0;
     t.f.blink = 0;
@@ -1019,8 +1019,8 @@ static unsigned short gEmptyAttr;
     t.f.nothing = 0;
     gEmptyAttr = t.v;
 	
-    _fgColor = [WLGlobalConfig sharedInstance]->_fgColorIndex;
-    _bgColor = [WLGlobalConfig sharedInstance]->_bgColorIndex;
+    _fgColor = [WLGlobalConfig sharedInstance].fgColorIndex;
+    _bgColor = [WLGlobalConfig sharedInstance].bgColorIndex;
     _csTemp = 0;
     _state = TP_NORMAL;
     _bold = NO;

@@ -97,8 +97,8 @@
     _cursorColumn = _cursorRow = 0;
 	
     attribute t;
-    t.f.fgColor = [WLGlobalConfig sharedInstance]->_fgColorIndex;
-    t.f.bgColor = [WLGlobalConfig sharedInstance]->_bgColorIndex;
+    t.f.fgColor = [WLGlobalConfig sharedInstance].fgColorIndex;
+    t.f.bgColor = [WLGlobalConfig sharedInstance].bgColorIndex;
     t.f.bold = 0;
     t.f.underline = 0;
     t.f.blink = 0;

@@ -10,7 +10,6 @@
 //
 
 #import <Cocoa/Cocoa.h>
-#import <ApplicationServices/ApplicationServices.h>
 #import "CommonType.h"
 #import "WLEncoder.h"
 
@@ -28,45 +27,13 @@ NSString *const WLChineseFontSizeKeyName;
 NSString *const WLEnglishFontSizeKeyName;
 
 @interface WLGlobalConfig : NSObject {
-    NSInteger _messageCount;
-	NSInteger _row;
-	NSInteger _column;
-	CGFloat _cellWidth;
-	CGFloat _cellHeight;
+@public
+    NSColor *_colorTable[2][NUM_COLOR];
     
-    BOOL _showsHiddenText;
-	BOOL _blinkTicker;
-    BOOL _shouldSmoothFonts;
-    BOOL _shouldDetectDoubleByte;
-	BOOL _shouldEnableMouse;
-	BOOL _shouldAutoReply;
-    BOOL _shouldRepeatBounce;
-    WLEncoding _defaultEncoding;
-    YLANSIColorKey _defaultANSIColorKey;
-    
-    CGFloat _chineseFontSize;
-    CGFloat _englishFontSize;
-    CGFloat _chineseFontPaddingLeft;
-    CGFloat _englishFontPaddingLeft;
-    CGFloat _chineseFontPaddingBottom;
-    CGFloat _englishFontPaddingBottom;
-    NSString *_chineseFontName;
-    NSString *_englishFontName;
-	
-@public   
-    int _bgColorIndex;
-    int _fgColorIndex;
-	
-	CTFontRef _cCTFont;
-	CTFontRef _eCTFont;
-	CGFontRef _cCGFont;
-	CGFontRef _eCGFont;
-
-	NSColor *_colorTable[2][NUM_COLOR];
-
-	CFDictionaryRef _cCTAttribute[2][NUM_COLOR];
-	CFDictionaryRef _eCTAttribute[2][NUM_COLOR];
+    CFDictionaryRef _cCTAttribute[2][NUM_COLOR];
+    CFDictionaryRef _eCTAttribute[2][NUM_COLOR];
 }
+
 @property (readwrite, assign) NSInteger messageCount;
 @property (readwrite, assign) NSInteger row;
 @property (readwrite, assign) NSInteger column;
@@ -88,6 +55,13 @@ NSString *const WLEnglishFontSizeKeyName;
 @property (readwrite, assign, nonatomic) CGFloat englishFontPaddingBottom;
 @property (readwrite, copy, nonatomic) NSString *chineseFontName;
 @property (readwrite, copy, nonatomic) NSString *englishFontName;
+
+@property (readonly, nonatomic) int bgColorIndex;
+@property (readonly, nonatomic) int fgColorIndex;
+@property (readonly, nonatomic) CTFontRef cCTFont;
+@property (readonly, nonatomic) CTFontRef eCTFont;
+@property (readonly, nonatomic) CGFontRef cCGFont;
+@property (readonly, nonatomic) CGFontRef eCGFont;
 
 + (WLGlobalConfig *)sharedInstance;
 

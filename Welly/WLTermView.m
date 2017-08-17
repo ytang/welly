@@ -309,7 +309,7 @@ static NSImage *gLeftImage;
 						  fromRect:NSMakeRect(0, (_maxRow - end - 1) * _fontHeight, _maxColumn * _fontWidth, (end - start) * _fontHeight) 
 						 operation:NSCompositeCopy];
 	
-	[gConfig->_colorTable[0][gConfig->_bgColorIndex] set];
+	[gConfig->_colorTable[0][gConfig.bgColorIndex] set];
 	NSRectFill(NSMakeRect(0, (_maxRow - end - 1) * _fontHeight, _maxColumn * _fontWidth, _fontHeight));
 	[_backedImage unlockFocus];
     [pool release];
@@ -331,7 +331,7 @@ static NSImage *gLeftImage;
 						  fromRect:NSMakeRect(0, (_maxRow - end) * _fontHeight, _maxColumn * _fontWidth, (end - start) * _fontHeight) 
 						 operation:NSCompositeCopy];
 	
-	[gConfig->_colorTable[0][gConfig->_bgColorIndex] set];
+	[gConfig->_colorTable[0][gConfig.bgColorIndex] set];
 	NSRectFill(NSMakeRect(0, (_maxRow - start - 1) * _fontHeight, _maxColumn * _fontWidth, _fontHeight));
 	[_backedImage unlockFocus];
     [pool release];
@@ -424,7 +424,7 @@ static NSImage *gLeftImage;
             isDoubleByte[bufLength] = NO;
             textBuf[bufLength] = 0x0000 + (currRow[x].byte ?: ' ');
             bufIndex[bufLength] = x;
-            position[bufLength] = CGPointMake(x * _fontWidth + ePaddingLeft, (_maxRow - 1 - r) * _fontHeight + CTFontGetDescent(gConfig->_eCTFont) + ePaddingBottom);
+            position[bufLength] = CGPointMake(x * _fontWidth + ePaddingLeft, (_maxRow - 1 - r) * _fontHeight + CTFontGetDescent(gConfig.eCTFont) + ePaddingBottom);
             isDoubleColor[bufLength] = NO;
             bufLength++;
 		} else if (db == 1) {
@@ -449,7 +449,7 @@ static NSImage *gLeftImage;
 				isDoubleByte[bufLength] = YES;
 				textBuf[bufLength] = ch;
 				bufIndex[bufLength] = x;
-				position[bufLength] = CGPointMake((x - 1) * _fontWidth + cPaddingLeft, (_maxRow - 1 - r) * _fontHeight + CTFontGetDescent(gConfig->_cCTFont) + cPaddingBottom);
+				position[bufLength] = CGPointMake((x - 1) * _fontWidth + cPaddingLeft, (_maxRow - 1 - r) * _fontHeight + CTFontGetDescent(gConfig.cCTFont) + cPaddingBottom);
 				bufLength++;
 			}
             // FIXME: why?
@@ -587,7 +587,7 @@ static NSImage *gLeftImage;
                                          tempColor.blueComponent, 
                                          1.0);
                 
-                CGContextShowGlyphsAtPoint(tempContext, cPaddingLeft, CTFontGetDescent(gConfig->_cCTFont) + cPaddingBottom, &glyph, 1);
+                CGContextShowGlyphsAtPoint(tempContext, cPaddingLeft, CTFontGetDescent(gConfig.cCTFont) + cPaddingBottom, &glyph, 1);
                 [gLeftImage unlockFocus];
                 [gLeftImage drawAtPoint:NSMakePoint(index * _fontWidth, (_maxRow - 1 - r) * _fontHeight)
 							   fromRect:rect

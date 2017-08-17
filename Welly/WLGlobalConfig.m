@@ -10,7 +10,6 @@
 //
 
 #import "WLGlobalConfig.h"
-#import "SynthesizeSingleton.h"
 
 #pragma mark -
 #pragma mark Constants
@@ -57,29 +56,22 @@ NSString *const WLEnglishFontSizeKeyName = @"EnglishFontSize";
 @end
 
 @implementation WLGlobalConfig
-@synthesize messageCount = _messageCount;
-@synthesize row = _row;
-@synthesize column = _column;
+
 @synthesize cellWidth = _cellWidth;
 @synthesize cellHeight = _cellHeight;
-@synthesize showsHiddenText = _showsHiddenText;
-@synthesize shouldSmoothFonts = _shouldSmoothFonts;
-@synthesize shouldDetectDoubleByte = _shouldDetectDoubleByte;
-@synthesize shouldEnableMouse = _shouldEnableMouse;
-@synthesize shouldRepeatBounce = _shouldRepeatBounce;
-@synthesize defaultEncoding = _defaultEncoding;
-@synthesize defaultANSIColorKey = _defaultANSIColorKey;
-@synthesize blinkTicker = _blinkTicker;
 @synthesize chineseFontSize = _chineseFontSize;
 @synthesize englishFontSize = _englishFontSize;
-@synthesize chineseFontPaddingLeft = _chineseFontPaddingLeft;
-@synthesize englishFontPaddingLeft = _englishFontPaddingLeft;
-@synthesize chineseFontPaddingBottom = _chineseFontPaddingBottom;
-@synthesize englishFontPaddingBottom = _englishFontPaddingBottom;
-@synthesize chineseFontName = _chineseFontName;
-@synthesize englishFontName = _englishFontName;
 
-SYNTHESIZE_SINGLETON_FOR_CLASS(WLGlobalConfig);
+
+static WLGlobalConfig *_instance = nil;
+
++ (WLGlobalConfig *)sharedInstance {
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        _instance = [[self alloc] init];
+    });
+    return _instance;
+}
 
 - (instancetype)init {
 	self = [super init];
@@ -186,10 +178,6 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(WLGlobalConfig);
     return self;
 }
 
-- (void)dealloc {
-	[super dealloc];
-}
-
 - (void)setFontSizeRatio:(CGFloat)ratio {
 	self.englishFontSize = _englishFontSize * ratio;
 	self.chineseFontSize = _chineseFontSize * ratio;
@@ -219,7 +207,7 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(WLGlobalConfig);
             CFNumberRef number = CFNumberCreate(kCFAllocatorDefault, kCFNumberIntType, &zero);
             CFStringRef cfKeys[] = {kCTFontAttributeName, kCTForegroundColorAttributeName, kCTLigatureAttributeName};
             
-            CFTypeRef cfValues[] = {_cCTFont, _colorTable[j][i], number};
+            CFTypeRef cfValues[] = {_cCTFont, (__bridge CFTypeRef)(_colorTable[j][i]), number};
             if (_cCTAttribute[j][i])CFRelease(_cCTAttribute[j][i]);
             _cCTAttribute[j][i] = CFDictionaryCreate(kCFAllocatorDefault, 
                                                      (const void **)cfKeys, 
@@ -282,8 +270,7 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(WLGlobalConfig);
 		  hilite:(BOOL)h 
 		 atIndex:(int)i {
 	if (i >= 0 && i < NUM_COLOR) {
-		[_colorTable[h][i] autorelease];
-		_colorTable[h][i] = [[c colorUsingColorSpaceName:NSCalibratedRGBColorSpace] retain];
+		_colorTable[h][i] = [c colorUsingColorSpaceName:NSCalibratedRGBColorSpace];
 	}
 }
 
@@ -372,7 +359,6 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(WLGlobalConfig);
 - (void)setChineseFontName:(NSString *)value {
     if (!value) value = WLDefaultChineseFontName;
     if (_chineseFontName != value) {
-        [_chineseFontName release];
         _chineseFontName = [value copy];
         [[NSUserDefaults standardUserDefaults] setObject:value forKey:@"ChineseFontName"];
     }
@@ -382,7 +368,6 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(WLGlobalConfig);
 - (void)setEnglishFontName:(NSString *)value {
     if (!value) value = WLDefaultEnglishFontName;
     if (_englishFontName != value) {
-        [_englishFontName release];
         _englishFontName = [value copy];
         [[NSUserDefaults standardUserDefaults] setObject:value forKey:@"EnglishFontName"];
     }
@@ -395,8 +380,7 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(WLGlobalConfig);
     if (!c)
 		c = [NSColor colorWithDeviceRed:0.00 green:0.00 blue:0.00 alpha:1.0];
     if (c != _colorTable[0][0]) {
-        [_colorTable[0][0] release];
-        _colorTable[0][0] = [[c colorUsingColorSpaceName:NSCalibratedRGBColorSpace] retain];
+        _colorTable[0][0] = [c colorUsingColorSpaceName:NSCalibratedRGBColorSpace];
     }
     [[NSUserDefaults standardUserDefaults] setMyColor:c forKey:@"ColorBlack"];
 }
@@ -404,8 +388,7 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(WLGlobalConfig);
 - (void)setColorBlackHilite:(NSColor *)c {
     if (!c)c = [NSColor colorWithDeviceRed:0.25 green:0.25 blue:0.25 alpha:1.0];
     if (c != _colorTable[1][0]) {
-        [_colorTable[1][0] release];
-        _colorTable[1][0] = [[c colorUsingColorSpaceName:NSCalibratedRGBColorSpace] retain];
+        _colorTable[1][0] = [c colorUsingColorSpaceName:NSCalibratedRGBColorSpace];
     }
     [[NSUserDefaults standardUserDefaults] setMyColor:c forKey:@"ColorBlackHilite"];
 }
@@ -414,8 +397,7 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(WLGlobalConfig);
 - (void)setColorRed:(NSColor *)c {
     if (!c)c = [NSColor colorWithDeviceRed:0.50 green:0.00 blue:0.00 alpha:1.0];
     if (c != _colorTable[0][1]) {
-        [_colorTable[0][1] release];
-        _colorTable[0][1] = [[c colorUsingColorSpaceName:NSCalibratedRGBColorSpace] retain];
+        _colorTable[0][1] = [c colorUsingColorSpaceName:NSCalibratedRGBColorSpace];
     }
     [[NSUserDefaults standardUserDefaults] setMyColor:c forKey:@"ColorRed"];
 }
@@ -423,8 +405,7 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(WLGlobalConfig);
 - (void)setColorRedHilite:(NSColor *)c {
     if (!c)c = [NSColor colorWithDeviceRed:1.00 green:0.00 blue:0.00 alpha:1.0];
     if (c != _colorTable[1][1]) {
-        [_colorTable[1][1] release];
-        _colorTable[1][1] = [[c colorUsingColorSpaceName:NSCalibratedRGBColorSpace] retain];
+        _colorTable[1][1] = [c colorUsingColorSpaceName:NSCalibratedRGBColorSpace];
     }
     [[NSUserDefaults standardUserDefaults] setMyColor:c forKey:@"ColorRedHilite"];
 }
@@ -433,8 +414,7 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(WLGlobalConfig);
 - (void)setColorGreen:(NSColor *)c {
     if (!c)c = [NSColor colorWithDeviceRed:0.00 green:0.50 blue:0.00 alpha:1.0];
     if (c != _colorTable[0][2]) {
-        [_colorTable[0][2] release];
-        _colorTable[0][2] = [[c colorUsingColorSpaceName:NSCalibratedRGBColorSpace] retain];
+        _colorTable[0][2] = [c colorUsingColorSpaceName:NSCalibratedRGBColorSpace];
     }
     [[NSUserDefaults standardUserDefaults] setMyColor:c forKey:@"ColorGreen"];
 }
@@ -442,8 +422,7 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(WLGlobalConfig);
 - (void)setColorGreenHilite:(NSColor *)c {
     if (!c)c = [NSColor colorWithDeviceRed:0.00 green:1.00 blue:0.00 alpha:1.0];
     if (c != _colorTable[1][2]) {
-        [_colorTable[1][2] release];
-        _colorTable[1][2] = [[c colorUsingColorSpaceName:NSCalibratedRGBColorSpace] retain];
+        _colorTable[1][2] = [c colorUsingColorSpaceName:NSCalibratedRGBColorSpace];
     }
     [[NSUserDefaults standardUserDefaults] setMyColor:c forKey:@"ColorGreenHilite"];
 }
@@ -452,8 +431,7 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(WLGlobalConfig);
 - (void)setColorYellow:(NSColor *)c {
     if (!c)c = [NSColor colorWithDeviceRed:0.50 green:0.50 blue:0.00 alpha:1.0];
     if (c != _colorTable[0][3]) {
-        [_colorTable[0][3] release];
-        _colorTable[0][3] = [[c colorUsingColorSpaceName:NSCalibratedRGBColorSpace] retain];
+        _colorTable[0][3] = [c colorUsingColorSpaceName:NSCalibratedRGBColorSpace];
     }
     [[NSUserDefaults standardUserDefaults] setMyColor:c forKey:@"ColorYellow"];
 }
@@ -461,8 +439,7 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(WLGlobalConfig);
 - (void)setColorYellowHilite:(NSColor *)c {
     if (!c)c = [NSColor colorWithDeviceRed:1.00 green:1.00 blue:0.00 alpha:1.0];
     if (c != _colorTable[1][3]) {
-        [_colorTable[1][3] release];
-        _colorTable[1][3] = [[c colorUsingColorSpaceName:NSCalibratedRGBColorSpace] retain];
+        _colorTable[1][3] = [c colorUsingColorSpaceName:NSCalibratedRGBColorSpace];
     }
     [[NSUserDefaults standardUserDefaults] setMyColor:c forKey:@"ColorYellowHilite"];
 }
@@ -471,8 +448,7 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(WLGlobalConfig);
 - (void)setColorBlue:(NSColor *)c {
     if (!c)c = [NSColor colorWithDeviceRed:0.00 green:0.00 blue:0.50 alpha:1.0];
     if (c != _colorTable[0][4]) {
-        [_colorTable[0][4] release];
-        _colorTable[0][4] = [[c colorUsingColorSpaceName:NSCalibratedRGBColorSpace] retain];
+        _colorTable[0][4] = [c colorUsingColorSpaceName:NSCalibratedRGBColorSpace];
     }
     [[NSUserDefaults standardUserDefaults] setMyColor:c forKey:@"ColorBlue"];
 }
@@ -480,8 +456,7 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(WLGlobalConfig);
 - (void)setColorBlueHilite:(NSColor *)c {
     if (!c)c = [NSColor colorWithDeviceRed:0.00 green:0.00 blue:1.00 alpha:1.0];
     if (c != _colorTable[1][4]) {
-        [_colorTable[1][4] release];
-        _colorTable[1][4] = [[c colorUsingColorSpaceName:NSCalibratedRGBColorSpace] retain];
+        _colorTable[1][4] = [c colorUsingColorSpaceName:NSCalibratedRGBColorSpace];
     }
     [[NSUserDefaults standardUserDefaults] setMyColor:c forKey:@"ColorBlueHilite"];
 }
@@ -490,8 +465,7 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(WLGlobalConfig);
 - (void)setColorMagenta:(NSColor *)c {
     if (!c)c = [NSColor colorWithDeviceRed:0.50 green:0.00 blue:0.50 alpha:1.0];
     if (c != _colorTable[0][5]) {
-        [_colorTable[0][5] release];
-        _colorTable[0][5] = [[c colorUsingColorSpaceName:NSCalibratedRGBColorSpace] retain];
+        _colorTable[0][5] = [c colorUsingColorSpaceName:NSCalibratedRGBColorSpace];
     }
     [[NSUserDefaults standardUserDefaults] setMyColor:c forKey:@"ColorMagenta"];
 }
@@ -499,8 +473,7 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(WLGlobalConfig);
 - (void)setColorMagentaHilite:(NSColor *)c {
     if (!c)c = [NSColor colorWithDeviceRed:1.00 green:0.00 blue:1.00 alpha:1.0];
     if (c != _colorTable[1][5]) {
-        [_colorTable[1][5] release];
-        _colorTable[1][5] = [[c colorUsingColorSpaceName:NSCalibratedRGBColorSpace] retain];
+        _colorTable[1][5] = [c colorUsingColorSpaceName:NSCalibratedRGBColorSpace];
     }
     [[NSUserDefaults standardUserDefaults] setMyColor:c forKey:@"ColorMagentaHilite"];
 }
@@ -509,8 +482,7 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(WLGlobalConfig);
 - (void)setColorCyan:(NSColor *)c {
     if (!c)c = [NSColor colorWithDeviceRed:0.00 green:0.50 blue:0.50 alpha:1.0];
     if (c != _colorTable[0][6]) {
-        [_colorTable[0][6] release];
-        _colorTable[0][6] = [[c colorUsingColorSpaceName:NSCalibratedRGBColorSpace] retain];
+        _colorTable[0][6] = [c colorUsingColorSpaceName:NSCalibratedRGBColorSpace];
     }
     [[NSUserDefaults standardUserDefaults] setMyColor:c forKey:@"ColorCyan"];
 }
@@ -518,8 +490,7 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(WLGlobalConfig);
 - (void)setColorCyanHilite:(NSColor *)c {
     if (!c)c = [NSColor colorWithDeviceRed:0.00 green:1.00 blue:1.00 alpha:1.0];
     if (c != _colorTable[1][6]) {
-        [_colorTable[1][6] release];
-        _colorTable[1][6] = [[c colorUsingColorSpaceName:NSCalibratedRGBColorSpace] retain];
+        _colorTable[1][6] = [c colorUsingColorSpaceName:NSCalibratedRGBColorSpace];
     }
     [[NSUserDefaults standardUserDefaults] setMyColor:c forKey:@"ColorCyanHilite"];
 }
@@ -528,8 +499,7 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(WLGlobalConfig);
 - (void)setColorWhite:(NSColor *)c {
     if (!c)c = [NSColor colorWithDeviceRed:0.50 green:0.50 blue:0.50 alpha:1.0];
     if (c != _colorTable[0][7]) {
-        [_colorTable[0][7] release];
-        _colorTable[0][7] = [[c colorUsingColorSpaceName:NSCalibratedRGBColorSpace] retain];
+        _colorTable[0][7] = [c colorUsingColorSpaceName:NSCalibratedRGBColorSpace];
     }
     [[NSUserDefaults standardUserDefaults] setMyColor:c forKey:@"ColorWhite"];
 }
@@ -537,8 +507,7 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(WLGlobalConfig);
 - (void)setColorWhiteHilite:(NSColor *)c {
     if (!c)c = [NSColor colorWithDeviceRed:1.00 green:1.00 blue:1.00 alpha:1.0];
     if (c != _colorTable[1][7]) {
-        [_colorTable[1][7] release];
-        _colorTable[1][7] = [[c colorUsingColorSpaceName:NSCalibratedRGBColorSpace] retain];
+        _colorTable[1][7] = [c colorUsingColorSpaceName:NSCalibratedRGBColorSpace];
     }
     [[NSUserDefaults standardUserDefaults] setMyColor:c forKey:@"ColorWhiteHilite"];
 }
@@ -547,8 +516,7 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(WLGlobalConfig);
 - (void)setColorBG:(NSColor *)c {
     if (!c)c = [NSColor colorWithDeviceRed:0.00 green:0.00 blue:0.00 alpha:1.0];
     if (c != _colorTable[0][9]) {
-        [_colorTable[0][9] release];
-        _colorTable[0][9] = [[c colorUsingColorSpaceName:NSCalibratedRGBColorSpace] retain];
+        _colorTable[0][9] = [c colorUsingColorSpaceName:NSCalibratedRGBColorSpace];
 //        if ([self colorBGHilite] != c) [self setColorBGHilite: c];
     }
     [[NSUserDefaults standardUserDefaults] setMyColor:c forKey:@"ColorBG"];
@@ -558,8 +526,7 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(WLGlobalConfig);
 - (void)setColorBGHilite:(NSColor *)c {
     if (!c)c = [NSColor colorWithDeviceRed:0.00 green:0.00 blue:0.00 alpha:1.0];
     if (c != _colorTable[1][9]) {
-        [_colorTable[1][9] release];
-        _colorTable[1][9] = [[c colorUsingColorSpaceName:NSCalibratedRGBColorSpace] retain];
+        _colorTable[1][9] = [c colorUsingColorSpaceName:NSCalibratedRGBColorSpace];
 //        if ([self colorBG] != c) [self setColorBG: c];
     }
     [[NSUserDefaults standardUserDefaults] setMyColor:c forKey:@"ColorBGHilite"];

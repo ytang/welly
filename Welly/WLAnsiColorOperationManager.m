@@ -182,8 +182,8 @@ const cell WLWhiteSpaceCell = {WLWhitespaceCharacter, 0};
 	convertFromUTF8(buffer, bufferLength, encoding);
 	
 	attribute defaultANSI;
-	unsigned int bgColorIndex = [WLGlobalConfig sharedInstance]->_bgColorIndex;
-	unsigned int fgColorIndex = [WLGlobalConfig sharedInstance]->_fgColorIndex;
+	unsigned int bgColorIndex = [WLGlobalConfig sharedInstance].bgColorIndex;
+	unsigned int fgColorIndex = [WLGlobalConfig sharedInstance].fgColorIndex;
 	defaultANSI.f.bgColor = bgColorIndex;
 	defaultANSI.f.fgColor = fgColorIndex;
 	defaultANSI.f.blink = 0;
