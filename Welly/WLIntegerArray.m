@@ -9,38 +9,36 @@
 #import "WLIntegerArray.h"
 
 
-@implementation WLIntegerArray
+@implementation WLIntegerArray {
+    NSMutableArray *_array;
+}
 
 + (instancetype) integerArray {
-    return [[[WLIntegerArray alloc] init] autorelease];
+    return [[WLIntegerArray alloc] init];
 }
 
 - (instancetype)init {
     if (self = [super init]) {
-        [self clear];
+        _array = [NSMutableArray array];
     }
     return self;
 }
 
-- (void)dealloc {
-    [_array release];
-    [super dealloc];
-}
-
 - (void)push_back:(NSInteger)integer {
-    [_array addPointer:(void *)integer];
+    [_array addObject:@(integer)];
 }
 
 - (void)pop_front {
-    [_array removePointerAtIndex:0];
+    [_array removeObjectAtIndex:0];
 }
 
 - (NSInteger)at:(NSUInteger)index {
-    return (NSInteger)[_array pointerAtIndex:index];
+    NSNumber *number = [_array objectAtIndex:index];
+    return number.integerValue;
 }
 
 - (void)set:(NSInteger)value at:(NSUInteger)index {
-    [_array replacePointerAtIndex:index withPointer:(void *)value];
+    [_array replaceObjectAtIndex:index withObject:@(value)];
 }
 
 - (NSInteger)front {
@@ -56,8 +54,7 @@
 }
 
 - (void)clear {
-    [_array release];
-    _array = [[NSPointerArray pointerArrayWithWeakObjects] retain];
+    [_array removeAllObjects];
 }
 
 @end

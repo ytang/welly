@@ -66,7 +66,7 @@
 		9C76A2CD1F42B84E0044F830 /* WLAnsiColorOperationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C76A2CA1F42B84E0044F830 /* WLAnsiColorOperationManager.m */; };
 		9C76A2D91F42B8B00044F830 /* WLEncoder.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C76A2D11F42B8B00044F830 /* WLEncoder.m */; };
 		9C76A2DA1F42B8B00044F830 /* CommonType.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C76A2D31F42B8B00044F830 /* CommonType.m */; };
-		9C76A2DB1F42B8B00044F830 /* WLIntegerArray.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C76A2D51F42B8B00044F830 /* WLIntegerArray.m */; };
+		9C76A2DB1F42B8B00044F830 /* WLIntegerArray.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C76A2D51F42B8B00044F830 /* WLIntegerArray.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
 		9C76A2DC1F42B8B00044F830 /* WLGlobalConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C76A2D71F42B8B00044F830 /* WLGlobalConfig.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
 		9C92088E1F42DFBF00A456D0 /* Credits.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 9C92088A1F42DFBF00A456D0 /* Credits.rtf */; };
 		9C92088F1F42DFBF00A456D0 /* QQWry.dat in Resources */ = {isa = PBXBuildFile; fileRef = 9C92088B1F42DFBF00A456D0 /* QQWry.dat */; };
