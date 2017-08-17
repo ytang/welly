@@ -9,7 +9,6 @@
 #import "WLSitesPanelController.h"
 #import "WLMainFrameController.h"
 #import "WLGlobalConfig.h"
-#import "SynthesizeSingleton.h"
 
 #define SiteTableViewDataType @"SiteTableViewDataType"
 #define kSitePanelNibFilename @"SitesPanel"
@@ -20,7 +19,7 @@
 
 /* sites accessors */
 - (id)objectInSitesAtIndex:(NSUInteger)index;
-- (void)getSites:(id *)objects 
+- (void)getSites:(__unsafe_unretained id *)objects
 		   range:(NSRange)range;
 - (void)insertObject:(id)anObject 
 	  inSitesAtIndex:(NSUInteger)index;
@@ -32,7 +31,15 @@
 @implementation WLSitesPanelController
 @synthesize sites = _sites;
 
-SYNTHESIZE_SINGLETON_FOR_CLASS(WLSitesPanelController);
+static WLSitesPanelController *_instance = nil;
+
++ (WLSitesPanelController *)sharedInstance {
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        _instance = [[self alloc] init];
+    });
+    return _instance;
+}
 
 #pragma mark -
 #pragma mark Initialize and Destruction
@@ -61,12 +68,6 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(WLSitesPanelController);
 - (void)awakeFromNib {
 	// register drag & drop in site view
 	[_tableView registerForDraggedTypes:@[SiteTableViewDataType]];
-}
-
-- (void)dealloc {
-    [_sites release];
-	[_sitesObservers release];
-    [super dealloc];
 }
 
 #pragma mark -
@@ -125,7 +126,7 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(WLSitesPanelController);
 
 - (void)openSitesPanelInWindow:(NSWindow *)mainWindow 
 				    andAddSite:(WLSite *)site {
-	site = [[site copy] autorelease];
+	site = [site copy];
     //[self performSelector:@selector(openSitesPanelInWindow:) withObject:mainWindow afterDelay:0.1];
 	[self openSitesPanelInWindow:mainWindow];
 	[_sitesController addObject:site];
@@ -140,7 +141,7 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(WLSitesPanelController);
     
     if (a.count == 1) {
         WLSite *s = a[0];
-        [[WLMainFrameController sharedInstance] newConnectionWithSite:[[s copy] autorelease]];
+        [[WLMainFrameController sharedInstance] newConnectionWithSite:[s copy]];
     }
 }
 
@@ -271,7 +272,7 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(WLSitesPanelController);
     return _sites[index];
 }
 
-- (void)getSites:(id *)objects 
+- (void)getSites:(__unsafe_unretained id *)objects
 		   range:(NSRange)range {
     [_sites getObjects:objects range:range];
 }
