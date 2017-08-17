@@ -54,7 +54,7 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(WLSitesPanelController);
 
 - (void)loadNibFile {
 	if (!_sitesPanel) {
-		[NSBundle loadNibNamed:kSitePanelNibFilename owner:self];
+        [[NSBundle mainBundle] loadNibNamed:kSitePanelNibFilename owner:self topLevelObjects:nil];
 	}
 }
 

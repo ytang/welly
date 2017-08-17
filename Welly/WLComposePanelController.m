@@ -31,7 +31,7 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(WLComposePanelController);
 		return;
 	}
 	
-	[NSBundle loadNibNamed:kComposePanelNibFilename owner:self];
+    [[NSBundle mainBundle] loadNibNamed:kComposePanelNibFilename owner:self topLevelObjects:nil];
 }
 
 - (void)awakeFromNib {

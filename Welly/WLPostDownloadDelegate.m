@@ -22,7 +22,7 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(WLPostDownloadDelegate);
 
 - (void)loadNibFile {
 	if (!_postWindow) {
-		[NSBundle loadNibNamed:kPostDownloadPanelNibFilename owner:self];
+        [[NSBundle mainBundle] loadNibNamed:kPostDownloadPanelNibFilename owner:self topLevelObjects:nil];
 	}
 }
 
