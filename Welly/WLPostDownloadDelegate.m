@@ -10,7 +10,6 @@
 #import "WLGlobalConfig.h"
 #import "WLConnection.h"
 #import "WLTerminal.h"
-#import "SynthesizeSingleton.h"
 
 #define kPostDownloadPanelNibFilename @"PostDownloadPanel"
 
@@ -18,7 +17,16 @@
 
 #pragma mark -
 #pragma mark init and dealloc
-SYNTHESIZE_SINGLETON_FOR_CLASS(WLPostDownloadDelegate);
+
+static WLPostDownloadDelegate *_instance = nil;
+
++ (WLPostDownloadDelegate *)sharedInstance {
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        _instance = [[self alloc] init];
+    });
+    return _instance;
+}
 
 - (void)loadNibFile {
 	if (!_postWindow) {
@@ -129,12 +137,12 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(WLPostDownloadDelegate);
 #pragma mark Post Download
 - (void)preparePostDownload:(WLTerminal *)terminal {
     // clear s
-    NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init]; 
-    NSString *s = [WLPostDownloadDelegate downloadPostFromTerminal:terminal];
-    [_postText performSelectorOnMainThread:@selector(setString:) 
-								withObject:s 
-							 waitUntilDone:TRUE];
-    [pool release];
+    @autoreleasepool {
+        NSString *s = [WLPostDownloadDelegate downloadPostFromTerminal:terminal];
+        [_postText performSelectorOnMainThread:@selector(setString:)
+                                    withObject:s
+                                 waitUntilDone:TRUE];
+    }
 }
 
 - (void)beginPostDownloadInWindow:(NSWindow *)window 
