@@ -9,9 +9,8 @@
 
 #import <Cocoa/Cocoa.h>
 
-@interface WLContextualMenuManager : NSObject {
-	NSArray *_openURLItemArray;
-}
+@interface WLContextualMenuManager : NSObject
+
 @property (readonly) NSArray *openURLItemArray;
 
 + (NSMenu *)menuWithSelectedString:(NSString*)selectedString;

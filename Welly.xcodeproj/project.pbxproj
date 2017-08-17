@@ -39,7 +39,7 @@
 		9C76A2741F42B6AD0044F830 /* WLPostDownloadDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C76A26F1F42B6AD0044F830 /* WLPostDownloadDelegate.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
 		9C76A2751F42B6AD0044F830 /* WLSitesPanelController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C76A2711F42B6AD0044F830 /* WLSitesPanelController.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
 		9C76A27A1F42B6CC0044F830 /* DBPrefsWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C76A2771F42B6CC0044F830 /* DBPrefsWindowController.m */; };
-		9C76A27B1F42B6CC0044F830 /* WLContextualMenuManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C76A2791F42B6CC0044F830 /* WLContextualMenuManager.m */; };
+		9C76A27B1F42B6CC0044F830 /* WLContextualMenuManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C76A2791F42B6CC0044F830 /* WLContextualMenuManager.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
 		9C76A2871F42B7A30044F830 /* WLIPAddrHotspotHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C76A2841F42B7A30044F830 /* WLIPAddrHotspotHandler.m */; };
 		9C76A2881F42B7A30044F830 /* IPSeeker.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C76A2861F42B7A30044F830 /* IPSeeker.m */; };
 		9C76A2991F42B7B10044F830 /* WLClickEntryHotspotHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C76A28A1F42B7B10044F830 /* WLClickEntryHotspotHandler.m */; };
