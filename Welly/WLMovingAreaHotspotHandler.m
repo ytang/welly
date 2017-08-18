@@ -93,7 +93,7 @@ NSString *const WLMenuTitleQuitMode = @"Quit Mode";
 }
 
 - (NSMenu *)menuForEvent:(NSEvent *)theEvent {
-	NSMenu *menu = [[[NSMenu alloc] init] autorelease];
+	NSMenu *menu = [[NSMenu alloc] init];
 	if ([self shouldEnablePageUpDown]) {
 		[menu addItemWithTitle:NSLocalizedString(WLMenuTitlePressHome, @"Contextual Menu")
 						action:@selector(pressHome:)

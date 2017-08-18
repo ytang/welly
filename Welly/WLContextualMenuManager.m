@@ -9,6 +9,7 @@
 
 #import "WLContextualMenuManager.h"
 #import "WLEmoticonsPanelController.h"
+#import "SynthesizeSingleton.h"
 #import "Carbon/Carbon.h"
 #ifdef DEBUG
 #import "WLEncoder.h"
@@ -20,14 +21,7 @@ NSString *const WLOpenURLMenuItemFilename = @"contextualMenuItems";
 
 @implementation WLContextualMenuManager
 
-+ (WLContextualMenuManager *)sharedInstance {
-    static WLContextualMenuManager *_instance = nil;
-    static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^{
-        _instance = [[self alloc] init];
-    });
-    return _instance;
-}
+SYNTHESIZE_SINGLETON_FOR_CLASS(WLContextualMenuManager)
 
 - (instancetype)init {
     if (self = [super init]) {

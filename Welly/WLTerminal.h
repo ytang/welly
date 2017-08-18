@@ -28,7 +28,7 @@
 @property (assign, nonatomic) NSInteger cursorColumn;
 @property (assign, nonatomic) NSInteger cursorRow;
 @property (readonly, nonatomic) cell **grid;
-@property (assign, nonatomic) WLConnection *connection;
+@property (weak, nonatomic) WLConnection *connection;
 @property (assign, nonatomic) WLBBSType bbsType;
 @property (readonly, nonatomic) BBSState bbsState;
 

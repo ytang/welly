@@ -74,7 +74,7 @@ NSString *const WLMenuTitleAddAsFriend = @"Add %@ as friend";
 }
 
 - (NSMenu *)menuForEvent:(NSEvent *)theEvent {
-	NSMenu *menu = [[[NSMenu alloc] init] autorelease];
+	NSMenu *menu = [[NSMenu alloc] init];
 	NSString *author = (_manager.activeTrackingAreaUserInfo)[WLMouseAuthorUserInfoName];
 	if (author == nil)
 		return nil;

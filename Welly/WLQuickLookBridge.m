@@ -7,6 +7,7 @@
 //
 
 #import "WLQuickLookBridge.h"
+#import "SynthesizeSingleton.h"
 
 @interface WLQuickLookBridge (WLQuickLookBridgeSingleton)
 + (WLQuickLookBridge *)sharedInstance;
@@ -43,14 +44,7 @@
 static BOOL isLeopard;
 static BOOL isLion;
 
-+ (WLQuickLookBridge *)sharedInstance {
-    static WLQuickLookBridge *_instance = nil;
-    static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^{
-        _instance = [WLQuickLookBridge new];
-    });
-    return _instance;
-}
+SYNTHESIZE_SINGLETON_FOR_CLASS(WLQuickLookBridge)
 
 + (void)initialize {
     // SInt32 ver;
@@ -88,10 +82,6 @@ static BOOL isLion;
     return self;
 }
 
-- (void)dealloc {
-    [_URLs release];
-    [super dealloc];
-}
 
 // delegate for QLPreviewPanel
 // zoom effect from the current mouse coordinates

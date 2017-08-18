@@ -42,7 +42,6 @@
 	} else {
 		// Restore old parameters
 		gConfig.sizeParameters = _originalSizeParameters;
-		[_originalSizeParameters release];
 		_originalSizeParameters = nil;
 	}
 }

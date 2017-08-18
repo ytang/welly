@@ -38,7 +38,7 @@
     IBOutlet id _autoReplyButton;
     IBOutlet id _mouseButton;
 
-    IBOutlet WLTabView *_tabView;
+    IBOutlet WLTabView *__weak _tabView;
     IBOutlet WLTabBarControl *_tabBarControl;
 	
 	/* Menus */
@@ -74,7 +74,7 @@
 	NSColor *_originalWindowBackgroundColor;
 	NSDictionary *_originalSizeParameters;
 }
-@property (readonly) WLTabView *tabView;
+@property (weak, readonly) WLTabView *tabView;
 
 + (WLMainFrameController *)sharedInstance;
 

@@ -56,8 +56,6 @@
 	free(_dirty);
 	free(_textBuf);
 	
-	[_observers release];
-    [super dealloc];
 }
 
 #pragma mark -
@@ -205,7 +203,7 @@
 	// Get twice length and then trim it to 'length' characters
 	NSString *s = [[self stringAtIndex:location length:length*2] substringToIndex:length];
 	
-	NSMutableAttributedString *attrStr = [[[NSMutableAttributedString alloc] initWithString:s] autorelease];
+	NSMutableAttributedString *attrStr = [[NSMutableAttributedString alloc] initWithString:s];
 	// Set all characters with english font at first
 	[attrStr addAttribute:NSFontAttributeName 
 					value:englishFont

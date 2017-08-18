@@ -122,7 +122,6 @@
 	[as addAttribute:NSForegroundColorAttributeName 
 			   value:[NSColor whiteColor]
 			   range:NSMakeRange(0, value.length)];
-	[_string release];
 	_string = as;
 	[self setNeedsDisplay:YES];
 
@@ -147,9 +146,8 @@
 
 - (void)setDefaultFont:(NSFont *)value {
     if (_defaultFont != value) {
-        [_defaultFont release];
         _defaultFont = [value copy];
-		_lineHeight = [[[NSLayoutManager new] autorelease] defaultLineHeightForFont:_defaultFont];
+		_lineHeight = [[NSLayoutManager new] defaultLineHeightForFont:_defaultFont];
     }
 	[self setNeedsDisplay:YES];
 }

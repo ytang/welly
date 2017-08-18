@@ -29,13 +29,13 @@
 }
 
 + (WLDummyCellContentProvider *)dummyContentProvider {
-	return [[[WLDummyCellContentProvider alloc] init] autorelease];
+	return [[WLDummyCellContentProvider alloc] init];
 }
 @end
 
 @implementation WLTabViewItemController
 + (WLTabViewItemController *)emptyTabViewItemController {
-	return [[[WLTabViewItemController alloc] initWithContent:nil] autorelease];
+	return [[WLTabViewItemController alloc] initWithContent:nil];
 }
 
 - (instancetype)initWithContent:(id)content {

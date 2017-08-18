@@ -39,13 +39,10 @@
 
 - (void) dealloc {
 	[self stopListening: self];
-	[remoteControls release];
-	[super dealloc];
 }
 
 - (BOOL) instantiateAndAddRemoteControlDeviceWithClass: (Class) clazz {
 	RemoteControl* remoteControl = [[clazz alloc] initWithDelegate: delegate];
-	[remoteControl autorelease];
 	if (remoteControl) {
 		[remoteControls addObject: remoteControl];
 		[remoteControl addObserver: self forKeyPath:@"listeningToRemote" options:NSKeyValueObservingOptionNew context:nil];

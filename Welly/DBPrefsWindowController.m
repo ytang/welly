@@ -28,8 +28,8 @@ static DBPrefsWindowController *_sharedPrefsWindowController = nil;
 }
 
 + (NSArray *)applicationIdentifierArrayForURLScheme: (NSString *) scheme {
-    CFArrayRef array = LSCopyAllHandlersForURLScheme((CFStringRef)scheme);
-    NSMutableArray *result = [NSMutableArray arrayWithArray: (NSArray *) array];
+    CFArrayRef array = LSCopyAllHandlersForURLScheme((__bridge CFStringRef)scheme);
+    NSMutableArray *result = [NSMutableArray arrayWithArray: (__bridge NSArray *) array];
     CFRelease(array);
     return result;
 }
@@ -63,8 +63,8 @@ static DBPrefsWindowController *_sharedPrefsWindowController = nil;
         NSString *appPath = [ws absolutePathForAppBundleWithIdentifier: appId];
         if (appPath) {
             NSURL *appURL = [NSURL fileURLWithPath: appPath];
-            if (LSCopyDisplayNameForURL((CFURLRef)appURL, &appNameInCFString) == noErr) {                
-                NSString *appName = [NSString stringWithString: (NSString *) appNameInCFString];
+            if (LSCopyDisplayNameForURL((__bridge CFURLRef)appURL, &appNameInCFString) == noErr) {                
+                NSString *appName = [NSString stringWithString: (__bridge NSString *) appNameInCFString];
                 CFRelease(appNameInCFString);
                 
                 if (wellyCount > 1 && [appId.lowercaseString isEqualToString: wellyIdentifier])
@@ -73,7 +73,7 @@ static DBPrefsWindowController *_sharedPrefsWindowController = nil;
                 NSImage *appIcon = [ws iconForFile:appPath];
                 appIcon.size = NSMakeSize(16, 16);
                 
-                NSMenuItem *item = [[[NSMenuItem alloc] initWithTitle: (NSString *)appName action: NULL keyEquivalent: @""] autorelease];
+                NSMenuItem *item = [[NSMenuItem alloc] initWithTitle: (NSString *)appName action: NULL keyEquivalent: @""];
                 item.representedObject = appId;
                 if (appIcon) item.image = appIcon;
                 [menuItems addObject: item];
@@ -81,15 +81,15 @@ static DBPrefsWindowController *_sharedPrefsWindowController = nil;
         }
     }
     
-    NSMenu *menu = [[[NSMenu alloc] initWithTitle: @"PopUp Menu"] autorelease];
+    NSMenu *menu = [[NSMenu alloc] initWithTitle: @"PopUp Menu"];
     for (NSMenuItem *item in menuItems) 
         [menu addItem: item];
     button.menu = menu;
     
     /* Select the default client */
-    CFStringRef defaultHandler = LSCopyDefaultHandlerForURLScheme((CFStringRef) scheme);
+    CFStringRef defaultHandler = LSCopyDefaultHandlerForURLScheme((__bridge CFStringRef) scheme);
     if (defaultHandler) {
-        NSInteger index = [button indexOfItemWithRepresentedObject: (NSString *) defaultHandler];
+        NSInteger index = [button indexOfItemWithRepresentedObject: (__bridge NSString *) defaultHandler];
         if (index != -1) 
             [button selectItemAtIndex: index];
         CFRelease(defaultHandler);
@@ -132,14 +132,14 @@ static DBPrefsWindowController *_sharedPrefsWindowController = nil;
 		// Create a new window to display the preference views.
 		// If the developer attached a window to this controller
 		// in Interface Builder, it gets replaced with this one.
-	NSWindow *window = [[[NSWindow alloc] initWithContentRect:NSMakeRect(0,0,1000,1000)
+	NSWindow *window = [[NSWindow alloc] initWithContentRect:NSMakeRect(0,0,1000,1000)
 												    styleMask:(NSTitledWindowMask |
 															   NSClosableWindowMask |
 															   NSMiniaturizableWindowMask)
 													  backing:NSBackingStoreBuffered
-													    defer:YES] autorelease];
+													    defer:YES];
 	self.window = window;
-	contentSubview = [[[NSView alloc] initWithFrame:self.window.contentView.frame] autorelease];
+	contentSubview = [[NSView alloc] initWithFrame:self.window.contentView.frame];
 	contentSubview.autoresizingMask = (NSViewMinYMargin | NSViewWidthSizable);
 	[self.window.contentView addSubview:contentSubview];
 	[self.window setShowsToolbarButton:NO];
@@ -148,13 +148,6 @@ static DBPrefsWindowController *_sharedPrefsWindowController = nil;
 
 
 
-- (void) dealloc {
-	[toolbarIdentifiers release];
-	[toolbarViews release];
-	[toolbarItems release];
-	[viewAnimation release];
-	[super dealloc];
-}
 
 
 #pragma mark -
@@ -207,13 +200,13 @@ static DBPrefsWindowController *_sharedPrefsWindowController = nil;
 - (IBAction) setDefaultTelnetClient: (id) sender {
     NSString *appId = [sender selectedItem].representedObject;
     if (appId) 
-        LSSetDefaultHandlerForURLScheme(CFSTR("telnet"), (CFStringRef)appId);
+        LSSetDefaultHandlerForURLScheme(CFSTR("telnet"), (__bridge CFStringRef)appId);
 }
 
 - (IBAction) setDefaultSSHClient: (id) sender {
     NSString *appId = [sender selectedItem].representedObject;
     if (appId) 
-        LSSetDefaultHandlerForURLScheme(CFSTR("ssh"), (CFStringRef)appId);    
+        LSSetDefaultHandlerForURLScheme(CFSTR("ssh"), (__bridge CFStringRef)appId);    
 }
 
 #pragma mark -
@@ -244,12 +237,12 @@ static DBPrefsWindowController *_sharedPrefsWindowController = nil;
 	NSAssert (view != nil,
 			  @"Attempted to add a nil view when calling -addView:label:image:.");
 	
-	NSString *identifier = [[label copy] autorelease];
+	NSString *identifier = [label copy];
 	
 	[toolbarIdentifiers addObject:identifier];
 	toolbarViews[identifier] = view;
 	
-	NSToolbarItem *item = [[[NSToolbarItem alloc] initWithItemIdentifier:identifier] autorelease];
+	NSToolbarItem *item = [[NSToolbarItem alloc] initWithItemIdentifier:identifier];
 	item.label = label;
 	item.image = image;
 	item.target = self;
@@ -321,7 +314,6 @@ static DBPrefsWindowController *_sharedPrefsWindowController = nil;
 		toolbar.displayMode = NSToolbarDisplayModeIconAndLabel;
 		toolbar.delegate = self;
 		self.window.toolbar = toolbar;
-		[toolbar release];
 	}
 	
 	NSString *firstIdentifier = toolbarIdentifiers[0];

@@ -26,10 +26,10 @@ NSString * const WLButtonNameDeleteBoard;
 
 typedef struct {
 	int state;
-	NSString *signature;
+	__unsafe_unretained NSString *signature;
 	int signatureLengthOfBytes;
-	NSString *buttonName;
-	NSString *commandSequence;
+	__unsafe_unretained NSString *buttonName;
+	__unsafe_unretained NSString *commandSequence;
 } WLButtonDescription;
 
 @class WLTerminalView;

@@ -11,7 +11,7 @@
 
 @interface WLPTY : NSObject <WLProtocol>
 
-@property (readwrite, assign) id delegate;
+@property (readwrite, unsafe_unretained) id delegate;
 @property (readwrite, assign) WLProxyType proxyType;
 @property (readwrite, copy) NSString *proxyAddress;
 

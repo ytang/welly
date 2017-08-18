@@ -32,11 +32,6 @@ const float xscale = 1, yscale = 0.8;
 
 //@synthesize view = _imageFlowView;
 
-- (void)dealloc {
-	if (_portalItems)
-		[_portalItems release];
-    [super dealloc];
-}
 
 - (instancetype)initWithFrame:(NSRect)frame {
 	if ((self = [super initWithFrame:frame])) {
@@ -104,8 +99,6 @@ const float xscale = 1, yscale = 0.8;
 }
 
 - (void)setPortalItems:(NSArray *)portalItems {
-	if (_portalItems)
-		[_portalItems release];
 	
 	_portalItems = [portalItems copy];
 	[self refresh];

@@ -15,7 +15,7 @@
     NSString *_path;
 }
 @property (readwrite, copy, nonatomic) NSString *path;
-@property (readwrite, retain, nonatomic) WLSite *site;
+@property (readwrite, strong, nonatomic) WLSite *site;
 - (instancetype)initWithSite:(WLSite *)site;
 - (instancetype)initWithPath:(NSString *)path title:(NSString *)title;
 //- (void)setPath:(NSString *)path;

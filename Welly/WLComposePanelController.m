@@ -9,6 +9,7 @@
 #import "WLComposePanelController.h"
 #import "WLAnsiColorOperationManager.h"
 #import "WLGlobalConfig.h"
+#import "SynthesizeSingleton.h"
 
 #define kComposePanelNibFilename @"ComposePanel"
 
@@ -23,14 +24,7 @@
 @implementation WLComposePanelController
 NSString *const WLComposeFontName = @"Helvetica";
 
-+ (WLComposePanelController *)sharedInstance {
-    static WLComposePanelController *_instance = nil;
-    static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^{
-        _instance = [[self alloc] init];
-    });
-    return _instance;
-}
+SYNTHESIZE_SINGLETON_FOR_CLASS(WLComposePanelController)
 
 - (void)loadNibFile {
 	if (_composePanel) {

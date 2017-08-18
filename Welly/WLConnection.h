@@ -19,19 +19,19 @@
 // inhert from NSObjectController for PSMTabBarControl
 @interface WLConnection : NSObject <WLTabBarCellContentProvider>
 
-@property (readwrite, retain, nonatomic) WLSite *site;
-@property (readwrite, retain, nonatomic) WLTerminal *terminal;
-@property (readwrite, retain, nonatomic) WLTerminalFeeder *terminalFeeder;
-@property (readwrite, retain, nonatomic) NSObject <WLProtocol> *protocol;
+@property (readwrite, strong, nonatomic) WLSite *site;
+@property (readwrite, strong, nonatomic) WLTerminal *terminal;
+@property (readwrite, strong, nonatomic) WLTerminalFeeder *terminalFeeder;
+@property (readwrite, strong, nonatomic) NSObject <WLProtocol> *protocol;
 @property (readwrite, assign, nonatomic, getter=isConnected) BOOL connected;
-@property (readonly, retain, nonatomic) NSDate *lastTouchDate;
+@property (readonly, strong, nonatomic) NSDate *lastTouchDate;
 @property (readonly, assign, nonatomic) NSInteger messageCount;
-@property (readonly, retain, nonatomic) WLMessageDelegate *messageDelegate;
+@property (readonly, strong, nonatomic) WLMessageDelegate *messageDelegate;
 // for PSMTabBarControl
-@property (readwrite, retain, nonatomic) NSImage *icon;
+@property (readwrite, strong, nonatomic) NSImage *icon;
 @property (readwrite, assign, nonatomic) BOOL isProcessing;
 @property (readwrite, assign, nonatomic) NSInteger objectCount;
-@property (readwrite, assign, nonatomic) id tabViewItemController;
+@property (readwrite, unsafe_unretained, nonatomic) id tabViewItemController;
 
 - (instancetype)initWithSite:(WLSite *)site;
 

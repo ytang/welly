@@ -42,16 +42,15 @@ NSString* L(NSString* key) {
 - (instancetype)init {
 	self = [super init];
 	if(self) {
-		m_cache = [[NSMutableDictionary dictionary] retain];
+		m_cache = [NSMutableDictionary dictionary];
 		NSString* path = [[NSBundle mainBundle] pathForResource:@"QQWry" ofType:@"dat"];
 		if(path) {
-			m_file = [[NSFileHandle fileHandleForReadingAtPath:path] retain];
+			m_file = [NSFileHandle fileHandleForReadingAtPath:path];
 			if(m_file) {
 				m_indexBegin = [self readInt4:0];
 				m_indexEnd = [self readInt4:4];
 				if(m_indexBegin == -1 || m_indexEnd == -1) {
 					[m_file closeFile];
-					[m_file release];
 					m_file = nil;
 				}
 			}			
@@ -61,10 +60,7 @@ NSString* L(NSString* key) {
 }
 
 - (void)dealloc {
-	[m_cache release];
 	[m_file closeFile];
-	[m_file release];
-	[super dealloc];
 }
 
 #pragma mark -
@@ -253,7 +249,7 @@ NSString* L(NSString* key) {
         else
             [data appendBytes:tmp.bytes length:1];
 	}
-	return [(NSString*)CFStringCreateFromExternalRepresentation(kCFAllocatorDefault, (CFDataRef)data, kCFStringEncodingGB_18030_2000) autorelease];
+	return (NSString*)CFBridgingRelease(CFStringCreateFromExternalRepresentation(kCFAllocatorDefault, (CFDataRef)data, kCFStringEncodingGB_18030_2000));
 }
 
 #pragma mark -

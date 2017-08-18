@@ -39,10 +39,6 @@ NSString *const WLAutoReplyGrowlTipFormat = @"AutoReplyGrowlTipFormat";
 	return self;
 }
 
-- (void)dealloc {
-	[_unreadMessage release];
-	[super dealloc];
-}
 
 - (void)setConnection:(WLConnection *)connection {
 	_connection = connection;

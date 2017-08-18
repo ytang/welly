@@ -36,15 +36,15 @@ const NSTimeInterval DEFAULT_CLICK_TIME_DIFFERENCE = 0.25;	// for remote control
 		_remoteControlBehavior.maximumClickCountTimeDifference = DEFAULT_CLICK_TIME_DIFFERENCE;
 		// 3. a Remote Control Container manages a number of devices and conforms to the RemoteControl interface
 		//    Therefore you can enable or disable all the devices of the container with a single "startListening:" call.
-		NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
-		RemoteControlContainer *container = [[RemoteControlContainer alloc] initWithDelegate:_remoteControlBehavior];
-		[container instantiateAndAddRemoteControlDeviceWithClass:[AppleRemote class]];	
-		[container instantiateAndAddRemoteControlDeviceWithClass:[KeyspanFrontRowControl class]];
-		// to give the binding mechanism a chance to see the change of the attribute
-		[self setValue:container forKey:@"remoteControl"];
-		[container startListening:self];
-		_remoteControl = container;
-		[pool release];
+		@autoreleasepool {
+			RemoteControlContainer *container = [[RemoteControlContainer alloc] initWithDelegate:_remoteControlBehavior];
+			[container instantiateAndAddRemoteControlDeviceWithClass:[AppleRemote class]];	
+			[container instantiateAndAddRemoteControlDeviceWithClass:[KeyspanFrontRowControl class]];
+			// to give the binding mechanism a chance to see the change of the attribute
+			[self setValue:container forKey:@"remoteControl"];
+			[container startListening:self];
+			_remoteControl = container;
+		}
 	}
 }
 
@@ -148,7 +148,6 @@ const NSTimeInterval DEFAULT_CLICK_TIME_DIFFERENCE = 0.25;	// for remote control
 
 - (void)disableTimer {
     [_scrollTimer invalidate];
-    [_scrollTimer release];
     _scrollTimer = nil;
 }
 

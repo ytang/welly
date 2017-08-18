@@ -122,7 +122,7 @@
         tabViewItem = self.selectedTabViewItem;
 	} else {	
 		// open a new tab
-		tabViewItem = [[[NSTabViewItem alloc] initWithIdentifier:[WLTabViewItemController emptyTabViewItemController]] autorelease];
+		tabViewItem = [[NSTabViewItem alloc] initWithIdentifier:[WLTabViewItemController emptyTabViewItemController]];
 		// this will invoke tabView:didSelectTabViewItem for the first tab
         [self addTabViewItem:tabViewItem];
 	}
@@ -148,7 +148,6 @@
 		WLTerminal *terminal = [[WLTerminal alloc] init];
 		[terminal addObserver:_terminalView];
 		theConnection.terminal = terminal;
-		[terminal release];
 	}
 	
 	// select the tab
@@ -174,9 +173,8 @@
 	for (NSDictionary *d in sites) {
 		WLBookmarkPortalItem *item = [[WLBookmarkPortalItem alloc] initWithSite:[WLSite siteWithDictionary:d]];
 		[portalItems addObject:item];
-		[item release];
 	}
-	[portalItems addObject:[[WLNewBookmarkPortalItem new] autorelease]];
+	[portalItems addObject:[WLNewBookmarkPortalItem new]];
 	
 	[_portal setPortalItems:portalItems];
 }

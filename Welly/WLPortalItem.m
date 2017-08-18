@@ -39,11 +39,6 @@ static NSImage *default_image;
 	return self;
 }
 
-- (void)dealloc {
-	[_image release];
-	[_title release];
-	[super dealloc];
-}
 
 #pragma mark -
 #pragma mark IKImageBrowserItem protocol

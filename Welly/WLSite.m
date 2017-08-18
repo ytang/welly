@@ -47,7 +47,7 @@ NSString *const WLDefaultSiteName = @"DefaultSiteName";
 }
 
 + (WLSite *)site {
-    return [[WLSite new] autorelease];
+    return [WLSite new];
 }
 
 + (WLSite *)siteWithDictionary:(NSDictionary *)d {

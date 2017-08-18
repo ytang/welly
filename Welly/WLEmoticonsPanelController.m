@@ -8,6 +8,7 @@
 
 #import "WLEmoticonsPanelController.h"
 #import "YLEmoticon.h"
+#import "SynthesizeSingleton.h"
 
 #define kEmoticonPanelNibFilename @"EmoticonsPanel"
 
@@ -31,14 +32,7 @@
 @implementation WLEmoticonsPanelController
 @synthesize emoticons = _emoticons;
 
-+ (WLEmoticonsPanelController *)sharedInstance {
-    static WLEmoticonsPanelController *_instance = nil;
-    static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^{
-        _instance = [[self alloc] init];
-    });
-    return _instance;
-}
+SYNTHESIZE_SINGLETON_FOR_CLASS(WLEmoticonsPanelController)
 
 - (instancetype)init {
     if (self = [super init]) {

@@ -29,14 +29,14 @@
     NSAssert([_tabBarControl delegate] == self, @"set in .nib");
     //show a new-tab button
     [_tabBarControl setShowAddTabButton:YES];
-    [[_tabBarControl addTabButton] setTarget:self];
-    [[_tabBarControl addTabButton] setAction:@selector(newTab:)];
+//    [[_tabBarControl addTabButton] setTarget:self];
+//    [[_tabBarControl addTabButton] setAction:@selector(newTab:)];
     //_tabView = (WLTabView *)[_tabBarControl tabView];
 	
     // open the portal
     // the switch
     [self tabViewDidChangeNumberOfTabViewItems:_tabView];
-	[_tabBarControl setMainController:[self retain]];
+	[_tabBarControl setMainController:self];
 }
 
 #pragma mark -

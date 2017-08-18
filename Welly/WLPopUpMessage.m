@@ -18,7 +18,6 @@ NSTimer *_prevTimer;
 + (void)hidePopUpMessage {
 	if (_effectView) {
 		[_effectView removePopUpMessage];
-		[_effectView release];
 	}
     _prevTimer = nil;
 }
@@ -30,7 +29,7 @@ NSTimer *_prevTimer;
         [_prevTimer invalidate];
     }
 	[effectView drawPopUpMessage:message];
-	_effectView = [effectView retain];
+	_effectView = effectView;
 	_prevTimer = [NSTimer scheduledTimerWithTimeInterval:duration
                                                   target:self 
                                                 selector:@selector(hidePopUpMessage)

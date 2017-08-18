@@ -29,9 +29,6 @@ NSString *const WLCommandSequenceSameThreadReading = @"\030";	// ^X
 NSString *const WLCommandSequenceSameAuthorReading = @"\025";	// ^U
 
 @implementation WLClickEntryHotspotHandler
-- (void)dealloc {
-	[super dealloc];
-}
 
 #pragma mark -
 #pragma mark Mouse Event Handler
@@ -156,7 +153,7 @@ NSString *const WLCommandSequenceSameAuthorReading = @"\025";	// ^U
 }
 
 - (NSMenu *)menuForEvent:(NSEvent *)theEvent {
-	NSMenu *menu = [[[NSMenu alloc] init] autorelease];
+	NSMenu *menu = [[NSMenu alloc] init];
 	if (_view.frontMostTerminal.bbsState.state == BBSBrowseBoard) {
 		[menu addItemWithTitle:NSLocalizedString(WLMenuTitleDownloadPost, @"Contextual Menu")
 						action:@selector(downloadPost:)

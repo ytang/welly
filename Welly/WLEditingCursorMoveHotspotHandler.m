@@ -46,7 +46,6 @@ static NSCursor *gMoveCursor = nil;
     [path stroke];
     [cursorImage unlockFocus];
     gMoveCursor = [[NSCursor alloc] initWithImage: cursorImage hotSpot: NSMakePoint(5.5, 9.5)];
-    [cursorImage release];
 }
 
 - (instancetype)init {

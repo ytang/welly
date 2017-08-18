@@ -18,8 +18,6 @@
 - (instancetype)initWithSiteName:(NSString *)siteName {
     self = [super init];
 	if (self) {
-		[siteName retain];
-		[_siteName release];
 		_siteName = siteName;
 		NSXMLElement *root = (NSXMLElement *)[NSXMLNode elementWithName:@"rss"];
 		[root addAttribute:[NSXMLNode attributeWithName:@"version" stringValue:@"2.0"]];
@@ -35,11 +33,6 @@
     return self;
 }
 
-- (void)dealloc {
-    [_xmlDoc release];
-    [_siteName release];
-    [super dealloc];
-}
 
 - (void)addItemWithTitle:(NSString *)aTitle 
 			 description:(NSString *)aDescription 

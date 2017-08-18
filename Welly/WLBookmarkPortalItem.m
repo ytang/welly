@@ -32,11 +32,6 @@
     return self;
 }
 
-- (void)dealloc {
-	[_site release];
-    [_path release];
-    [super dealloc];
-}
 
 #pragma mark -
 #pragma mark Site Cover related
@@ -48,7 +43,7 @@
         NSAssert([paths count] > 0, @"~/Library/Application Support");
         NSString *dir = [paths[0] stringByAppendingPathComponent:@"Welly"];
         [fileMgr createDirectoryAtPath:dir withIntermediateDirectories:YES attributes:nil error:nil];
-        sCoverDir = [[dir stringByAppendingPathComponent:@"Covers"] retain];
+        sCoverDir = [dir stringByAppendingPathComponent:@"Covers"];
         [fileMgr createDirectoryAtPath:sCoverDir withIntermediateDirectories:YES attributes:nil error:nil];
     }
     return sCoverDir;
@@ -100,8 +95,6 @@
 #pragma mark -
 #pragma mark Accessor
 - (void)setPath:(NSString *)path {
-	[_path release];	
-	[_image release];
     _path = [path copy];
     if (_path)
         _image = [[NSImage alloc] initByReferencingFile:_path];
@@ -110,8 +103,7 @@
 }
 
 - (void)setSite:(WLSite *)site {
-	[_site release];
-	_site = [site retain];
+	_site = site;
 	_title = _site.name;
 	[self loadCover];
 }

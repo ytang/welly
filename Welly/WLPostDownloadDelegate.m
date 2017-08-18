@@ -10,6 +10,7 @@
 #import "WLGlobalConfig.h"
 #import "WLConnection.h"
 #import "WLTerminal.h"
+#import "SynthesizeSingleton.h"
 
 #define kPostDownloadPanelNibFilename @"PostDownloadPanel"
 
@@ -18,14 +19,7 @@
 #pragma mark -
 #pragma mark init and dealloc
 
-+ (WLPostDownloadDelegate *)sharedInstance {
-    static WLPostDownloadDelegate *_instance = nil;
-    static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^{
-        _instance = [[self alloc] init];
-    });
-    return _instance;
-}
+SYNTHESIZE_SINGLETON_FOR_CLASS(WLPostDownloadDelegate)
 
 - (void)loadNibFile {
 	if (!_postWindow) {

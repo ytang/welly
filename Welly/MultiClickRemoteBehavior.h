@@ -53,7 +53,7 @@
 - (instancetype) init;
 
 // Delegates are not retained
-@property (NS_NONATOMIC_IOSONLY, assign) id delegate;
+@property (NS_NONATOMIC_IOSONLY, unsafe_unretained) id delegate;
 
 // Simulating hold events does deactivate sending of individual requests for pressed down/released.
 // Instead special hold events are being triggered when the user is pressing and holding a button for a small period.

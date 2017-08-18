@@ -50,12 +50,12 @@ const float WLHorizontalScrollReactivateTimeInteval = 1.0;
 		_view = view;
 		
 		_handlers = [[NSMutableArray alloc] initWithObjects:
-					 [[[WLIPAddrHotspotHandler alloc] initWithManager:self] autorelease],
-					 [[[WLClickEntryHotspotHandler alloc] initWithManager:self] autorelease],
-					 [[[WLButtonAreaHotspotHandler alloc] initWithManager:self] autorelease],
-					 [[[WLMovingAreaHotspotHandler alloc] initWithManager:self] autorelease],
-					 [[[WLEditingCursorMoveHotspotHandler alloc] initWithManager:self] autorelease],
-					 [[[WLAuthorAreaHotspotHandler alloc] initWithManager:self] autorelease],
+					 [[WLIPAddrHotspotHandler alloc] initWithManager:self],
+					 [[WLClickEntryHotspotHandler alloc] initWithManager:self],
+					 [[WLButtonAreaHotspotHandler alloc] initWithManager:self],
+					 [[WLMovingAreaHotspotHandler alloc] initWithManager:self],
+					 [[WLEditingCursorMoveHotspotHandler alloc] initWithManager:self],
+					 [[WLAuthorAreaHotspotHandler alloc] initWithManager:self],
 					 nil];
 		_horizontalScrollReactivateTimer = [NSTimer scheduledTimerWithTimeInterval:WLHorizontalScrollReactivateTimeInteval
 																			target:self
@@ -75,13 +75,6 @@ const float WLHorizontalScrollReactivateTimeInteval = 1.0;
 	if (self)
 		_normalCursor = [NSCursor arrowCursor];
 	return self;
-}
-
-- (void)dealloc {
-	for (NSObject *obj in _handlers)
-		[obj dealloc];
-	[_handlers dealloc];
-	[super dealloc];
 }
 
 #pragma mark -
@@ -232,7 +225,6 @@ const float WLHorizontalScrollReactivateTimeInteval = 1.0;
 		[self mouseExited:event];
 	}
 	[_view removeTrackingArea:area];
-	[area release];
 }
 
 #pragma mark -

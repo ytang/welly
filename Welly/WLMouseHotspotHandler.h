@@ -82,7 +82,7 @@
 @interface WLMouseHotspotHandler : NSResponder {
 	WLTerminalView *_view;
 	
-	WLMouseBehaviorManager *_manager;
+	WLMouseBehaviorManager *__weak _manager;
 	NSInteger _maxRow, _maxColumn;
 	
 	NSMutableArray *_trackingAreas;
@@ -91,7 +91,7 @@
 	@property
 	@abstract    Relative <code>WLMouseBehaviorManager</code>.
  */
-@property (readwrite, assign) WLMouseBehaviorManager *manager;
+@property (readwrite, weak) WLMouseBehaviorManager *manager;
 
 /*!
     @method     

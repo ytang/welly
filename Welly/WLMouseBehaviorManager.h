@@ -36,14 +36,14 @@ NSString *const WLRangeLengthUserInfoName;
  When the <code>YLView</code>'s content refreshes, it would inform manager about its change, and then the manager would inform all <code>WLUpdatable</code> handlers to update their state.
 */
 @interface WLMouseBehaviorManager : NSResponder <WLMouseUpHandler, WLUpdatable, WLContextualMenuHandler> {
-	WLTerminalView *_view;
+	WLTerminalView *__weak _view;
 	
-	NSDictionary *_activeTrackingAreaUserInfo;
-	NSDictionary *_backgroundTrackingAreaUserInfo;
+	NSDictionary *__weak _activeTrackingAreaUserInfo;
+	NSDictionary *__weak _backgroundTrackingAreaUserInfo;
 	
 	NSMutableArray *_handlers;
 	
-	NSCursor *_normalCursor;
+	NSCursor *__weak _normalCursor;
 	
 	BOOL _enabled;
 	
@@ -55,12 +55,12 @@ NSString *const WLRangeLengthUserInfoName;
 	BBSState _lastBBSState;
 	NSInteger _lastCursorRow;
 }
-@property (readwrite, assign) NSDictionary *activeTrackingAreaUserInfo;
-@property (readwrite, assign) NSDictionary *backgroundTrackingAreaUserInfo;
-@property (readwrite, assign) NSCursor *normalCursor;
+@property (readwrite, weak) NSDictionary *activeTrackingAreaUserInfo;
+@property (readwrite, weak) NSDictionary *backgroundTrackingAreaUserInfo;
+@property (readwrite, weak) NSCursor *normalCursor;
 @property (readonly) BBSState lastBBSState;
 @property (readonly) NSInteger lastCursorRow;
-@property (readonly) WLTerminalView *view;
+@property (weak, readonly) WLTerminalView *view;
 
 - (instancetype)initWithView:(WLTerminalView *)view;
 

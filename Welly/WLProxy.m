@@ -39,7 +39,7 @@ Boolean GetProxySetting(const char *protocol, char *host, size_t hostSize, UInt1
     if (result) {
         // kSCPropNetProxiesHTTPEnable
         enableNum = (CFNumberRef) CFDictionaryGetValue(proxyDict,
-                                                       [NSString stringWithFormat:@"%sEnable", protocol]);
+                                                       (__bridge const void *)([NSString stringWithFormat:@"%sEnable", protocol]));
         
         result = (enableNum != NULL)
         && (CFGetTypeID(enableNum) == CFNumberGetTypeID());
@@ -57,7 +57,7 @@ Boolean GetProxySetting(const char *protocol, char *host, size_t hostSize, UInt1
     if (result) {
         // kSCPropNetProxiesHTTPProxy
         hostStr = (CFStringRef) CFDictionaryGetValue(proxyDict,
-                                                     [NSString stringWithFormat:@"%sProxy", protocol]);
+                                                     (__bridge const void *)([NSString stringWithFormat:@"%sProxy", protocol]));
         
         result = (hostStr != NULL)
         && (CFGetTypeID(hostStr) == CFStringGetTypeID());
@@ -72,7 +72,7 @@ Boolean GetProxySetting(const char *protocol, char *host, size_t hostSize, UInt1
     if (result) {
         // kSCPropNetProxiesHTTPPort
         portNum = (CFNumberRef) CFDictionaryGetValue(proxyDict,
-                                                     [NSString stringWithFormat:@"%sPort", protocol]);
+                                                     (__bridge const void *)([NSString stringWithFormat:@"%sPort", protocol]));
         
         result = (portNum != NULL)
         && (CFGetTypeID(portNum) == CFNumberGetTypeID());

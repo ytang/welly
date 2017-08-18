@@ -35,10 +35,6 @@
 	return [self initWithView:_manager.view];
 }
 
-- (void)dealloc {
-	[_trackingAreas release];
-	[super dealloc];
-}
 
 - (void)mouseEntered:(NSEvent *)theEvent {
 	// Do nothing, just a virtual function

@@ -25,7 +25,7 @@
 - (instancetype)initWithView:(WLTerminalView *)view {
 	self = [self initWithFrame:view.frame];
 	if (self) {
-		_mainView = [view retain];
+		_mainView = view;
 		[self setWantsLayer:YES];
 	}
 	return self;
@@ -42,19 +42,12 @@
 }
 
 - (void)dealloc {
-	[_mainLayer release];
-	[_ipAddrLayer release];
-	if (_popUpLayer) {
-		[_popUpLayer release];
-	}
 	if (_buttonLayer) {
 		[_buttonLayer.sublayers.lastObject removeFromSuperlayer];
-		[_buttonLayer release];
 	}
 	
 	CGColorRelease(_popUpLayerTextColor);
     CGFontRelease(_popUpLayerTextFont);
-	[super dealloc];
 }
 
 - (void)setupLayer {
@@ -110,7 +103,7 @@
 	_ipAddrLayer.cornerRadius = 6.0;
 	
     // Insert the layer into the root layer
-	[_mainLayer addSublayer:[_ipAddrLayer retain]];
+	[_mainLayer addSublayer:_ipAddrLayer];
 }
 
 - (void)drawIPAddrBox:(NSRect)rect {
@@ -144,7 +137,7 @@
 	_clickEntryLayer.cornerRadius = 6.0;
 	
     // Insert the layer into the root layer
-	[_mainLayer addSublayer:[_clickEntryLayer retain]];
+	[_mainLayer addSublayer:_clickEntryLayer];
 }
 
 - (void)drawClickEntry:(NSRect)rect {
@@ -169,8 +162,6 @@
 
 #pragma mark Welly Buttons
 - (void)setupButtonLayer {
-	if (_buttonLayer)
-		[_buttonLayer release];
 	_buttonLayer = [CALayer layer];
 	// Set the colors of the pop-up layer
 	CGColorRef myColor = CGColorCreateGenericRGB(0.05, 0.05, 0.05, 0.9f);
@@ -184,21 +175,19 @@
 	
     // Create a text layer to add so we can see the messages.
     CATextLayer *textLayer = [CATextLayer layer];
-	[textLayer autorelease];
 	// Set its foreground color
 	myColor = CGColorCreateGenericRGB(1, 1, 1, 1.0f);
     textLayer.foregroundColor = myColor;
 	CGColorRelease(myColor);
 	
-	[_buttonLayer addSublayer:[textLayer retain]];
+	[_buttonLayer addSublayer:textLayer];
 	
 	CATransition *buttonTrans = [CATransition new];
 	buttonTrans.type = kCATransitionFade;
 	[_buttonLayer addAnimation:buttonTrans forKey:kCATransition];
-    [buttonTrans autorelease];
 	[_buttonLayer setHidden:YES];
     // Insert the layer into the root layer
-	[_mainLayer addSublayer:[_buttonLayer retain]];
+	[_mainLayer addSublayer:_buttonLayer];
 }
 
 - (void)drawButton:(NSRect)rect 
@@ -327,16 +316,15 @@
 	
 	// Create a text layer to add so we can see the message.
     CATextLayer *textLayer = [CATextLayer layer];
-	[textLayer autorelease];
 	// Set its foreground color
     textLayer.foregroundColor = _popUpLayerTextColor;
 	// Modify its styles
 	textLayer.truncationMode = kCATruncationEnd;
     textLayer.font = _popUpLayerTextFont;
 
-	[_popUpLayer addSublayer:[textLayer retain]];
+	[_popUpLayer addSublayer:textLayer];
 	// Insert the layer into the root layer
-	[_mainLayer addSublayer:[_popUpLayer retain]];
+	[_mainLayer addSublayer:_popUpLayer];
 }
 
 // Just similiar to the code of "addNewLayer"...

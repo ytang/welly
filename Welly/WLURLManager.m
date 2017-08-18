@@ -156,11 +156,6 @@ NSString *const WLMenuTitleOpenWithBrowser = @"Open With Browser";
 	return self;
 }
 
-- (void)dealloc {
-	[_currentURLList release];
-	//[_currentURLStringBuffer release];
-    [super dealloc];
-}
 #pragma mark -
 #pragma mark Mouse Event Handler
 - (void)mouseUp:(NSEvent *)theEvent {
@@ -218,7 +213,7 @@ NSString *const WLMenuTitleOpenWithBrowser = @"Open With Browser";
 }
 
 - (NSMenu *)menuForEvent:(NSEvent *)theEvent {
-	NSMenu *menu = [[[NSMenu alloc] init] autorelease];
+	NSMenu *menu = [[NSMenu alloc] init];
 	[menu addItemWithTitle:NSLocalizedString(WLMenuTitleCopyURL, @"Contextual Menu")
 					action:@selector(copyURL:)
 			 keyEquivalent:@""];
@@ -313,7 +308,7 @@ NSString *const WLMenuTitleOpenWithBrowser = @"Open With Browser";
 	range.length = length;
 	
 	NSArray *keys = @[WLMouseHandlerUserInfoName, WLURLUserInfoName, WLRangeLocationUserInfoName, WLRangeLengthUserInfoName];
-	NSArray *objects = @[self, [[urlString copy] autorelease], @(index), @(length)];
+	NSArray *objects = @[self, [urlString copy], @(index), @(length)];
 	NSDictionary *userInfo = [NSDictionary dictionaryWithObjects:objects forKeys:keys];
 	[_currentURLList addObject:userInfo];
 	

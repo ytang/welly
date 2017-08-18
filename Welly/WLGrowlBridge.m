@@ -99,15 +99,15 @@ NSString *const WLGrowlClickObjectKeyName = @"ClickRepresentedObject";
                                  identifier:stringId];
 }
 
-- (void)growlNotificationWasClicked:(id)contextId {
-	NSDictionary *context = (NSDictionary *)contextId;
-	// encapsulate target/selector/object
-	id target = (id)[context[WLGrowlClickTargetKeyName] unsignedLongValue];
-	SEL selector = NSSelectorFromString(context[WLGrowlClickSelectorKeyName]);
-	id object = (id)[context[WLGrowlClickObjectKeyName] unsignedLongValue];
-	// perform action
-	[target performSelector:selector withObject:object];
-}
+//- (void)growlNotificationWasClicked:(id)contextId {
+//	NSDictionary *context = (NSDictionary *)contextId;
+//	// encapsulate target/selector/object
+//	id target = (id)[context[WLGrowlClickTargetKeyName] unsignedLongValue];
+//	SEL selector = NSSelectorFromString(context[WLGrowlClickSelectorKeyName]);
+//	id object = (id)[context[WLGrowlClickObjectKeyName] unsignedLongValue];
+//	// perform action
+//	[target performSelector:selector withObject:object];
+//}
 
 - (void)growlNotificationTimedOut:(id)contextId {
     // deal with the event that the notification disappear

@@ -9,6 +9,7 @@
 #import "WLSitesPanelController.h"
 #import "WLMainFrameController.h"
 #import "WLGlobalConfig.h"
+#import "SynthesizeSingleton.h"
 
 #define SiteTableViewDataType @"SiteTableViewDataType"
 #define kSitePanelNibFilename @"SitesPanel"
@@ -31,14 +32,7 @@
 @implementation WLSitesPanelController
 @synthesize sites = _sites;
 
-+ (WLSitesPanelController *)sharedInstance {
-    static WLSitesPanelController *_instance = nil;
-    static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^{
-        _instance = [[self alloc] init];
-    });
-    return _instance;
-}
+SYNTHESIZE_SINGLETON_FOR_CLASS(WLSitesPanelController)
 
 #pragma mark -
 #pragma mark Initialize and Destruction
