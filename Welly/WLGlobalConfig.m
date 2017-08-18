@@ -10,6 +10,7 @@
 //
 
 #import "WLGlobalConfig.h"
+#import "SynthesizeSingleton.h"
 
 #pragma mark -
 #pragma mark Constants
@@ -62,14 +63,7 @@ NSString *const WLEnglishFontSizeKeyName = @"EnglishFontSize";
 @synthesize chineseFontSize = _chineseFontSize;
 @synthesize englishFontSize = _englishFontSize;
 
-+ (WLGlobalConfig *)sharedInstance {
-    static WLGlobalConfig *_instance = nil;
-    static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^{
-        _instance = [[self alloc] init];
-    });
-    return _instance;
-}
+SYNTHESIZE_SINGLETON_FOR_CLASS(WLGlobalConfig);
 
 - (instancetype)init {
 	self = [super init];
@@ -176,6 +170,10 @@ NSString *const WLEnglishFontSizeKeyName = @"EnglishFontSize";
     return self;
 }
 
+- (void)dealloc {
+	[super dealloc];
+}
+
 - (void)setFontSizeRatio:(CGFloat)ratio {
 	self.englishFontSize = _englishFontSize * ratio;
 	self.chineseFontSize = _chineseFontSize * ratio;
@@ -205,7 +203,7 @@ NSString *const WLEnglishFontSizeKeyName = @"EnglishFontSize";
             CFNumberRef number = CFNumberCreate(kCFAllocatorDefault, kCFNumberIntType, &zero);
             CFStringRef cfKeys[] = {kCTFontAttributeName, kCTForegroundColorAttributeName, kCTLigatureAttributeName};
             
-            CFTypeRef cfValues[] = {_cCTFont, (__bridge CFTypeRef)(_colorTable[j][i]), number};
+            CFTypeRef cfValues[] = {_cCTFont, _colorTable[j][i], number};
             if (_cCTAttribute[j][i])CFRelease(_cCTAttribute[j][i]);
             _cCTAttribute[j][i] = CFDictionaryCreate(kCFAllocatorDefault, 
                                                      (const void **)cfKeys, 
@@ -268,7 +266,8 @@ NSString *const WLEnglishFontSizeKeyName = @"EnglishFontSize";
 		  hilite:(BOOL)h 
 		 atIndex:(int)i {
 	if (i >= 0 && i < NUM_COLOR) {
-		_colorTable[h][i] = [c colorUsingColorSpaceName:NSCalibratedRGBColorSpace];
+		[_colorTable[h][i] autorelease];
+		_colorTable[h][i] = [[c colorUsingColorSpaceName:NSCalibratedRGBColorSpace] retain];
 	}
 }
 
@@ -357,6 +356,7 @@ NSString *const WLEnglishFontSizeKeyName = @"EnglishFontSize";
 - (void)setChineseFontName:(NSString *)value {
     if (!value) value = WLDefaultChineseFontName;
     if (_chineseFontName != value) {
+        [_chineseFontName release];
         _chineseFontName = [value copy];
         [[NSUserDefaults standardUserDefaults] setObject:value forKey:@"ChineseFontName"];
     }
@@ -366,6 +366,7 @@ NSString *const WLEnglishFontSizeKeyName = @"EnglishFontSize";
 - (void)setEnglishFontName:(NSString *)value {
     if (!value) value = WLDefaultEnglishFontName;
     if (_englishFontName != value) {
+        [_englishFontName release];
         _englishFontName = [value copy];
         [[NSUserDefaults standardUserDefaults] setObject:value forKey:@"EnglishFontName"];
     }
@@ -378,7 +379,8 @@ NSString *const WLEnglishFontSizeKeyName = @"EnglishFontSize";
     if (!c)
 		c = [NSColor colorWithDeviceRed:0.00 green:0.00 blue:0.00 alpha:1.0];
     if (c != _colorTable[0][0]) {
-        _colorTable[0][0] = [c colorUsingColorSpaceName:NSCalibratedRGBColorSpace];
+        [_colorTable[0][0] release];
+        _colorTable[0][0] = [[c colorUsingColorSpaceName:NSCalibratedRGBColorSpace] retain];
     }
     [[NSUserDefaults standardUserDefaults] setMyColor:c forKey:@"ColorBlack"];
 }
@@ -386,7 +388,8 @@ NSString *const WLEnglishFontSizeKeyName = @"EnglishFontSize";
 - (void)setColorBlackHilite:(NSColor *)c {
     if (!c)c = [NSColor colorWithDeviceRed:0.25 green:0.25 blue:0.25 alpha:1.0];
     if (c != _colorTable[1][0]) {
-        _colorTable[1][0] = [c colorUsingColorSpaceName:NSCalibratedRGBColorSpace];
+        [_colorTable[1][0] release];
+        _colorTable[1][0] = [[c colorUsingColorSpaceName:NSCalibratedRGBColorSpace] retain];
     }
     [[NSUserDefaults standardUserDefaults] setMyColor:c forKey:@"ColorBlackHilite"];
 }
@@ -395,7 +398,8 @@ NSString *const WLEnglishFontSizeKeyName = @"EnglishFontSize";
 - (void)setColorRed:(NSColor *)c {
     if (!c)c = [NSColor colorWithDeviceRed:0.50 green:0.00 blue:0.00 alpha:1.0];
     if (c != _colorTable[0][1]) {
-        _colorTable[0][1] = [c colorUsingColorSpaceName:NSCalibratedRGBColorSpace];
+        [_colorTable[0][1] release];
+        _colorTable[0][1] = [[c colorUsingColorSpaceName:NSCalibratedRGBColorSpace] retain];
     }
     [[NSUserDefaults standardUserDefaults] setMyColor:c forKey:@"ColorRed"];
 }
@@ -403,7 +407,8 @@ NSString *const WLEnglishFontSizeKeyName = @"EnglishFontSize";
 - (void)setColorRedHilite:(NSColor *)c {
     if (!c)c = [NSColor colorWithDeviceRed:1.00 green:0.00 blue:0.00 alpha:1.0];
     if (c != _colorTable[1][1]) {
-        _colorTable[1][1] = [c colorUsingColorSpaceName:NSCalibratedRGBColorSpace];
+        [_colorTable[1][1] release];
+        _colorTable[1][1] = [[c colorUsingColorSpaceName:NSCalibratedRGBColorSpace] retain];
     }
     [[NSUserDefaults standardUserDefaults] setMyColor:c forKey:@"ColorRedHilite"];
 }
@@ -412,7 +417,8 @@ NSString *const WLEnglishFontSizeKeyName = @"EnglishFontSize";
 - (void)setColorGreen:(NSColor *)c {
     if (!c)c = [NSColor colorWithDeviceRed:0.00 green:0.50 blue:0.00 alpha:1.0];
     if (c != _colorTable[0][2]) {
-        _colorTable[0][2] = [c colorUsingColorSpaceName:NSCalibratedRGBColorSpace];
+        [_colorTable[0][2] release];
+        _colorTable[0][2] = [[c colorUsingColorSpaceName:NSCalibratedRGBColorSpace] retain];
     }
     [[NSUserDefaults standardUserDefaults] setMyColor:c forKey:@"ColorGreen"];
 }
@@ -420,7 +426,8 @@ NSString *const WLEnglishFontSizeKeyName = @"EnglishFontSize";
 - (void)setColorGreenHilite:(NSColor *)c {
     if (!c)c = [NSColor colorWithDeviceRed:0.00 green:1.00 blue:0.00 alpha:1.0];
     if (c != _colorTable[1][2]) {
-        _colorTable[1][2] = [c colorUsingColorSpaceName:NSCalibratedRGBColorSpace];
+        [_colorTable[1][2] release];
+        _colorTable[1][2] = [[c colorUsingColorSpaceName:NSCalibratedRGBColorSpace] retain];
     }
     [[NSUserDefaults standardUserDefaults] setMyColor:c forKey:@"ColorGreenHilite"];
 }
@@ -429,7 +436,8 @@ NSString *const WLEnglishFontSizeKeyName = @"EnglishFontSize";
 - (void)setColorYellow:(NSColor *)c {
     if (!c)c = [NSColor colorWithDeviceRed:0.50 green:0.50 blue:0.00 alpha:1.0];
     if (c != _colorTable[0][3]) {
-        _colorTable[0][3] = [c colorUsingColorSpaceName:NSCalibratedRGBColorSpace];
+        [_colorTable[0][3] release];
+        _colorTable[0][3] = [[c colorUsingColorSpaceName:NSCalibratedRGBColorSpace] retain];
     }
     [[NSUserDefaults standardUserDefaults] setMyColor:c forKey:@"ColorYellow"];
 }
@@ -437,7 +445,8 @@ NSString *const WLEnglishFontSizeKeyName = @"EnglishFontSize";
 - (void)setColorYellowHilite:(NSColor *)c {
     if (!c)c = [NSColor colorWithDeviceRed:1.00 green:1.00 blue:0.00 alpha:1.0];
     if (c != _colorTable[1][3]) {
-        _colorTable[1][3] = [c colorUsingColorSpaceName:NSCalibratedRGBColorSpace];
+        [_colorTable[1][3] release];
+        _colorTable[1][3] = [[c colorUsingColorSpaceName:NSCalibratedRGBColorSpace] retain];
     }
     [[NSUserDefaults standardUserDefaults] setMyColor:c forKey:@"ColorYellowHilite"];
 }
@@ -446,7 +455,8 @@ NSString *const WLEnglishFontSizeKeyName = @"EnglishFontSize";
 - (void)setColorBlue:(NSColor *)c {
     if (!c)c = [NSColor colorWithDeviceRed:0.00 green:0.00 blue:0.50 alpha:1.0];
     if (c != _colorTable[0][4]) {
-        _colorTable[0][4] = [c colorUsingColorSpaceName:NSCalibratedRGBColorSpace];
+        [_colorTable[0][4] release];
+        _colorTable[0][4] = [[c colorUsingColorSpaceName:NSCalibratedRGBColorSpace] retain];
     }
     [[NSUserDefaults standardUserDefaults] setMyColor:c forKey:@"ColorBlue"];
 }
@@ -454,7 +464,8 @@ NSString *const WLEnglishFontSizeKeyName = @"EnglishFontSize";
 - (void)setColorBlueHilite:(NSColor *)c {
     if (!c)c = [NSColor colorWithDeviceRed:0.00 green:0.00 blue:1.00 alpha:1.0];
     if (c != _colorTable[1][4]) {
-        _colorTable[1][4] = [c colorUsingColorSpaceName:NSCalibratedRGBColorSpace];
+        [_colorTable[1][4] release];
+        _colorTable[1][4] = [[c colorUsingColorSpaceName:NSCalibratedRGBColorSpace] retain];
     }
     [[NSUserDefaults standardUserDefaults] setMyColor:c forKey:@"ColorBlueHilite"];
 }
@@ -463,7 +474,8 @@ NSString *const WLEnglishFontSizeKeyName = @"EnglishFontSize";
 - (void)setColorMagenta:(NSColor *)c {
     if (!c)c = [NSColor colorWithDeviceRed:0.50 green:0.00 blue:0.50 alpha:1.0];
     if (c != _colorTable[0][5]) {
-        _colorTable[0][5] = [c colorUsingColorSpaceName:NSCalibratedRGBColorSpace];
+        [_colorTable[0][5] release];
+        _colorTable[0][5] = [[c colorUsingColorSpaceName:NSCalibratedRGBColorSpace] retain];
     }
     [[NSUserDefaults standardUserDefaults] setMyColor:c forKey:@"ColorMagenta"];
 }
@@ -471,7 +483,8 @@ NSString *const WLEnglishFontSizeKeyName = @"EnglishFontSize";
 - (void)setColorMagentaHilite:(NSColor *)c {
     if (!c)c = [NSColor colorWithDeviceRed:1.00 green:0.00 blue:1.00 alpha:1.0];
     if (c != _colorTable[1][5]) {
-        _colorTable[1][5] = [c colorUsingColorSpaceName:NSCalibratedRGBColorSpace];
+        [_colorTable[1][5] release];
+        _colorTable[1][5] = [[c colorUsingColorSpaceName:NSCalibratedRGBColorSpace] retain];
     }
     [[NSUserDefaults standardUserDefaults] setMyColor:c forKey:@"ColorMagentaHilite"];
 }
@@ -480,7 +493,8 @@ NSString *const WLEnglishFontSizeKeyName = @"EnglishFontSize";
 - (void)setColorCyan:(NSColor *)c {
     if (!c)c = [NSColor colorWithDeviceRed:0.00 green:0.50 blue:0.50 alpha:1.0];
     if (c != _colorTable[0][6]) {
-        _colorTable[0][6] = [c colorUsingColorSpaceName:NSCalibratedRGBColorSpace];
+        [_colorTable[0][6] release];
+        _colorTable[0][6] = [[c colorUsingColorSpaceName:NSCalibratedRGBColorSpace] retain];
     }
     [[NSUserDefaults standardUserDefaults] setMyColor:c forKey:@"ColorCyan"];
 }
@@ -488,7 +502,8 @@ NSString *const WLEnglishFontSizeKeyName = @"EnglishFontSize";
 - (void)setColorCyanHilite:(NSColor *)c {
     if (!c)c = [NSColor colorWithDeviceRed:0.00 green:1.00 blue:1.00 alpha:1.0];
     if (c != _colorTable[1][6]) {
-        _colorTable[1][6] = [c colorUsingColorSpaceName:NSCalibratedRGBColorSpace];
+        [_colorTable[1][6] release];
+        _colorTable[1][6] = [[c colorUsingColorSpaceName:NSCalibratedRGBColorSpace] retain];
     }
     [[NSUserDefaults standardUserDefaults] setMyColor:c forKey:@"ColorCyanHilite"];
 }
@@ -497,7 +512,8 @@ NSString *const WLEnglishFontSizeKeyName = @"EnglishFontSize";
 - (void)setColorWhite:(NSColor *)c {
     if (!c)c = [NSColor colorWithDeviceRed:0.50 green:0.50 blue:0.50 alpha:1.0];
     if (c != _colorTable[0][7]) {
-        _colorTable[0][7] = [c colorUsingColorSpaceName:NSCalibratedRGBColorSpace];
+        [_colorTable[0][7] release];
+        _colorTable[0][7] = [[c colorUsingColorSpaceName:NSCalibratedRGBColorSpace] retain];
     }
     [[NSUserDefaults standardUserDefaults] setMyColor:c forKey:@"ColorWhite"];
 }
@@ -505,7 +521,8 @@ NSString *const WLEnglishFontSizeKeyName = @"EnglishFontSize";
 - (void)setColorWhiteHilite:(NSColor *)c {
     if (!c)c = [NSColor colorWithDeviceRed:1.00 green:1.00 blue:1.00 alpha:1.0];
     if (c != _colorTable[1][7]) {
-        _colorTable[1][7] = [c colorUsingColorSpaceName:NSCalibratedRGBColorSpace];
+        [_colorTable[1][7] release];
+        _colorTable[1][7] = [[c colorUsingColorSpaceName:NSCalibratedRGBColorSpace] retain];
     }
     [[NSUserDefaults standardUserDefaults] setMyColor:c forKey:@"ColorWhiteHilite"];
 }
@@ -514,7 +531,8 @@ NSString *const WLEnglishFontSizeKeyName = @"EnglishFontSize";
 - (void)setColorBG:(NSColor *)c {
     if (!c)c = [NSColor colorWithDeviceRed:0.00 green:0.00 blue:0.00 alpha:1.0];
     if (c != _colorTable[0][9]) {
-        _colorTable[0][9] = [c colorUsingColorSpaceName:NSCalibratedRGBColorSpace];
+        [_colorTable[0][9] release];
+        _colorTable[0][9] = [[c colorUsingColorSpaceName:NSCalibratedRGBColorSpace] retain];
 //        if ([self colorBGHilite] != c) [self setColorBGHilite: c];
     }
     [[NSUserDefaults standardUserDefaults] setMyColor:c forKey:@"ColorBG"];
@@ -524,7 +542,8 @@ NSString *const WLEnglishFontSizeKeyName = @"EnglishFontSize";
 - (void)setColorBGHilite:(NSColor *)c {
     if (!c)c = [NSColor colorWithDeviceRed:0.00 green:0.00 blue:0.00 alpha:1.0];
     if (c != _colorTable[1][9]) {
-        _colorTable[1][9] = [c colorUsingColorSpaceName:NSCalibratedRGBColorSpace];
+        [_colorTable[1][9] release];
+        _colorTable[1][9] = [[c colorUsingColorSpaceName:NSCalibratedRGBColorSpace] retain];
 //        if ([self colorBG] != c) [self setColorBG: c];
     }
     [[NSUserDefaults standardUserDefaults] setMyColor:c forKey:@"ColorBGHilite"];
