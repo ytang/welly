@@ -21,34 +21,16 @@
 
 @end
 
-@interface WLTerminal : NSObject {	
-	WLBBSType _bbsType;
-	
-    NSInteger _maxRow;
-    NSInteger _maxColumn;
-    NSInteger _cursorColumn;
-    NSInteger _cursorRow;
-    NSInteger _offset;
-	
-    cell **_grid;
-    BOOL **_dirty;
+@interface WLTerminal : NSObject
 
-	NSMutableSet *_observers;
-
-    WLConnection *_connection;
-	
-	BBSState _bbsState;
-	
-	unichar *_textBuf;
-}
-@property NSInteger maxRow;
-@property NSInteger maxColumn;
-@property NSInteger cursorColumn;
-@property NSInteger cursorRow;
-@property cell **grid;
-@property (assign, setter=setConnection:, nonatomic) WLConnection *connection;
-@property (assign, readwrite) WLBBSType bbsType;
-@property (readonly) BBSState bbsState;
+@property (assign, nonatomic) NSInteger maxRow;
+@property (assign, nonatomic) NSInteger maxColumn;
+@property (assign, nonatomic) NSInteger cursorColumn;
+@property (assign, nonatomic) NSInteger cursorRow;
+@property (readonly, nonatomic) cell **grid;
+@property (assign, nonatomic) WLConnection *connection;
+@property (assign, nonatomic) WLBBSType bbsType;
+@property (readonly, nonatomic) BBSState bbsState;
 
 /* Clear */
 - (void)clearAll;
@@ -78,7 +60,7 @@
 - (void)updateBBSState;
 
 /* Accessor */
-@property (NS_NONATOMIC_IOSONLY) WLEncoding encoding;
+@property (assign, nonatomic) WLEncoding encoding;
 
 /* Input Interface */
 - (void)feedGrid:(cell **)grid;
