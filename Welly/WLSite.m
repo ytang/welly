@@ -26,16 +26,6 @@ NSString *const WLDefaultAutoReplyString = @"DefaultAutoReplyString";
 NSString *const WLDefaultSiteName = @"DefaultSiteName";
 
 @implementation WLSite
-@synthesize name = _name;
-@synthesize address = _address;
-@synthesize encoding = _encoding;
-@synthesize ansiColorKey = _ansiColorKey;
-@synthesize shouldDetectDoubleByte = _shouldDetectDoubleByte;
-@synthesize shouldAutoReply = _shouldAutoReply;
-@synthesize autoReplyString = _autoReplyString;
-@synthesize shouldEnableMouse = _shouldEnableMouse;
-@synthesize proxyType = _proxyType;
-@synthesize proxyAddress = _proxyAddress;
 
 - (instancetype)init {
 	self = [super init];
