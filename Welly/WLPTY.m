@@ -26,10 +26,11 @@
 
 #define CTRLKEY(c)   ((c)-'A'+1)
 
-@implementation WLPTY
-@synthesize delegate = _delegate;
-@synthesize proxyType = _proxyType;
-@synthesize proxyAddress = _proxyAddress;
+@implementation WLPTY {
+    pid_t _pid;
+    int _fd;
+    BOOL _connecting;
+}
 
 + (NSString *)parse:(NSString *)addr {
     // trim whitespaces
