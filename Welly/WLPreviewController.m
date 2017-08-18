@@ -260,7 +260,8 @@ static NSString * stringFromFileSize(long long size) {
 		
         [self retain]; // "didFailWithError" may release the delegate
         [download cancel];
-        [self download:download didFailWithError:nil];
+        NSError *error = [NSError errorWithDomain:NSURLErrorDomain code:NSURLErrorCancelled userInfo:nil];
+        [self download:download didFailWithError:error];
         [self release];
         return; // or next may crash
 	}
