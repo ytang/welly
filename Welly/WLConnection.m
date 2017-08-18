@@ -23,18 +23,7 @@
 @end
 
 @implementation WLConnection
-@synthesize site = _site;
-@synthesize terminal = _terminal;
 @synthesize terminalFeeder = _feeder;
-@synthesize protocol = _protocol;
-@synthesize isConnected = _connected;
-@synthesize icon = _icon;
-@synthesize isProcessing = _isProcessing;
-@synthesize objectCount = _objectCount;
-@synthesize lastTouchDate = _lastTouchDate;
-@synthesize messageCount = _messageCount;
-@synthesize messageDelegate = _messageDelegate;
-@synthesize tabViewItemController = _tabViewItemController;
 
 - (instancetype)initWithSite:(WLSite *)site {
 	self = [self init];

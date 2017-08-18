@@ -17,38 +17,21 @@
 
 // modified by boost @ 9#
 // inhert from NSObjectController for PSMTabBarControl
-@interface WLConnection : NSObject <WLTabBarCellContentProvider> {
-    NSImage *_icon;
-    BOOL _isProcessing;
-    NSInteger _objectCount;
+@interface WLConnection : NSObject <WLTabBarCellContentProvider>
 
-    BOOL _connected;
-
-    NSDate *_lastTouchDate;
-    
-    WLTerminal *_terminal;
-	WLTerminalFeeder *_feeder;
-    NSObject <WLProtocol> *_protocol;
-    WLSite *_site;
-	
-	WLMessageDelegate *_messageDelegate;
-	NSInteger _messageCount;
-	
-	id _tabViewItemController;
-}
-@property (readwrite, retain) WLSite *site;
-@property (readwrite, retain, setter=setTerminal:, nonatomic) WLTerminal *terminal;
-@property (readwrite, retain) WLTerminalFeeder *terminalFeeder;
-@property (readwrite, retain) NSObject <WLProtocol> *protocol;
-@property (readwrite, assign, setter=setConnected:, nonatomic) BOOL isConnected;
-@property (readonly) NSDate *lastTouchDate;
-@property (readonly) NSInteger messageCount;
-@property (readonly) WLMessageDelegate *messageDelegate;
+@property (readwrite, retain, nonatomic) WLSite *site;
+@property (readwrite, retain, nonatomic) WLTerminal *terminal;
+@property (readwrite, retain, nonatomic) WLTerminalFeeder *terminalFeeder;
+@property (readwrite, retain, nonatomic) NSObject <WLProtocol> *protocol;
+@property (readwrite, assign, nonatomic, getter=isConnected) BOOL connected;
+@property (readonly, retain, nonatomic) NSDate *lastTouchDate;
+@property (readonly, assign, nonatomic) NSInteger messageCount;
+@property (readonly, retain, nonatomic) WLMessageDelegate *messageDelegate;
 // for PSMTabBarControl
-@property (readwrite, retain) NSImage *icon;
-@property (readwrite, assign) BOOL isProcessing;
-@property (readwrite, assign) NSInteger objectCount;
-@property (readwrite, assign) id tabViewItemController;
+@property (readwrite, retain, nonatomic) NSImage *icon;
+@property (readwrite, assign, nonatomic) BOOL isProcessing;
+@property (readwrite, assign, nonatomic) NSInteger objectCount;
+@property (readwrite, assign, nonatomic) id tabViewItemController;
 
 - (instancetype)initWithSite:(WLSite *)site;
 
