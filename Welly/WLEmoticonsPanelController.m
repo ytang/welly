@@ -31,9 +31,8 @@
 @implementation WLEmoticonsPanelController
 @synthesize emoticons = _emoticons;
 
-static WLEmoticonsPanelController *_instance = nil;
-
 + (WLEmoticonsPanelController *)sharedInstance {
+    static WLEmoticonsPanelController *_instance = nil;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         _instance = [[self alloc] init];

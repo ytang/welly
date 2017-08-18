@@ -23,9 +23,8 @@
 @implementation WLComposePanelController
 NSString *const WLComposeFontName = @"Helvetica";
 
-static WLComposePanelController *_instance = nil;
-
 + (WLComposePanelController *)sharedInstance {
+    static WLComposePanelController *_instance = nil;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         _instance = [[self alloc] init];

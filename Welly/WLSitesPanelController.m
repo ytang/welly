@@ -31,9 +31,8 @@
 @implementation WLSitesPanelController
 @synthesize sites = _sites;
 
-static WLSitesPanelController *_instance = nil;
-
 + (WLSitesPanelController *)sharedInstance {
+    static WLSitesPanelController *_instance = nil;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         _instance = [[self alloc] init];

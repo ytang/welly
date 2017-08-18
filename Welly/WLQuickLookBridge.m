@@ -44,11 +44,12 @@ static BOOL isLeopard;
 static BOOL isLion;
 
 + (WLQuickLookBridge *)sharedInstance {
-    static WLQuickLookBridge *instance = nil;
-    if (instance == nil) {
-        instance = [WLQuickLookBridge new];
-    }
-    return instance;
+    static WLQuickLookBridge *_instance = nil;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        _instance = [WLQuickLookBridge new];
+    });
+    return _instance;
 }
 
 + (void)initialize {

@@ -62,10 +62,8 @@ NSString *const WLEnglishFontSizeKeyName = @"EnglishFontSize";
 @synthesize chineseFontSize = _chineseFontSize;
 @synthesize englishFontSize = _englishFontSize;
 
-
-static WLGlobalConfig *_instance = nil;
-
 + (WLGlobalConfig *)sharedInstance {
+    static WLGlobalConfig *_instance = nil;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         _instance = [[self alloc] init];

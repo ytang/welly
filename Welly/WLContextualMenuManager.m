@@ -20,9 +20,8 @@ NSString *const WLOpenURLMenuItemFilename = @"contextualMenuItems";
 
 @implementation WLContextualMenuManager
 
-static WLContextualMenuManager *_instance = nil;
-
 + (WLContextualMenuManager *)sharedInstance {
+    static WLContextualMenuManager *_instance = nil;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         _instance = [[self alloc] init];

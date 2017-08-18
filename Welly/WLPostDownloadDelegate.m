@@ -18,9 +18,8 @@
 #pragma mark -
 #pragma mark init and dealloc
 
-static WLPostDownloadDelegate *_instance = nil;
-
 + (WLPostDownloadDelegate *)sharedInstance {
+    static WLPostDownloadDelegate *_instance = nil;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         _instance = [[self alloc] init];
