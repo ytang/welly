@@ -214,9 +214,11 @@ static NSImage *gLeftImage;
 		
 		NSRect imgRect = rect;
 		imgRect.origin.y = (_fontHeight * _maxRow) - rect.origin.y - rect.size.height;
-		[_backedImage compositeToPoint:rect.origin
-							  fromRect:rect
-							 operation:NSCompositeCopy];
+        [_backedImage drawAtPoint:rect.origin
+                         fromRect:rect
+                        operation:NSCompositeCopy
+                         fraction:1.0];
+
         [self drawBlink];
         
         /* Draw the url underline */
@@ -305,9 +307,10 @@ static NSImage *gLeftImage;
 					  to:(int)end {
     NSAutoreleasePool *pool = [NSAutoreleasePool new];
 	[_backedImage lockFocus];
-	[_backedImage compositeToPoint:NSMakePoint(0, (_maxRow - end) * _fontHeight) 
-						  fromRect:NSMakeRect(0, (_maxRow - end - 1) * _fontHeight, _maxColumn * _fontWidth, (end - start) * _fontHeight) 
-						 operation:NSCompositeCopy];
+    [_backedImage drawAtPoint:NSMakePoint(0, (_maxRow - end) * _fontHeight)
+                     fromRect:NSMakeRect(0, (_maxRow - end - 1) * _fontHeight, _maxColumn * _fontWidth, (end - start) * _fontHeight)
+                    operation:NSCompositeCopy
+                     fraction:1.0];
 	
 	[gConfig->_colorTable[0][gConfig.bgColorIndex] set];
 	NSRectFill(NSMakeRect(0, (_maxRow - end - 1) * _fontHeight, _maxColumn * _fontWidth, _fontHeight));
@@ -327,9 +330,9 @@ static NSImage *gLeftImage;
 				   to:(int)end {
     NSAutoreleasePool *pool = [NSAutoreleasePool new];
     [_backedImage lockFocus];
-	[_backedImage compositeToPoint:NSMakePoint(0, (_maxRow - end - 1) * _fontHeight) 
-						  fromRect:NSMakeRect(0, (_maxRow - end) * _fontHeight, _maxColumn * _fontWidth, (end - start) * _fontHeight) 
-						 operation:NSCompositeCopy];
+    [_backedImage drawAtPoint:NSMakePoint(0, (_maxRow - end - 1) * _fontHeight)
+                     fromRect:NSMakeRect(0, (_maxRow - end) * _fontHeight, _maxColumn * _fontWidth, (end - start) * _fontHeight)
+                    operation:NSCompositeCopy fraction:1.0];
 	
 	[gConfig->_colorTable[0][gConfig.bgColorIndex] set];
 	NSRectFill(NSMakeRect(0, (_maxRow - start - 1) * _fontHeight, _maxColumn * _fontWidth, _fontHeight));

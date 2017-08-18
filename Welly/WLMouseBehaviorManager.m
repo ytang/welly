@@ -198,7 +198,7 @@ const float WLHorizontalScrollReactivateTimeInteval = 1.0;
 	if ([self isMouseInsideRect:rect]) {
 		NSEvent *event = [NSEvent enterExitEventWithType:NSMouseEntered 
 												location:[NSEvent mouseLocation] 
-										   modifierFlags:NSMouseEnteredMask 
+										   modifierFlags:NSDeviceIndependentModifierFlagsMask
 											   timestamp:0
 											windowNumber:_view.window.windowNumber 
 												 context:nil
@@ -222,7 +222,7 @@ const float WLHorizontalScrollReactivateTimeInteval = 1.0;
 	if ([self isMouseInsideRect:rect]) {
 		NSEvent *event = [NSEvent enterExitEventWithType:NSMouseExited 
 												location:[NSEvent mouseLocation] 
-										   modifierFlags:NSMouseExitedMask 
+										   modifierFlags:NSDeviceIndependentModifierFlagsMask
 											   timestamp:0
 											windowNumber:_view.window.windowNumber 
 												 context:nil
