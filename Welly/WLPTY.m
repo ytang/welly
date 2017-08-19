@@ -228,37 +228,38 @@
     while (!exit) {
         iterationCount = 1;
         
-        while (!exit && iterationCount % 5000 != 0) {
-            FD_ZERO(&readfds);
-            FD_ZERO(&errorfds);
-            
-            FD_SET(pty->_fd, &readfds);
-            FD_SET(pty->_fd, &errorfds);
-            
-            result = select(pty->_fd + 1, &readfds, NULL, &errorfds, NULL);
-            
-            if (result < 0) {       // error
-                break;
-            } else if (FD_ISSET(pty->_fd, &errorfds)) {
-                result = read(pty->_fd, buf, 1);
-                if (result == 0) {  // session close
-                    exit = YES;
+        @autoreleasepool {
+            while (!exit && iterationCount % 5000 != 0) {
+                FD_ZERO(&readfds);
+                FD_ZERO(&errorfds);
+                
+                FD_SET(pty->_fd, &readfds);
+                FD_SET(pty->_fd, &errorfds);
+                
+                result = select(pty->_fd + 1, &readfds, NULL, &errorfds, NULL);
+                
+                if (result < 0) {       // error
+                    break;
+                } else if (FD_ISSET(pty->_fd, &errorfds)) {
+                    result = read(pty->_fd, buf, 1);
+                    if (result == 0) {  // session close
+                        exit = YES;
+                    }
+                } else if (FD_ISSET(pty->_fd, &readfds)) {
+                    result = read(pty->_fd, buf, sizeof(buf));
+                    if (result > 1) {
+                        [pty performSelectorOnMainThread:@selector(recv:)
+                                              withObject:[[NSData alloc] initWithBytes:buf+1 length:result-1]
+                                           waitUntilDone:NO];
+                    }
+                    if (result == 0) {
+                        exit = YES;
+                    }
                 }
-            } else if (FD_ISSET(pty->_fd, &readfds)) {
-                result = read(pty->_fd, buf, sizeof(buf));
-                if (result > 1) {
-                    [pty performSelectorOnMainThread:@selector(recv:)
-                                          withObject:[[NSData alloc] initWithBytes:buf+1 length:result-1]
-                                       waitUntilDone:NO];
-                }
-                if (result == 0) {
-                    exit = YES;
-                }
+                
+                iterationCount++;
             }
-            
-            iterationCount++;
         }
-        
     }
 
     if (result >= 0) {
