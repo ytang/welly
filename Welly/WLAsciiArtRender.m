@@ -40,7 +40,13 @@ static NSBezierPath *gSymbolUpperLinePath;
 static NSBezierPath *gSymbolLeftLinePath;
 static NSBezierPath *gSymbolLowerLinePath;
 
-@implementation WLAsciiArtRender
+@implementation WLAsciiArtRender {
+    CGFloat _fontWidth;
+    CGFloat _fontHeight;
+    
+    NSInteger _maxRow;
+    NSInteger _maxColumn;
+}
 
 - (NSBezierPath *)dualLinePathWithIndex:(NSUInteger)index {
 	if (gSymbolDualLinePath[index])
