@@ -334,7 +334,7 @@ static unsigned short gEmptyAttr;
 				} else if (c == ASC_EM ) { // ^Y
 				} else if (c == ASC_ESC) { // ESC
 					_state = TP_ESCAPE;
-				} else if (c == ASC_FS ) { // ^\ 
+				} else if (c == ASC_FS ) { /* ^\ */
 				} else if (c == ASC_GS ) { // ^]
 				} else if (c == ASC_RS ) { // ^^
 				} else if (c == ASC_US ) { // ^_
