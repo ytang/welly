@@ -14,7 +14,7 @@
 #import "WLSite.h"
 #import "WLGlobalConfig.h"
 
-@interface WLMainFrameController ()
+@interface WLMainFrameController () <MMTabBarViewDelegate>
 
 - (void)updateEncodingMenu;
 - (void)exitPresentationMode;
@@ -26,17 +26,14 @@
 - (void)initializeTabControl {
 	// tab control style
     [_tabBarControl setCanCloseOnlyTab:YES];
+    [_tabBarControl setStyleNamed:@"Yosemite"];
     NSAssert([_tabBarControl delegate] == self, @"set in .nib");
     //show a new-tab button
     [_tabBarControl setShowAddTabButton:YES];
-//    [[_tabBarControl addTabButton] setTarget:self];
-//    [[_tabBarControl addTabButton] setAction:@selector(newTab:)];
-    //_tabView = (WLTabView *)[_tabBarControl tabView];
 	
     // open the portal
     // the switch
     [self tabViewDidChangeNumberOfTabViewItems:_tabView];
-	[_tabBarControl setMainController:self];
 }
 
 #pragma mark -
@@ -53,32 +50,65 @@
 }
 
 - (IBAction)selectNextTab:(id)sender {
-    [_tabBarControl selectNextTabViewItem:sender];
+    NSTabViewItem *sel = _tabView.selectedTabViewItem;
+    if (sel == nil)
+        return;
+    NSInteger index = [_tabView indexOfTabViewItem:sel] + 1;
+    if (index == [_tabView numberOfTabViewItems]) {
+        index = 0;
+    }
+    [_tabView selectTabViewItemAtIndex:index];
 }
 
 - (IBAction)selectPrevTab:(id)sender {
-    [_tabBarControl selectPreviousTabViewItem:sender];
+    NSTabViewItem *sel = _tabView.selectedTabViewItem;
+    if (sel == nil)
+        return;
+    NSInteger index = [_tabView indexOfTabViewItem:sel] - 1;
+    if (index < 0) {
+        index = [_tabView numberOfTabViewItems] - 1;
+    }
+    [_tabView selectTabViewItemAtIndex:index];
 }
 
 - (IBAction)closeTab:(id)sender {
-    if (_tabView.numberOfTabViewItems == 0) return;
-	// Here, sometimes it may throw a exception...
-	@try {
-		[_tabBarControl removeTabViewItem:_tabView.selectedTabViewItem];
-	}
-	@catch (NSException * e) {
-	}
+    NSTabViewItem *tabViewItem = [_tabView selectedTabViewItem];
+    
+    if (!tabViewItem) {
+        return;
+    }
+    
+    if (([_tabBarControl delegate]) && ([[_tabBarControl delegate] respondsToSelector:@selector(tabView:shouldCloseTabViewItem:)])) {
+        if (![[_tabBarControl delegate] tabView:_tabView shouldCloseTabViewItem:tabViewItem]) {
+            return;
+        }
+    }
+    
+    if (([_tabBarControl delegate]) && ([[_tabBarControl delegate] respondsToSelector:@selector(tabView:willCloseTabViewItem:)])) {
+        [[_tabBarControl delegate] tabView:_tabView willCloseTabViewItem:tabViewItem];
+    }
+    
+    [_tabView removeTabViewItem:tabViewItem];
+    
+    if (([_tabBarControl delegate]) && ([[_tabBarControl delegate] respondsToSelector:@selector(tabView:didCloseTabViewItem:)])) {
+        [[_tabBarControl delegate] tabView:_tabView didCloseTabViewItem:tabViewItem];
+    }
 }
 
 #pragma mark -
 #pragma mark TabView delegation
+
+- (void)addNewTabToTabView:(NSTabView *)aTabView {
+    [self newTab:self];
+}
+
 - (BOOL)tabView:(NSTabView *)tabView shouldCloseTabViewItem:(NSTabViewItem *)tabViewItem {
 	// Restore from full screen firstly
 	[self exitPresentationMode];
 	
 	// TODO: why not put these in WLTabView?
-    if (![[tabViewItem.identifier content] isKindOfClass:[WLConnection class]] ||
-		![[tabViewItem.identifier content] isConnected]) 
+    if (![tabViewItem.identifier isKindOfClass:[WLConnection class]] ||
+		![tabViewItem.identifier isConnected]) 
 		return YES;
     if (![[NSUserDefaults standardUserDefaults] boolForKey:WLConfirmOnCloseEnabledKeyName]) 
 		return YES;
@@ -95,15 +125,15 @@
 
 - (void)tabView:(NSTabView *)tabView willCloseTabViewItem:(NSTabViewItem *)tabViewItem {
     // close the connection
-	if ([[tabViewItem.identifier content] isKindOfClass:[WLConnection class]])
-		[[tabViewItem.identifier content] close];
+	if ([tabViewItem.identifier isKindOfClass:[WLConnection class]])
+		[tabViewItem.identifier close];
 }
 
 - (void)tabView:(NSTabView *)tabView didSelectTabViewItem:(NSTabViewItem *)tabViewItem {
     NSAssert(tabView == _tabView, @"tabView");
 	[_addressBar setStringValue:@""];
-	if ([[tabViewItem.identifier content] isKindOfClass:[WLConnection class]]) {
-		WLConnection *connection = [tabViewItem.identifier content];
+	if ([tabViewItem.identifier isKindOfClass:[WLConnection class]]) {
+		WLConnection *connection = tabViewItem.identifier;
 		WLSite *site = connection.site;
 		if (connection && site.address) {
 			[_addressBar setStringValue:site.address];

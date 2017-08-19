@@ -12,7 +12,7 @@
 #import "WLMainFrameController.h"
 #import "WLTabBarControl.h"
 
-#import "WLTabViewItemController.h"
+#import "WLTabBarItem.h"
 
 #import "WLGlobalConfig.h"
 
@@ -94,8 +94,8 @@
 }
 
 - (WLConnection *)frontMostConnection {
-	if ([[self.selectedTabViewItem.identifier content] isKindOfClass:[WLConnection class]]) {
-		return [self.selectedTabViewItem.identifier content];
+	if ([self.selectedTabViewItem.identifier isKindOfClass:[WLConnection class]]) {
+		return self.selectedTabViewItem.identifier;
 	}
 	
 	return nil;
@@ -122,7 +122,8 @@
         tabViewItem = self.selectedTabViewItem;
 	} else {	
 		// open a new tab
-		tabViewItem = [[NSTabViewItem alloc] initWithIdentifier:[WLTabViewItemController emptyTabViewItemController]];
+        WLTabBarItem *newItem = [[WLTabBarItem alloc] init];
+		tabViewItem = [[NSTabViewItem alloc] initWithIdentifier:newItem];
 		// this will invoke tabView:didSelectTabViewItem for the first tab
         [self addTabViewItem:tabViewItem];
 	}
@@ -133,7 +134,7 @@
 					   label:(NSString *)theLabel {	
 	NSTabViewItem *tabViewItem = [self emptyTab];
 
-	[tabViewItem.identifier setContent:theConnection];
+	[tabViewItem setIdentifier:theConnection];
 	
 	// set appropriate label
 	if (theLabel) {
@@ -206,7 +207,7 @@
 	[self.window makeKeyWindow];
 
 	if ([currentView conformsToProtocol:@protocol(WLTabItemContentObserver)]) {
-		[(id <WLTabItemContentObserver>)currentView didChangeContent:[self.selectedTabViewItem.identifier content]];
+		[(id <WLTabItemContentObserver>)currentView didChangeContent:self.selectedTabViewItem.identifier];
 	}
 	
 	if ((oldView != currentView) && [oldView conformsToProtocol:@protocol(WLTabItemContentObserver)]) {
@@ -279,9 +280,11 @@
 			   event.characters.intValue < 10) {
 		// User may drag and re-order tabs using tabBarControl
 		// These re-ordering will not reflect when calling
-		//  [self selectTabViewItemAtIndex:index];
-		// We here call method from tabBarControl to choose correct tab
-		[_tabBarControl selectTabViewItemAtIndex:(event.characters.intValue-1)];
+        // Update 2017.08.19: These re-ordering now will be correctly reflected
+        NSInteger index = event.characters.integerValue;
+        if (index <= [self numberOfTabViewItems]) {
+            [self selectTabViewItemAtIndex:index - 1];
+        }
 		return YES;
 	} else if ((event.modifierFlags & NSCommandKeyMask) == 0 && 
 			   (event.modifierFlags & NSAlternateKeyMask) == 0 && 

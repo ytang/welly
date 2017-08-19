@@ -170,11 +170,11 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(WLMainFrameController)
 		return;
     NSArray *a = _tabView.tabViewItems;
     for (NSTabViewItem *item in a) {
-        WLConnection *connection = [item.identifier content];
+        WLConnection *connection = item.identifier;
         if ([connection isKindOfClass:[WLConnection class]] &&
             connection.isConnected &&
             connection.lastTouchDate &&
-            [[NSDate date] timeIntervalSinceDate:connection.lastTouchDate] >= 119) {
+            [[NSDate date] timeIntervalSinceDate:connection.lastTouchDate] >= 59) {
 //            unsigned char msg[] = {0x1B, 'O', 'A', 0x1B, 'O', 'B'};
             unsigned char msg[] = {0x00, 0x00, 0x00, 0x00, 0x00, 0x00};
             [connection sendBytes:msg length:6];
@@ -260,7 +260,7 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(WLMainFrameController)
     NSInteger i;
     NSMutableArray *a = [NSMutableArray array];
     for (i = 0; i < tabNumber; i++) {
-        id connection = [[_tabView tabViewItemAtIndex:i].identifier content];
+        id connection = [_tabView tabViewItemAtIndex:i].identifier;
         if ([connection isKindOfClass:[WLConnection class]] && ![connection site].dummy) // not empty tab
             [a addObject:[[connection site] dictionaryOfSite]];
     }
@@ -551,7 +551,7 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(WLMainFrameController)
     NSInteger tabNumber = _tabView.numberOfTabViewItems;
 	NSInteger connectedConnection = 0;
     for (NSInteger i = 0; i < tabNumber; i++) {
-        id connection = [[_tabView tabViewItemAtIndex:i].identifier content];
+        id connection = [_tabView tabViewItemAtIndex:i].identifier;
         if ([connection isKindOfClass:[WLConnection class]] && [connection isConnected])
             ++connectedConnection;
     }

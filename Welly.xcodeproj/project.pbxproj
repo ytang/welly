@@ -8,6 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		9C034A221F43077500C55BA2 /* Preferences.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9C034A241F43077500C55BA2 /* Preferences.xib */; };
+		9C0DFE611F480195008D5F3D /* MMTabBarView.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9C0DFE601F480195008D5F3D /* MMTabBarView.framework */; };
+		9C0DFE621F480195008D5F3D /* MMTabBarView.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 9C0DFE601F480195008D5F3D /* MMTabBarView.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		9C0DFE651F4818B3008D5F3D /* WLTabBarItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C0DFE641F4818B3008D5F3D /* WLTabBarItem.m */; };
 		9C5C1B241F42DD02006E170D /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 9C5C1B221F42DD02006E170D /* InfoPlist.strings */; };
 		9C5C1B271F42DD1C006E170D /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 9C5C1B251F42DD1C006E170D /* Localizable.strings */; };
 		9C769BCE1F42AED20044F830 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C769BCD1F42AED20044F830 /* main.m */; };
@@ -24,7 +27,6 @@
 		9C76A2431F42B6300044F830 /* WLPopUpMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C76A23C1F42B6300044F830 /* WLPopUpMessage.m */; };
 		9C76A2441F42B6300044F830 /* WLAsciiArtRender.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C76A23E1F42B6300044F830 /* WLAsciiArtRender.m */; };
 		9C76A24C1F42B6400044F830 /* WLTabView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C76A2461F42B6400044F830 /* WLTabView.m */; };
-		9C76A24D1F42B6400044F830 /* WLTabViewItemController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C76A2481F42B6400044F830 /* WLTabViewItemController.m */; };
 		9C76A24E1F42B6400044F830 /* WLTabBarControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C76A24B1F42B6400044F830 /* WLTabBarControl.m */; };
 		9C76A2571F42B6500044F830 /* WLBookmarkPortalItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C76A2501F42B6500044F830 /* WLBookmarkPortalItem.m */; };
 		9C76A2581F42B6500044F830 /* WLCoverFlowPortal.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C76A2521F42B6500044F830 /* WLCoverFlowPortal.m */; };
@@ -92,8 +94,6 @@
 		9CC8E7461F42C23600737A3E /* Growl.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 9CC8E7411F42C23500737A3E /* Growl.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		9CC8E7471F42C23600737A3E /* HMBlkAppKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9CC8E7421F42C23500737A3E /* HMBlkAppKit.framework */; };
 		9CC8E7481F42C23600737A3E /* HMBlkAppKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 9CC8E7421F42C23500737A3E /* HMBlkAppKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		9CC8E7491F42C23600737A3E /* PSMTabBarControl.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9CC8E7431F42C23500737A3E /* PSMTabBarControl.framework */; };
-		9CC8E74A1F42C23600737A3E /* PSMTabBarControl.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 9CC8E7431F42C23500737A3E /* PSMTabBarControl.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		9CC8E74B1F42C23600737A3E /* Sparkle.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9CC8E7441F42C23500737A3E /* Sparkle.framework */; };
 		9CC8E74C1F42C23600737A3E /* Sparkle.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 9CC8E7441F42C23500737A3E /* Sparkle.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		9CC8E7501F42C7D400737A3E /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9CC8E74F1F42C7D400737A3E /* Cocoa.framework */; };
@@ -114,10 +114,10 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				9CC8E74A1F42C23600737A3E /* PSMTabBarControl.framework in Embed Frameworks */,
 				9CC8E7481F42C23600737A3E /* HMBlkAppKit.framework in Embed Frameworks */,
 				9CC8E7461F42C23600737A3E /* Growl.framework in Embed Frameworks */,
 				9CC8E74C1F42C23600737A3E /* Sparkle.framework in Embed Frameworks */,
+				9C0DFE621F480195008D5F3D /* MMTabBarView.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -128,6 +128,9 @@
 		9C034A231F43077500C55BA2 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/Preferences.xib; sourceTree = "<group>"; };
 		9C034A261F43077900C55BA2 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Preferences.strings"; sourceTree = "<group>"; };
 		9C034A281F43077E00C55BA2 /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hant"; path = "zh-Hant.lproj/Preferences.strings"; sourceTree = "<group>"; };
+		9C0DFE601F480195008D5F3D /* MMTabBarView.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MMTabBarView.framework; path = Welly/Frameworks/MMTabBarView.framework; sourceTree = "<group>"; };
+		9C0DFE631F4818B3008D5F3D /* WLTabBarItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLTabBarItem.h; sourceTree = "<group>"; };
+		9C0DFE641F4818B3008D5F3D /* WLTabBarItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLTabBarItem.m; sourceTree = "<group>"; };
 		9C5C1B201F42DC60006E170D /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "zh-Hans"; path = "zh-Hans.lproj/contextualMenuItems.plist"; sourceTree = "<group>"; };
 		9C5C1B211F42DC65006E170D /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "zh-Hant"; path = "zh-Hant.lproj/contextualMenuItems.plist"; sourceTree = "<group>"; };
 		9C5C1B231F42DD02006E170D /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = Base.lproj/InfoPlist.strings; sourceTree = "<group>"; };
@@ -167,9 +170,6 @@
 		9C76A23E1F42B6300044F830 /* WLAsciiArtRender.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLAsciiArtRender.m; sourceTree = "<group>"; };
 		9C76A2451F42B6400044F830 /* WLTabView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLTabView.h; sourceTree = "<group>"; };
 		9C76A2461F42B6400044F830 /* WLTabView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLTabView.m; sourceTree = "<group>"; };
-		9C76A2471F42B6400044F830 /* WLTabViewItemController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLTabViewItemController.h; sourceTree = "<group>"; };
-		9C76A2481F42B6400044F830 /* WLTabViewItemController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLTabViewItemController.m; sourceTree = "<group>"; };
-		9C76A2491F42B6400044F830 /* WLTabBarCellContentProvider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLTabBarCellContentProvider.h; sourceTree = "<group>"; };
 		9C76A24A1F42B6400044F830 /* WLTabBarControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLTabBarControl.h; sourceTree = "<group>"; };
 		9C76A24B1F42B6400044F830 /* WLTabBarControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLTabBarControl.m; sourceTree = "<group>"; };
 		9C76A24F1F42B6500044F830 /* WLBookmarkPortalItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLBookmarkPortalItem.h; sourceTree = "<group>"; };
@@ -290,7 +290,6 @@
 		9CC8E73A1F42C13B00737A3E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/SitesPanel.xib; sourceTree = "<group>"; };
 		9CC8E7411F42C23500737A3E /* Growl.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Growl.framework; path = Welly/Frameworks/Growl.framework; sourceTree = "<group>"; };
 		9CC8E7421F42C23500737A3E /* HMBlkAppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = HMBlkAppKit.framework; path = Welly/Frameworks/HMBlkAppKit.framework; sourceTree = "<group>"; };
-		9CC8E7431F42C23500737A3E /* PSMTabBarControl.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = PSMTabBarControl.framework; path = Welly/Frameworks/PSMTabBarControl.framework; sourceTree = "<group>"; };
 		9CC8E7441F42C23500737A3E /* Sparkle.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Sparkle.framework; path = Welly/Frameworks/Sparkle.framework; sourceTree = "<group>"; };
 		9CC8E74F1F42C7D400737A3E /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		9CC8E7511F42C7E600737A3E /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
@@ -310,9 +309,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				9CC8E7501F42C7D400737A3E /* Cocoa.framework in Frameworks */,
-				9CC8E7491F42C23600737A3E /* PSMTabBarControl.framework in Frameworks */,
 				9CC8E7601F42C8A700737A3E /* IOKit.framework in Frameworks */,
 				9CC8E7471F42C23600737A3E /* HMBlkAppKit.framework in Frameworks */,
+				9C0DFE611F480195008D5F3D /* MMTabBarView.framework in Frameworks */,
 				9CC8E75E1F42C88E00737A3E /* System.framework in Frameworks */,
 				9CC8E75C1F42C83200737A3E /* Foundation.framework in Frameworks */,
 				9CC8E75A1F42C82500737A3E /* AppKit.framework in Frameworks */,
@@ -430,9 +429,8 @@
 			children = (
 				9C76A2451F42B6400044F830 /* WLTabView.h */,
 				9C76A2461F42B6400044F830 /* WLTabView.m */,
-				9C76A2471F42B6400044F830 /* WLTabViewItemController.h */,
-				9C76A2481F42B6400044F830 /* WLTabViewItemController.m */,
-				9C76A2491F42B6400044F830 /* WLTabBarCellContentProvider.h */,
+				9C0DFE631F4818B3008D5F3D /* WLTabBarItem.h */,
+				9C0DFE641F4818B3008D5F3D /* WLTabBarItem.m */,
 				9C76A24A1F42B6400044F830 /* WLTabBarControl.h */,
 				9C76A24B1F42B6400044F830 /* WLTabBarControl.m */,
 			);
@@ -718,9 +716,9 @@
 		9CC8E7611F42CD7600737A3E /* Third-Party Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				9C0DFE601F480195008D5F3D /* MMTabBarView.framework */,
 				9CC8E7411F42C23500737A3E /* Growl.framework */,
 				9CC8E7421F42C23500737A3E /* HMBlkAppKit.framework */,
-				9CC8E7431F42C23500737A3E /* PSMTabBarControl.framework */,
 				9CC8E7441F42C23500737A3E /* Sparkle.framework */,
 			);
 			name = "Third-Party Frameworks";
@@ -859,6 +857,7 @@
 				9C76A2AD1F42B8020044F830 /* AppleRemote.m in Sources */,
 				9C76A2871F42B7A30044F830 /* WLIPAddrHotspotHandler.m in Sources */,
 				9C76A2CB1F42B84E0044F830 /* WLFeedGenerator.m in Sources */,
+				9C0DFE651F4818B3008D5F3D /* WLTabBarItem.m in Sources */,
 				9C76A2C31F42B8380044F830 /* WLPreviewController.m in Sources */,
 				9C76A2B81F42B8150044F830 /* MultiClickRemoteBehavior.m in Sources */,
 				9C76A2581F42B6500044F830 /* WLCoverFlowPortal.m in Sources */,
@@ -895,7 +894,6 @@
 				9C76A29C1F42B7B10044F830 /* WLButtonAreaHotspotHandler.m in Sources */,
 				9C76A2A01F42B7B10044F830 /* WLURLManager.m in Sources */,
 				9C76A2DB1F42B8B00044F830 /* WLIntegerArray.m in Sources */,
-				9C76A24D1F42B6400044F830 /* WLTabViewItemController.m in Sources */,
 				9C76A2B51F42B80C0044F830 /* HIDRemoteControlDevice.m in Sources */,
 				9C769BCE1F42AED20044F830 /* main.m in Sources */,
 				9C76A2881F42B7A30044F830 /* IPSeeker.m in Sources */,
@@ -1042,7 +1040,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				MACOSX_DEPLOYMENT_TARGET = 10.8;
+				MACOSX_DEPLOYMENT_TARGET = 10.9;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = macosx;
@@ -1085,7 +1083,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				MACOSX_DEPLOYMENT_TARGET = 10.8;
+				MACOSX_DEPLOYMENT_TARGET = 10.9;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = macosx;
 			};

@@ -260,4 +260,12 @@
 										  fromCaller:caller];
 }
 
+- (BOOL)hasCloseButton {
+    return YES;
+}
+
+- (void)setHasCloseButton:(BOOL)hasCloseButton {
+    return;
+}
+
 @end
