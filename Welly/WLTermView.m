@@ -17,6 +17,7 @@ static WLGlobalConfig *gConfig;
 static NSImage *gLeftImage;
 
 @interface WLTermView ()
+
 - (void)drawSpecialSymbol:(unichar)ch
                    forRow:(int)r
                    column:(int)c
@@ -32,10 +33,17 @@ static NSImage *gLeftImage;
 @end
 
 
-@implementation WLTermView
-
-@synthesize fontWidth = _fontWidth;
-@synthesize fontHeight = _fontHeight;
+@implementation WLTermView {
+    
+    CGSize *_singleAdvance;
+    CGSize *_doubleAdvance;
+    
+    NSImage *_backedImage;
+    
+    WLConnection *_connection;
+    
+    WLAsciiArtRender *_asciiArtRender;
+}
 
 #pragma mark -
 #pragma mark Initialization & Destruction
@@ -705,7 +713,7 @@ static NSImage *gLeftImage;
 // Get current BBS image
 - (NSImage *)image {
     // Leave for others to release it
-    return [[NSImage alloc] initWithData:[self dataWithPDFInsideRect:self.frame]];
+    return [[NSImage alloc] initWithData:[self dataWithPDFInsideRect:self.bounds]];
 }
 
 #pragma mark -
