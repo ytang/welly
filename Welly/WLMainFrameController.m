@@ -668,21 +668,21 @@ withReplyEvent:(NSAppleEventDescriptor *)replyEvent {
                       nil,
                       @"Please pay attention to our future versions. Thanks for your cooperation.");
     return;
-    // TODO: uncomment the following code to enable RSS mode.
-    if (!_tabView.frontMostConnection || !_tabView.frontMostConnection.isConnected) return;
-    if (!_rssThread) {
-        [NSThread detachNewThreadSelector:@selector(fetchFeed) toTarget:self withObject:nil];
-        NSBeginAlertSheet(@"Welly is now working in RSS mode. (Experimental)",
-                          @"Leave RSS mode",
-                          nil,
-                          nil,
-                          _mainWindow,
-                          self,
-                          @selector(rssSheetDidClose:returnCode:contextInfo:),
-                          nil,
-                          nil,
-                          @"In this mode, Welly automatically fetches data and generates RSS feed. To leave, click the button below.\r\rCaution: This feature is very unstable, and works only with SMTH BBS. Try it at your own risk!");
-    }
+//     TODO: uncomment the following code to enable RSS mode.
+//    if (!_tabView.frontMostConnection || !_tabView.frontMostConnection.isConnected) return;
+//    if (!_rssThread) {
+//        [NSThread detachNewThreadSelector:@selector(fetchFeed) toTarget:self withObject:nil];
+//        NSBeginAlertSheet(@"Welly is now working in RSS mode. (Experimental)",
+//                          @"Leave RSS mode",
+//                          nil,
+//                          nil,
+//                          _mainWindow,
+//                          self,
+//                          @selector(rssSheetDidClose:returnCode:contextInfo:),
+//                          nil,
+//                          nil,
+//                          @"In this mode, Welly automatically fetches data and generates RSS feed. To leave, click the button below.\r\rCaution: This feature is very unstable, and works only with SMTH BBS. Try it at your own risk!");
+//    }
 }
 
 - (void)rssSheetDidClose:(NSWindow *)sheet
