@@ -363,11 +363,15 @@
 	// Move the origin point of the message layer, so the message can be 
 	// displayed in the center of the background layer
 	textRect.origin.x += (rect.size.width - textRect.size.width) / 2.0;
+    textRect.origin.y += (rect.size.height - textRect.size.height) / 2.0;
 	textLayer.frame = NSRectToCGRect(textRect);
 	
     // Set the layer frame to our rectangle.
+    [CATransaction begin];
+    [CATransaction setValue:(id)kCFBooleanTrue forKey:kCATransactionDisableActions];
     _popUpLayer.frame = NSRectToCGRect(rect);
 	_popUpLayer.cornerRadius = rect.size.height/5;
+    [CATransaction commit];
     
 	[_popUpLayer setHidden:NO];
 }
