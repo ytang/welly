@@ -6,10 +6,10 @@
 //  Copyright © 2017 net9.org. All rights reserved.
 //
 
-#import "WLTabBarItem.h"
+#import "WLTabBarDummyItem.h"
 #import "WLGlobalConfig.h"
 
-@implementation WLTabBarItem
+@implementation WLTabBarDummyItem
 
 - (instancetype)init {
     if (self = [super init]) {

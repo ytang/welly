@@ -12,7 +12,7 @@
 #import "WLMainFrameController.h"
 #import "WLTabBarControl.h"
 
-#import "WLTabBarItem.h"
+#import "WLTabBarDummyItem.h"
 
 #import "WLGlobalConfig.h"
 
@@ -122,7 +122,7 @@
         tabViewItem = self.selectedTabViewItem;
 	} else {	
 		// open a new tab
-        WLTabBarItem *newItem = [[WLTabBarItem alloc] init];
+        WLTabBarDummyItem *newItem = [[WLTabBarDummyItem alloc] init];
 		tabViewItem = [[NSTabViewItem alloc] initWithIdentifier:newItem];
 		// this will invoke tabView:didSelectTabViewItem for the first tab
         [self addTabViewItem:tabViewItem];

@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 #import <MMTabBarView/MMTabBarView.h>
 
-@interface WLTabBarItem : NSObject <MMTabBarItem>
+@interface WLTabBarDummyItem : NSObject <MMTabBarItem>
 
 @property (copy)   NSString  *title;
 @property (strong) NSImage   *icon;
