@@ -12,38 +12,26 @@
 
 @class WLTerminal, WLConnection, WLAsciiArtRender;
 
-@interface WLTermView : NSView <WLTabItemContentObserver, WLTerminalObserver> {
-	CGFloat _fontWidth;
-	CGFloat _fontHeight;
-    
-    CGSize *_singleAdvance;
-    CGSize *_doubleAdvance;
-	
-	NSImage *_backedImage;
-	
-	NSInteger _x;
-	NSInteger _y;
-	
-	NSInteger _maxRow;
-	NSInteger _maxColumn;
-	
-	WLConnection *_connection;
-	
-	WLAsciiArtRender *_asciiArtRender;
-}
-@property CGFloat fontWidth;
-@property CGFloat fontHeight;
+@interface WLTermView : NSView <WLTabItemContentObserver, WLTerminalObserver>
+
+@property (readwrite, assign, nonatomic) CGFloat fontWidth;
+@property (readwrite, assign, nonatomic) CGFloat fontHeight;
+@property (readwrite, assign, nonatomic) NSInteger x;
+@property (readwrite, assign, nonatomic) NSInteger y;
+@property (readwrite, assign, nonatomic) NSInteger maxRow;
+@property (readwrite, assign, nonatomic) NSInteger maxColumn;
+
+
+@property (readonly, strong, nonatomic) WLTerminal *frontMostTerminal;
+@property (readonly, strong, nonatomic) WLConnection *frontMostConnection;
+@property (readonly, nonatomic, getter=isConnected) BOOL connected;
+// get current BBS image
+@property (readonly, copy, nonatomic) NSImage *image;
 
 - (void)updateBackedImage;
 - (void)configure;
 
-@property (NS_NONATOMIC_IOSONLY, readonly, strong) WLTerminal *frontMostTerminal;
-@property (NS_NONATOMIC_IOSONLY, readonly, strong) WLConnection *frontMostConnection;
-@property (NS_NONATOMIC_IOSONLY, getter=isConnected, readonly) BOOL connected;
-
 - (void)refreshDisplay;
 - (void)terminalDidUpdate:(WLTerminal *)terminal;
 
-// get current BBS image
-@property (NS_NONATOMIC_IOSONLY, readonly, copy) NSImage *image;
 @end

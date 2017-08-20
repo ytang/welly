@@ -87,25 +87,25 @@ BOOL isEnglishNumberAlphabet(unsigned char c) {
 #pragma mark Conversion
 
 - (NSInteger)convertIndexFromPoint:(NSPoint)p {
-	if (p.x >= _maxColumn * _fontWidth)
-		p.x = _maxColumn * _fontWidth - 0.001;
-    if (p.y >= _maxRow * _fontHeight)
-		p.y = _maxRow * _fontHeight - 0.001;
+	if (p.x >= self.maxColumn * self.fontWidth)
+		p.x = self.maxColumn * self.fontWidth - 0.001;
+    if (p.y >= self.maxRow * self.fontHeight)
+		p.y = self.maxRow * self.fontHeight - 0.001;
     if (p.x < 0)
 		p.x = 0;
     if (p.y < 0)
 		p.y = 0;
     NSInteger cx, cy = 0;
-    cx = (NSInteger) ((CGFloat) p.x / _fontWidth);
-    cy = _maxRow - (NSInteger) ((CGFloat) p.y / _fontHeight) - 1;
-    return cy * _maxColumn + cx;
+    cx = (NSInteger) ((CGFloat) p.x / self.fontWidth);
+    cy = self.maxRow - (NSInteger) ((CGFloat) p.y / self.fontHeight) - 1;
+    return cy * self.maxColumn + cx;
 }
 
 - (NSRect)rectAtRow:(NSInteger)r
 			 column:(NSInteger)c
 			 height:(NSInteger)h
 			  width:(NSInteger)w {
-	return NSMakeRect(c * _fontWidth, (_maxRow - h - r) * _fontHeight, _fontWidth * w, _fontHeight * h);
+	return NSMakeRect(c * self.fontWidth, (self.maxRow - h - r) * self.fontHeight, self.fontWidth * w, self.fontHeight * h);
 }
 
 - (NSRect)selectedRect {
@@ -117,10 +117,10 @@ BOOL isEnglishNumberAlphabet(unsigned char c) {
 	if (_selectionLength > 0)
 		--endIndex;
 	
-	NSInteger row = startIndex / _maxColumn;
-	NSInteger column = startIndex % _maxColumn;
-	NSInteger endRow = endIndex / _maxColumn;
-	NSInteger endColumn = endIndex % _maxColumn;
+	NSInteger row = startIndex / self.maxColumn;
+	NSInteger column = startIndex % self.maxColumn;
+	NSInteger endRow = endIndex / self.maxColumn;
+	NSInteger endColumn = endIndex % self.maxColumn;
 	
 	if (endRow < row) {
 		NSInteger temp = row;
@@ -149,8 +149,8 @@ BOOL isEnglishNumberAlphabet(unsigned char c) {
 	range.location = [self convertIndexFromPoint:point];
 	range.length = 0;
 	
-	NSInteger r = range.location / _maxColumn;
-	NSInteger c = range.location % _maxColumn;
+	NSInteger r = range.location / self.maxColumn;
+	NSInteger c = range.location % self.maxColumn;
 	cell *currRow = [self.frontMostTerminal cellsOfRow:r];
 	[self.frontMostTerminal updateDoubleByteStateForRow:r];
 	if (currRow[c].attr.f.doubleByte == 1) { // Double Byte
@@ -163,11 +163,11 @@ BOOL isEnglishNumberAlphabet(unsigned char c) {
 	} else if (isEnglishNumberAlphabet(currRow[c].byte)) { // Not Double Byte
 		for (; c >= 0; c--) {
 			if (isEnglishNumberAlphabet(currRow[c].byte) && currRow[c].attr.f.doubleByte == 0) 
-				range.location = r * _maxColumn + c;
+				range.location = r * self.maxColumn + c;
 			else 
 				break;
 		}
-		for (c = c + 1; c < _maxColumn; c++) {
+		for (c = c + 1; c < self.maxColumn; c++) {
 			if (isEnglishNumberAlphabet(currRow[c].byte) && currRow[c].attr.f.doubleByte == 0) 
 				range.length++;
 			else 
@@ -442,7 +442,7 @@ BOOL isEnglishNumberAlphabet(unsigned char c) {
 - (void)selectAll:(id)sender {
     if (!self.connected) return;
     _selectionLocation = 0;
-    _selectionLength = _maxRow * _maxColumn;
+    _selectionLength = self.maxRow * self.maxColumn;
     [self setNeedsDisplay:YES];
 }
 
@@ -513,8 +513,8 @@ BOOL isEnglishNumberAlphabet(unsigned char c) {
     
     if ((theEvent.modifierFlags & NSCommandKeyMask) == 0x00 &&
         theEvent.clickCount == 3) {
-        _selectionLocation = _selectionLocation - (_selectionLocation % _maxColumn);
-        _selectionLength = _maxColumn;
+        _selectionLocation = _selectionLocation - (_selectionLocation % self.maxColumn);
+        _selectionLength = self.maxColumn;
     } else if ((theEvent.modifierFlags & NSCommandKeyMask) == 0x00 &&
                theEvent.clickCount == 2) {
 		[self selectWordAtPoint:p];
@@ -725,8 +725,8 @@ BOOL isEnglishNumberAlphabet(unsigned char c) {
             location = _selectionLocation + _selectionLength;
             length = 0 - (int)_selectionLength;
         }
-        NSInteger x = location % _maxColumn;
-        NSInteger y = location / _maxColumn;
+        NSInteger x = location % self.maxColumn;
+        NSInteger y = location / self.maxColumn;
         [[NSColor colorWithCalibratedRed: 0.6 green: 0.9 blue: 0.6 alpha: 0.4] set];
 
 	if (_hasRectangleSelected) {
@@ -739,12 +739,12 @@ BOOL isEnglishNumberAlphabet(unsigned char c) {
 		[NSBezierPath fillRect:drawingRect];
 	} else {
 		while (length > 0) {
-			if (x + length <= _maxColumn) { // one-line
-				[NSBezierPath fillRect:NSMakeRect(x * _fontWidth, (_maxRow - y - 1) * _fontHeight, _fontWidth * length, _fontHeight)];
+			if (x + length <= self.maxColumn) { // one-line
+				[NSBezierPath fillRect:NSMakeRect(x * self.fontWidth, (self.maxRow - y - 1) * self.fontHeight, self.fontWidth * length, self.fontHeight)];
 				length = 0;
 			} else {
-				[NSBezierPath fillRect:NSMakeRect(x * _fontWidth, (_maxRow - y - 1) * _fontHeight, _fontWidth * (_maxColumn - x), _fontHeight)];
-				length -= (_maxColumn - x);
+				[NSBezierPath fillRect:NSMakeRect(x * self.fontWidth, (self.maxRow - y - 1) * self.fontHeight, self.fontWidth * (self.maxColumn - x), self.fontHeight)];
+				length -= (self.maxColumn - x);
 			}
 			x = 0;
 			y++;
@@ -817,7 +817,7 @@ BOOL isEnglishNumberAlphabet(unsigned char c) {
 		NSRect selectedRect = [self selectedRect];
 		NSMutableString *string = [NSMutableString string];
 		for (int r = selectedRect.origin.y; r < selectedRect.origin.y + selectedRect.size.height; ++r) {
-			NSString *str = [self.frontMostTerminal stringAtIndex:(r * _maxColumn + selectedRect.origin.x) 
+			NSString *str = [self.frontMostTerminal stringAtIndex:(r * self.maxColumn + selectedRect.origin.x) 
 															   length:selectedRect.size.width];
 			if (str)
 				[string appendString:str];
@@ -904,7 +904,7 @@ BOOL isEnglishNumberAlphabet(unsigned char c) {
         int len = 4;
         id ds = self.frontMostTerminal;
         if (self.frontMostConnection.site.shouldDetectDoubleByte && 
-            [ds cursorColumn] < (_maxColumn - 1) && 
+            [ds cursorColumn] < (self.maxColumn - 1) && 
             [ds attrAtRow:[ds cursorRow] column:[ds cursorColumn] + 1].f.doubleByte == 2)
             len += 4;
         [self.frontMostConnection sendBytes:ch length:len];
@@ -939,18 +939,18 @@ BOOL isEnglishNumberAlphabet(unsigned char c) {
 	_textField.selectedRange = selRange;
 	_textField.markedRange = _markedRange;
 
-	NSPoint o = NSMakePoint(ds.cursorColumn * _fontWidth, (_maxRow - 1 - ds.cursorRow) * _fontHeight + 5.0);
+	NSPoint o = NSMakePoint(ds.cursorColumn * self.fontWidth, (self.maxRow - 1 - ds.cursorRow) * self.fontHeight + 5.0);
 	CGFloat dy;
-	if (o.x + _textField.frame.size.width > _maxColumn * _fontWidth) 
-		o.x = _maxColumn * _fontWidth - _textField.frame.size.width;
-	if (o.y + _textField.frame.size.height > _maxRow * _fontHeight) {
-		o.y = (_maxRow - ds.cursorRow) * _fontHeight - 5.0 - _textField.frame.size.height;
+	if (o.x + _textField.frame.size.width > self.maxColumn * self.fontWidth) 
+		o.x = self.maxColumn * self.fontWidth - _textField.frame.size.width;
+	if (o.y + _textField.frame.size.height > self.maxRow * self.fontHeight) {
+		o.y = (self.maxRow - ds.cursorRow) * self.fontHeight - 5.0 - _textField.frame.size.height;
 		dy = o.y + _textField.frame.size.height;
 	} else {
 		dy = o.y;
 	}
 	[_textField setFrameOrigin:o];
-	_textField.destination = [_textField convertPoint:NSMakePoint((ds.cursorColumn + 0.5) * _fontWidth, dy)
+	_textField.destination = [_textField convertPoint:NSMakePoint((ds.cursorColumn + 0.5) * self.fontWidth, dy)
 											   fromView:self];
 	[_textField setHidden:NO];
 }
@@ -1129,14 +1129,14 @@ BOOL isEnglishNumberAlphabet(unsigned char c) {
         return [attrString RTFFromRange:NSMakeRange(0, attrString.length) documentAttributes:@{NSDocumentTypeDocumentAttribute:NSRTFTextDocumentType}];
 	} else if ([attribute isEqual:NSAccessibilityLineForIndexParameterizedAttribute]) {
 		NSUInteger index = ((NSNumber *)parameter).unsignedIntegerValue;
-		return @(index/_maxColumn);
+		return @(index/self.maxColumn);
 	} else if ([attribute isEqual:NSAccessibilityRangeForLineParameterizedAttribute]) {
 		NSUInteger line = ((NSNumber *)parameter).unsignedIntegerValue;
-		return [NSValue valueWithRange:NSMakeRange(line * _maxColumn, _maxColumn)];
+		return [NSValue valueWithRange:NSMakeRange(line * self.maxColumn, self.maxColumn)];
 	} else if ([attribute isEqual:NSAccessibilityBoundsForRangeParameterizedAttribute]) {
 		NSRange range = ((NSValue *)parameter).rangeValue;
-		NSRect rect = [self rectAtRow:range.location/_maxColumn 
-							   column:range.location%_maxColumn
+		NSRect rect = [self rectAtRow:range.location/self.maxColumn 
+							   column:range.location%self.maxColumn
 							   height:1 
 								width:range.length];
 		rect = [self convertRect:rect toView:nil];
