@@ -53,7 +53,7 @@ static NSImage *default_image;
 - (id)imageRepresentation {
     if (_image == nil) {
         if (default_image == nil)
-            default_image = [NSImage imageNamed:@"default_site.png"];
+            default_image = [NSImage imageNamed:@"default_site"];
         return default_image;
     }
     return _image;

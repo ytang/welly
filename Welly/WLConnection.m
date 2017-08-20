@@ -63,10 +63,10 @@
 - (void)setConnected:(BOOL)value {
     _connected = value;
     if (_connected) 
-        self.icon = [NSImage imageNamed:@"online.pdf"];
+        self.icon = [NSImage imageNamed:@"online"];
     else {
         [self resetMessageCount];
-        self.icon = [NSImage imageNamed:@"offline.pdf"];
+        self.icon = [NSImage imageNamed:@"offline"];
     }
 }
 
@@ -79,7 +79,7 @@
 - (void)protocolWillConnect:(id)protocol {
     [self setIsProcessing:YES];
     [self setConnected:NO];
-    self.icon = [NSImage imageNamed:@"waiting.pdf"];
+    self.icon = [NSImage imageNamed:@"waiting"];
 }
 
 - (void)protocolDidConnect:(id)protocol {

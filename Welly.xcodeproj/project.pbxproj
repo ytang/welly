@@ -11,6 +11,7 @@
 		9C0DFE611F480195008D5F3D /* MMTabBarView.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9C0DFE601F480195008D5F3D /* MMTabBarView.framework */; };
 		9C0DFE621F480195008D5F3D /* MMTabBarView.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 9C0DFE601F480195008D5F3D /* MMTabBarView.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		9C0DFE651F4818B3008D5F3D /* WLTabBarDummyItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C0DFE641F4818B3008D5F3D /* WLTabBarDummyItem.m */; };
+		9C56AE301F49743C00B1D462 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9C56AE2F1F49743C00B1D462 /* Images.xcassets */; };
 		9C5C1B241F42DD02006E170D /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 9C5C1B221F42DD02006E170D /* InfoPlist.strings */; };
 		9C5C1B271F42DD1C006E170D /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 9C5C1B251F42DD1C006E170D /* Localizable.strings */; };
 		9C769BCE1F42AED20044F830 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C769BCD1F42AED20044F830 /* main.m */; };
@@ -72,17 +73,7 @@
 		9C76A2DC1F42B8B00044F830 /* WLGlobalConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C76A2D71F42B8B00044F830 /* WLGlobalConfig.m */; };
 		9C92088E1F42DFBF00A456D0 /* Credits.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 9C92088A1F42DFBF00A456D0 /* Credits.rtf */; };
 		9C92088F1F42DFBF00A456D0 /* QQWry.dat in Resources */ = {isa = PBXBuildFile; fileRef = 9C92088B1F42DFBF00A456D0 /* QQWry.dat */; };
-		9C9208901F42DFBF00A456D0 /* Welly.icns in Resources */ = {isa = PBXBuildFile; fileRef = 9C92088C1F42DFBF00A456D0 /* Welly.icns */; };
 		9C9208911F42DFBF00A456D0 /* Whit.aiff in Resources */ = {isa = PBXBuildFile; fileRef = 9C92088D1F42DFBF00A456D0 /* Whit.aiff */; };
-		9C92089B1F42E00F00A456D0 /* bookmark.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 9C9208921F42E00F00A456D0 /* bookmark.pdf */; };
-		9C92089C1F42E00F00A456D0 /* default_site.png in Resources */ = {isa = PBXBuildFile; fileRef = 9C9208931F42E00F00A456D0 /* default_site.png */; };
-		9C92089D1F42E00F00A456D0 /* indicator.png in Resources */ = {isa = PBXBuildFile; fileRef = 9C9208941F42E00F00A456D0 /* indicator.png */; };
-		9C92089E1F42E00F00A456D0 /* mouse.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 9C9208951F42E00F00A456D0 /* mouse.pdf */; };
-		9C92089F1F42E00F00A456D0 /* offline.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 9C9208961F42E00F00A456D0 /* offline.pdf */; };
-		9C9208A01F42E00F00A456D0 /* online.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 9C9208971F42E00F00A456D0 /* online.pdf */; };
-		9C9208A11F42E00F00A456D0 /* password.tif in Resources */ = {isa = PBXBuildFile; fileRef = 9C9208981F42E00F00A456D0 /* password.tif */; };
-		9C9208A21F42E00F00A456D0 /* sleep.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 9C9208991F42E00F00A456D0 /* sleep.pdf */; };
-		9C9208A31F42E00F00A456D0 /* waiting.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 9C92089A1F42E00F00A456D0 /* waiting.pdf */; };
 		9CC8E72A1F42C02C00737A3E /* Help in Resources */ = {isa = PBXBuildFile; fileRef = 9CC8E7291F42C02C00737A3E /* Help */; };
 		9CC8E72E1F42C12D00737A3E /* contextualMenuItems.plist in Resources */ = {isa = PBXBuildFile; fileRef = 9CC8E72C1F42C12D00737A3E /* contextualMenuItems.plist */; };
 		9CC8E73B1F42C13B00737A3E /* ComposePanel.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9CC8E72F1F42C13B00737A3E /* ComposePanel.xib */; };
@@ -131,6 +122,7 @@
 		9C0DFE601F480195008D5F3D /* MMTabBarView.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MMTabBarView.framework; path = Welly/Frameworks/MMTabBarView.framework; sourceTree = "<group>"; };
 		9C0DFE631F4818B3008D5F3D /* WLTabBarDummyItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLTabBarDummyItem.h; sourceTree = "<group>"; };
 		9C0DFE641F4818B3008D5F3D /* WLTabBarDummyItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLTabBarDummyItem.m; sourceTree = "<group>"; };
+		9C56AE2F1F49743C00B1D462 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		9C5C1B201F42DC60006E170D /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "zh-Hans"; path = "zh-Hans.lproj/contextualMenuItems.plist"; sourceTree = "<group>"; };
 		9C5C1B211F42DC65006E170D /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "zh-Hant"; path = "zh-Hant.lproj/contextualMenuItems.plist"; sourceTree = "<group>"; };
 		9C5C1B231F42DD02006E170D /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = Base.lproj/InfoPlist.strings; sourceTree = "<group>"; };
@@ -260,17 +252,7 @@
 		9C76A2D81F42B8B00044F830 /* WLNotifications.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLNotifications.h; sourceTree = "<group>"; };
 		9C92088A1F42DFBF00A456D0 /* Credits.rtf */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.rtf; name = Credits.rtf; path = Resources/Credits.rtf; sourceTree = "<group>"; };
 		9C92088B1F42DFBF00A456D0 /* QQWry.dat */ = {isa = PBXFileReference; lastKnownFileType = file; name = QQWry.dat; path = Resources/QQWry.dat; sourceTree = "<group>"; };
-		9C92088C1F42DFBF00A456D0 /* Welly.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; name = Welly.icns; path = Resources/Welly.icns; sourceTree = "<group>"; };
 		9C92088D1F42DFBF00A456D0 /* Whit.aiff */ = {isa = PBXFileReference; lastKnownFileType = audio.aiff; name = Whit.aiff; path = Resources/Whit.aiff; sourceTree = "<group>"; };
-		9C9208921F42E00F00A456D0 /* bookmark.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; name = bookmark.pdf; path = Resources/bookmark.pdf; sourceTree = "<group>"; };
-		9C9208931F42E00F00A456D0 /* default_site.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = default_site.png; path = Resources/default_site.png; sourceTree = "<group>"; };
-		9C9208941F42E00F00A456D0 /* indicator.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = indicator.png; path = Resources/indicator.png; sourceTree = "<group>"; };
-		9C9208951F42E00F00A456D0 /* mouse.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; name = mouse.pdf; path = Resources/mouse.pdf; sourceTree = "<group>"; };
-		9C9208961F42E00F00A456D0 /* offline.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; name = offline.pdf; path = Resources/offline.pdf; sourceTree = "<group>"; };
-		9C9208971F42E00F00A456D0 /* online.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; name = online.pdf; path = Resources/online.pdf; sourceTree = "<group>"; };
-		9C9208981F42E00F00A456D0 /* password.tif */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; name = password.tif; path = Resources/password.tif; sourceTree = "<group>"; };
-		9C9208991F42E00F00A456D0 /* sleep.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; name = sleep.pdf; path = Resources/sleep.pdf; sourceTree = "<group>"; };
-		9C92089A1F42E00F00A456D0 /* waiting.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; name = waiting.pdf; path = Resources/waiting.pdf; sourceTree = "<group>"; };
 		9C9871101F43193100575006 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/SitesPanel.strings"; sourceTree = "<group>"; };
 		9C9871121F43193200575006 /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hant"; path = "zh-Hant.lproj/SitesPanel.strings"; sourceTree = "<group>"; };
 		9C9871141F431EC000575006 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/EmoticonsPanel.strings"; sourceTree = "<group>"; };
@@ -649,7 +631,6 @@
 				9CC8E7201F42C00500737A3E /* Strings */,
 				9C92088A1F42DFBF00A456D0 /* Credits.rtf */,
 				9C92088B1F42DFBF00A456D0 /* QQWry.dat */,
-				9C92088C1F42DFBF00A456D0 /* Welly.icns */,
 				9C92088D1F42DFBF00A456D0 /* Whit.aiff */,
 				9CC8E7291F42C02C00737A3E /* Help */,
 			);
@@ -659,15 +640,7 @@
 		9CC8E70A1F42BD2600737A3E /* Images */ = {
 			isa = PBXGroup;
 			children = (
-				9C9208921F42E00F00A456D0 /* bookmark.pdf */,
-				9C9208931F42E00F00A456D0 /* default_site.png */,
-				9C9208941F42E00F00A456D0 /* indicator.png */,
-				9C9208951F42E00F00A456D0 /* mouse.pdf */,
-				9C9208961F42E00F00A456D0 /* offline.pdf */,
-				9C9208971F42E00F00A456D0 /* online.pdf */,
-				9C9208981F42E00F00A456D0 /* password.tif */,
-				9C9208991F42E00F00A456D0 /* sleep.pdf */,
-				9C92089A1F42E00F00A456D0 /* waiting.pdf */,
+				9C56AE2F1F49743C00B1D462 /* Images.xcassets */,
 			);
 			name = Images;
 			sourceTree = "<group>";
@@ -808,28 +781,19 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				9C92089F1F42E00F00A456D0 /* offline.pdf in Resources */,
-				9C9208A11F42E00F00A456D0 /* password.tif in Resources */,
-				9C92089B1F42E00F00A456D0 /* bookmark.pdf in Resources */,
 				9C5C1B271F42DD1C006E170D /* Localizable.strings in Resources */,
-				9C9208A01F42E00F00A456D0 /* online.pdf in Resources */,
 				9C034A221F43077500C55BA2 /* Preferences.xib in Resources */,
-				9C92089E1F42E00F00A456D0 /* mouse.pdf in Resources */,
 				9C92088F1F42DFBF00A456D0 /* QQWry.dat in Resources */,
 				9CC8E73C1F42C13B00737A3E /* EmoticonsPanel.xib in Resources */,
-				9C9208A21F42E00F00A456D0 /* sleep.pdf in Resources */,
+				9C56AE301F49743C00B1D462 /* Images.xcassets in Resources */,
 				9CC8E72E1F42C12D00737A3E /* contextualMenuItems.plist in Resources */,
 				9CC8E73B1F42C13B00737A3E /* ComposePanel.xib in Resources */,
 				9C5C1B241F42DD02006E170D /* InfoPlist.strings in Resources */,
 				9CC8E72A1F42C02C00737A3E /* Help in Resources */,
 				9CC8E7401F42C13B00737A3E /* SitesPanel.xib in Resources */,
 				9C9208911F42DFBF00A456D0 /* Whit.aiff in Resources */,
-				9C9208A31F42E00F00A456D0 /* waiting.pdf in Resources */,
 				9C92088E1F42DFBF00A456D0 /* Credits.rtf in Resources */,
-				9C92089C1F42E00F00A456D0 /* default_site.png in Resources */,
 				9CC8E73E1F42C13B00737A3E /* PostDownloadPanel.xib in Resources */,
-				9C9208901F42DFBF00A456D0 /* Welly.icns in Resources */,
-				9C92089D1F42E00F00A456D0 /* indicator.png in Resources */,
 				9CC8E73D1F42C13B00737A3E /* MainMenu.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1092,6 +1056,7 @@
 		9C769BDB1F42AED20044F830 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				COMBINE_HIDPI_IMAGES = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1109,6 +1074,7 @@
 		9C769BDC1F42AED20044F830 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = YES;
 				FRAMEWORK_SEARCH_PATHS = (
