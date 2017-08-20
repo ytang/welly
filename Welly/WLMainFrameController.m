@@ -184,21 +184,20 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(WLMainFrameController)
 
 - (void)newConnectionWithSite:(WLSite *)site {
     @autoreleasepool {
-
+        
         WLConnection *connection = [[WLConnection alloc] initWithSite:site];
-	
-	[_tabView newTabWithConnection:connection label:site.name];
-	// We can release it since it is retained by the tab view item
-	// Set the view to be focused.
-	[_mainWindow makeFirstResponder:_tabView.frontMostView];
-	
+        
+        [_tabView newTabWithConnection:connection label:site.name];
+        // Set the view to be focused.
+        [_mainWindow makeFirstResponder:_tabView.frontMostView];
+        
         [self updateEncodingMenu];
         [_detectDoubleByteButton setState:site.shouldDetectDoubleByte ? NSOnState : NSOffState];
         _detectDoubleByteMenuItem.state = site.shouldDetectDoubleByte ? NSOnState : NSOffState;
         [_autoReplyButton setState:site.shouldAutoReply ? NSOnState : NSOffState];
         _autoReplyMenuItem.state = site.shouldAutoReply ? NSOnState : NSOffState;
         [_mouseButton setState:site.shouldEnableMouse ? NSOnState : NSOffState];
-
+        
     }
 }
 
