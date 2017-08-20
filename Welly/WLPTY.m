@@ -239,6 +239,7 @@
                 result = select(pty->_fd + 1, &readfds, NULL, &errorfds, NULL);
                 
                 if (result < 0) {       // error
+                    exit = YES;
                     break;
                 } else if (FD_ISSET(pty->_fd, &errorfds)) {
                     result = read(pty->_fd, buf, 1);
