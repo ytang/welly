@@ -35,9 +35,6 @@ static NSImage *gLeftImage;
 
 @implementation WLTermView {
     
-    CGSize *_singleAdvance;
-    CGSize *_doubleAdvance;
-    
     NSImage *_backedImage;
     
     WLConnection *_connection;
@@ -61,18 +58,6 @@ static NSImage *gLeftImage;
     _backedImage = [[NSImage alloc] initWithSize:gConfig.contentSize];
     
     gLeftImage = [[NSImage alloc] initWithSize:NSMakeSize(_fontWidth, _fontHeight)];
-    
-    if (_singleAdvance)
-        free(_singleAdvance);
-    _singleAdvance = (CGSize *) malloc(sizeof(CGSize) * _maxColumn);
-    if (_doubleAdvance)
-        free(_doubleAdvance);
-    _doubleAdvance = (CGSize *) malloc(sizeof(CGSize) * _maxColumn);
-    
-    for (int i = 0; i < _maxColumn; i++) {
-        _singleAdvance[i] = CGSizeMake(_fontWidth * 1.0, 0.0);
-        _doubleAdvance[i] = CGSizeMake(_fontWidth * 2.0, 0.0);
-    }
     
     [_asciiArtRender configure];
 }
@@ -104,13 +89,6 @@ static NSImage *gLeftImage;
                                         repeats:YES];
     }
     return self;
-}
-
-- (void)dealloc {
-    if (_singleAdvance)
-        free(_singleAdvance);
-    if (_doubleAdvance)
-        free(_doubleAdvance);
 }
 
 #pragma mark -
@@ -508,7 +486,7 @@ static NSImage *gLeftImage;
     CFIndex runIndex = 0;
     
     for (; runIndex < runCount; runIndex++) {
-        CTRunRef run = (CTRunRef) CFArrayGetValueAtIndex(runArray,  runIndex);
+        CTRunRef run = (CTRunRef) CFArrayGetValueAtIndex(runArray, runIndex);
         CFIndex runGlyphCount = CTRunGetGlyphCount(run);
         CFIndex runGlyphIndex = 0;
         
@@ -547,12 +525,12 @@ static NSImage *gLeftImage;
                 CFRange glyphRange = CFRangeMake(location, len);
                 CTRunGetGlyphs(run, glyphRange, glyph);
                 
-                CGAffineTransform textMatrix = CTRunGetTextMatrix(run);
-                textMatrix.tx = position[glyphOffset + location].x;
-                textMatrix.ty = position[glyphOffset + location].y;
-                CGContextSetTextMatrix(myCGContext, textMatrix);
-                
-                CGContextShowGlyphsWithAdvances(myCGContext, glyph, isDoubleByte[glyphOffset + location] ? _doubleAdvance : _singleAdvance, len);
+                CGPoint glyphPositions[len];
+                CGFloat offset = isDoubleByte[glyphOffset + location] ? _fontWidth * 2.0 : _fontWidth;
+                for (NSInteger i = 0; i < len; i++) {
+                    glyphPositions[i] = CGPointMake(position[glyphOffset + location].x + i * offset, position[glyphOffset + location].y);
+                }
+                CGContextShowGlyphsAtPositions(myCGContext, glyph, glyphPositions, len);
                 
                 location = runGlyphIndex;
                 if (runGlyphIndex != runGlyphCount)
@@ -592,8 +570,8 @@ static NSImage *gLeftImage;
                                          tempColor.greenComponent,
                                          tempColor.blueComponent,
                                          1.0);
-                
-                CGContextShowGlyphsAtPoint(tempContext, cPaddingLeft, CTFontGetDescent(gConfig.cCTFont) + cPaddingBottom, &glyph, 1);
+                CGPoint glyphPosition = CGPointMake(cPaddingLeft, CTFontGetDescent(gConfig.cCTFont) + cPaddingBottom);
+                CGContextShowGlyphsAtPositions(tempContext, &glyph, &glyphPosition, 1);
                 [gLeftImage unlockFocus];
                 [gLeftImage drawAtPoint:NSMakePoint(index * _fontWidth, (_maxRow - 1 - r) * _fontHeight)
                                fromRect:rect
