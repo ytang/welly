@@ -558,20 +558,16 @@ static NSImage *gLeftImage;
                 rect.origin = NSZeroPoint;
                 NSRectFill(rect);
                 
-                CGContextRef tempContext = (CGContextRef)[NSGraphicsContext currentContext].graphicsPort;
-                
-                CGContextSetShouldSmoothFonts(tempContext, gConfig.shouldSmoothFonts ? true : false);
-                
                 NSColor *tempColor = [gConfig colorAtIndex:fgColor hilite:fgBoldOfAttribute(currRow[index].attr)];
-                CGContextSetFont(tempContext, cgFont);
-                CGContextSetFontSize(tempContext, CTFontGetSize(runFont));
-                CGContextSetRGBFillColor(tempContext,
+                CGContextSetFont(myCGContext, cgFont);
+                CGContextSetFontSize(myCGContext, CTFontGetSize(runFont));
+                CGContextSetRGBFillColor(myCGContext,
                                          tempColor.redComponent,
                                          tempColor.greenComponent,
                                          tempColor.blueComponent,
                                          1.0);
                 CGPoint glyphPosition = CGPointMake(cPaddingLeft, CTFontGetDescent(gConfig.cCTFont) + cPaddingBottom);
-                CGContextShowGlyphsAtPositions(tempContext, &glyph, &glyphPosition, 1);
+                CGContextShowGlyphsAtPositions(myCGContext, &glyph, &glyphPosition, 1);
                 [gLeftImage unlockFocus];
                 [gLeftImage drawAtPoint:NSMakePoint(index * _fontWidth, (_maxRow - 1 - r) * _fontHeight)
                                fromRect:rect
