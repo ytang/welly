@@ -63,8 +63,6 @@
 	<array/>
 	<key>NSSupportsAutomaticGraphicsSwitching</key>
 	<true/>
-	<key>SUFeedURL</key>
-	<string>http://welly.googlecode.com/svn/wiki/WellyUpdate.xml</string>
 	<key>UTExportedTypeDeclarations</key>
 	<array/>
 	<key>UTImportedTypeDeclarations</key>

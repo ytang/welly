@@ -19,16 +19,17 @@
             </connections>
         </customObject>
         <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
-        <customView id="ED8-vc-EOG" userLabel="General">
-            <rect key="frame" x="0.0" y="0.0" width="385" height="408"/>
+        <customView misplaced="YES" id="ED8-vc-EOG" userLabel="General">
+            <rect key="frame" x="0.0" y="0.0" width="385" height="312"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
             <subviews>
                 <button misplaced="YES" imageHugsTitle="YES" id="9Tc-Yi-qtQ">
-                    <rect key="frame" x="72" y="114" width="295" height="45"/>
+                    <rect key="frame" x="72" y="18" width="295" height="45"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                    <buttonCell key="cell" type="check" title="Enable Remote Control support
-(Restart required)" bezelStyle="regularSquare" imagePosition="left" alignment="left" state="on" inset="2" id="vFh-Yl-zjE">
+                    <buttonCell key="cell" type="check" bezelStyle="regularSquare" imagePosition="left" alignment="left" state="on" inset="2" id="vFh-Yl-zjE">
                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                        <string key="title">Enable Remote Control support
+(Restart required)</string>
                         <font key="font" metaFont="system"/>
                     </buttonCell>
                     <connections>
@@ -36,11 +37,12 @@
                     </connections>
                 </button>
                 <button misplaced="YES" imageHugsTitle="YES" id="uKD-id-3fZ">
-                    <rect key="frame" x="72" y="161" width="295" height="45"/>
+                    <rect key="frame" x="72" y="65" width="505" height="45"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                    <buttonCell key="cell" type="check" title="Show Cover Flow site list on Welly startup
-(Not recommended for old machines)" bezelStyle="regularSquare" imagePosition="left" alignment="left" inset="2" id="LMK-rb-ohC">
+                    <buttonCell key="cell" type="check" bezelStyle="regularSquare" imagePosition="left" alignment="left" inset="2" id="LMK-rb-ohC">
                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                        <string key="title">Show Cover Flow site list on Welly startup
+(Not recommended for old machines)</string>
                         <font key="font" metaFont="system"/>
                     </buttonCell>
                     <connections>
@@ -48,7 +50,7 @@
                     </connections>
                 </button>
                 <button misplaced="YES" imageHugsTitle="YES" id="xMk-MO-LhT">
-                    <rect key="frame" x="72" y="208" width="240" height="31"/>
+                    <rect key="frame" x="72" y="112" width="240" height="31"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <buttonCell key="cell" type="check" title="Confirm on dangerous posting" bezelStyle="regularSquare" imagePosition="left" alignment="left" state="on" inset="2" id="0Im-5M-3k6">
                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -59,7 +61,7 @@
                     </connections>
                 </button>
                 <textField verticalHuggingPriority="750" misplaced="YES" allowsCharacterPickerTouchBarItem="NO" id="hfW-Nb-Kmm">
-                    <rect key="frame" x="34" y="332" width="140" height="20"/>
+                    <rect key="frame" x="34" y="236" width="140" height="20"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <textFieldCell key="cell" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Default SSH Client:" id="QQN-zZ-D2q">
                         <font key="font" metaFont="system"/>
@@ -68,7 +70,7 @@
                     </textFieldCell>
                 </textField>
                 <popUpButton verticalHuggingPriority="750" misplaced="YES" imageHugsTitle="YES" id="us9-n3-47f">
-                    <rect key="frame" x="178" y="329" width="174" height="26"/>
+                    <rect key="frame" x="178" y="233" width="174" height="26"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <popUpButtonCell key="cell" type="push" title="Select..." bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" inset="2" selectedItem="A9A-D1-QO5" id="EYJ-r3-0ZQ">
                         <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
@@ -84,7 +86,7 @@
                     </connections>
                 </popUpButton>
                 <popUpButton verticalHuggingPriority="750" misplaced="YES" imageHugsTitle="YES" id="ygu-PE-ewH">
-                    <rect key="frame" x="178" y="357" width="174" height="26"/>
+                    <rect key="frame" x="178" y="261" width="174" height="26"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <popUpButtonCell key="cell" type="push" title="Select..." bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" inset="2" selectedItem="NDI-uz-aTV" id="uU7-uu-Ioa">
                         <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
@@ -100,7 +102,7 @@
                     </connections>
                 </popUpButton>
                 <textField verticalHuggingPriority="750" misplaced="YES" allowsCharacterPickerTouchBarItem="NO" id="K3j-ev-NyP">
-                    <rect key="frame" x="22" y="360" width="152" height="20"/>
+                    <rect key="frame" x="22" y="264" width="152" height="20"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <textFieldCell key="cell" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Default Telnet Client:" id="0F3-V6-Ysd">
                         <font key="font" metaFont="system"/>
@@ -109,7 +111,7 @@
                     </textFieldCell>
                 </textField>
                 <button misplaced="YES" imageHugsTitle="YES" id="PLq-1n-flS">
-                    <rect key="frame" x="72" y="270" width="295" height="27"/>
+                    <rect key="frame" x="72" y="174" width="295" height="27"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <buttonCell key="cell" type="check" title="⌘R for reconnect" bezelStyle="regularSquare" imagePosition="left" alignment="left" state="on" inset="2" id="1Dg-fJ-ZSo">
                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -120,7 +122,7 @@
                     </connections>
                 </button>
                 <button misplaced="YES" imageHugsTitle="YES" id="0W5-aF-wQt">
-                    <rect key="frame" x="72" y="241" width="318" height="27"/>
+                    <rect key="frame" x="72" y="145" width="318" height="27"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <buttonCell key="cell" type="check" title="Confirm on close" bezelStyle="regularSquare" imagePosition="left" alignment="left" state="on" inset="2" id="WZT-5P-5E7">
                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -131,7 +133,7 @@
                     </connections>
                 </button>
                 <button misplaced="YES" imageHugsTitle="YES" id="Boq-Dn-bsx">
-                    <rect key="frame" x="72" y="299" width="295" height="27"/>
+                    <rect key="frame" x="72" y="203" width="295" height="27"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <buttonCell key="cell" type="check" title="Restore connections on startup" bezelStyle="regularSquare" imagePosition="left" alignment="left" state="on" inset="2" id="6y4-SU-9tH">
                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -141,29 +143,8 @@
                         <binding destination="Wx4-VD-wb7" name="value" keyPath="values.RestoreConnection" id="jvi-ZE-quu"/>
                     </connections>
                 </button>
-                <box misplaced="YES" borderType="line" title="Software Update" id="60N-LK-vr2">
-                    <rect key="frame" x="33" y="16" width="319" height="78"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                    <view key="contentView" id="CiD-6O-oee">
-                        <rect key="frame" x="1" y="1" width="317" height="62"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <button imageHugsTitle="YES" id="QgA-fF-yEE">
-                                <rect key="frame" x="37" y="24" width="207" height="18"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                <buttonCell key="cell" type="check" title="Check for updates on startup" bezelStyle="regularSquare" imagePosition="left" alignment="left" state="on" inset="2" id="esl-8a-4ub">
-                                    <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                                    <font key="font" metaFont="system"/>
-                                </buttonCell>
-                                <connections>
-                                    <binding destination="Wx4-VD-wb7" name="value" keyPath="values.SUEnableAutomaticChecks" id="yKh-6u-CTR"/>
-                                </connections>
-                            </button>
-                        </subviews>
-                    </view>
-                </box>
             </subviews>
-            <point key="canvasLocation" x="139.5" y="1136"/>
+            <point key="canvasLocation" x="139.5" y="1088"/>
         </customView>
         <customView id="7Sf-Td-RIX" userLabel="Fonts">
             <rect key="frame" x="0.0" y="0.0" width="454" height="429"/>

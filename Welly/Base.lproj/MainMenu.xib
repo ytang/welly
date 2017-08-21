@@ -33,11 +33,6 @@
                                     <action selector="openPreferencesWindow:" target="207" id="726"/>
                                 </connections>
                             </menuItem>
-                            <menuItem title="Update..." id="326">
-                                <connections>
-                                    <action selector="checkForUpdates:" target="325" id="327"/>
-                                </connections>
-                            </menuItem>
                             <menuItem isSeparatorItem="YES" id="143">
                                 <modifierMask key="keyEquivalentModifierMask" command="YES"/>
                             </menuItem>
@@ -658,7 +653,7 @@ ssh://[id@]your.site.org[:port]</string>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES"/>
                         <clipView key="contentView" drawsBackground="NO" copiesOnScroll="NO" id="ab3-Le-rLU">
                             <rect key="frame" x="0.0" y="0.0" width="234" height="425"/>
-                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                            <autoresizingMask key="autoresizingMask"/>
                             <subviews>
                                 <textView editable="NO" selectable="NO" drawsBackground="NO" importsGraphics="NO" horizontallyResizable="YES" findStyle="panel" continuousSpellChecking="YES" usesRuler="YES" spellingCorrection="YES" smartInsertDelete="YES" id="1095">
                                     <rect key="frame" x="0.0" y="0.0" width="234" height="425"/>
@@ -2511,7 +2506,6 @@ ssh://[id@]your.site.org[:port]</string>
             </connections>
         </customObject>
         <customObject id="846" customClass="WLGlobalConfig"/>
-        <customObject id="325" customClass="SUUpdater"/>
         <customObject id="1158" customClass="WLPreviewController"/>
     </objects>
     <resources>

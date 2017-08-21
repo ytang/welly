@@ -85,8 +85,6 @@
 		9CC8E7461F42C23600737A3E /* Growl.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 9CC8E7411F42C23500737A3E /* Growl.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		9CC8E7471F42C23600737A3E /* HMBlkAppKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9CC8E7421F42C23500737A3E /* HMBlkAppKit.framework */; };
 		9CC8E7481F42C23600737A3E /* HMBlkAppKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 9CC8E7421F42C23500737A3E /* HMBlkAppKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		9CC8E74B1F42C23600737A3E /* Sparkle.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9CC8E7441F42C23500737A3E /* Sparkle.framework */; };
-		9CC8E74C1F42C23600737A3E /* Sparkle.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 9CC8E7441F42C23500737A3E /* Sparkle.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		9CC8E7501F42C7D400737A3E /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9CC8E74F1F42C7D400737A3E /* Cocoa.framework */; };
 		9CC8E7521F42C7E600737A3E /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9CC8E7511F42C7E600737A3E /* SystemConfiguration.framework */; };
 		9CC8E7541F42C7F300737A3E /* Quartz.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9CC8E7531F42C7F300737A3E /* Quartz.framework */; };
@@ -107,7 +105,6 @@
 			files = (
 				9CC8E7481F42C23600737A3E /* HMBlkAppKit.framework in Embed Frameworks */,
 				9CC8E7461F42C23600737A3E /* Growl.framework in Embed Frameworks */,
-				9CC8E74C1F42C23600737A3E /* Sparkle.framework in Embed Frameworks */,
 				9C0DFE621F480195008D5F3D /* MMTabBarView.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
@@ -272,7 +269,6 @@
 		9CC8E73A1F42C13B00737A3E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/SitesPanel.xib; sourceTree = "<group>"; };
 		9CC8E7411F42C23500737A3E /* Growl.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Growl.framework; path = Welly/Frameworks/Growl.framework; sourceTree = "<group>"; };
 		9CC8E7421F42C23500737A3E /* HMBlkAppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = HMBlkAppKit.framework; path = Welly/Frameworks/HMBlkAppKit.framework; sourceTree = "<group>"; };
-		9CC8E7441F42C23500737A3E /* Sparkle.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Sparkle.framework; path = Welly/Frameworks/Sparkle.framework; sourceTree = "<group>"; };
 		9CC8E74F1F42C7D400737A3E /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		9CC8E7511F42C7E600737A3E /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		9CC8E7531F42C7F300737A3E /* Quartz.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Quartz.framework; path = System/Library/Frameworks/Quartz.framework; sourceTree = SDKROOT; };
@@ -299,7 +295,6 @@
 				9CC8E75A1F42C82500737A3E /* AppKit.framework in Frameworks */,
 				9CC8E7581F42C81500737A3E /* Carbon.framework in Frameworks */,
 				9CC8E7561F42C80300737A3E /* Security.framework in Frameworks */,
-				9CC8E74B1F42C23600737A3E /* Sparkle.framework in Frameworks */,
 				9CC8E7541F42C7F300737A3E /* Quartz.framework in Frameworks */,
 				9CC8E7521F42C7E600737A3E /* SystemConfiguration.framework in Frameworks */,
 				9CC8E7451F42C23500737A3E /* Growl.framework in Frameworks */,
@@ -692,7 +687,6 @@
 				9C0DFE601F480195008D5F3D /* MMTabBarView.framework */,
 				9CC8E7411F42C23500737A3E /* Growl.framework */,
 				9CC8E7421F42C23500737A3E /* HMBlkAppKit.framework */,
-				9CC8E7441F42C23500737A3E /* Sparkle.framework */,
 			);
 			name = "Third-Party Frameworks";
 			sourceTree = "<group>";
@@ -1076,12 +1070,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				COMBINE_HIDPI_IMAGES = YES;
-				COPY_PHASE_STRIP = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Welly/Frameworks",
 				);
-				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
 				GCC_NO_COMMON_BLOCKS = NO;
 				INFOPLIST_FILE = Welly/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
