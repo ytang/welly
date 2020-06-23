@@ -21,11 +21,6 @@
 @class RemoteControl;
 @class MultiClickRemoteBehavior;
 
-#if MAC_OS_X_VERSION_MAX_ALLOWED <= MAC_OS_X_VERSION_10_5
-@protocol NSTabViewDelegate
-@end
-#endif
-
 @interface WLMainFrameController : NSObject <NSTabViewDelegate, WLSitesObserver> {
     /* composeWindow */
     IBOutlet NSTextView *_composeText;

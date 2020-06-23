@@ -9,11 +9,7 @@
 #import <Cocoa/Cocoa.h>
 
 @class WLPortalItem;
-#if MAC_OS_X_VERSION_MAX_ALLOWED > MAC_OS_X_VERSION_10_5
 @interface WLCoverFlowPortal : NSView <NSComboBoxDataSource> {
-#else
-@interface WLCoverFlowPortal : NSView {
-#endif
     NSArray *_portalItems;
     id _imageFlowView;
 	WLPortalItem *_draggingItem;
