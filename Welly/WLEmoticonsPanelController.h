@@ -11,7 +11,7 @@
 @interface WLEmoticonsPanelController : NSObject {
     IBOutlet NSPanel *_emoticonsPanel;
     IBOutlet NSArrayController *_emoticonsController;
-	
+    
     NSMutableArray *_emoticons;
 }
 @property (readonly) NSArray *emoticons;

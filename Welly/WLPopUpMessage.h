@@ -13,8 +13,8 @@
 }
 
 + (void)showPopUpMessage:(NSString*)message 
-				duration:(CGFloat)duration 
-			  effectView:(WLEffectView *)effectView;
+                duration:(CGFloat)duration 
+              effectView:(WLEffectView *)effectView;
 
 + (void)hidePopUpMessage;
 

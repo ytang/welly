@@ -10,7 +10,7 @@
 #import "WLPortalItem.h"
 
 @interface WLNewBookmarkPortalItem : WLPortalItem {
-
+    
 }
 
 @end

@@ -11,8 +11,8 @@
 @class WLTerminal;
 
 @interface WLPostDownloadDelegate : NSObject {
-	IBOutlet NSPanel *_postWindow;
-	IBOutlet NSTextView *_postText;
+    IBOutlet NSPanel *_postWindow;
+    IBOutlet NSTextView *_postText;
 }
 
 + (WLPostDownloadDelegate *)sharedInstance;
@@ -20,7 +20,7 @@
 
 /* post download actions */
 - (void)beginPostDownloadInWindow:(NSWindow *)window 
-					  forTerminal:(WLTerminal *)terminal;
+                      forTerminal:(WLTerminal *)terminal;
 - (IBAction)cancelPostDownload:(id)sender;
 
 @end

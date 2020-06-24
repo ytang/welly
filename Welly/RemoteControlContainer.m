@@ -31,82 +31,82 @@
 @implementation RemoteControlContainer
 
 - (instancetype) initWithDelegate: (id) _remoteControlDelegate {
-	if (self = [super initWithDelegate:_remoteControlDelegate]) {
-		remoteControls = [[NSMutableArray alloc] init];
-	}
-	return self;
+    if (self = [super initWithDelegate:_remoteControlDelegate]) {
+        remoteControls = [[NSMutableArray alloc] init];
+    }
+    return self;
 }
 
 - (void) dealloc {
-	[self stopListening: self];
+    [self stopListening: self];
 }
 
 - (BOOL) instantiateAndAddRemoteControlDeviceWithClass: (Class) clazz {
-	RemoteControl* remoteControl = [[clazz alloc] initWithDelegate: delegate];
-	if (remoteControl) {
-		[remoteControls addObject: remoteControl];
-		[remoteControl addObserver: self forKeyPath:@"listeningToRemote" options:NSKeyValueObservingOptionNew context:nil];
-		return YES;		
-	}
-	return NO;	
+    RemoteControl* remoteControl = [[clazz alloc] initWithDelegate: delegate];
+    if (remoteControl) {
+        [remoteControls addObject: remoteControl];
+        [remoteControl addObserver: self forKeyPath:@"listeningToRemote" options:NSKeyValueObservingOptionNew context:nil];
+        return YES;		
+    }
+    return NO;	
 }
 
 - (NSUInteger) count {
-	return remoteControls.count;
+    return remoteControls.count;
 }
 
 - (void) reset {
-	[self willChangeValueForKey:@"listeningToRemote"];
-	[self didChangeValueForKey:@"listeningToRemote"];
+    [self willChangeValueForKey:@"listeningToRemote"];
+    [self didChangeValueForKey:@"listeningToRemote"];
 }
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
-	[self reset];
+    [self reset];
 }
 
 - (void) setListeningToRemote: (BOOL) value {
-	int i;
-	for(i=0; i < remoteControls.count; i++) {
-		[remoteControls[i] setListeningToRemote: value];
-	}
-	if (value && value != self.listeningToRemote) [self performSelector:@selector(reset) withObject:nil afterDelay:0.01];
+    int i;
+    for(i=0; i < remoteControls.count; i++) {
+        [remoteControls[i] setListeningToRemote: value];
+    }
+    if (value && value != self.listeningToRemote) [self performSelector:@selector(reset) withObject:nil afterDelay:0.01];
 }
 - (BOOL) isListeningToRemote {
-	int i;
-	for(i=0; i < remoteControls.count; i++) {
-		if ([remoteControls[i] isListeningToRemote]) {
-			return YES;
-		}
-	}
-	return NO;
+    int i;
+    for(i=0; i < remoteControls.count; i++) {
+        if ([remoteControls[i] isListeningToRemote]) {
+            return YES;
+        }
+    }
+    return NO;
 }
 
 - (IBAction) startListening: (id) sender {
-	int i;
-	for(i=0; i < remoteControls.count; i++) {
-		[remoteControls[i] startListening: sender];
-	}	
+    int i;
+    for(i=0; i < remoteControls.count; i++) {
+        [remoteControls[i] startListening: sender];
+    }	
 }
 - (IBAction) stopListening: (id) sender {
-	int i;
-	for(i=0; i < remoteControls.count; i++) {
-		[remoteControls[i] stopListening: sender];
-	}	
+    int i;
+    for(i=0; i < remoteControls.count; i++) {
+        [remoteControls[i] stopListening: sender];
+    }	
 }
 
 - (BOOL) isOpenInExclusiveMode {
-	BOOL mode = YES;
-	int i;
-	for(i=0; i < remoteControls.count; i++) {
-		mode = mode && ([remoteControls[i] isOpenInExclusiveMode]);
-	}
-	return mode;	
+    BOOL mode = YES;
+    int i;
+    for(i=0; i < remoteControls.count; i++) {
+        mode = mode && ([remoteControls[i] isOpenInExclusiveMode]);
+    }
+    return mode;	
 }
 - (void) setOpenInExclusiveMode: (BOOL) value {
-	int i;
-	for(i=0; i < remoteControls.count; i++) {
-		[remoteControls[i] setOpenInExclusiveMode:value];
-	}	
+    int i;
+    for(i=0; i < remoteControls.count; i++) {
+        [remoteControls[i] setOpenInExclusiveMode:value];
+    }	
 }
 
 @end

@@ -26,71 +26,71 @@
 }
 
 - (instancetype)init {
-	if (self = [super init]) {
+    if (self = [super init]) {
         _maxRow = [WLGlobalConfig sharedInstance].row;
-		_maxColumn = [WLGlobalConfig sharedInstance].column;
-		_grid = (cell **)malloc(sizeof(cell *) * _maxRow);
-		_dirty = (BOOL **)malloc(sizeof(BOOL *) * _maxRow);
+        _maxColumn = [WLGlobalConfig sharedInstance].column;
+        _grid = (cell **)malloc(sizeof(cell *) * _maxRow);
+        _dirty = (BOOL **)malloc(sizeof(BOOL *) * _maxRow);
         int i;
         for (i = 0; i < _maxRow; i++) {
-			// NOTE: in case _cursorX will exceed _column size (at the border of the
-			//		 screen), we allocate one more unit for this array
-			_grid[i] = (cell *)malloc(sizeof(cell) * (_maxColumn + 1));
-			_dirty[i] = (BOOL *)malloc(sizeof(BOOL) * _maxColumn);
-		}
-		_textBuf = (unichar *)malloc(sizeof(unichar) * (_maxRow * _maxColumn + 1));
-		
-		_observers = [[NSMutableSet alloc] init];
-		
+            // NOTE: in case _cursorX will exceed _column size (at the border of the
+            //		 screen), we allocate one more unit for this array
+            _grid[i] = (cell *)malloc(sizeof(cell) * (_maxColumn + 1));
+            _dirty[i] = (BOOL *)malloc(sizeof(BOOL) * _maxColumn);
+        }
+        _textBuf = (unichar *)malloc(sizeof(unichar) * (_maxRow * _maxColumn + 1));
+        
+        _observers = [[NSMutableSet alloc] init];
+        
         [self clearAll];
-	}
-	return self;
+    }
+    return self;
 }
 
 - (void)dealloc {
     for (NSInteger i = 0; i < _maxRow; i++) {
         free(_grid[i]);
-		free(_dirty[i]);
-	}
+        free(_dirty[i]);
+    }
     free(_grid);
-	free(_dirty);
-	free(_textBuf);
-	
+    free(_dirty);
+    free(_textBuf);
+    
 }
 
 #pragma mark -
 #pragma mark input interface
 - (void)feedGrid:(cell **)grid {
-	// Clear the url list
-	for (int i = 0; i < _maxRow; i++) {
-		memcpy(_grid[i], grid[i], sizeof(cell) * (_maxColumn + 1));
-	}
-	
-	for (int i = 0; i < _maxRow; i++) {
+    // Clear the url list
+    for (int i = 0; i < _maxRow; i++) {
+        memcpy(_grid[i], grid[i], sizeof(cell) * (_maxColumn + 1));
+    }
+    
+    for (int i = 0; i < _maxRow; i++) {
         [self updateDoubleByteStateForRow:i];
     }
-	
-	[self updateBBSState];
-	
-	[self notifyObservers];
-	/*
-    [_view performSelector:@selector(tick:)
-				withObject:nil
-				afterDelay:0.01];
-	 */
+    
+    [self updateBBSState];
+    
+    [self notifyObservers];
+    /*
+     [_view performSelector:@selector(tick:)
+     withObject:nil
+     afterDelay:0.01];
+     */
 }
 
 - (void)setCursorX:(NSInteger)cursorX
-				 Y:(NSInteger)cursorY {
-	_cursorColumn = cursorX;
-	_cursorRow = cursorY;
+                 Y:(NSInteger)cursorY {
+    _cursorColumn = cursorX;
+    _cursorRow = cursorY;
 }
 
 # pragma mark -
 # pragma mark Clear
 - (void)clearAll {
     _cursorColumn = _cursorRow = 0;
-	
+    
     attribute t;
     t.f.fgColor = [WLGlobalConfig sharedInstance].fgColorIndex;
     t.f.bgColor = [WLGlobalConfig sharedInstance].bgColorIndex;
@@ -101,66 +101,66 @@
     t.f.url = 0;
     t.f.nothing = 0;
     for (int i = 0; i < _maxRow; i++) {
-		for (int j = 0; j < _maxColumn; j++) {
-			_grid[i][j].byte = '\0';
-			_grid[i][j].attr.v = t.v;
-		}
-	}
-	
-	[self setAllDirty];
+        for (int j = 0; j < _maxColumn; j++) {
+            _grid[i][j].byte = '\0';
+            _grid[i][j].attr.v = t.v;
+        }
+    }
+    
+    [self setAllDirty];
 }
 
 # pragma mark -
 # pragma mark Dirty
 - (void)setAllDirty {
-	for (int r = 0; r < _maxRow; r++)
-		for (int c = 0; c < _maxColumn; c++)
-			_dirty[r][c] = YES;
+    for (int r = 0; r < _maxRow; r++)
+    for (int c = 0; c < _maxColumn; c++)
+    _dirty[r][c] = YES;
 }
 
 - (void)setDirtyForRow:(NSInteger)r {
-	for (int c = 0; c < _maxColumn; c++)
-		_dirty[r][c] = YES;
+    for (int c = 0; c < _maxColumn; c++)
+    _dirty[r][c] = YES;
 }
 
 - (BOOL)isDirtyAtRow:(NSInteger)r
-			  column:(NSInteger)c {
-	return _dirty[r][c];
+              column:(NSInteger)c {
+    return _dirty[r][c];
 }
 
 - (void)setDirty:(BOOL)d
-		   atRow:(NSInteger)r
-		  column:(NSInteger)c {
-	_dirty[r][c] = d;
+           atRow:(NSInteger)r
+          column:(NSInteger)c {
+    _dirty[r][c] = d;
 }
 
 - (void)removeAllDirtyMarks {
-	for (int r = 0; r < _maxRow; ++r)
-		memset(_dirty[r], 0, sizeof(BOOL) * _maxColumn);
+    for (int r = 0; r < _maxRow; ++r)
+    memset(_dirty[r], 0, sizeof(BOOL) * _maxColumn);
 }
 
 # pragma mark -
 # pragma mark Access Data
 - (attribute)attrAtRow:(NSInteger)r
-				column:(NSInteger)c {
-	return _grid[r][c].attr;
+                column:(NSInteger)c {
+    return _grid[r][c].attr;
 }
 
 - (NSString *)stringAtIndex:(NSInteger)begin
-					 length:(NSInteger)length {
+                     length:(NSInteger)length {
     NSInteger i, j;
     //unichar textBuf[length + 1];
     unichar firstByte = 0;
     NSInteger bufLength = 0;
     NSInteger spacebuf = 0;
-	if (begin + length > _maxRow * _maxColumn) {
-		length = _maxRow * _maxColumn - begin;
-	}
+    if (begin + length > _maxRow * _maxColumn) {
+        length = _maxRow * _maxColumn - begin;
+    }
     for (i = begin; i < begin + length; i++) {
         NSInteger x = i % _maxColumn;
         NSInteger y = i / _maxColumn;
         if (x == 0 && i != begin && i - 1 < begin + length) { // newline
-			// REVIEW: why we need to update double byte state?????
+            // REVIEW: why we need to update double byte state?????
             [self updateDoubleByteStateForRow:y];
             unichar cr = 0x000D;
             _textBuf[bufLength++] = cr;
@@ -172,7 +172,7 @@
                 spacebuf++;
             else {
                 for (j = 0; j < spacebuf; j++)
-                    _textBuf[bufLength++] = ' ';
+                _textBuf[bufLength++] = ' ';
                 _textBuf[bufLength++] = _grid[y][x].byte;
                 spacebuf = 0;
             }
@@ -181,9 +181,9 @@
         } else if (db == 2 && firstByte) {
             int index = (firstByte << 8) + _grid[y][x].byte - 0x8000;
             for (j = 0; j < spacebuf; j++)
-                _textBuf[bufLength++] = ' ';
+            _textBuf[bufLength++] = ' ';
             _textBuf[bufLength++] = [WLEncoder toUnicode:index encoding:self.connection.site.encoding];
-			
+            
             spacebuf = 0;
         }
     }
@@ -195,81 +195,81 @@
 // A Chinese character is counted as 1 character in return string
 // Different from the method 'stringAtIndex:length'!!
 - (NSAttributedString *)attributedStringAtIndex:(NSInteger)location
-										 length:(NSInteger)length {
-	NSFont *englishFont = [NSFont fontWithName:[WLGlobalConfig sharedInstance].englishFontName 
-										  size:[WLGlobalConfig sharedInstance].englishFontSize];
-	NSFont *chineseFont = [NSFont fontWithName:[WLGlobalConfig sharedInstance].chineseFontName
-										  size:[WLGlobalConfig sharedInstance].chineseFontSize];
-	// Get twice length and then trim it to 'length' characters
-	NSString *s = [[self stringAtIndex:location length:length*2] substringToIndex:length];
-	
-	NSMutableAttributedString *attrStr = [[NSMutableAttributedString alloc] initWithString:s];
-	// Set all characters with english font at first
-	[attrStr addAttribute:NSFontAttributeName 
-					value:englishFont
-					range:NSMakeRange(0, attrStr.length)];
-	// Fix the non-English characters' font
-	[attrStr fixFontAttributeInRange:NSMakeRange(0, attrStr.length)];
-	
-	// Now replace all the fixed characters' font to be Chinese Font
-	NSRange limitRange;
-	NSRange effectiveRange;
-	id attributeValue;
-	
-	limitRange = NSMakeRange(0, attrStr.length);
-	
-	while (limitRange.length > 0) {
-		attributeValue = [attrStr attribute:NSFontAttributeName
-									atIndex:limitRange.location 
-					  longestEffectiveRange:&effectiveRange
-									inRange:limitRange];
-		if (![(NSFont *)attributeValue isEqual:englishFont]) {
-			// Not the englishFont, which means that it is fixed
-			[attrStr addAttribute:NSFontAttributeName 
-							value:chineseFont 
-							range:effectiveRange];
-		}
-		limitRange = NSMakeRange(NSMaxRange(effectiveRange),
-								 NSMaxRange(limitRange) - NSMaxRange(effectiveRange));
-	}
-	return attrStr;
+                                         length:(NSInteger)length {
+    NSFont *englishFont = [NSFont fontWithName:[WLGlobalConfig sharedInstance].englishFontName 
+                                          size:[WLGlobalConfig sharedInstance].englishFontSize];
+    NSFont *chineseFont = [NSFont fontWithName:[WLGlobalConfig sharedInstance].chineseFontName
+                                          size:[WLGlobalConfig sharedInstance].chineseFontSize];
+    // Get twice length and then trim it to 'length' characters
+    NSString *s = [[self stringAtIndex:location length:length*2] substringToIndex:length];
+    
+    NSMutableAttributedString *attrStr = [[NSMutableAttributedString alloc] initWithString:s];
+    // Set all characters with english font at first
+    [attrStr addAttribute:NSFontAttributeName 
+                    value:englishFont
+                    range:NSMakeRange(0, attrStr.length)];
+    // Fix the non-English characters' font
+    [attrStr fixFontAttributeInRange:NSMakeRange(0, attrStr.length)];
+    
+    // Now replace all the fixed characters' font to be Chinese Font
+    NSRange limitRange;
+    NSRange effectiveRange;
+    id attributeValue;
+    
+    limitRange = NSMakeRange(0, attrStr.length);
+    
+    while (limitRange.length > 0) {
+        attributeValue = [attrStr attribute:NSFontAttributeName
+                                    atIndex:limitRange.location 
+                      longestEffectiveRange:&effectiveRange
+                                    inRange:limitRange];
+        if (![(NSFont *)attributeValue isEqual:englishFont]) {
+            // Not the englishFont, which means that it is fixed
+            [attrStr addAttribute:NSFontAttributeName 
+                            value:chineseFont 
+                            range:effectiveRange];
+        }
+        limitRange = NSMakeRange(NSMaxRange(effectiveRange),
+                                 NSMaxRange(limitRange) - NSMaxRange(effectiveRange));
+    }
+    return attrStr;
 }
 
 - (NSString *)stringAtRow:(NSInteger)row {
-	return [self stringAtIndex:row * _maxColumn length:_maxColumn];
+    return [self stringAtIndex:row * _maxColumn length:_maxColumn];
 }
 
 - (cell *)cellsOfRow:(NSInteger)r {
-	return _grid[r];
+    return _grid[r];
 }
 
 - (cell)cellAtIndex:(NSInteger)index {
-	return _grid[index / _maxColumn][index % _maxColumn];
+    return _grid[index / _maxColumn][index % _maxColumn];
 }
 
 # pragma mark -
 # pragma mark Update State
 - (void)updateDoubleByteStateForRow:(NSInteger)r {
-	cell *currRow = _grid[r];
-	int db = 0;
-	BOOL isDirty = NO;
-	for (int c = 0; c < _maxColumn; c++) {
-		if (db == 0 || db == 2) {
-			if (currRow[c].byte > 0x7F) {
-				db = 1;
-				// Fix double bytes' dirty property ot be consistent
-				if (c < _maxColumn) {
-					isDirty = _dirty[r][c] || _dirty[r][c+1];
-					_dirty[r][c] = isDirty;
-					_dirty[r][c+1] = isDirty;
-				}
-			}
-			else db = 0;
-		} else { // db == 1
-			db = 2;
-		}
-		currRow[c].attr.f.doubleByte = db;
-	}
+    cell *currRow = _grid[r];
+    int db = 0;
+    BOOL isDirty = NO;
+    for (int c = 0; c < _maxColumn; c++) {
+        if (db == 0 || db == 2) {
+            if (currRow[c].byte > 0x7F) {
+                db = 1;
+                // Fix double bytes' dirty property ot be consistent
+                if (c < _maxColumn) {
+                    isDirty = _dirty[r][c] || _dirty[r][c+1];
+                    _dirty[r][c] = isDirty;
+                    _dirty[r][c+1] = isDirty;
+                }
+            }
+            else db = 0;
+        } else { // db == 1
+            db = 2;
+        }
+        currRow[c].attr.f.doubleByte = db;
+    }
 }
 
 //static NSString *extractString(NSString *row, NSString *start, NSString *end) {
@@ -280,8 +280,8 @@
 //}
 
 inline static BOOL hasAnyString(NSString *row, NSArray *array) {
-	if (row == nil)
-		return NO;
+    if (row == nil)
+        return NO;
     NSString *s;
     for (s in array) {
         if ([row rangeOfString:s].length > 0)
@@ -297,17 +297,17 @@ inline static BOOL hasAnyString(NSString *row, NSArray *array) {
 - (void)updateBBSState {
     NSString *topLine = [self stringAtRow:0];	// get the first line from the screen
     NSString *secondLine = [self stringAtRow:1];
-	NSString *thirdLine = [self stringAtRow:2];
+    NSString *thirdLine = [self stringAtRow:2];
     NSString *bottomLine = [self stringAtRow:_maxRow-1];
-	NSString *wholePage = [self stringAtIndex:0 length:_maxRow * _maxColumn];
-	_bbsState.subState = BBSSubStateNone;
+    NSString *wholePage = [self stringAtIndex:0 length:_maxRow * _maxColumn];
+    _bbsState.subState = BBSSubStateNone;
     if (NO) {
         // just for align
     } else if (hasAnyString(bottomLine, @[@"【  】", @"【信】", @"編輯文章"])) {
         //NSLog(@"发表文章");
         _bbsState.state = BBSComposePost;
-	} else if (hasAnyString(secondLine, @[@"目前"])
-			   || hasAnyString(topLine, @[@"主功能表", @"聊天說話", @"個人設定", @"工具程式", @"網路遊樂場", @"白色恐怖"])) {
+    } else if (hasAnyString(secondLine, @[@"目前"])
+               || hasAnyString(topLine, @[@"主功能表", @"聊天說話", @"個人設定", @"工具程式", @"網路遊樂場", @"白色恐怖"])) {
         //NSLog(@"主选单");
         _bbsState.state = BBSMainMenu;
     } else if (hasAnyString(topLine, @[@"讨论区列表", @"个人定制区", @"看板列表", @"板板列表"])) {
@@ -325,37 +325,37 @@ inline static BOOL hasAnyString(NSString *row, NSArray *array) {
     } else if (hasAnyString(topLine, @[@"版主", @"板主", @"诚征版主中", @"徵求中"])) {
         //NSLog(@"版面");
         _bbsState.state = BBSBrowseBoard;
-//        _bbsState.boardName = extractString(topLine, @"[", @"]");      // smth
-//        if (_bbsState.boardName == nil)
-//            _bbsState.boardName = extractString(topLine, @"《", @"》"); // ptt
-		if (hasAnyString(thirdLine, @[@"一般模式"]))
-			_bbsState.subState = BBSBrowseBoardNormalMode;
-		else if (hasAnyString(thirdLine, @[@"文摘模式"]))
-			_bbsState.subState = BBSBrowseBoardDigestMode;
-		else if (hasAnyString(thirdLine, @[@"主题模式"]))
-			_bbsState.subState = BBSBrowseBoardThreadMode;
-		else if (hasAnyString(thirdLine, @[@"精华模式"]))
-			_bbsState.subState = BBSBrowseBoardMarkMode;
-		else if (hasAnyString(thirdLine, @[@"原作模式"]))
-			_bbsState.subState = BBSBrowseBoardOriginMode;
-		else if (hasAnyString(thirdLine, @[@"作者模式"]))
-			_bbsState.subState = BBSBrowseBoardAuthorMode;
+        // _bbsState.boardName = extractString(topLine, @"[", @"]");      // smth
+        // if (_bbsState.boardName == nil)
+        //     _bbsState.boardName = extractString(topLine, @"《", @"》"); // ptt
+        if (hasAnyString(thirdLine, @[@"一般模式"]))
+            _bbsState.subState = BBSBrowseBoardNormalMode;
+        else if (hasAnyString(thirdLine, @[@"文摘模式"]))
+            _bbsState.subState = BBSBrowseBoardDigestMode;
+        else if (hasAnyString(thirdLine, @[@"主题模式"]))
+            _bbsState.subState = BBSBrowseBoardThreadMode;
+        else if (hasAnyString(thirdLine, @[@"精华模式"]))
+            _bbsState.subState = BBSBrowseBoardMarkMode;
+        else if (hasAnyString(thirdLine, @[@"原作模式"]))
+            _bbsState.subState = BBSBrowseBoardOriginMode;
+        else if (hasAnyString(thirdLine, @[@"作者模式"]))
+            _bbsState.subState = BBSBrowseBoardAuthorMode;
         //NSLog(@"%@, cursor @ row %d", _bbsState.boardName, _bbsState.cursorRow);
     } else if (hasAnyString(bottomLine, @[@"阅读文章", @"主题阅读", @"同作者阅读", @"下面还有喔", @"瀏覽"])) {
         //NSLog(@"阅读文章");
         _bbsState.state = BBSViewPost;
     } else if (hasAnyString([self stringAtRow:4], @[@"个人说明档如下", @"没有个人说明档"])
-			   || hasAnyString([self stringAtRow:6], @[@"个人说明档如下", @"没有个人说明档"])) {
-		//NSLog(@"用户信息");
-		_bbsState.state = BBSUserInfo;
-	} else if (hasAnyString(bottomLine, @[@"[功能键]", @"[版  主]"])) {
-		//NSLog(@"浏览精华区");
-		_bbsState.state = BBSBrowseExcerption;
+               || hasAnyString([self stringAtRow:6], @[@"个人说明档如下", @"没有个人说明档"])) {
+        //NSLog(@"用户信息");
+        _bbsState.state = BBSUserInfo;
+    } else if (hasAnyString(bottomLine, @[@"[功能键]", @"[版  主]"])) {
+        //NSLog(@"浏览精华区");
+        _bbsState.state = BBSBrowseExcerption;
     } else if (hasAnyString(wholePage, @[@"按任意键继续", @"按回车键", @"按 [RETURN] 继续", @"按 ◆Enter◆ 继续", @"按 <ENTER> 继续", @"按任何键继续", @"上次连线时间为", @"按任意鍵繼續", @"請按空白鍵或是Enter繼續"])) {
-		//NSLog(@"按回车继续");
-		_bbsState.state = BBSWaitingEnter;
-	} else {
-		//NSLog(@"未知状态");
+        //NSLog(@"按回车继续");
+        _bbsState.state = BBSWaitingEnter;
+    } else {
+        //NSLog(@"未知状态");
         _bbsState.state = BBSUnknown;
     }
 }
@@ -372,20 +372,20 @@ inline static BOOL hasAnyString(NSString *row, NSArray *array) {
 
 - (void)setConnection:(WLConnection *)value {
     _connection = value;
-	// FIXME: BBS type is temoprarily determined by the ansi color key.
-	// remove #import "YLSite.h" when fixed.
-	self.bbsType = _connection.site.encoding == WLBig5Encoding ? WLMaple : WLFirebird;
+    // FIXME: BBS type is temoprarily determined by the ansi color key.
+    // remove #import "YLSite.h" when fixed.
+    self.bbsType = _connection.site.encoding == WLBig5Encoding ? WLMaple : WLFirebird;
 }
 
 #pragma mark -
 #pragma mark Observe subject
 - (void)addObserver:(id <WLTerminalObserver>)observer {
-	[_observers addObject:observer];
+    [_observers addObject:observer];
 }
 
 - (void)notifyObservers {
-	for (id <WLTerminalObserver> observer in _observers) {
-		[observer terminalDidUpdate:self];
-	}
+    for (id <WLTerminalObserver> observer in _observers) {
+        [observer terminalDidUpdate:self];
+    }
 }
 @end

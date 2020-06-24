@@ -11,16 +11,16 @@
 
 @class WLTerminal;
 @interface WLAnsiColorOperationManager : NSObject {
-
+    
 }
 + (NSData *)ansiColorDataFromTerminal:(WLTerminal *)terminal 
-						   atLocation:(NSInteger)location
-							   length:(NSInteger)length;
+                           atLocation:(NSInteger)location
+                               length:(NSInteger)length;
 + (NSData *)ansiColorDataFromTerminal:(WLTerminal *)terminal 
-							   inRect:(NSRect)rect;
+                               inRect:(NSRect)rect;
 + (NSData *)ansiCodeFromANSIColorData:(NSData *)ansiColorData 
-					  forANSIColorKey:(YLANSIColorKey)ansiColorKey 
-							 encoding:(WLEncoding)encoding;
+                      forANSIColorKey:(YLANSIColorKey)ansiColorKey 
+                             encoding:(WLEncoding)encoding;
 + (NSString *)ansiCodeStringFromAttributedString:(NSAttributedString *)storage
-								 forANSIColorKey:(YLANSIColorKey)ansiColorKey;
+                                 forANSIColorKey:(YLANSIColorKey)ansiColorKey;
 @end

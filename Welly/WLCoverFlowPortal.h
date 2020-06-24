@@ -12,13 +12,13 @@
 @interface WLCoverFlowPortal : NSView <NSComboBoxDataSource> {
     NSArray *_portalItems;
     id _imageFlowView;
-	WLPortalItem *_draggingItem;
+    WLPortalItem *_draggingItem;
 }
 
 //@property (readonly) NSView *view;
 - (void)awakeFromNib;
 - (void)setPortalItems:(NSArray *)portalItems;
-	
+
 - (void)keyDown:(NSEvent *)theEvent;
 - (void)mouseDragged:(NSEvent *)theEvent;
 

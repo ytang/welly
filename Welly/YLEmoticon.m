@@ -16,36 +16,36 @@
 - (instancetype)init {
     if (self = [super init]) {
         self.content = @":)";
-		//        [self setName: @"smile"];
+        //        [self setName: @"smile"];
     }
     return self;
 }
 
 - (instancetype)initWithName:(NSString *)name
                      content:(NSString *)content {
-	if (self = [self init]) {
-		_name = name;
-		_content = content;
-	}
-	return self;
+    if (self = [self init]) {
+        _name = name;
+        _content = content;
+    }
+    return self;
 }
 
 #pragma mark -
 #pragma mark Create Emoticons
 + (YLEmoticon *)emoticonWithDictionary:(NSDictionary *)d {
     YLEmoticon *e = [[YLEmoticon alloc] init];
-//    [e setName: [d valueForKey: @"name"]];
+    // [e setName: [d valueForKey: @"name"]];
     e.content = [d valueForKey:@"content"];
-    return e;    
+    return e;
 }
 
 + (YLEmoticon *)emoticonWithName:(NSString *)n 
-						 content:(NSString *)c {
+                         content:(NSString *)c {
     return [[YLEmoticon alloc] initWithName:n content:c];
 }
 
 + (YLEmoticon *)emoticonWithString:(NSString *)string {
-	return [[YLEmoticon alloc] initWithName:string content:string];
+    return [[YLEmoticon alloc] initWithName:string content:string];
 }
 
 #pragma mark -
@@ -57,7 +57,7 @@
 - (NSDictionary *)dictionaryOfEmoticon {
     return @{@"content": self.content};
 }
-     
+
 - (NSString *)description {
     return [NSString stringWithFormat:@"%@", [[self.content componentsSeparatedByString:@"\n"] componentsJoinedByString:@""]];
 }

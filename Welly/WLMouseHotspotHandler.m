@@ -14,40 +14,40 @@
 @implementation WLMouseHotspotHandler
 @synthesize manager = _manager;
 - (instancetype)init {
-	self = [super init];
-	if (self)
-		_trackingAreas = [[NSMutableArray alloc] initWithCapacity:10];
-	return self;
+    self = [super init];
+    if (self)
+        _trackingAreas = [[NSMutableArray alloc] initWithCapacity:10];
+    return self;
 }
 
 - (instancetype)initWithView:(WLTerminalView *)view {
-	self = [self init];
-	if (self) {
-		_view = view;
-		_maxRow = [WLGlobalConfig sharedInstance].row;
-		_maxColumn = [WLGlobalConfig sharedInstance].column;
-	}
-	return self;
+    self = [self init];
+    if (self) {
+        _view = view;
+        _maxRow = [WLGlobalConfig sharedInstance].row;
+        _maxColumn = [WLGlobalConfig sharedInstance].column;
+    }
+    return self;
 }
 
 - (instancetype)initWithManager:(WLMouseBehaviorManager *)manager {
-	_manager = manager;
-	return [self initWithView:_manager.view];
+    _manager = manager;
+    return [self initWithView:_manager.view];
 }
 
 
 - (void)mouseEntered:(NSEvent *)theEvent {
-	// Do nothing, just a virtual function
+    // Do nothing, just a virtual function
 }
 
 - (void)removeAllTrackingAreas {
-	for (NSTrackingArea *trackingArea in _trackingAreas) {
-		[_manager removeTrackingArea:trackingArea];
-	}
-	[_trackingAreas removeAllObjects];
+    for (NSTrackingArea *trackingArea in _trackingAreas) {
+        [_manager removeTrackingArea:trackingArea];
+    }
+    [_trackingAreas removeAllObjects];
 }
 
 - (void)clear {
-	[self removeAllTrackingAreas];
+    [self removeAllTrackingAreas];
 }
 @end

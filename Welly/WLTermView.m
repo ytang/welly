@@ -117,15 +117,15 @@ static NSImage *gLeftImage;
         [ds updateDoubleByteStateForRow: r];
         cell *currRow = [ds cellsOfRow: r];
         for (c = 0; c < _maxColumn; c++)
-            if (isBlinkCell(currRow[c]))
-                return YES;
+        if (isBlinkCell(currRow[c]))
+            return YES;
     }
     return NO;
 }
 /*
  - (void)setFrame:(NSRect)frameRect {
-	[super setFrame:frameRect];
-	[self refreshDisplay];
+    [super setFrame:frameRect];
+    [self refreshDisplay];
  }*/
 
 #pragma mark -
@@ -143,8 +143,8 @@ static NSImage *gLeftImage;
     for (i = 0; i < _maxRow; i++) {
         cell *currRow = [self.frontMostTerminal cellsOfRow:i];
         for (j = 0; j < _maxColumn; j++)
-            if (isHiddenAttribute(currRow[j].attr))
-                [self.frontMostTerminal setDirty:YES atRow:i column:j];
+        if (isHiddenAttribute(currRow[j].attr))
+            [self.frontMostTerminal setDirty:YES atRow:i column:j];
     }
     [self refreshDisplay];
 }
@@ -385,11 +385,11 @@ static NSImage *gLeftImage;
     cell *currRow = [ds cellsOfRow:r];
     
     for (i = 0; i < _maxColumn; i++)
-        isDoubleColor[i] = isDoubleByte[i] = textBuf[i] = runLength[i] = 0;
+    isDoubleColor[i] = isDoubleByte[i] = textBuf[i] = runLength[i] = 0;
     
     // find the first dirty position in this row
     for (x = 0; x < _maxColumn && ![ds isDirtyAtRow:r column:x]; x++)
-        ;
+    ;
     // all clean? great!
     if (x == _maxColumn)
         return;
@@ -422,20 +422,20 @@ static NSImage *gLeftImage;
                 && !(gConfig.showsHiddenText					// If the user desires anti-hidden
                      && (isHiddenAttribute((currRow + x)->attr) // And this is a hidden special symbol
                          || isHiddenAttribute((currRow + x - 1)->attr)))) {	// We shall leave it for later part to deal with
-                         [self drawSpecialSymbol:ch
-                                          forRow:r
-                                          column:(x - 1)
-                                   leftAttribute:(currRow + x - 1)->attr
-                                  rightAttribute:(currRow + x)->attr];
-                     } else {
-                         isDoubleColor[bufLength] = (fgColorIndexOfAttribute(currRow[x - 1].attr) != fgColorIndexOfAttribute(currRow[x].attr) ||
-                                                     fgBoldOfAttribute(currRow[x - 1].attr) != fgBoldOfAttribute(currRow[x].attr));
-                         isDoubleByte[bufLength] = YES;
-                         textBuf[bufLength] = ch;
-                         bufIndex[bufLength] = x;
-                         position[bufLength] = CGPointMake((x - 1) * _fontWidth + cPaddingLeft, (_maxRow - 1 - r) * _fontHeight + CTFontGetDescent(gConfig.cCTFont) + cPaddingBottom);
-                         bufLength++;
-                     }
+                [self drawSpecialSymbol:ch
+                                 forRow:r
+                                 column:(x - 1)
+                          leftAttribute:(currRow + x - 1)->attr
+                         rightAttribute:(currRow + x)->attr];
+            } else {
+                isDoubleColor[bufLength] = (fgColorIndexOfAttribute(currRow[x - 1].attr) != fgColorIndexOfAttribute(currRow[x].attr) ||
+                                            fgBoldOfAttribute(currRow[x - 1].attr) != fgBoldOfAttribute(currRow[x].attr));
+                isDoubleByte[bufLength] = YES;
+                textBuf[bufLength] = ch;
+                bufIndex[bufLength] = x;
+                position[bufLength] = CGPointMake((x - 1) * _fontWidth + cPaddingLeft, (_maxRow - 1 - r) * _fontHeight + CTFontGetDescent(gConfig.cCTFont) + cPaddingBottom);
+                bufLength++;
+            }
             // FIXME: why?
             if (x == start)
                 [self setNeedsDisplayInRect:NSMakeRect((x - 1) * _fontWidth, (_maxRow - 1 - r) * _fontHeight, _fontWidth, _fontHeight)];

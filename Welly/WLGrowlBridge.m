@@ -29,20 +29,20 @@ NSString *const WLGrowlClickObjectKeyName = @"ClickRepresentedObject";
 }
 
 - (NSDictionary *)registrationDictionaryForGrowl {
-	NSArray *notifications = @[kGrowlNotificationNameFileTransfer, kGrowlNotificationNameEXIFInformation, kGrowlNotificationNameNewMessageReceived];
-	NSMutableDictionary *dict = [NSMutableDictionary dictionary];
-	dict[GROWL_NOTIFICATIONS_ALL] = notifications;
-	dict[GROWL_NOTIFICATIONS_DEFAULT] = notifications;
-	return dict;
+    NSArray *notifications = @[kGrowlNotificationNameFileTransfer, kGrowlNotificationNameEXIFInformation, kGrowlNotificationNameNewMessageReceived];
+    NSMutableDictionary *dict = [NSMutableDictionary dictionary];
+    dict[GROWL_NOTIFICATIONS_ALL] = notifications;
+    dict[GROWL_NOTIFICATIONS_DEFAULT] = notifications;
+    return dict;
 }
 
 + (BOOL)isMistEnabled {
-	return [GrowlApplicationBridge isMistEnabled];
+    return [GrowlApplicationBridge isMistEnabled];
 }
 
 + (void)notifyWithTitle:(NSString *)title
-			description:(NSString *)description
-	   notificationName:(NSString *)notifName {
+            description:(NSString *)description
+       notificationName:(NSString *)notifName {
     [GrowlApplicationBridge notifyWithTitle:title
                                 description:description
                            notificationName:notifName
@@ -57,12 +57,12 @@ NSString *const WLGrowlClickObjectKeyName = @"ClickRepresentedObject";
        notificationName:(NSString *)notifName
                isSticky:(BOOL)isSticky
              identifier:(id)identifier {
-	if ([GrowlApplicationBridge isMistEnabled]) {
-		NSLog(@"isMistEnabled");
-	} else {
-		NSLog(@"no");
-	}
-	
+    if ([GrowlApplicationBridge isMistEnabled]) {
+        NSLog(@"isMistEnabled");
+    } else {
+        NSLog(@"no");
+    }
+    
     // hack identifier that must be a string
     NSString *stringId = @((long)identifier).stringValue;
     [GrowlApplicationBridge notifyWithTitle:title
@@ -82,11 +82,11 @@ NSString *const WLGrowlClickObjectKeyName = @"ClickRepresentedObject";
             clickTarget:(id)target
           clickSelector:(SEL)selector
              identifier:(id)identifier {
-	// capsulate target, selector and object.
-	// Note: Growl only accepts pure p-list contents as click context
-	//   i.e. only occurs NSDictionary, NSString, NSNumber, NSArray
+    // capsulate target, selector and object.
+    // Note: Growl only accepts pure p-list contents as click context
+    //   i.e. only occurs NSDictionary, NSString, NSNumber, NSArray
     NSDictionary *clickContext = @{WLGrowlClickTargetKeyName:@((unsigned long)target), WLGrowlClickSelectorKeyName:NSStringFromSelector(selector), WLGrowlClickObjectKeyName:@((unsigned long)identifier)};
-	
+    
     // hack identifier that must be a string
     NSString *stringId = @((long)identifier).stringValue;
     [GrowlApplicationBridge notifyWithTitle:title
@@ -111,7 +111,7 @@ NSString *const WLGrowlClickObjectKeyName = @"ClickRepresentedObject";
 
 - (void)growlNotificationTimedOut:(id)contextId {
     // deal with the event that the notification disappear
-	// Just do nothing
+    // Just do nothing
 }
 
 @end

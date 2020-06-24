@@ -26,28 +26,28 @@
 @implementation WLFullScreenWindow
 
 - (BOOL)canBecomeKeyWindow {
-	return YES;
+    return YES;
 }
 
 @end
 
 @interface WLPresentationController () <CAAnimationDelegate> {
-	// The views necessary for full screen and reset
-	NSView *_targetView;
-	NSView *_superView;
-	
-	// NSWindows needed...
-	NSWindow *_fullScreenWindow;
-	NSWindow *_originalWindow;
-	
-	NSRect _originalFrame;
-	
-	// State variable
-	BOOL _isInPresentationMode;
-	CGFloat _screenRatio;
-	
-	// Store previous parameters
-	NSDictionary *_originalSizeParameters;
+    // The views necessary for full screen and reset
+    NSView *_targetView;
+    NSView *_superView;
+    
+    // NSWindows needed...
+    NSWindow *_fullScreenWindow;
+    NSWindow *_originalWindow;
+    
+    NSRect _originalFrame;
+    
+    // State variable
+    BOOL _isInPresentationMode;
+    CGFloat _screenRatio;
+    
+    // Store previous parameters
+    NSDictionary *_originalSizeParameters;
 }
 // Preprocess functions for TerminalView
 - (void)processBeforeEnter;
@@ -63,38 +63,38 @@ WLGlobalConfig *gConfig;
 #pragma mark Init
 // Initiallize the controller with a given processor
 - (instancetype)initWithProcessor:(NSObject <WLPresentationModeProcessor>*)pro 
-			 targetView:(NSView *)tview 
-			  superView:(NSView *)sview
-		 originalWindow:(NSWindow *)owin {
-	if (self = [super init]) {
-		_targetView = tview;
-		_superView = sview;
-		_originalWindow = owin;
-		_isInPresentationMode = NO;
-		_screenRatio = 0.0f;
-		if (!gConfig) {
-			gConfig = [WLGlobalConfig sharedInstance];
-		}
-	}
-	return self;
+                       targetView:(NSView *)tview 
+                        superView:(NSView *)sview
+                   originalWindow:(NSWindow *)owin {
+    if (self = [super init]) {
+        _targetView = tview;
+        _superView = sview;
+        _originalWindow = owin;
+        _isInPresentationMode = NO;
+        _screenRatio = 0.0f;
+        if (!gConfig) {
+            gConfig = [WLGlobalConfig sharedInstance];
+        }
+    }
+    return self;
 }
 
 // Initiallize the controller with non-processor
 // This function ONLY makes the target view showed in full
 // screen but cannot resize it
 - (instancetype)initWithTargetView:(NSView*)tview 
-			   superView:(NSView*)sview
-		  originalWindow:(NSWindow*)owin {
-	if (self = [super init]) {
-		_targetView = tview;
-		_superView = sview;
-		_originalWindow = owin;
-		_isInPresentationMode = NO;
-		if (!gConfig) {
-			gConfig = [WLGlobalConfig sharedInstance];
-		}
-	}
-	return self;
+                         superView:(NSView*)sview
+                    originalWindow:(NSWindow*)owin {
+    if (self = [super init]) {
+        _targetView = tview;
+        _superView = sview;
+        _originalWindow = owin;
+        _isInPresentationMode = NO;
+        if (!gConfig) {
+            gConfig = [WLGlobalConfig sharedInstance];
+        }
+    }
+    return self;
 }
 
 #pragma mark -
@@ -106,139 +106,139 @@ WLGlobalConfig *gConfig;
 
 // The main control function of this object
 - (void)togglePresentationMode {
-	if (!_isInPresentationMode) {
-		// Set current state
-		_isInPresentationMode = YES;
-		
-		// Disable `Enter Full Screen' when we are in presentation mode
-		_originalWindow.collectionBehavior ^= NSWindowCollectionBehaviorFullScreenPrimary;
-		
-		// Init the window and show
-		NSRect screenRect = [NSScreen mainScreen].frame;
-		_fullScreenWindow = [[WLFullScreenWindow alloc] initWithContentRect:screenRect
-														styleMask:NSBorderlessWindowMask
-														  backing:NSBackingStoreBuffered
-															defer:NO];
-		_fullScreenWindow.alphaValue = 0;
+    if (!_isInPresentationMode) {
+        // Set current state
+        _isInPresentationMode = YES;
+        
+        // Disable `Enter Full Screen' when we are in presentation mode
+        _originalWindow.collectionBehavior ^= NSWindowCollectionBehaviorFullScreenPrimary;
+        
+        // Init the window and show
+        NSRect screenRect = [NSScreen mainScreen].frame;
+        _fullScreenWindow = [[WLFullScreenWindow alloc] initWithContentRect:screenRect
+                                                                  styleMask:NSBorderlessWindowMask
+                                                                    backing:NSBackingStoreBuffered
+                                                                      defer:NO];
+        _fullScreenWindow.alphaValue = 0;
         if (floor(NSAppKitVersionNumber)>NSAppKitVersionNumber10_6) {
             _fullScreenWindow.collectionBehavior = NSWindowCollectionBehaviorFullScreenAuxiliary;
         }
-		_fullScreenWindow.backgroundColor = [NSColor blackColor];
-		[_fullScreenWindow setAcceptsMouseMovedEvents:YES];
-		// Order front now
-		[_fullScreenWindow makeKeyAndOrderFront:nil];
-		// Initiallize the animation
-		CAAnimation * anim = [CABasicAnimation animation];
-		anim.delegate = self;
-		anim.duration = 0.8;
-		// Set the animation to full screen window
-		_fullScreenWindow.animations = @{@"alphaValue": anim};
-		(_fullScreenWindow.animator).alphaValue = 1.0;	
-		// Change UI mode by carbon
-		SetSystemUIMode(kUIModeAllHidden, kUIOptionAutoShowMenuBar);
-		// Then, let the delegate function do it...
-	} else {
-		[self exitPresentationMode];
-	}
+        _fullScreenWindow.backgroundColor = [NSColor blackColor];
+        [_fullScreenWindow setAcceptsMouseMovedEvents:YES];
+        // Order front now
+        [_fullScreenWindow makeKeyAndOrderFront:nil];
+        // Initiallize the animation
+        CAAnimation * anim = [CABasicAnimation animation];
+        anim.delegate = self;
+        anim.duration = 0.8;
+        // Set the animation to full screen window
+        _fullScreenWindow.animations = @{@"alphaValue": anim};
+        (_fullScreenWindow.animator).alphaValue = 1.0;	
+        // Change UI mode by carbon
+        SetSystemUIMode(kUIModeAllHidden, kUIOptionAutoShowMenuBar);
+        // Then, let the delegate function do it...
+    } else {
+        [self exitPresentationMode];
+    }
 }
 
 // Make the view out of the full screen state
 - (void)exitPresentationMode {
-	if(_isInPresentationMode) {
-		// Change the state
-		_isInPresentationMode = NO;
-		
-		// Set the super view back
-		[_superView addSubview:_targetView];
-		_targetView.frame = _originalFrame;
-		// Pre-process if necessary
-		// Do not move it to else where!
-		[self processBeforeExit];
-		(_fullScreenWindow.animator).alphaValue = 0;
-		// Change UI mode by carbon
-		SetSystemUIMode(kUIModeNormal, 0);
-		// Now, the delegate function will close the window
-		// So simply do nothing here.
-		
-		// Enable `Enter Full Screen' from now on
-		_originalWindow.collectionBehavior |= NSWindowCollectionBehaviorFullScreenPrimary;
-	}
+    if(_isInPresentationMode) {
+        // Change the state
+        _isInPresentationMode = NO;
+        
+        // Set the super view back
+        [_superView addSubview:_targetView];
+        _targetView.frame = _originalFrame;
+        // Pre-process if necessary
+        // Do not move it to else where!
+        [self processBeforeExit];
+        (_fullScreenWindow.animator).alphaValue = 0;
+        // Change UI mode by carbon
+        SetSystemUIMode(kUIModeNormal, 0);
+        // Now, the delegate function will close the window
+        // So simply do nothing here.
+        
+        // Enable `Enter Full Screen' from now on
+        _originalWindow.collectionBehavior |= NSWindowCollectionBehaviorFullScreenPrimary;
+    }
 }
 
 #pragma mark -
 #pragma mark Delegate function
 - (void)animationDidStop:(CAAnimation *)animation 
-				finished:(BOOL)flag {
-	if(!_isInPresentationMode) { 
-		// Close the window!
-		[_fullScreenWindow close];
-		// Show the main window
-		_originalWindow.alphaValue = 100.0f;
-	} else { // Set the window when the animation is over
-		// Hide the main window
+                finished:(BOOL)flag {
+    if(!_isInPresentationMode) { 
+        // Close the window!
+        [_fullScreenWindow close];
+        // Show the main window
+        _originalWindow.alphaValue = 100.0f;
+    } else { // Set the window when the animation is over
+        // Hide the main window
         _originalWindow.alphaValue = 0.0f;
-		// Pre-process if necessary
-		[self processBeforeEnter];
-		// Record new origin
-		NSRect screenRect = [NSScreen mainScreen].frame;
-		
+        // Pre-process if necessary
+        [self processBeforeEnter];
+        // Record new origin
+        NSRect screenRect = [NSScreen mainScreen].frame;
+        
         NSPoint newOP = {(screenRect.size.width - _targetView.frame.size.width) / 2, (screenRect.size.height - _targetView.frame.size.height) / 2};
-		
-		// Set the window style
+        
+        // Set the window style
         _fullScreenWindow.backgroundColor = [WLGlobalConfig sharedInstance].colorBG;
-		
-		[_fullScreenWindow setOpaque:NO];
-		[_fullScreenWindow display];
+        
+        [_fullScreenWindow setOpaque:NO];
+        [_fullScreenWindow display];
         // Set the view to the full screen window
         _fullScreenWindow.contentView = _targetView;
         // Move the origin point
         [_fullScreenWindow.contentView setFrameOrigin:newOP];
-		// Focus on the view
-		[_fullScreenWindow makeFirstResponder:_targetView];
-	}
+        // Focus on the view
+        [_fullScreenWindow makeFirstResponder:_targetView];
+    }
 }
 
 #pragma mark -
 #pragma mark For TerminalView
 // Set and reset font size
 - (void)setFont:(BOOL)isEnteringFullScreen {
-	// In case of some stupid uses...
-	if(_screenRatio == 0.0f)
-		return;
-	
-	// Decide whether to set or to reset the font size
-	if (isEnteringFullScreen) {
-		// Store old parameters
-		_originalSizeParameters = [gConfig.sizeParameters copy];
-		
-		// And do it..
-		gConfig.sizeParameters = [WLMainFrameController sizeParametersForZoomRatio:_screenRatio];
-		
-	} else {
-		// Restore old parameters
-		gConfig.sizeParameters = _originalSizeParameters;
-		_originalSizeParameters = nil;
-	}
+    // In case of some stupid uses...
+    if(_screenRatio == 0.0f)
+        return;
+    
+    // Decide whether to set or to reset the font size
+    if (isEnteringFullScreen) {
+        // Store old parameters
+        _originalSizeParameters = [gConfig.sizeParameters copy];
+        
+        // And do it..
+        gConfig.sizeParameters = [WLMainFrameController sizeParametersForZoomRatio:_screenRatio];
+        
+    } else {
+        // Restore old parameters
+        gConfig.sizeParameters = _originalSizeParameters;
+        _originalSizeParameters = nil;
+    }
 }
 
 // Overrided functions
 - (void)processBeforeEnter {
-	// Back up the original frame of _targetView
-	_originalFrame = _targetView.frame;
-	
-	// Get the fittest ratio for the expansion
-	NSRect screenRect = [NSScreen mainScreen].frame;
-	CGFloat ratioH = screenRect.size.height / _targetView.frame.size.height;
-	CGFloat ratioW = screenRect.size.width / _targetView.frame.size.width;
-	_screenRatio = (ratioH > ratioW) ? ratioW : ratioH;
-	
-	// Then, do the expansion
-	[self setFont:YES];
+    // Back up the original frame of _targetView
+    _originalFrame = _targetView.frame;
+    
+    // Get the fittest ratio for the expansion
+    NSRect screenRect = [NSScreen mainScreen].frame;
+    CGFloat ratioH = screenRect.size.height / _targetView.frame.size.height;
+    CGFloat ratioW = screenRect.size.width / _targetView.frame.size.width;
+    _screenRatio = (ratioH > ratioW) ? ratioW : ratioH;
+    
+    // Then, do the expansion
+    [self setFont:YES];
 }
 
 - (void)processBeforeExit {
-	// And reset the font...
-	[self setFont:NO];
+    // And reset the font...
+    [self setFont:NO];
 }
 
 @end

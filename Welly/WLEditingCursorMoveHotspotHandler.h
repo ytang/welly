@@ -10,7 +10,7 @@
 #import "WLMouseHotspotHandler.h"
 
 @interface WLEditingCursorMoveHotspotHandler : WLMouseHotspotHandler <WLMouseUpHandler, WLUpdatable> {
-
+    
 }
 
 @end

@@ -10,21 +10,21 @@
 
 @interface WLComposePanelController : NSObject {
     NSView <NSTextInputClient> *_telnetView;
-	
+    
     IBOutlet NSColorWell *_bgColorWell;
-	
+    
     /* composeWindow */
     IBOutlet NSTextView *_composeText;
     IBOutlet NSPanel *_composePanel;
-	
-	NSShadow *_shadowForBlink;
+    
+    NSShadow *_shadowForBlink;
 }
 
 + (WLComposePanelController *)sharedInstance;
 
 /* compose actions */
 - (void)openComposePanelInWindow:(NSWindow *)window 
-						 forView:(NSView <NSTextInputClient> *)telnetView;
+                         forView:(NSView <NSTextInputClient> *)telnetView;
 - (IBAction)commitCompose:(id)sender;
 - (IBAction)cancelCompose:(id)sender;
 - (IBAction)setUnderline:(id)sender;

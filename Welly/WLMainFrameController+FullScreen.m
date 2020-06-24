@@ -18,99 +18,99 @@
 @implementation WLMainFrameController (FullScreen)
 
 - (BOOL)isInFullScreenMode {
-	return (_mainWindow.styleMask & NSFullScreenWindowMask) ? YES : NO;
+    return (_mainWindow.styleMask & NSFullScreenWindowMask) ? YES : NO;
 }
 
 + (NSDictionary *)sizeParametersForZoomRatio:(CGFloat)zoomRatio {
-	WLGlobalConfig *gConfig = [WLGlobalConfig sharedInstance];
-	return @{WLCellWidthKeyName:@(floor(gConfig.cellWidth * zoomRatio)), WLCellHeightKeyName:@(floor(gConfig.cellHeight * zoomRatio)), WLChineseFontSizeKeyName:@(floor(gConfig.chineseFontSize * zoomRatio)), WLEnglishFontSizeKeyName:@(floor(gConfig.englishFontSize * zoomRatio))};
+    WLGlobalConfig *gConfig = [WLGlobalConfig sharedInstance];
+    return @{WLCellWidthKeyName:@(floor(gConfig.cellWidth * zoomRatio)), WLCellHeightKeyName:@(floor(gConfig.cellHeight * zoomRatio)), WLChineseFontSizeKeyName:@(floor(gConfig.chineseFontSize * zoomRatio)), WLEnglishFontSizeKeyName:@(floor(gConfig.englishFontSize * zoomRatio))};
 }
 
 // Set and reset font size
 - (void)setFont:(BOOL)isEnteringFullScreen {
-	// In case of some stupid uses...
-	if (_screenRatio == 0.0f)
-		return;
-	WLGlobalConfig *gConfig = [WLGlobalConfig sharedInstance];
-	// Decide whether to set or to reset the font size
-	if (isEnteringFullScreen) {
-		// Store old parameters
-		_originalSizeParameters = [gConfig.sizeParameters copy];
-		
-		// And do it..
-		gConfig.sizeParameters = [WLMainFrameController sizeParametersForZoomRatio:_screenRatio];
-	} else {
-		// Restore old parameters
-		gConfig.sizeParameters = _originalSizeParameters;
-		_originalSizeParameters = nil;
-	}
+    // In case of some stupid uses...
+    if (_screenRatio == 0.0f)
+        return;
+    WLGlobalConfig *gConfig = [WLGlobalConfig sharedInstance];
+    // Decide whether to set or to reset the font size
+    if (isEnteringFullScreen) {
+        // Store old parameters
+        _originalSizeParameters = [gConfig.sizeParameters copy];
+        
+        // And do it..
+        gConfig.sizeParameters = [WLMainFrameController sizeParametersForZoomRatio:_screenRatio];
+    } else {
+        // Restore old parameters
+        gConfig.sizeParameters = _originalSizeParameters;
+        _originalSizeParameters = nil;
+    }
 }
 
 - (NSApplicationPresentationOptions)window:(NSWindow *)window
-	  willUseFullScreenPresentationOptions:(NSApplicationPresentationOptions)proposedOptions {
+      willUseFullScreenPresentationOptions:(NSApplicationPresentationOptions)proposedOptions {
     // customize our appearance when entering full screen:
     // we don't want the dock to appear but we want the menubar to hide/show automatically
     // we also want the toolbar to hide/show automatically
     return (NSApplicationPresentationFullScreen |       // support full screen for this window (required)
             NSApplicationPresentationHideDock |         // completely hide the dock
             NSApplicationPresentationAutoHideMenuBar |  // yes we want the menu bar to show/hide
-			NSApplicationPresentationAutoHideToolbar);	// we want the toolbar to show/hide
+            NSApplicationPresentationAutoHideToolbar);	// we want the toolbar to show/hide
 }
 
 - (NSSize)window:(NSWindow *)window willUseFullScreenContentSize:(NSSize)proposedSize {
-	return proposedSize;
+    return proposedSize;
 }
 
 
 - (void)windowWillEnterFullScreen:(NSNotification *)notification {
-	[_tabBarControl setHidden:YES];
-		
-	// Back up the original frame of _targetView
-	_originalFrame = _tabView.frame;
-	
-	// Get the fittest ratio for the expansion
-	NSRect screenRect = [NSScreen mainScreen].frame;
-	
-	CGFloat ratioH = screenRect.size.height / _tabView.frame.size.height;
-	CGFloat ratioW = screenRect.size.width / _tabView.frame.size.width;
-	_screenRatio = (ratioH > ratioW) ? ratioW : ratioH;
-	
-	// Then, do the expansion
-	[self setFont:YES];
-	
-	// Record new origin
-	
-	NSPoint newOP = {(screenRect.size.width - _tabView.frame.size.width) / 2, (screenRect.size.height - _tabView.frame.size.height) / 2};
-	
-	// Set the window style
-	[_mainWindow setOpaque:YES];
-	// Back up original bg color
-	_originalWindowBackgroundColor = _mainWindow.backgroundColor;
-	// Now set to bg color of the tab view to ensure consistency
-	_mainWindow.backgroundColor = [WLGlobalConfig sharedInstance].colorBG;
-	
-	// Move the origin point
-	[_tabView setFrameOrigin:newOP];
+    [_tabBarControl setHidden:YES];
+    
+    // Back up the original frame of _targetView
+    _originalFrame = _tabView.frame;
+    
+    // Get the fittest ratio for the expansion
+    NSRect screenRect = [NSScreen mainScreen].frame;
+    
+    CGFloat ratioH = screenRect.size.height / _tabView.frame.size.height;
+    CGFloat ratioW = screenRect.size.width / _tabView.frame.size.width;
+    _screenRatio = (ratioH > ratioW) ? ratioW : ratioH;
+    
+    // Then, do the expansion
+    [self setFont:YES];
+    
+    // Record new origin
+    
+    NSPoint newOP = {(screenRect.size.width - _tabView.frame.size.width) / 2, (screenRect.size.height - _tabView.frame.size.height) / 2};
+    
+    // Set the window style
+    [_mainWindow setOpaque:YES];
+    // Back up original bg color
+    _originalWindowBackgroundColor = _mainWindow.backgroundColor;
+    // Now set to bg color of the tab view to ensure consistency
+    _mainWindow.backgroundColor = [WLGlobalConfig sharedInstance].colorBG;
+    
+    // Move the origin point
+    [_tabView setFrameOrigin:newOP];
 }
 
 - (void)windowDidEnterFullScreen:(NSNotification *)notification {
-
+    
 }
 
 - (void)windowWillExitFullScreen:(NSNotification *)notification {
-	[_tabBarControl setHidden:NO];
-	
-	// Set the size back
-	[self setFont:NO];
-	
-	[_mainWindow setOpaque:NO];
-	// Move view back
-	_tabView.frame = _originalFrame;
-	_mainWindow.backgroundColor = _originalWindowBackgroundColor;
+    [_tabBarControl setHidden:NO];
+    
+    // Set the size back
+    [self setFont:NO];
+    
+    [_mainWindow setOpaque:NO];
+    // Move view back
+    _tabView.frame = _originalFrame;
+    _mainWindow.backgroundColor = _originalWindowBackgroundColor;
 }
 
 - (void)windowDidExitFullScreen:(NSNotification *)notification {
-	
+    
 }
 
 @end

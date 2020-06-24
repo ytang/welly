@@ -27,11 +27,11 @@ inline int isBlinkCell(cell c) {
 }
 
 inline BOOL isLetter(unsigned char c) { 
-	return (c >= 'a' && c <= 'z') || (c >= 'A' && c<= 'Z'); 
+    return (c >= 'a' && c <= 'z') || (c >= 'A' && c<= 'Z'); 
 }
 
 inline BOOL isNumber(unsigned char c) {
-	return (c >= '0' && c <= '9'); 
+    return (c >= '0' && c <= '9'); 
 }
 
 inline int bgColorIndexOfAttribute(attribute a) {
@@ -51,29 +51,29 @@ inline int fgBoldOfAttribute(attribute a) {
 }
 
 inline BOOL isEmptyCell(cell aCell) {
-	if (aCell.byte != WLNullTerminator)
-		return NO;
-	if (aCell.attr.f.bgColor != 9)
-		return NO;
-	if (aCell.attr.f.underline != 0)
-		return NO;
-	if (aCell.attr.f.reverse != 0)
-		return NO;
-	return YES;
+    if (aCell.byte != WLNullTerminator)
+        return NO;
+    if (aCell.attr.f.bgColor != 9)
+        return NO;
+    if (aCell.attr.f.underline != 0)
+        return NO;
+    if (aCell.attr.f.reverse != 0)
+        return NO;
+    return YES;
 }
 
 inline BOOL shouldBeDirty(cell prevCell, cell newCell) {
-	return (prevCell.byte != newCell.byte) || (prevCell.attr.v != newCell.attr.v);
+    return (prevCell.byte != newCell.byte) || (prevCell.attr.v != newCell.attr.v);
 }
 
 inline BOOL isSpecialSymbol(unichar ch) {
-	if (ch == 0x25FC)  // ◼ BLACK SQUARE
-		return YES;
-	if (ch >= 0x2581 && ch <= 0x2588) // BLOCK ▁▂▃▄▅▆▇█
-		return YES;
-	if (ch >= 0x2589 && ch <= 0x258F) // BLOCK ▉▊▋▌▍▎▏
-		return YES;
-	if (ch >= 0x25E2 && ch <= 0x25E5) // TRIANGLE ◢◣◤◥
-		return YES;
-	return NO;
+    if (ch == 0x25FC)  // ◼ BLACK SQUARE
+        return YES;
+    if (ch >= 0x2581 && ch <= 0x2588) // BLOCK ▁▂▃▄▅▆▇█
+        return YES;
+    if (ch >= 0x2589 && ch <= 0x258F) // BLOCK ▉▊▋▌▍▎▏
+        return YES;
+    if (ch >= 0x25E2 && ch <= 0x25E5) // TRIANGLE ◢◣◤◥
+        return YES;
+    return NO;
 }

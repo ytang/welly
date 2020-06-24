@@ -24,7 +24,7 @@
  * THE SOFTWARE.
  *
  *****************************************************************************/
- 
+
 #import "RemoteControl.h"
 
 // notifaction names that are being used to signal that an application wants to 
@@ -45,54 +45,54 @@ NSString* kTargetApplicationIdentifier = @"TargetBundleIdentifier";
 
 // returns nil if the remote control device is not available
 - (instancetype) initWithDelegate: (id) _remoteControlDelegate {	
-	if (self = [super init]) {
-		delegate = _remoteControlDelegate;
-	}
-	return self;
+    if (self = [super init]) {
+        delegate = _remoteControlDelegate;
+    }
+    return self;
 }
 
 
 - (void) setListeningToRemote: (BOOL) value {
 }
 - (BOOL) isListeningToRemote {
-	return NO;
+    return NO;
 }
 
 - (IBAction) startListening: (id) sender {
 }
 - (IBAction) stopListening: (id) sender {
-	
+    
 }
 
 - (BOOL) isOpenInExclusiveMode {
-	return YES;
+    return YES;
 }
 - (void) setOpenInExclusiveMode: (BOOL) value {
 }
 
 - (BOOL) sendsEventForButtonIdentifier: (RemoteControlEventIdentifier) identifier {
-	return YES;
+    return YES;
 }
 
 + (void) sendDistributedNotification: (NSString*) notificationName targetBundleIdentifier: (NSString*) targetIdentifier {
-	NSDictionary* userInfo = @{kRemoteControlDeviceName: @([self remoteControlDeviceName]), kApplicationIdentifier: [NSBundle mainBundle].bundleIdentifier, 
-		kTargetApplicationIdentifier: targetIdentifier};
-	
-	[[NSDistributedNotificationCenter defaultCenter] postNotificationName:notificationName
-																   object:nil
-																 userInfo:userInfo
-													   deliverImmediately:YES];	
+    NSDictionary* userInfo = @{kRemoteControlDeviceName: @([self remoteControlDeviceName]), kApplicationIdentifier: [NSBundle mainBundle].bundleIdentifier, 
+                               kTargetApplicationIdentifier: targetIdentifier};
+    
+    [[NSDistributedNotificationCenter defaultCenter] postNotificationName:notificationName
+                                                                   object:nil
+                                                                 userInfo:userInfo
+                                                       deliverImmediately:YES];	
 }
 
 + (void) sendFinishedNotifcationForAppIdentifier: (NSString*) identifier {
-	[self sendDistributedNotification:FINISHED_USING_REMOTE_CONTROL_NOTIFICATION targetBundleIdentifier:identifier];
+    [self sendDistributedNotification:FINISHED_USING_REMOTE_CONTROL_NOTIFICATION targetBundleIdentifier:identifier];
 }
 + (void) sendRequestForRemoteControlNotification {
-	[self sendDistributedNotification:REQUEST_FOR_REMOTE_CONTROL_NOTIFCATION targetBundleIdentifier:nil];
+    [self sendDistributedNotification:REQUEST_FOR_REMOTE_CONTROL_NOTIFCATION targetBundleIdentifier:nil];
 }
 
 + (const char*) remoteControlDeviceName {
-	return NULL;
+    return NULL;
 }
 
 @end

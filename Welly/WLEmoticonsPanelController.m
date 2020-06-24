@@ -22,7 +22,7 @@
 @property (NS_NONATOMIC_IOSONLY, readonly) NSUInteger countOfEmoticons;
 - (id)objectInEmoticonsAtIndex:(NSUInteger)theIndex;
 - (void)getEmoticons:(__unsafe_unretained id *)objsPtr
-			   range:(NSRange)range;
+               range:(NSRange)range;
 - (void)insertObject:(id)obj 
   inEmoticonsAtIndex:(NSUInteger)theIndex;
 - (void)removeObjectFromEmoticonsAtIndex:(NSUInteger)theIndex;
@@ -36,22 +36,22 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(WLEmoticonsPanelController)
 
 - (instancetype)init {
     if (self = [super init]) {
-		@synchronized(self) {
-			if (!_emoticons)
-				_emoticons = [[NSMutableArray alloc] init];
-			[self loadNibFile];
-		}
+        @synchronized(self) {
+            if (!_emoticons)
+                _emoticons = [[NSMutableArray alloc] init];
+            [self loadNibFile];
+        }
     }
     return self;
 }
 
 - (void)loadNibFile {
-	if (_emoticonsPanel) {
-		// Already loaded, return quietly
-		return;
-	}
-	
-	// Load Nib file and load all emoticons in
+    if (_emoticonsPanel) {
+        // Already loaded, return quietly
+        return;
+    }
+    
+    // Load Nib file and load all emoticons in
     if ([[NSBundle mainBundle] loadNibNamed:kEmoticonPanelNibFilename owner:self topLevelObjects:nil]) {
         [self loadEmoticons];
     }
@@ -60,8 +60,8 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(WLEmoticonsPanelController)
 #pragma mark -
 #pragma mark IBActions
 - (void)openEmoticonsPanel {
-	// Load Nib file if necessary
-	[self loadNibFile];
+    // Load Nib file if necessary
+    [self loadNibFile];
     [_emoticonsPanel makeKeyAndOrderFront:self];
 }
 
@@ -74,15 +74,15 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(WLEmoticonsPanelController)
 
 - (IBAction)inputSelectedEmoticon:(id)sender {
     [self closeEmoticonsPanel:sender];
-	if ([NSApp.keyWindow.firstResponder conformsToProtocol:@protocol(NSTextInputClient)]) {
-		id <NSTextInputClient> textInput = (id <NSTextInputClient>)NSApp.keyWindow.firstResponder;
-		NSArray *a = _emoticonsController.selectedObjects;
-		
-		if (a.count == 1) {
-			YLEmoticon *e = a[0];
-			[textInput insertText:e.content replacementRange:NSMakeRange(0, 0)];
-		}		
-	}
+    if ([NSApp.keyWindow.firstResponder conformsToProtocol:@protocol(NSTextInputClient)]) {
+        id <NSTextInputClient> textInput = (id <NSTextInputClient>)NSApp.keyWindow.firstResponder;
+        NSArray *a = _emoticonsController.selectedObjects;
+        
+        if (a.count == 1) {
+            YLEmoticon *e = a[0];
+            [textInput insertText:e.content replacementRange:NSMakeRange(0, 0)];
+        }		
+    }
 }
 
 #pragma mark -
@@ -112,7 +112,7 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(WLEmoticonsPanelController)
 }
 
 - (void)getEmoticons:(__unsafe_unretained id *)objsPtr
-			   range:(NSRange)range {
+               range:(NSRange)range {
     [_emoticons getObjects:objsPtr range:range];
 }
 
@@ -130,12 +130,12 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(WLEmoticonsPanelController)
 }
 
 - (void)addEmoticon:(YLEmoticon *)emoticon {
-	[self insertObject:emoticon inEmoticonsAtIndex:self.countOfEmoticons];
+    [self insertObject:emoticon inEmoticonsAtIndex:self.countOfEmoticons];
 }
 
 - (void)addEmoticonFromString:(NSString *)string {
-	YLEmoticon *emoticon = [YLEmoticon emoticonWithString:string];
-	[self addEmoticon:emoticon];
+    YLEmoticon *emoticon = [YLEmoticon emoticonWithString:string];
+    [self addEmoticon:emoticon];
 }
 
 @end

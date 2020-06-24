@@ -17,26 +17,26 @@ static NSImage *default_image;
 #pragma mark -
 #pragma mark Initialize
 - (instancetype)initWithTitle:(NSString *)title {
-	if (self = [super init]) {
-		_title = [title copy];
-	}
-	return self;
+    if (self = [super init]) {
+        _title = [title copy];
+    }
+    return self;
 }
 
 - (instancetype)initWithImage:(NSImage *)theImage{
-	if (self = [super init]) {
-		_image = theImage;
-	}
-	return self;
+    if (self = [super init]) {
+        _image = theImage;
+    }
+    return self;
 }
 
 - (instancetype)initWithImage:(NSImage *)theImage 
-			  title:(NSString *)title {
-	if (self = [super init]) {
-		_image = theImage;
-		_title = [title copy];
-	}
-	return self;
+                        title:(NSString *)title {
+    if (self = [super init]) {
+        _image = theImage;
+        _title = [title copy];
+    }
+    return self;
 }
 
 
@@ -66,6 +66,6 @@ static NSImage *default_image;
 #pragma mark -
 #pragma mark WLPortalSource protocol
 - (void)didSelect:(id)sender {
-	// DO NOTHING
+    // DO NOTHING
 }
 @end

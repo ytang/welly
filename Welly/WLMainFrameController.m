@@ -54,40 +54,40 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(WLMainFrameController)
     [[NSAppleEventManager sharedAppleEventManager] setEventHandler:self andSelector:@selector(getUrl:withReplyEvent:) forEventClass:kInternetEventClass andEventID:kAEGetURL];
     
     NSArray *observeKeys = @[@"shouldSmoothFonts", @"showHiddenText", @"messageCount", @"cellWidth", @"cellHeight", @"cellSize",
-                            @"chineseFontName", @"chineseFontSize", @"chineseFontPaddingLeft", @"chineseFontPaddingBottom",
-                            @"englishFontName", @"englishFontSize", @"englishFontPaddingLeft", @"englishFontPaddingBottom", 
-                            @"colorBlack", @"colorBlackHilite", @"colorRed", @"colorRedHilite", @"colorGreen", @"colorGreenHilite",
-                            @"colorYellow", @"colorYellowHilite", @"colorBlue", @"colorBlueHilite", @"colorMagenta", @"colorMagentaHilite", 
-                            @"colorCyan", @"colorCyanHilite", @"colorWhite", @"colorWhiteHilite", @"colorBG", @"colorBGHilite"];
+                             @"chineseFontName", @"chineseFontSize", @"chineseFontPaddingLeft", @"chineseFontPaddingBottom",
+                             @"englishFontName", @"englishFontSize", @"englishFontPaddingLeft", @"englishFontPaddingBottom", 
+                             @"colorBlack", @"colorBlackHilite", @"colorRed", @"colorRedHilite", @"colorGreen", @"colorGreenHilite",
+                             @"colorYellow", @"colorYellowHilite", @"colorBlue", @"colorBlueHilite", @"colorMagenta", @"colorMagentaHilite", 
+                             @"colorCyan", @"colorCyanHilite", @"colorWhite", @"colorWhiteHilite", @"colorBG", @"colorBGHilite"];
     for (NSString *key in observeKeys)
         [[WLGlobalConfig sharedInstance] addObserver:self
-                                           forKeyPath:key
-                                              options:(NSKeyValueObservingOptionOld | NSKeyValueObservingOptionNew) 
-                                              context:nil];
-
-	[self initializeTabControl];
+                                          forKeyPath:key
+                                             options:(NSKeyValueObservingOptionOld | NSKeyValueObservingOptionNew) 
+                                             context:nil];
+    
+    [self initializeTabControl];
     // Trigger the KVO to update the information properly.
     [WLGlobalConfig sharedInstance].showsHiddenText = [WLGlobalConfig sharedInstance].showsHiddenText;
     [WLGlobalConfig sharedInstance].cellWidth = [WLGlobalConfig sharedInstance].cellWidth;
-
+    
     //[_mainWindow setHasShadow:YES];
     [_mainWindow setOpaque:NO];
-
+    
     [_mainWindow setFrameAutosaveName:@"wellyMainWindowFrame"];
-        
+    
     [NSTimer scheduledTimerWithTimeInterval:30 target:self selector:@selector(antiIdle:) userInfo:nil repeats:YES];
     
-	[self initializeRemoteControl];
-	// FIXME: Remove this controller
-	// For full screen, initiallize the full screen controller
-	_presentationModeController = [[WLPresentationController alloc] initWithTargetView:_tabView
-																	 superView:_tabView.superview 
-																originalWindow:_mainWindow];
-	
-	// Set up color panel
-	[[NSUserDefaults standardUserDefaults] setObject:@"1Welly" forKey:@"NSColorPickerPageableNameListDefaults"];
+    [self initializeRemoteControl];
+    // FIXME: Remove this controller
+    // For full screen, initiallize the full screen controller
+    _presentationModeController = [[WLPresentationController alloc] initWithTargetView:_tabView
+                                                                             superView:_tabView.superview 
+                                                                        originalWindow:_mainWindow];
+    
+    // Set up color panel
+    [[NSUserDefaults standardUserDefaults] setObject:@"1Welly" forKey:@"NSColorPickerPageableNameListDefaults"];
     WLGlobalConfig *config = [WLGlobalConfig sharedInstance];
-	NSColorPanel *colorPanel = [NSColorPanel sharedColorPanel];
+    NSColorPanel *colorPanel = [NSColorPanel sharedColorPanel];
     colorPanel.mode = NSColorListModeColorPanel;
     NSColorList *colorList = [[NSColorList alloc] initWithName:@"Welly"];
     [colorList insertColor:config.colorBlack key:NSLocalizedString(@"Black", @"Color") atIndex:0];
@@ -107,17 +107,17 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(WLMainFrameController)
     [colorList insertColor:config.colorCyanHilite key:NSLocalizedString(@"CyanHilite", @"Color") atIndex:14];
     [colorList insertColor:config.colorWhiteHilite key:NSLocalizedString(@"WhiteHilite", @"Color") atIndex:15];
     [colorPanel attachColorList:colorList];
-	[colorPanel setShowsAlpha:YES];
-	
+    [colorPanel setShowsAlpha:YES];
+    
     // restore connections
     if ([[NSUserDefaults standardUserDefaults] boolForKey:WLRestoreConnectionKeyName]) 
         [self loadLastConnections];
-	
-	// Ask window to receive mouseMoved
-	[_mainWindow setAcceptsMouseMovedEvents:YES];
-	
-	// Register as sites observer
-	[WLSitesPanelController addSitesObserver:self];
+    
+    // Ask window to receive mouseMoved
+    [_mainWindow setAcceptsMouseMovedEvents:YES];
+    
+    // Register as sites observer
+    [WLSitesPanelController addSitesObserver:self];
 }
 
 #pragma mark -
@@ -139,14 +139,14 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(WLMainFrameController)
 }
 
 - (void)updateSitesMenuWithSites:(NSArray *)sites {
-	// Update Sites Menus
-	NSInteger total = _sitesMenu.submenu.numberOfItems;
+    // Update Sites Menus
+    NSInteger total = _sitesMenu.submenu.numberOfItems;
     NSInteger i = total - 1;
     // search the last seperator from the bottom
     for (; i > 0; i--)
-        if ([_sitesMenu.submenu itemAtIndex:i].separatorItem)
-            break;
-	
+    if ([_sitesMenu.submenu itemAtIndex:i].separatorItem)
+        break;
+    
     // then remove all menuitems below it, since we need to refresh the site menus
     ++i;
     for (NSInteger j = i; j < total; j++) {
@@ -162,12 +162,12 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(WLMainFrameController)
 }
 
 - (void)sitesDidChanged:(NSArray *)sitesAfterChange {
-	[self updateSitesMenuWithSites:sitesAfterChange];
+    [self updateSitesMenuWithSites:sitesAfterChange];
 }
 
 - (void)antiIdle:(NSTimer *)timer {
     if (![[NSUserDefaults standardUserDefaults] boolForKey:@"AntiIdle"]) 
-		return;
+        return;
     NSArray *a = _tabView.tabViewItems;
     for (NSTabViewItem *item in a) {
         WLConnection *connection = item.identifier;
@@ -175,7 +175,7 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(WLMainFrameController)
             connection.isConnected &&
             connection.lastTouchDate &&
             [[NSDate date] timeIntervalSinceDate:connection.lastTouchDate] >= 59) {
-//            unsigned char msg[] = {0x1B, 'O', 'A', 0x1B, 'O', 'B'};
+            // unsigned char msg[] = {0x1B, 'O', 'A', 0x1B, 'O', 'B'};
             unsigned char msg[] = {0x00, 0x00, 0x00, 0x00, 0x00, 0x00};
             [connection sendBytes:msg length:6];
         }
@@ -225,18 +225,18 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(WLMainFrameController)
         WLGlobalConfig *config = [WLGlobalConfig sharedInstance];
         NSRect r = _mainWindow.frame;
         CGFloat topLeftCorner = r.origin.y + r.size.height;
-
+        
         CGFloat shift = 0.0;
-
+        
         // Calculate the toolbar height
         shift = NSHeight(_mainWindow.frame) - NSHeight(_mainWindow.contentView.frame) + 22;
-
+        
         r.size.width = config.cellWidth * config.column;
         r.size.height = config.cellHeight * config.row + shift;
         r.origin.y = topLeftCorner - r.size.height;
         [_mainWindow setFrame:r display:YES animate:NO];
-
-		// Leave the task of resizing subviews to autoresizing
+        
+        // Leave the task of resizing subviews to autoresizing
         //NSRect tabRect = [_tabBarControl frame];
         //tabRect.size.width = r.size.width;
         //[_tabBarControl setFrame:tabRect];
@@ -279,38 +279,38 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(WLMainFrameController)
 }
 
 - (IBAction)toggleAutoReply:(id)sender {
-	BOOL ar = [sender state];
-	if ([sender isKindOfClass: [NSMenuItem class]])
-		ar = !ar;
-	// set the state of the button and menuitem
-	[_autoReplyButton setState: ar ? NSOnState : NSOffState];
-	_autoReplyMenuItem.state = ar ? NSOnState : NSOffState;
-	if (!ar && ar != _tabView.frontMostConnection.site.shouldAutoReply) {
-		// when user is to close auto reply, 
-		if (_tabView.frontMostConnection.messageDelegate.unreadCount > 0) {
-			// we should inform him with the unread messages
-			[_tabView.frontMostConnection.messageDelegate showUnreadMessagesOnTextView:_unreadMessageTextView];
-			[_messageWindow makeKeyAndOrderFront:self];
-		}
-	}
-	
-	_tabView.frontMostConnection.site.shouldAutoReply = ar;
+    BOOL ar = [sender state];
+    if ([sender isKindOfClass: [NSMenuItem class]])
+        ar = !ar;
+    // set the state of the button and menuitem
+    [_autoReplyButton setState: ar ? NSOnState : NSOffState];
+    _autoReplyMenuItem.state = ar ? NSOnState : NSOffState;
+    if (!ar && ar != _tabView.frontMostConnection.site.shouldAutoReply) {
+        // when user is to close auto reply, 
+        if (_tabView.frontMostConnection.messageDelegate.unreadCount > 0) {
+            // we should inform him with the unread messages
+            [_tabView.frontMostConnection.messageDelegate showUnreadMessagesOnTextView:_unreadMessageTextView];
+            [_messageWindow makeKeyAndOrderFront:self];
+        }
+    }
+    
+    _tabView.frontMostConnection.site.shouldAutoReply = ar;
 }
 
 - (IBAction)toggleMouseAction:(id)sender {
-	if (!_tabView.frontMostConnection)
-		return;
-	
+    if (!_tabView.frontMostConnection)
+        return;
+    
     BOOL state = [sender state];
     if ([sender isKindOfClass:[NSMenuItem class]])
         state = !state;
     [_mouseButton setState:(state ? NSOnState : NSOffState)];
-	
-	_tabView.frontMostConnection.site.shouldEnableMouse = state;
-
-	// Post a notification to inform observers the site has changed the mouse enable preference
-	[[NSNotificationCenter defaultCenter] postNotificationName:WLNotificationSiteDidChangeShouldEnableMouse
-														object:self];
+    
+    _tabView.frontMostConnection.site.shouldEnableMouse = state;
+    
+    // Post a notification to inform observers the site has changed the mouse enable preference
+    [[NSNotificationCenter defaultCenter] postNotificationName:WLNotificationSiteDidChangeShouldEnableMouse
+                                                        object:self];
 }
 
 - (IBAction)toggleShowsHiddenText:(id)sender {
@@ -318,39 +318,39 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(WLMainFrameController)
     if ([sender isKindOfClass:[NSMenuItem class]]) {
         show = !show;
     }
-	
-	_showHiddenTextMenuItem.state = show;
+    
+    _showHiddenTextMenuItem.state = show;
     [WLGlobalConfig sharedInstance].showsHiddenText = show;
 }
 
 - (IBAction)closeMessageWindow:(id)sender {
-	[_messageWindow orderOut: self];
+    [_messageWindow orderOut: self];
 }
 
 - (IBAction)setEncoding:(id)sender {
     if (_tabView.frontMostConnection) {
-		WLEncoding encoding = WLGBKEncoding;
-		if ([[sender title] rangeOfString:@"GBK"].location != NSNotFound)
-			encoding = WLGBKEncoding;
-		if ([[sender title] rangeOfString:@"Big5"].location != NSNotFound)
-			encoding = WLBig5Encoding;
-		
+        WLEncoding encoding = WLGBKEncoding;
+        if ([[sender title] rangeOfString:@"GBK"].location != NSNotFound)
+            encoding = WLGBKEncoding;
+        if ([[sender title] rangeOfString:@"Big5"].location != NSNotFound)
+            encoding = WLBig5Encoding;
+        
         _tabView.frontMostConnection.site.encoding = encoding;
-		[[NSNotificationCenter defaultCenter] postNotificationName:WLNotificationSiteDidChangeEncoding 
-															object:self];
+        [[NSNotificationCenter defaultCenter] postNotificationName:WLNotificationSiteDidChangeEncoding 
+                                                            object:self];
         [self updateEncodingMenu];
     }
 }
 
 - (IBAction)connectLocation:(id)sender {
-	[sender abortEditing];
-	[_tabView.window makeFirstResponder:_tabView];
+    [sender abortEditing];
+    [_tabView.window makeFirstResponder:_tabView];
     BOOL ssh = NO;
     
     NSString *name = [sender stringValue];
     if ([name.lowercaseString hasPrefix:@"ssh://"]) 
         ssh = YES;
-//        name = [name substringFromIndex: 6];
+    // name = [name substringFromIndex: 6];
     if ([name.lowercaseString hasPrefix:@"telnet://"])
         name = [name substringFromIndex: 9];
     if ([name.lowercaseString hasPrefix:@"bbs://"])
@@ -358,8 +358,8 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(WLMainFrameController)
     
     NSMutableArray *matchedSites = [NSMutableArray array];
     WLSite *s;
-	NSArray *sites = [WLSitesPanelController sites];
-        
+    NSArray *sites = [WLSitesPanelController sites];
+    
     if ([name rangeOfString:@"."].location != NSNotFound) { /* Normal address */        
         for (WLSite *site in sites) 
             if ([site.address rangeOfString:name].location != NSNotFound && !(ssh ^ [site.address hasPrefix:@"ssh://"])) 
@@ -400,7 +400,7 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(WLMainFrameController)
 }
 
 - (IBAction)openSitePanel:(id)sender {
-	[[WLSitesPanelController sharedInstance] openSitesPanelInWindow:_mainWindow];
+    [[WLSitesPanelController sharedInstance] openSitesPanelInWindow:_mainWindow];
 }
 
 - (IBAction)addCurrentSite:(id)sender {
@@ -413,7 +413,7 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(WLMainFrameController)
     
     WLSite *site = _tabView.frontMostConnection.site;
     [[WLSitesPanelController sharedInstance] openSitesPanelInWindow:_mainWindow 
-														 andAddSite:site];
+                                                         andAddSite:site];
 }
 
 - (IBAction)openEmoticonsPanel:(id)sender {
@@ -422,19 +422,19 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(WLMainFrameController)
 
 // Open compose panel
 - (IBAction)openComposePanel:(id)sender {
-	if ([_tabView.frontMostView conformsToProtocol:@protocol(NSTextInputClient)])
-		[[WLComposePanelController sharedInstance] openComposePanelInWindow:_mainWindow 
-																	forView:(NSView <NSTextInputClient>*)_tabView.frontMostView];
+    if ([_tabView.frontMostView conformsToProtocol:@protocol(NSTextInputClient)])
+        [[WLComposePanelController sharedInstance] openComposePanelInWindow:_mainWindow 
+                                                                    forView:(NSView <NSTextInputClient>*)_tabView.frontMostView];
 }
 
 // Download Post
 - (IBAction)downloadPost:(id)sender {
-	[[WLPostDownloadDelegate sharedInstance] beginPostDownloadInWindow:_mainWindow 
-														   forTerminal:_tabView.frontMostTerminal];
+    [[WLPostDownloadDelegate sharedInstance] beginPostDownloadInWindow:_mainWindow 
+                                                           forTerminal:_tabView.frontMostTerminal];
 }
 
 - (BOOL)shouldReconnect {
-	if (!_tabView.frontMostConnection.isConnected) return YES;
+    if (!_tabView.frontMostConnection.isConnected) return YES;
     if (![[NSUserDefaults standardUserDefaults] boolForKey:WLConfirmOnCloseEnabledKeyName]) return YES;
     NSBeginAlertSheet(NSLocalizedString(@"Are you sure you want to reconnect?", @"Sheet Title"), 
                       NSLocalizedString(@"Confirm", @"Default Button"), 
@@ -449,16 +449,16 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(WLMainFrameController)
 }
 
 - (void)confirmReconnect:(NSWindow *)sheet 
-			  returnCode:(int)returnCode 
-			 contextInfo:(void *)contextInfo {
+              returnCode:(int)returnCode 
+             contextInfo:(void *)contextInfo {
     if (returnCode == NSAlertDefaultReturn) {
-		[_tabView.frontMostConnection reconnect];
+        [_tabView.frontMostConnection reconnect];
     }
 }
 
 - (IBAction)reconnect:(id)sender {
     if (!_tabView.frontMostConnection.isConnected || ![[NSUserDefaults standardUserDefaults] boolForKey:WLConfirmOnCloseEnabledKeyName]) {
-		[_tabView.frontMostConnection reconnect];
+        [_tabView.frontMostConnection reconnect];
         return;
     }
     NSBeginAlertSheet(NSLocalizedString(@"Are you sure you want to reconnect?", @"Sheet Title"), 
@@ -485,61 +485,61 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(WLMainFrameController)
 #pragma mark -
 #pragma mark Application Delegation
 - (BOOL)validateAction:(SEL)action {
-	if (action == @selector(addCurrentSite:) ||
+    if (action == @selector(addCurrentSite:) ||
         action == @selector(reconnect:) ||
-		action == @selector(setEncoding:)) {
-		if (!_tabView.frontMostConnection ||
-			(_tabView.frontMostConnection.site).dummy)
-			return NO;
-	} else if (action == @selector(selectNextTab:) ||
-			   action == @selector(selectPrevTab:)) {
-		if (_tabView.numberOfTabViewItems == 0)
-			return NO;
-	} else if (action == @selector(toggleMouseAction:) ||
-			   action == @selector(downloadPost:) ||
-			   action == @selector(openComposePanel:)) {
-		if (!_tabView.frontMostConnection ||
-			!_tabView.frontMostConnection.isConnected) {
-			return NO;
-		}
-	} else if (action == @selector(togglePresentationMode:)) {
-		if (self.inFullScreenMode && !_presentationModeController.isInPresentationMode) {
-			return NO;
-		} else
-			return YES;
-	} else if (action == @selector(increaseFontSize:) ||
-			   action == @selector(decreaseFontSize:)) {
-		if (self.inFullScreenMode || _presentationModeController.isInPresentationMode) {
-			return NO;
-		} else
-			return YES;
-	}
-	
+        action == @selector(setEncoding:)) {
+        if (!_tabView.frontMostConnection ||
+            (_tabView.frontMostConnection.site).dummy)
+            return NO;
+    } else if (action == @selector(selectNextTab:) ||
+               action == @selector(selectPrevTab:)) {
+        if (_tabView.numberOfTabViewItems == 0)
+            return NO;
+    } else if (action == @selector(toggleMouseAction:) ||
+               action == @selector(downloadPost:) ||
+               action == @selector(openComposePanel:)) {
+        if (!_tabView.frontMostConnection ||
+            !_tabView.frontMostConnection.isConnected) {
+            return NO;
+        }
+    } else if (action == @selector(togglePresentationMode:)) {
+        if (self.inFullScreenMode && !_presentationModeController.isInPresentationMode) {
+            return NO;
+        } else
+            return YES;
+    } else if (action == @selector(increaseFontSize:) ||
+               action == @selector(decreaseFontSize:)) {
+        if (self.inFullScreenMode || _presentationModeController.isInPresentationMode) {
+            return NO;
+        } else
+            return YES;
+    }
+    
     return YES;
 }
 
 - (BOOL)validateToolbarItem:(NSToolbarItem *)theItem {
-	// TODO: this is not working. We need to set the toolbar items' enable or not manually.
-	return [self validateAction:theItem.action];
+    // TODO: this is not working. We need to set the toolbar items' enable or not manually.
+    return [self validateAction:theItem.action];
 }
 
 - (BOOL)validateMenuItem:(NSMenuItem *)menuItem {
-	return [self validateAction:menuItem.action];
+    return [self validateAction:menuItem.action];
 }
 
 - (BOOL)applicationShouldHandleReopen:(id)s 
-					hasVisibleWindows:(BOOL)b {
+                    hasVisibleWindows:(BOOL)b {
     [_mainWindow makeKeyAndOrderFront:self];
     return NO;
 } 
 
 - (NSApplicationTerminateReply)applicationShouldTerminate:(NSApplication *)sender {
-	// Restore from presentation mode firstly
-	[self exitPresentationMode];
-	// Exit from full screen mode if necessary
-	if (self.inFullScreenMode) {
-		[_mainWindow toggleFullScreen:self];
-	}
+    // Restore from presentation mode firstly
+    [self exitPresentationMode];
+    // Exit from full screen mode if necessary
+    if (self.inFullScreenMode) {
+        [_mainWindow toggleFullScreen:self];
+    }
     
     if ([[NSUserDefaults standardUserDefaults] boolForKey:WLRestoreConnectionKeyName]) 
         [self saveLastConnections];
@@ -548,7 +548,7 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(WLMainFrameController)
         return YES;
     
     NSInteger tabNumber = _tabView.numberOfTabViewItems;
-	NSInteger connectedConnection = 0;
+    NSInteger connectedConnection = 0;
     for (NSInteger i = 0; i < tabNumber; i++) {
         id connection = [_tabView tabViewItemAtIndex:i].identifier;
         if ([connection isKindOfClass:[WLConnection class]] && [connection isConnected])
@@ -560,7 +560,7 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(WLMainFrameController)
                       NSLocalizedString(@"Cancel", @"Cancel Button"), 
                       nil, 
                       _mainWindow,
-					  self, 
+                      self, 
                       @selector(confirmSheetDidEnd:returnCode:contextInfo:), 
                       @selector(confirmSheetDidDismiss:returnCode:contextInfo:), nil,
                       NSLocalizedString(@"There are %d tabs open in Welly. Do you want to quit anyway?", @"Sheet Message"),
@@ -569,15 +569,15 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(WLMainFrameController)
 }
 
 - (void)confirmSheetDidEnd:(NSWindow *)sheet 
-				returnCode:(int)returnCode 
-			   contextInfo:(void *)contextInfo {
+                returnCode:(int)returnCode 
+               contextInfo:(void *)contextInfo {
     [[NSUserDefaults standardUserDefaults] synchronize];
     [NSApp replyToApplicationShouldTerminate:(returnCode == NSAlertDefaultReturn)];
 }
 
 - (void)confirmSheetDidDismiss:(NSWindow *)sheet
-					returnCode:(int)returnCode 
-				   contextInfo:(void *)contextInfo {
+                    returnCode:(int)returnCode 
+                   contextInfo:(void *)contextInfo {
     [[NSUserDefaults standardUserDefaults] synchronize];
     [NSApp replyToApplicationShouldTerminate:(returnCode == NSAlertDefaultReturn)];
 }
@@ -590,12 +590,12 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(WLMainFrameController)
 }
 
 - (void)windowWillClose:(id)window {
-//    [NSApp terminate: self];
+    // [NSApp terminate: self];
     //return NO;
 }
 
 - (void)windowDidBecomeKey:(NSNotification *)notification {
-	// TODO:[_telnetView deactivateMouseForKeying];
+    // TODO:[_telnetView deactivateMouseForKeying];
     _closeWindowMenuItem.keyEquivalentModifierMask = NSCommandKeyMask|NSShiftKeyMask;
     _closeTabMenuItem.keyEquivalent = @"w";
 }
@@ -607,8 +607,8 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(WLMainFrameController)
 
 - (void)getUrl:(NSAppleEventDescriptor *)event 
 withReplyEvent:(NSAppleEventDescriptor *)replyEvent {
-	NSString *url = [event paramDescriptorForKeyword:keyDirectObject].stringValue;
-	// now you can create an NSURL and grab the necessary parts
+    NSString *url = [event paramDescriptorForKeyword:keyDirectObject].stringValue;
+    // now you can create an NSURL and grab the necessary parts
     if ([url.lowercaseString hasPrefix:@"bbs://"])
         url = [url substringFromIndex:6];
     [_addressBar setStringValue:url];
@@ -622,36 +622,36 @@ withReplyEvent:(NSAppleEventDescriptor *)replyEvent {
 // A "processor" here will resize the NSViews and do some necessary work before full
 // screen
 - (IBAction)increaseFontSize:(id)sender {
-	[_tabView increaseFontSize:sender];
+    [_tabView increaseFontSize:sender];
 }
 
 - (IBAction)decreaseFontSize:(id)sender {
-	[_tabView decreaseFontSize:sender];
+    [_tabView decreaseFontSize:sender];
 }
 
 - (IBAction)togglePresentationMode:(id)sender {
-	[_presentationModeController togglePresentationMode];
-	_presentationModeMenuItem.title = _presentationModeController.isInPresentationMode ? NSLocalizedString(@"Exit Presentation Mode", "Presentation Mode") : NSLocalizedString(@"Enter Presentation Mode", "Presentaion Mode");
+    [_presentationModeController togglePresentationMode];
+    _presentationModeMenuItem.title = _presentationModeController.isInPresentationMode ? NSLocalizedString(@"Exit Presentation Mode", "Presentation Mode") : NSLocalizedString(@"Enter Presentation Mode", "Presentaion Mode");
 }
 
 - (void)exitPresentationMode {
-	[_presentationModeController exitPresentationMode];
+    [_presentationModeController exitPresentationMode];
 }
 
 #pragma mark -
 #pragma mark For restore settings
 - (IBAction)restoreSettings:(id)sender {
-	NSAlert *alert = [NSAlert alertWithMessageText:NSLocalizedString(@"Are you sure you want to restore all your font settings?", @"Sheet Title")
-									 defaultButton:NSLocalizedString(@"Confirm", @"Default Button")
-								   alternateButton:NSLocalizedString(@"Cancel", @"Cancel Button")
-									   otherButton:nil
-						 informativeTextWithFormat:NSLocalizedString(@"If you proceed, you will lost all your current font settings for Welly, and this operation is only encouraged when your font settings are missing. Are you sure you want to continue?", @"Sheet Message")];
-	if ([alert runModal] != NSAlertDefaultReturn)
-		return;
-	
-	// Set the font settings
-	[[WLGlobalConfig sharedInstance] restoreSettings];
-	[_mainWindow center];
+    NSAlert *alert = [NSAlert alertWithMessageText:NSLocalizedString(@"Are you sure you want to restore all your font settings?", @"Sheet Title")
+                                     defaultButton:NSLocalizedString(@"Confirm", @"Default Button")
+                                   alternateButton:NSLocalizedString(@"Cancel", @"Cancel Button")
+                                       otherButton:nil
+                         informativeTextWithFormat:NSLocalizedString(@"If you proceed, you will lost all your current font settings for Welly, and this operation is only encouraged when your font settings are missing. Are you sure you want to continue?", @"Sheet Message")];
+    if ([alert runModal] != NSAlertDefaultReturn)
+        return;
+    
+    // Set the font settings
+    [[WLGlobalConfig sharedInstance] restoreSettings];
+    [_mainWindow center];
 }
 
 #pragma mark -
@@ -668,7 +668,7 @@ withReplyEvent:(NSAppleEventDescriptor *)replyEvent {
                       nil,
                       @"Please pay attention to our future versions. Thanks for your cooperation.");
     return;
-//     TODO: uncomment the following code to enable RSS mode.
+// TODO: uncomment the following code to enable RSS mode.
 //    if (!_tabView.frontMostConnection || !_tabView.frontMostConnection.isConnected) return;
 //    if (!_rssThread) {
 //        [NSThread detachNewThreadSelector:@selector(fetchFeed) toTarget:self withObject:nil];
@@ -695,7 +695,7 @@ withReplyEvent:(NSAppleEventDescriptor *)replyEvent {
 }
 
 - (void)fetchFeed {
-	/*
+    /*
     // FIXME: lots of HARDCODE here
     NSAutoreleasePool *pool = [NSAutoreleasePool new];
     BOOL exitNow = NO;
@@ -750,7 +750,7 @@ withReplyEvent:(NSAppleEventDescriptor *)replyEvent {
             [connection sendText:termKeyEnd];
             [connection sendText:termKeyEnd]; // in case of seeing board memo
             while ([[terminal stringFromIndex:column length:column] rangeOfString:@"发表"].location == NSNotFound || [terminal cursorColumn] != 1
-                || ![terminal stringFromIndex:column * [terminal cursorRow] + 10 length:1])
+                   || ![terminal stringFromIndex:column * [terminal cursorRow] + 10 length:1])
                 usleep(refreshInterval);
             BOOL isLastArticle = YES;
             for (;;) { // traverse every post
@@ -790,15 +790,15 @@ withReplyEvent:(NSAppleEventDescriptor *)replyEvent {
                                 [description appendString:@"<br />"];
                             }
                         }
-                        [description replaceOccurrencesOfString:@"<br />" 
-                                                     withString:@"" 
-                                                        options:(NSBackwardsSearch | NSAnchoredSearch) 
+                        [description replaceOccurrencesOfString:@"<br />"
+                                                     withString:@""
+                                                        options:(NSBackwardsSearch | NSAnchoredSearch)
                                                           range:NSMakeRange(0, [description length])];
                         if ([moreModeKeyword isEqualToString:@"下"])
                             [description appendFormat:@"<br />......"];
                         NSString *author = [terminal stringFromIndex:8 length:column - 8];
-                        NSString *boardName = offset ? [terminal stringFromIndex:column length:column] 
-                                                     : [author substringFromIndex:[author rangeOfString:@" " options:NSBackwardsSearch].location + 1];
+                        NSString *boardName = offset ? [terminal stringFromIndex:column length:column]
+                        : [author substringFromIndex:[author rangeOfString:@" " options:NSBackwardsSearch].location + 1];
                         author = [author substringToIndex:[author rangeOfString:@" "].location];
                         NSString *thirdLine;
                         while (!(thirdLine = [terminal stringFromIndex:column * 2 + 8 + offset length:column - 8]))
@@ -848,62 +848,62 @@ withReplyEvent:(NSAppleEventDescriptor *)replyEvent {
     }
     [feedGenerator release];
     [pool drain];
-	 */
+     */
 }
 
 // for portal
 /*
 - (IBAction)browseImage:(id)sender {
-	[_sitesWindow setLevel:0];
-	NSOpenPanel *openPanel = [NSOpenPanel openPanel];
-	[openPanel beginSheetForDirectory:@"~"
-								 file:nil
-								types:[NSArray arrayWithObjects:@"jpg", @"jpeg", @"bmp", @"png", @"gif", @"tiff", @"tif", nil]
-					   modalForWindow:_sitesWindow
-						modalDelegate:self
-					   didEndSelector:@selector(openPanelDidEnd:returnCode:contextInfo:)
-						  contextInfo:nil];
-	//[openPanel setLevel:floatWindowLevel + 1];
+    [_sitesWindow setLevel:0];
+    NSOpenPanel *openPanel = [NSOpenPanel openPanel];
+    [openPanel beginSheetForDirectory:@"~"
+                                 file:nil
+                                types:[NSArray arrayWithObjects:@"jpg", @"jpeg", @"bmp", @"png", @"gif", @"tiff", @"tif", nil]
+                       modalForWindow:_sitesWindow
+                        modalDelegate:self
+                       didEndSelector:@selector(openPanelDidEnd:returnCode:contextInfo:)
+                          contextInfo:nil];
+    //[openPanel setLevel:floatWindowLevel + 1];
 }
 
 - (void)removeImage {
-	NSFileManager *fileManager = [NSFileManager defaultManager];
-	// Get the destination dir
-	NSString *destination = [[[[[NSHomeDirectory() stringByAppendingPathComponent:@"Library"]
-								stringByAppendingPathComponent:@"Application Support"]
-							   stringByAppendingPathComponent:@"Welly"]
-							  stringByAppendingPathComponent:@"Covers"]
-							 stringByAppendingPathComponent:[_siteNameField stringValue]];
-	
-	// For all allowed types
-	NSArray *allowedTypes = supportedCoverExtensions;
-	for (NSString *ext in allowedTypes) {
-		// Remove it!
-		[fileManager removeItemAtPath:[destination stringByAppendingPathExtension:ext] error:NULL];
-	}
+    NSFileManager *fileManager = [NSFileManager defaultManager];
+    // Get the destination dir
+    NSString *destination = [[[[[NSHomeDirectory() stringByAppendingPathComponent:@"Library"]
+                                stringByAppendingPathComponent:@"Application Support"]
+                               stringByAppendingPathComponent:@"Welly"]
+                              stringByAppendingPathComponent:@"Covers"]
+                             stringByAppendingPathComponent:[_siteNameField stringValue]];
+    
+    // For all allowed types
+    NSArray *allowedTypes = supportedCoverExtensions;
+    for (NSString *ext in allowedTypes) {
+        // Remove it!
+        [fileManager removeItemAtPath:[destination stringByAppendingPathExtension:ext] error:NULL];
+    }
 }
 
 - (IBAction)removeSiteImage:(id)sender {
-	[_sitesWindow setAlphaValue:0];
-	NSAlert *alert = [NSAlert alertWithMessageText:NSLocalizedString(@"Are you sure you want to delete the cover?", @"Sheet Title")
-									 defaultButton:NSLocalizedString(@"Delete", @"Default Button")
-								   alternateButton:NSLocalizedString(@"Cancel", @"Cancel Button")
-									   otherButton:nil
-						 informativeTextWithFormat:NSLocalizedString(@"Welly will delete this cover file, please confirm.", @"Sheet Message")];
-	if ([alert runModal] == NSAlertDefaultReturn)
-		[self removeImage];
-	[_sitesWindow setAlphaValue:100];
+    [_sitesWindow setAlphaValue:0];
+    NSAlert *alert = [NSAlert alertWithMessageText:NSLocalizedString(@"Are you sure you want to delete the cover?", @"Sheet Title")
+                                     defaultButton:NSLocalizedString(@"Delete", @"Default Button")
+                                   alternateButton:NSLocalizedString(@"Cancel", @"Cancel Button")
+                                       otherButton:nil
+                         informativeTextWithFormat:NSLocalizedString(@"Welly will delete this cover file, please confirm.", @"Sheet Message")];
+    if ([alert runModal] == NSAlertDefaultReturn)
+        [self removeImage];
+    [_sitesWindow setAlphaValue:100];
 }
 
 - (void)openPanelDidEnd:(NSOpenPanel *)sheet
-			 returnCode:(int)returnCode
-			contextInfo:(void *)contextInfo {
-	if (returnCode == NSOKButton) {
-		NSString *source = [sheet filename];
-		NSString *siteName = [_siteNameField stringValue];
-		[_telnetView addPortalImage:source forSite:siteName];
-	}
+             returnCode:(int)returnCode
+            contextInfo:(void *)contextInfo {
+    if (returnCode == NSOKButton) {
+        NSString *source = [sheet filename];
+        NSString *siteName = [_siteNameField stringValue];
+        [_telnetView addPortalImage:source forSite:siteName];
+    }
 }
-*/
+ */
 
 @end

@@ -68,12 +68,12 @@ NSString *const WLEnglishFontSizeKeyName;
 - (void)refreshFont;
 
 - (NSColor *)colorAtIndex:(int)i 
-				   hilite:(BOOL)h;
+                   hilite:(BOOL)h;
 - (NSColor *)bgColorAtIndex:(int)i 
-					 hilite:(BOOL)h;
+                     hilite:(BOOL)h;
 - (void)setColor:(NSColor *)c 
-		  hilite:(BOOL)h 
-		 atIndex:(int)i;
+          hilite:(BOOL)h 
+         atIndex:(int)i;
 
 - (void)updateBlinkTicker;
 

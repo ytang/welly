@@ -10,6 +10,6 @@
 #import "WLMouseHotspotHandler.h"
 
 @interface WLClickEntryHotspotHandler : WLMouseHotspotHandler <WLMouseUpHandler, WLUpdatable, WLContextualMenuHandler> {
-	int _row;
+    int _row;
 }
 @end

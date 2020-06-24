@@ -43,13 +43,13 @@
 #import <AppKit/NSAnimation.h>
 
 @interface DBPrefsWindowController : NSWindowController <NSAnimationDelegate, NSToolbarDelegate> {
-	NSMutableArray *toolbarIdentifiers;
-	NSMutableDictionary *toolbarViews;
-	NSMutableDictionary *toolbarItems;
-	
-	BOOL _crossFade;
-	BOOL _shiftSlowsAnimation;
-	
+    NSMutableArray *toolbarIdentifiers;
+    NSMutableDictionary *toolbarViews;
+    NSMutableDictionary *toolbarItems;
+    
+    BOOL _crossFade;
+    BOOL _shiftSlowsAnimation;
+    
     IBOutlet NSPopUpButton *_telnetPopUpButton;
     IBOutlet NSPopUpButton *_sshPopUpButton;
     
@@ -57,10 +57,10 @@
     IBOutlet NSView *_connectionPrefView;
     IBOutlet NSView *_fontsPrefView;
     IBOutlet NSView *_colorsPrefView;
-	IBOutlet NSView *_autoReplyPrefView;
+    IBOutlet NSView *_autoReplyPrefView;
     
-	NSView *contentSubview;
-	NSViewAnimation *viewAnimation;
+    NSView *contentSubview;
+    NSViewAnimation *viewAnimation;
 }
 
 - (IBAction) setChineseFont: (id) sender;

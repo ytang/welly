@@ -15,12 +15,12 @@
 
 // Init functions
 - (instancetype)initWithProcessor:(NSObject <WLPresentationModeProcessor>*)pro 
-			 targetView:(NSView*)tview 
-			  superView:(NSView*)sview
-		 originalWindow:(NSWindow*)owin;
+                       targetView:(NSView*)tview 
+                        superView:(NSView*)sview
+                   originalWindow:(NSWindow*)owin;
 - (instancetype)initWithTargetView:(NSView*)tview 
-				 superView:(NSView*)sview
-			originalWindow:(NSWindow*)owin;
+                         superView:(NSView*)sview
+                    originalWindow:(NSWindow*)owin;
 // Handle functions
 - (void)togglePresentationMode;
 - (void)exitPresentationMode;

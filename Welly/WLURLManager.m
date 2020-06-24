@@ -18,15 +18,15 @@ NSString *const WLMenuTitleCopyURL = @"Copy URL";
 NSString *const WLMenuTitleOpenWithBrowser = @"Open With Browser";
 
 @interface WLURLParser : NSObject {
-	NSMutableString *_currentURLStringBuffer;
-	WLURLManager *_manager;
-
-	cell **_grid;
-	BOOL _isReadingURL;
-	
-	NSInteger _maxRow, _maxColumn;
-	
-	NSInteger _index, _startIndex, _urlLength;
+    NSMutableString *_currentURLStringBuffer;
+    WLURLManager *_manager;
+    
+    cell **_grid;
+    BOOL _isReadingURL;
+    
+    NSInteger _maxRow, _maxColumn;
+    
+    NSInteger _index, _startIndex, _urlLength;
 }
 
 - (void)parse:(WLTerminal *)terminal;
@@ -34,340 +34,340 @@ NSString *const WLMenuTitleOpenWithBrowser = @"Open With Browser";
 
 @implementation WLURLParser
 - (instancetype)initWithManager:(WLURLManager *)manager {
-	self = [self init];
-	if (self) {
-		_maxRow = [WLGlobalConfig sharedInstance].row;
-		_maxColumn = [WLGlobalConfig sharedInstance].column;
-		_currentURLStringBuffer = [[NSMutableString alloc] initWithCapacity:40];
-		_manager = manager;
-	}
-	return self;
+    self = [self init];
+    if (self) {
+        _maxRow = [WLGlobalConfig sharedInstance].row;
+        _maxColumn = [WLGlobalConfig sharedInstance].column;
+        _currentURLStringBuffer = [[NSMutableString alloc] initWithCapacity:40];
+        _manager = manager;
+    }
+    return self;
 }
 
 - (void)addURL {
-	// Trimming spaces for multi-line url
-	NSString *urlString = [_currentURLStringBuffer stringByReplacingOccurrencesOfString:@"\\" withString:@""];
-	urlString = [urlString stringByReplacingOccurrencesOfString:@" " withString:@""];
-	
-	// Trimming special characters at the end of url
-	NSCharacterSet *trimmingSet = [NSCharacterSet characterSetWithCharactersInString:@",.:;?!"];
-	NSInteger lenBeforeTrimming = urlString.length;
-	urlString = [urlString stringByTrimmingCharactersInSet:trimmingSet];
-	NSInteger trimmedLength = lenBeforeTrimming - urlString.length;
-	for (NSInteger index=_index-1; index>_index-1-trimmedLength; --index) {
-		_grid[index/_maxColumn][index%_maxColumn].attr.f.url = NO;
-	}
-
-	[_manager addURL:urlString atIndex:_startIndex length:_urlLength-trimmedLength];
-	[_currentURLStringBuffer setString:@""];
-	_isReadingURL = NO;
+    // Trimming spaces for multi-line url
+    NSString *urlString = [_currentURLStringBuffer stringByReplacingOccurrencesOfString:@"\\" withString:@""];
+    urlString = [urlString stringByReplacingOccurrencesOfString:@" " withString:@""];
+    
+    // Trimming special characters at the end of url
+    NSCharacterSet *trimmingSet = [NSCharacterSet characterSetWithCharactersInString:@",.:;?!"];
+    NSInteger lenBeforeTrimming = urlString.length;
+    urlString = [urlString stringByTrimmingCharactersInSet:trimmingSet];
+    NSInteger trimmedLength = lenBeforeTrimming - urlString.length;
+    for (NSInteger index=_index-1; index>_index-1-trimmedLength; --index) {
+        _grid[index/_maxColumn][index%_maxColumn].attr.f.url = NO;
+    }
+    
+    [_manager addURL:urlString atIndex:_startIndex length:_urlLength-trimmedLength];
+    [_currentURLStringBuffer setString:@""];
+    _isReadingURL = NO;
 }
 
 - (void)parse:(WLTerminal *)terminal {
-	_grid = terminal.grid;
-	_isReadingURL = NO;
-	const char *protocols[] = {"http://", "https://", "ftp://", "telnet://", "bbs://", "ssh://", "mailto:", "www."};
-	const int protocolNum = 8;
+    _grid = terminal.grid;
+    _isReadingURL = NO;
+    const char *protocols[] = {"http://", "https://", "ftp://", "telnet://", "bbs://", "ssh://", "mailto:", "www."};
+    const int protocolNum = 8;
     const int realProtocalNum = 7; // only the first 7 protocols are real, the others are fake.
-	_startIndex = 0;
-	_urlLength = 0;
-	int par = 0;
-	
-	[_currentURLStringBuffer setString:@""];
-	
-	for (_index = 0; _index < _maxRow * _maxColumn; ++_index) {
-		if (_isReadingURL) {
-			// Push current char in!
+    _startIndex = 0;
+    _urlLength = 0;
+    int par = 0;
+    
+    [_currentURLStringBuffer setString:@""];
+    
+    for (_index = 0; _index < _maxRow * _maxColumn; ++_index) {
+        if (_isReadingURL) {
+            // Push current char in!
             unsigned char c = _grid[_index/_maxColumn][_index%_maxColumn].byte;
-			// ']' is a legal url char actually, but it is seldom used
-			// Most of time, it is something like [http://someurl] so we just ignore the ']'
-			if (0x21 > c || c > 0x7E || c == '"' || c == '\'' || c == ']') {
-				// Not URL anymore, add previous one
-				[self addURL];
-			} else if (c == '(') {
+            // ']' is a legal url char actually, but it is seldom used
+            // Most of time, it is something like [http://someurl] so we just ignore the ']'
+            if (0x21 > c || c > 0x7E || c == '"' || c == '\'' || c == ']') {
+                // Not URL anymore, add previous one
+                [self addURL];
+            } else if (c == '(') {
                 ++par;
-			} else if (c == ')') {
+            } else if (c == ')') {
                 if (--par < 0) {
-					// Not URL anymore, add previous one
-					[self addURL];
-				}
+                    // Not URL anymore, add previous one
+                    [self addURL];
+                }
             } else if (c == '\\') {
-				if (_maxColumn - _index%_maxColumn <= 2) {
-					// This '\\' is for connecting two lines
-					_urlLength += (_maxColumn - _index%_maxColumn) - 1;
-					_index += (_maxColumn - _index%_maxColumn) - 1;
-				} else {
-					// Not URL anymore, add previous one
-					[self addURL];
-				}
-			}
-			if (_isReadingURL) {
-				[_currentURLStringBuffer appendFormat:@"%c", c];
-				_urlLength++;
-				
-				// Mark as url to draw url underlines
-				_grid[_index/_maxColumn][_index%_maxColumn].attr.f.url = YES;
-			}
-		} else {
-			// Try to match the url header
-			for (int p = 0; p < protocolNum; p++) {
+                if (_maxColumn - _index%_maxColumn <= 2) {
+                    // This '\\' is for connecting two lines
+                    _urlLength += (_maxColumn - _index%_maxColumn) - 1;
+                    _index += (_maxColumn - _index%_maxColumn) - 1;
+                } else {
+                    // Not URL anymore, add previous one
+                    [self addURL];
+                }
+            }
+            if (_isReadingURL) {
+                [_currentURLStringBuffer appendFormat:@"%c", c];
+                _urlLength++;
+                
+                // Mark as url to draw url underlines
+                _grid[_index/_maxColumn][_index%_maxColumn].attr.f.url = YES;
+            }
+        } else {
+            // Try to match the url header
+            for (int p = 0; p < protocolNum; p++) {
                 NSInteger len = strlen(protocols[p]);
                 BOOL isMatched = YES;
                 for (int s = 0; s < len; s++)
-                    if (_grid[(_index+s)/_maxColumn][(_index+s)%_maxColumn].byte != protocols[p][s] || _grid[(_index+s)/_maxColumn][(_index+s)%_maxColumn].attr.f.doubleByte) {
-                        isMatched = NO;
-                        break;
-                    }
+                if (_grid[(_index+s)/_maxColumn][(_index+s)%_maxColumn].byte != protocols[p][s] || _grid[(_index+s)/_maxColumn][(_index+s)%_maxColumn].attr.f.doubleByte) {
+                    isMatched = NO;
+                    break;
+                }
                 
                 if (isMatched) {
-					// Push current prefix into current url
+                    // Push current prefix into current url
                     if (p >= realProtocalNum) [_currentURLStringBuffer appendString:@"http://"];
-					[_currentURLStringBuffer appendFormat:@"%c", protocols[p][0]];
+                    [_currentURLStringBuffer appendFormat:@"%c", protocols[p][0]];
                     _isReadingURL = YES;
-					_startIndex = _index;
-					par = 0;
-					_urlLength = 1;
-					// Mark as url to draw url underlines
-					_grid[_index/_maxColumn][_index%_maxColumn].attr.f.url = YES;
-					[terminal setDirtyForRow:_index/_maxColumn];
+                    _startIndex = _index;
+                    par = 0;
+                    _urlLength = 1;
+                    // Mark as url to draw url underlines
+                    _grid[_index/_maxColumn][_index%_maxColumn].attr.f.url = YES;
+                    [terminal setDirtyForRow:_index/_maxColumn];
                     break;
                 }
             }
-		}
-	}
+        }
+    }
 }
 
 
 @end
 
 @interface WLURLManager () {
-	WLURLParser *_parser;
+    WLURLParser *_parser;
 }
 
 @end
 
 @implementation WLURLManager
 - (instancetype)init {
-	self = [super init];
-	if (self) {
-		_currentURLList = [[NSMutableArray alloc] initWithCapacity:10];
-		_parser = [[WLURLParser alloc] initWithManager:self];
-	}
-	return self;
+    self = [super init];
+    if (self) {
+        _currentURLList = [[NSMutableArray alloc] initWithCapacity:10];
+        _parser = [[WLURLParser alloc] initWithManager:self];
+    }
+    return self;
 }
 
 #pragma mark -
 #pragma mark Mouse Event Handler
 - (void)mouseUp:(NSEvent *)theEvent {
-	NSString *url = _manager.activeTrackingAreaUserInfo[WLURLUserInfoName];
-	if (url != nil) {
-		if ((theEvent.modifierFlags & NSShiftKeyMask) == NSShiftKeyMask) {
-			// click while holding shift key or navigate web pages
-			// open the URL with browser
-			[[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:url]];
-		} else {
-			// open with previewer
-			[WLPreviewController downloadWithURL:[NSURL URLWithString:url]];
-		}
-	}
+    NSString *url = _manager.activeTrackingAreaUserInfo[WLURLUserInfoName];
+    if (url != nil) {
+        if ((theEvent.modifierFlags & NSShiftKeyMask) == NSShiftKeyMask) {
+            // click while holding shift key or navigate web pages
+            // open the URL with browser
+            [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:url]];
+        } else {
+            // open with previewer
+            [WLPreviewController downloadWithURL:[NSURL URLWithString:url]];
+        }
+    }
 }
 
 - (void)mouseEntered:(NSEvent *)theEvent {
-	NSDictionary *userInfo = theEvent.trackingArea.userInfo;
-	if(_view.frontMostConnection.isConnected) {
-		_manager.activeTrackingAreaUserInfo = userInfo;
-		[[NSCursor pointingHandCursor] set];
-	}
+    NSDictionary *userInfo = theEvent.trackingArea.userInfo;
+    if(_view.frontMostConnection.isConnected) {
+        _manager.activeTrackingAreaUserInfo = userInfo;
+        [[NSCursor pointingHandCursor] set];
+    }
 }
 
 - (void)mouseExited:(NSEvent *)theEvent {
-	[_manager setActiveTrackingAreaUserInfo:nil];
-	// FIXME: Temporally solve the problem in full screen mode.
-	if ([NSCursor currentCursor] == [NSCursor pointingHandCursor])
-		[_manager restoreNormalCursor];
+    [_manager setActiveTrackingAreaUserInfo:nil];
+    // FIXME: Temporally solve the problem in full screen mode.
+    if ([NSCursor currentCursor] == [NSCursor pointingHandCursor])
+        [_manager restoreNormalCursor];
 }
 
 - (void)mouseMoved:(NSEvent *)theEvent {
-	if ([NSCursor currentCursor] != [NSCursor pointingHandCursor])
-		[[NSCursor pointingHandCursor] set];
+    if ([NSCursor currentCursor] != [NSCursor pointingHandCursor])
+        [[NSCursor pointingHandCursor] set];
 }
 
 #pragma mark -
 #pragma mark Contextual Menu
 - (IBAction)copyURL:(id)sender {
-	NSPasteboard *pb = [NSPasteboard generalPasteboard];
+    NSPasteboard *pb = [NSPasteboard generalPasteboard];
     NSMutableArray *types = [NSMutableArray arrayWithObjects: NSStringPboardType, NSURLPboardType, nil];
     [pb declareTypes:types owner:self];
-	
-	NSDictionary *userInfo = [sender representedObject];
-	NSString *urlString = userInfo[WLURLUserInfoName];
+    
+    NSDictionary *userInfo = [sender representedObject];
+    NSString *urlString = userInfo[WLURLUserInfoName];
     [pb setString:urlString forType:NSStringPboardType];
-	[pb setString:urlString forType:NSURLPboardType];
+    [pb setString:urlString forType:NSURLPboardType];
 }
 
 - (IBAction)openWithBrower:(id)sender {
-	NSDictionary *userInfo = [sender representedObject];
-	NSString *urlString = userInfo[WLURLUserInfoName];
-	
-	[[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:urlString]];
+    NSDictionary *userInfo = [sender representedObject];
+    NSString *urlString = userInfo[WLURLUserInfoName];
+    
+    [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:urlString]];
 }
 
 - (NSMenu *)menuForEvent:(NSEvent *)theEvent {
-	NSMenu *menu = [[NSMenu alloc] init];
-	[menu addItemWithTitle:NSLocalizedString(WLMenuTitleCopyURL, @"Contextual Menu")
-					action:@selector(copyURL:)
-			 keyEquivalent:@""];
-	[menu addItemWithTitle:NSLocalizedString(WLMenuTitleOpenWithBrowser, @"Contextual Menu")
-					action:@selector(openWithBrower:)
-			 keyEquivalent:@""];
-	
-	for (NSMenuItem *item in menu.itemArray) {
-		if (item.separatorItem)
-			continue;
-		item.target = self;
-		item.representedObject = _manager.activeTrackingAreaUserInfo;
-	}
-	return menu;
+    NSMenu *menu = [[NSMenu alloc] init];
+    [menu addItemWithTitle:NSLocalizedString(WLMenuTitleCopyURL, @"Contextual Menu")
+                    action:@selector(copyURL:)
+             keyEquivalent:@""];
+    [menu addItemWithTitle:NSLocalizedString(WLMenuTitleOpenWithBrowser, @"Contextual Menu")
+                    action:@selector(openWithBrower:)
+             keyEquivalent:@""];
+    
+    for (NSMenuItem *item in menu.itemArray) {
+        if (item.separatorItem)
+            continue;
+        item.target = self;
+        item.representedObject = _manager.activeTrackingAreaUserInfo;
+    }
+    return menu;
 }
 
 #pragma mark -
 #pragma mark URL indicator
 - (NSPoint)currentSelectedURLPos {
-	NSPoint ret;
-	ret.x = -1.0;
-	ret.y = -1.0;
-	// Return if there's no url in current terminal
-	if(_currentURLList.count < 1)
-		return ret;
-	// Get current URL info
-	NSDictionary *urlInfo = _currentURLList[_currentSelectedURLIndex];
-	int index = [urlInfo[WLRangeLocationUserInfoName] intValue];
-	int length = [urlInfo[WLRangeLengthUserInfoName] intValue];
-	int column_start = index % _maxColumn;
-	int row_start = index / _maxColumn;
-	int column_end = (index + length) % _maxColumn;
-	int row_end = (index + length) / _maxColumn;
-	// Here, the x pos of the indicator should have 3 different conditions
-	float col_in_grid;
-	// For the urls over two lines, we make the indicator in the center of the "full" lines
-	if(length >= (2 * _maxColumn - column_start))
-		col_in_grid = (_maxColumn / 2.0f);
-	// For the urls over one line, make the indicator in the "main" part of the url
-	else if(length >= (_maxColumn - column_start))
-		col_in_grid = ((_maxColumn - column_start) >= (length + column_start - _maxColumn)) ? (column_start + _maxColumn) / 2 : (length + column_start - _maxColumn) / 2;
-	// Fot the urls no more than one line, it is easy...
-	else
-		col_in_grid = (column_start + column_end) / 2.0f;
-	float row_in_grid = (row_start + row_end) / 2.0f;
-	ret.x = col_in_grid * [WLGlobalConfig sharedInstance].cellWidth;
-	ret.y = (_maxRow - row_in_grid - 0.6) * [WLGlobalConfig sharedInstance].cellHeight;
-	return ret;
+    NSPoint ret;
+    ret.x = -1.0;
+    ret.y = -1.0;
+    // Return if there's no url in current terminal
+    if(_currentURLList.count < 1)
+        return ret;
+    // Get current URL info
+    NSDictionary *urlInfo = _currentURLList[_currentSelectedURLIndex];
+    int index = [urlInfo[WLRangeLocationUserInfoName] intValue];
+    int length = [urlInfo[WLRangeLengthUserInfoName] intValue];
+    int column_start = index % _maxColumn;
+    int row_start = index / _maxColumn;
+    int column_end = (index + length) % _maxColumn;
+    int row_end = (index + length) / _maxColumn;
+    // Here, the x pos of the indicator should have 3 different conditions
+    float col_in_grid;
+    // For the urls over two lines, we make the indicator in the center of the "full" lines
+    if(length >= (2 * _maxColumn - column_start))
+        col_in_grid = (_maxColumn / 2.0f);
+    // For the urls over one line, make the indicator in the "main" part of the url
+    else if(length >= (_maxColumn - column_start))
+        col_in_grid = ((_maxColumn - column_start) >= (length + column_start - _maxColumn)) ? (column_start + _maxColumn) / 2 : (length + column_start - _maxColumn) / 2;
+    // Fot the urls no more than one line, it is easy...
+    else
+        col_in_grid = (column_start + column_end) / 2.0f;
+    float row_in_grid = (row_start + row_end) / 2.0f;
+    ret.x = col_in_grid * [WLGlobalConfig sharedInstance].cellWidth;
+    ret.y = (_maxRow - row_in_grid - 0.6) * [WLGlobalConfig sharedInstance].cellHeight;
+    return ret;
 }
 
 - (NSPoint)moveNext {
-	_currentSelectedURLIndex = (_currentSelectedURLIndex + 1) % _currentURLList.count;
-	return self.currentSelectedURLPos;
+    _currentSelectedURLIndex = (_currentSelectedURLIndex + 1) % _currentURLList.count;
+    return self.currentSelectedURLPos;
 }
 
 - (NSPoint)movePrev {
-	_currentSelectedURLIndex = (_currentSelectedURLIndex - 1 + _currentURLList.count) % _currentURLList.count;
-	return self.currentSelectedURLPos;
+    _currentSelectedURLIndex = (_currentSelectedURLIndex - 1 + _currentURLList.count) % _currentURLList.count;
+    return self.currentSelectedURLPos;
 }
 
 - (BOOL)openCurrentURL:(NSEvent *)theEvent {
-	NSDictionary *urlInfo = _currentURLList[_currentSelectedURLIndex];
-	NSString *url = urlInfo[WLURLUserInfoName];
-	if (url != nil) {
-		if ((theEvent.modifierFlags & NSShiftKeyMask) == NSShiftKeyMask) {
-			// click while holding shift key or navigate web pages
-			// open the URL with browser
-			[[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:url]];
-		} else {
-			// open with previewer
-			[WLPreviewController downloadWithURL:[NSURL URLWithString:url]];
-		}
-	}
-	if(_currentURLList.count > 2)
-		return NO;
-	else
-		return YES;
+    NSDictionary *urlInfo = _currentURLList[_currentSelectedURLIndex];
+    NSString *url = urlInfo[WLURLUserInfoName];
+    if (url != nil) {
+        if ((theEvent.modifierFlags & NSShiftKeyMask) == NSShiftKeyMask) {
+            // click while holding shift key or navigate web pages
+            // open the URL with browser
+            [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:url]];
+        } else {
+            // open with previewer
+            [WLPreviewController downloadWithURL:[NSURL URLWithString:url]];
+        }
+    }
+    if(_currentURLList.count > 2)
+        return NO;
+    else
+        return YES;
 }
 
 #pragma mark -
 #pragma mark Update State
 - (void)addURL:(NSString *)urlString 
-	   atIndex:(NSInteger)index
-		length:(NSInteger)length {
-	// If there's no url before, make the pointer point to the first URL element
-	if(_currentSelectedURLIndex < 0)
-		_currentSelectedURLIndex = 1;
-	
-	// Generate User Info
-	NSRange range;
-	range.location = index;
-	range.length = length;
-	
-	NSArray *keys = @[WLMouseHandlerUserInfoName, WLURLUserInfoName, WLRangeLocationUserInfoName, WLRangeLengthUserInfoName];
-	NSArray *objects = @[self, [urlString copy], @(index), @(length)];
-	NSDictionary *userInfo = [NSDictionary dictionaryWithObjects:objects forKeys:keys];
-	[_currentURLList addObject:userInfo];
-	
-	// Calculate rects to add, notice that we might have multiline url
-	while (length > 0) {
-		NSInteger column = index % _maxColumn;
-		NSInteger row = index / _maxColumn;
-		if (column + length < _maxColumn) {
-			NSRect rect = [_view rectAtRow:row column:column height:1 width:length];
-			[_trackingAreas addObject:[_manager addTrackingAreaWithRect:rect userInfo:userInfo]];
-			break;
-		} else {
-			NSRect rect = [_view rectAtRow:row column:column height:1 width:_maxColumn - column];
-			[_trackingAreas addObject:[_manager addTrackingAreaWithRect:rect userInfo:userInfo]];
-			index += _maxColumn - column;
-			length -= _maxColumn - column;
-		}
-	}
+       atIndex:(NSInteger)index
+        length:(NSInteger)length {
+    // If there's no url before, make the pointer point to the first URL element
+    if(_currentSelectedURLIndex < 0)
+        _currentSelectedURLIndex = 1;
+    
+    // Generate User Info
+    NSRange range;
+    range.location = index;
+    range.length = length;
+    
+    NSArray *keys = @[WLMouseHandlerUserInfoName, WLURLUserInfoName, WLRangeLocationUserInfoName, WLRangeLengthUserInfoName];
+    NSArray *objects = @[self, [urlString copy], @(index), @(length)];
+    NSDictionary *userInfo = [NSDictionary dictionaryWithObjects:objects forKeys:keys];
+    [_currentURLList addObject:userInfo];
+    
+    // Calculate rects to add, notice that we might have multiline url
+    while (length > 0) {
+        NSInteger column = index % _maxColumn;
+        NSInteger row = index / _maxColumn;
+        if (column + length < _maxColumn) {
+            NSRect rect = [_view rectAtRow:row column:column height:1 width:length];
+            [_trackingAreas addObject:[_manager addTrackingAreaWithRect:rect userInfo:userInfo]];
+            break;
+        } else {
+            NSRect rect = [_view rectAtRow:row column:column height:1 width:_maxColumn - column];
+            [_trackingAreas addObject:[_manager addTrackingAreaWithRect:rect userInfo:userInfo]];
+            index += _maxColumn - column;
+            length -= _maxColumn - column;
+        }
+    }
 }
 
 - (void)clearAllURL {
-	// If we are in URL mode, exit it first to avoid crash
-	if (_view.isInUrlMode) {
-		[_view exitURL];
-	}
-	
-	for (NSDictionary *urlInfo in _currentURLList) {
-		int index = [urlInfo[WLRangeLocationUserInfoName] intValue];
-		int length = [urlInfo[WLRangeLengthUserInfoName] intValue];
-		
-		WLTerminal *ds = _view.frontMostTerminal;
-		// Set all involved row to be dirty. Reduce the number of [ds setDirty] call.
-		while (length > 0) {
-			int row = index / _maxColumn;
-			[ds setDirtyForRow:row];
-			index += _maxColumn;
-			length -= _maxColumn;
-		}
-	}
-	[_currentURLList removeAllObjects];
+    // If we are in URL mode, exit it first to avoid crash
+    if (_view.isInUrlMode) {
+        [_view exitURL];
+    }
+    
+    for (NSDictionary *urlInfo in _currentURLList) {
+        int index = [urlInfo[WLRangeLocationUserInfoName] intValue];
+        int length = [urlInfo[WLRangeLengthUserInfoName] intValue];
+        
+        WLTerminal *ds = _view.frontMostTerminal;
+        // Set all involved row to be dirty. Reduce the number of [ds setDirty] call.
+        while (length > 0) {
+            int row = index / _maxColumn;
+            [ds setDirtyForRow:row];
+            index += _maxColumn;
+            length -= _maxColumn;
+        }
+    }
+    [_currentURLList removeAllObjects];
 }
 
 - (void)clear {
-	[self clearAllURL];
-	
-	[self removeAllTrackingAreas];
+    [self clearAllURL];
+    
+    [self removeAllTrackingAreas];
 }
 
 - (BOOL)shouldUpdate {
-	return YES;
+    return YES;
 }
 
 - (void)update {
-	[self clear];
-	if (!_view.connected) {
-		return;	
-	}
-	// Restore the url list pointer
-	_currentSelectedURLIndex = 0;
-	[_parser parse:_view.frontMostTerminal];
+    [self clear];
+    if (!_view.connected) {
+        return;	
+    }
+    // Restore the url list pointer
+    _currentSelectedURLIndex = 0;
+    [_parser parse:_view.frontMostTerminal];
 }
 @end

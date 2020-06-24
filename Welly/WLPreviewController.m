@@ -74,7 +74,7 @@ static BOOL sHasCacheDir = NO;
     if ([s hasSuffix:@"/"] || [suffixes containsObject:suffix])
         download = nil;
     else {
-		// Here, if a download is necessary, show the download window
+        // Here, if a download is necessary, show the download window
         [sURLs addObject:URL];
         NSURLRequest *request = [NSURLRequest requestWithURL:URL
                                                  cachePolicy:NSURLRequestReturnCacheDataElseLoad
@@ -99,7 +99,7 @@ static BOOL sHasCacheDir = NO;
 static NSString * stringFromFileSize(long long size) {
     NSString *fmt;
     float fsize = size;
-	if (size < 1023) {
+    if (size < 1023) {
         if (size > 1)
             fmt = @"%i bytes";
         else
@@ -127,8 +127,8 @@ static NSString * stringFromFileSize(long long size) {
     if (_contentLength > 0)
         p = 100.0f * _transferredLength / _contentLength;
     return [NSString stringWithFormat:@"%1.1f%% (%@ of %@)", p,
-        stringFromFileSize(_transferredLength),
-        stringFromFileSize(_contentLength)];
+            stringFromFileSize(_transferredLength),
+            stringFromFileSize(_contentLength)];
 }
 
 - (instancetype) init {
@@ -141,14 +141,14 @@ static NSString * stringFromFileSize(long long size) {
 - (void)dealloc {
     // close window
     [_window close];
-	
+    
 }
 
 - (void)showLoadingWindow {
     unsigned int style = NSTitledWindowMask
-        | NSMiniaturizableWindowMask | NSClosableWindowMask
-        | NSDocModalWindowMask;
-
+    | NSMiniaturizableWindowMask | NSClosableWindowMask
+    | NSDocModalWindowMask;
+    
     // init
     _window = [[NSPanel alloc] initWithContentRect:NSMakeRect(0, 0, 400, 30)
                                          styleMask:style
@@ -161,8 +161,8 @@ static NSString * stringFromFileSize(long long size) {
     _window.title = @"Loading...";
     [_window setViewsNeedDisplay:NO];
     [_window makeKeyAndOrderFront:nil];
-	_window.delegate = self;
-
+    _window.delegate = self;
+    
     // Init progress bar
     _indicator = [[HMBlkProgressIndicator alloc] initWithFrame:NSMakeRect(10, 10, 380, 10)];
     [_window.contentView addSubview:_indicator];
@@ -176,19 +176,19 @@ static NSString * stringFromFileSize(long long size) {
 - (BOOL)windowShouldClose:(id)window {
     NSURL *URL = _download.request.URL;
     // Show the canceled message
-	if (![WLGrowlBridge isMistEnabled])
-		[WLGrowlBridge notifyWithTitle:URL.absoluteString
-						   description:NSLocalizedString(@"Canceled", @"Download canceled")
-					  notificationName:kGrowlNotificationNameFileTransfer
-							  isSticky:NO
-							identifier:_download];
+    if (![WLGrowlBridge isMistEnabled])
+        [WLGrowlBridge notifyWithTitle:URL.absoluteString
+                           description:NSLocalizedString(@"Canceled", @"Download canceled")
+                      notificationName:kGrowlNotificationNameFileTransfer
+                              isSticky:NO
+                            identifier:_download];
     // Remove current url from the url list
     [sURLs removeObject:URL];
     // Cancel the download
     [_download cancel];
-	
-	// Commented out by K.O.ed: Don't release here, release when the delegate dealloc.
-	// Otherwise this would crash when cancelling a download
+    
+    // Commented out by K.O.ed: Don't release here, release when the delegate dealloc.
+    // Otherwise this would crash when cancelling a download
     // Release if necessary
     //[_download release];
     return YES;
@@ -198,18 +198,18 @@ static NSString * stringFromFileSize(long long size) {
 #pragma mark NSURLDownloadDelegate protocol
 
 - (void)downloadDidBegin:(NSURLDownload *)download {
-//	if (![WLGrowlBridge isMistEnabled])
-//		[WLGrowlBridge notifyWithTitle:[[[download request] URL] absoluteString]
-//						   description:NSLocalizedString(@"Connecting", @"Download begin")
-//					  notificationName:kGrowlNotificationNameFileTransfer
-//							  isSticky:YES
-//							identifier:download];
+    // if (![WLGrowlBridge isMistEnabled])
+    //     [WLGrowlBridge notifyWithTitle:[[[download request] URL] absoluteString]
+    //                        description:NSLocalizedString(@"Connecting", @"Download begin")
+    //                   notificationName:kGrowlNotificationNameFileTransfer
+    //                           isSticky:YES
+    //                         identifier:download];
 }
 
 - (void)download:(NSURLDownload *)download didReceiveResponse:(NSURLResponse *)response { 
     _contentLength = response.expectedContentLength;
     _transferredLength = 0;
-
+    
     // extract & fix incorrectly encoded filename (GB18030 only)
     @autoreleasepool {
         _filename = response.suggestedFilename;
@@ -217,46 +217,46 @@ static NSString * stringFromFileSize(long long size) {
         NSStringEncoding encoding = CFStringConvertEncodingToNSStringEncoding(kCFStringEncodingGB_18030_2000);
         _filename = [[NSString alloc] initWithData:data encoding:encoding];
     }
-//	if (![WLGrowlBridge isMistEnabled])
-//		[WLGrowlBridge notifyWithTitle:_filename
-//						   description:[self stringFromTransfer]
-//					  notificationName:kGrowlNotificationNameFileTransfer
-//							  isSticky:YES
-//							identifier:download];
-
+    // if (![WLGrowlBridge isMistEnabled])
+    //     [WLGrowlBridge notifyWithTitle:_filename
+    //                        description:[self stringFromTransfer]
+    //                   notificationName:kGrowlNotificationNameFileTransfer
+    //                           isSticky:YES
+    //                         identifier:download];
+    
     // set local path
     NSString *cacheDir = [WLGlobalConfig cacheDirectory];
     _path = [cacheDir stringByAppendingPathComponent:_filename];
-	if(sDownloadedURLInfo[download.request.URL.absoluteString]) { // URL in cache
-		// Get local file size
-		NSString * tempPath = [sDownloadedURLInfo valueForKey:download.request.URL.absoluteString];
-		NSDictionary *fileAttributes = [[NSFileManager defaultManager] attributesOfItemAtPath:tempPath error:nil];
-		long long fileSizeOnDisk = -1;
-		if (fileAttributes != nil)
-			fileSizeOnDisk = [fileAttributes[NSFileSize] longLongValue];
-		if(fileSizeOnDisk == _contentLength) { // If of the same size, use current cache
-			[download cancel];
-			[self downloadDidFinish:download];
-			return;
-		}
-	}
+    if(sDownloadedURLInfo[download.request.URL.absoluteString]) { // URL in cache
+        // Get local file size
+        NSString * tempPath = [sDownloadedURLInfo valueForKey:download.request.URL.absoluteString];
+        NSDictionary *fileAttributes = [[NSFileManager defaultManager] attributesOfItemAtPath:tempPath error:nil];
+        long long fileSizeOnDisk = -1;
+        if (fileAttributes != nil)
+            fileSizeOnDisk = [fileAttributes[NSFileSize] longLongValue];
+        if(fileSizeOnDisk == _contentLength) { // If of the same size, use current cache
+            [download cancel];
+            [self downloadDidFinish:download];
+            return;
+        }
+    }
     [download setDestination:_path allowOverwrite:YES];
-
-	// dectect file type to avoid useless download
-	// by gtCarrera @ 9#
-	NSString *fileType = _filename.pathExtension.lowercaseString;
-	NSArray *allowedTypes = @[@"jpg", @"jpeg", @"bmp", @"png", @"gif", @"tiff", @"tif", @"pdf"];
-	Boolean canView = [allowedTypes containsObject:fileType];
-	if (!canView) {
-		// Close the progress bar window
-		[_window close];
-		
+    
+    // dectect file type to avoid useless download
+    // by gtCarrera @ 9#
+    NSString *fileType = _filename.pathExtension.lowercaseString;
+    NSArray *allowedTypes = @[@"jpg", @"jpeg", @"bmp", @"png", @"gif", @"tiff", @"tif", @"pdf"];
+    Boolean canView = [allowedTypes containsObject:fileType];
+    if (!canView) {
+        // Close the progress bar window
+        [_window close];
+        
         [download cancel];
         NSError *error = [NSError errorWithDomain:NSURLErrorDomain code:NSURLErrorCancelled userInfo:nil];
         [self download:download didFailWithError:error];
         return; // or next may crash
-	}
-
+    }
+    
     // Or, set the window to show the download progress
     _window.title = [NSString stringWithFormat:@"Loading %@...", _filename];
     [_indicator setIndeterminate:NO];
@@ -266,14 +266,14 @@ static NSString * stringFromFileSize(long long size) {
 
 - (void)download:(NSURLDownload *)download didReceiveDataOfLength:(NSUInteger)length { 
     _transferredLength += length;
-//	if (![WLGrowlBridge isMistEnabled])
-//		[WLGrowlBridge notifyWithTitle:_filename
-//						   description:[self stringFromTransfer]
-//					  notificationName:kGrowlNotificationNameFileTransfer
-//							  isSticky:YES
-//							identifier:download];
-	// Add the incremented value
-	[_indicator incrementBy:(double)length];
+    // if (![WLGrowlBridge isMistEnabled])
+    //     [WLGrowlBridge notifyWithTitle:_filename
+    //                        description:[self stringFromTransfer]
+    //                   notificationName:kGrowlNotificationNameFileTransfer
+    //                           isSticky:YES
+    //                         identifier:download];
+    // Add the incremented value
+    [_indicator incrementBy:(double)length];
 }
 
 static void formatProps(NSMutableString *s, id *fmt, id *val) {
@@ -284,33 +284,33 @@ static void formatProps(NSMutableString *s, id *fmt, id *val) {
         [s appendFormat:NSLocalizedString(*fmt, nil), obj];
     }
 }
-	
+
 - (void)downloadDidFinish:(NSURLDownload *)download {
     [sURLs removeObject:download.request.URL];
-	[sDownloadedURLInfo setValue:_path forKey:download.request.URL.absoluteString];
-	if ([_path.pathExtension isEqualToString:@"gif"]) {
-		NSURL *htmlURL = [NSURL fileURLWithPath:[_path.stringByDeletingPathExtension stringByAppendingPathExtension:@"html"]];
-		[[NSString stringWithFormat:WLGIFToHTMLFormat, [NSURL fileURLWithPath:_path]] writeToURL:htmlURL atomically:NO encoding:NSUTF8StringEncoding error:NULL];
-		[WLQuickLookBridge add:htmlURL];
-	} else {
-		[WLQuickLookBridge add:[NSURL fileURLWithPath:_path]];
-	}
-//	if (![WLGrowlBridge isMistEnabled])
-//		[WLGrowlBridge notifyWithTitle:_filename
-//						   description:NSLocalizedString(@"Completed", "Download completed; will open previewer")
-//					  notificationName:kGrowlNotificationNameFileTransfer
-//							  isSticky:NO
-//							identifier:download];
-
+    [sDownloadedURLInfo setValue:_path forKey:download.request.URL.absoluteString];
+    if ([_path.pathExtension isEqualToString:@"gif"]) {
+        NSURL *htmlURL = [NSURL fileURLWithPath:[_path.stringByDeletingPathExtension stringByAppendingPathExtension:@"html"]];
+        [[NSString stringWithFormat:WLGIFToHTMLFormat, [NSURL fileURLWithPath:_path]] writeToURL:htmlURL atomically:NO encoding:NSUTF8StringEncoding error:NULL];
+        [WLQuickLookBridge add:htmlURL];
+    } else {
+        [WLQuickLookBridge add:[NSURL fileURLWithPath:_path]];
+    }
+    // if (![WLGrowlBridge isMistEnabled])
+    //     [WLGrowlBridge notifyWithTitle:_filename
+    //                        description:NSLocalizedString(@"Completed", "Download completed; will open previewer")
+    //                   notificationName:kGrowlNotificationNameFileTransfer
+    //                           isSticky:NO
+    //                         identifier:download];
+    
     // For read exif info by gtCarrera
     // boost: pool (leaks), check nil (crash), readable values
     CGImageSourceRef exifSource = CGImageSourceCreateWithURL((CFURLRef)([NSURL fileURLWithPath:_path]), nil);
     if (exifSource) {
-		@autoreleasepool {
+        @autoreleasepool {
             NSDictionary *metaData = (NSDictionary*) CFBridgingRelease(CGImageSourceCopyPropertiesAtIndex(exifSource, 0, nil));
-		NSMutableString *props = [NSMutableString string];
+            NSMutableString *props = [NSMutableString string];
             NSDictionary *exifData = metaData[(NSString *)kCGImagePropertyExifDictionary];
-		if (exifData) {
+            if (exifData) {
                 NSString *dateTime = exifData[(NSString *)kCGImagePropertyExifDateTimeOriginal];
                 NSNumber *eTime = exifData[(NSString *)kCGImagePropertyExifExposureTime];
                 NSNumber *fLength = exifData[(NSString *)kCGImagePropertyExifFocalLength];
@@ -335,7 +335,7 @@ static void formatProps(NSMutableString *s, id *fmt, id *val) {
                 __autoreleasing id vals[] = {dateTime, eTimeStr, fLength, fNumber, iso};
                 formatProps(props, keys,vals);
             }
-
+            
             NSDictionary *tiffData = metaData[(NSString *)kCGImagePropertyTIFFDictionary];
             if (tiffData) {
                 NSString *makeName = tiffData[(NSString *)kCGImagePropertyTIFFMake];
@@ -344,19 +344,19 @@ static void formatProps(NSMutableString *s, id *fmt, id *val) {
                 if (makeName || modelName)
                     [props appendFormat:NSLocalizedString(@"tiffStringFormat", "\nManufacturer and Model: \n%@ %@"), makeName, modelName];
             }
-
+            
             if(props.length) 
                 [WLGrowlBridge notifyWithTitle:_filename
                                    description:props
                               notificationName:kGrowlNotificationNameEXIFInformation
                                       isSticky:NO
                                     identifier:download];
-        // release
+            // release
         }
         CFRelease(exifSource);
     }
-
-	// Commented out by K.O.ed: Don't release here, release when the delegate dealloc.
+    
+    // Commented out by K.O.ed: Don't release here, release when the delegate dealloc.
     //[download release];
 }
 
@@ -364,13 +364,13 @@ static void formatProps(NSMutableString *s, id *fmt, id *val) {
     NSURL *URL = download.request.URL;
     [sURLs removeObject:URL];
     [[NSWorkspace sharedWorkspace] openURL:URL];
-//	if (![WLGrowlBridge isMistEnabled])
-//		[WLGrowlBridge notifyWithTitle:[URL absoluteString]
-//						   description:NSLocalizedString(@"Opening browser", "Download failed or unsupported formats")
-//					  notificationName:kGrowlNotificationNameFileTransfer
-//							  isSticky:NO
-//							identifier:download];
-	// Commented out by K.O.ed: Don't release here, release when the delegate dealloc.
+    // if (![WLGrowlBridge isMistEnabled])
+    //     [WLGrowlBridge notifyWithTitle:[URL absoluteString]
+    //                        description:NSLocalizedString(@"Opening browser", "Download failed or unsupported formats")
+    //                   notificationName:kGrowlNotificationNameFileTransfer
+    //                           isSticky:NO
+    //                         identifier:download];
+    // Commented out by K.O.ed: Don't release here, release when the delegate dealloc.
     //[download release];
 }
 

@@ -19,25 +19,25 @@
 
 
 @interface WLSitesPanelController : NSObject {
-	/* Sites Array */
+    /* Sites Array */
     NSMutableArray *_sites;
     IBOutlet NSArrayController *_sitesController;
-	
-	/* Site Panel Outlets */
+    
+    /* Site Panel Outlets */
     IBOutlet NSPanel *_sitesPanel;
     IBOutlet NSTableView *_tableView;
     IBOutlet NSTextField *_siteNameField;
     IBOutlet NSTextField *_siteAddressField;
-
+    
     IBOutlet NSPopUpButton *_proxyTypeButton;
     IBOutlet NSTextField *_proxyAddressField;
-	
+    
     /* Password Window Outlets */
     IBOutlet NSPanel *_passwordPanel;
     IBOutlet NSSecureTextField *_passwordField;
-	
-	/* Observers */
-	NSMutableArray *_sitesObservers;
+    
+    /* Observers */
+    NSMutableArray *_sitesObservers;
 }
 @property (readonly) NSArray *sites;
 
@@ -55,7 +55,7 @@
 - (IBAction)proxyTypeDidChange:(id)sender;
 - (void)openSitesPanelInWindow:(NSWindow *)mainWindow;
 - (void)openSitesPanelInWindow:(NSWindow *)mainWindow 
-				   andAddSite:(WLSite *)site;
+                    andAddSite:(WLSite *)site;
 
 /* password window actions */
 - (IBAction)openPasswordDialog:(id)sender;

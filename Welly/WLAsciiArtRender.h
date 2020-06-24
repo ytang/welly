@@ -14,10 +14,10 @@
 + (BOOL)isAsciiArtSymbol:(unichar)ch;
 
 - (void)drawSpecialSymbol:(unichar)ch 
-				   forRow:(NSInteger)r
-				   column:(NSInteger)c 
-			leftAttribute:(attribute)attr1 
-		   rightAttribute:(attribute)attr2;
+                   forRow:(NSInteger)r
+                   column:(NSInteger)c 
+            leftAttribute:(attribute)attr1 
+           rightAttribute:(attribute)attr2;
 
 - (void)configure;
 

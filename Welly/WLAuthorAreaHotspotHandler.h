@@ -10,7 +10,7 @@
 #import "WLMouseHotspotHandler.h"
 
 @interface WLAuthorAreaHotspotHandler : WLMouseHotspotHandler <WLMouseUpHandler, WLUpdatable, WLContextualMenuHandler> {
-
+    
 }
 
 @end

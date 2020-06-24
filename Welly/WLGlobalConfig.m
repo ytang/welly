@@ -42,7 +42,7 @@ NSString *const WLEnglishFontSizeKeyName = @"EnglishFontSize";
 
 @implementation NSUserDefaults(myColorSupport)
 - (void)setMyColor:(NSColor *)aColor 
-			forKey:(NSString *)aKey {
+            forKey:(NSString *)aKey {
     NSData *theData=[NSArchiver archivedDataWithRootObject:aColor];
     [self setObject:theData forKey:aKey];
 }
@@ -66,205 +66,205 @@ NSString *const WLEnglishFontSizeKeyName = @"EnglishFontSize";
 SYNTHESIZE_SINGLETON_FOR_CLASS(WLGlobalConfig)
 
 - (instancetype)init {
-	self = [super init];
-	if (self) {
-		NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-		
-		self.showsHiddenText = [defaults boolForKey:@"ShowHiddenText"];
-		self.shouldSmoothFonts = [defaults boolForKey:@"ShouldSmoothFonts"];
-		self.shouldDetectDoubleByte = [defaults boolForKey:@"DetectDoubleByte"];
-		self.shouldEnableMouse = [defaults boolForKey:@"EnableMouse"];
-		self.defaultEncoding = (WLEncoding) [defaults integerForKey:@"DefaultEncoding"];
-		self.defaultANSIColorKey = (YLANSIColorKey) [defaults integerForKey:@"DefaultANSIColorKey"];
-		self.shouldRepeatBounce = [defaults boolForKey:@"RepeatBounce"];
-		
-		// init code
-		_row = 24;
-		_column = 80;
-		self.cellWidth = [defaults floatForKey:@"CellWidth"];
-		self.cellHeight = [defaults floatForKey:@"CellHeight"];
-		
-		self.chineseFontName = [defaults stringForKey:@"ChineseFontName"];
-		self.englishFontName = [defaults stringForKey:@"EnglishFontName"];
-		self.chineseFontSize = [defaults floatForKey:@"ChineseFontSize"];
-		self.englishFontSize = [defaults floatForKey:@"EnglishFontSize"];
-		
-		// If it is too small, we shall restore settings
-		if (self.cellWidth < 4 || self.cellHeight < 4 || self.chineseFontSize < 6 || self.englishFontSize < 4) {
-			[self restoreSettings];
-		}
-		
-		// Too large, restore it
-		if (self.contentSize.width > [NSScreen mainScreen].frame.size.width ||
-			self.contentSize.height > [NSScreen mainScreen].frame.size.height) {
-			[self restoreSettings];
-		}
+    self = [super init];
+    if (self) {
+        NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
         
-		if ([defaults objectForKey:@"ChinesePaddingLeft"])
-			self.chineseFontPaddingLeft = [defaults floatForKey:@"ChinesePaddingLeft"];
-		else
-			self.chineseFontPaddingLeft = 1.0;
-		
-		if ([defaults objectForKey:@"EnglishPaddingLeft"])
-			self.englishFontPaddingLeft = [defaults floatForKey:@"EnglishPaddingLeft"];
-		else
-			self.englishFontPaddingLeft = 1.0;
+        self.showsHiddenText = [defaults boolForKey:@"ShowHiddenText"];
+        self.shouldSmoothFonts = [defaults boolForKey:@"ShouldSmoothFonts"];
+        self.shouldDetectDoubleByte = [defaults boolForKey:@"DetectDoubleByte"];
+        self.shouldEnableMouse = [defaults boolForKey:@"EnableMouse"];
+        self.defaultEncoding = (WLEncoding) [defaults integerForKey:@"DefaultEncoding"];
+        self.defaultANSIColorKey = (YLANSIColorKey) [defaults integerForKey:@"DefaultANSIColorKey"];
+        self.shouldRepeatBounce = [defaults boolForKey:@"RepeatBounce"];
         
-		if ([defaults objectForKey:@"ChinesePaddingBottom"])
-			self.chineseFontPaddingBottom = [defaults floatForKey:@"ChinesePaddingBottom"];
-		else
-			self.chineseFontPaddingBottom = 1.0;
+        // init code
+        _row = 24;
+        _column = 80;
+        self.cellWidth = [defaults floatForKey:@"CellWidth"];
+        self.cellHeight = [defaults floatForKey:@"CellHeight"];
         
-		if ([defaults objectForKey:@"EnglishPaddingBottom"])
-			self.englishFontPaddingBottom = [defaults floatForKey:@"EnglishPaddingBottom"];
-		else
-			self.englishFontPaddingBottom = 2.0;
+        self.chineseFontName = [defaults stringForKey:@"ChineseFontName"];
+        self.englishFontName = [defaults stringForKey:@"EnglishFontName"];
+        self.chineseFontSize = [defaults floatForKey:@"ChineseFontSize"];
+        self.englishFontSize = [defaults floatForKey:@"EnglishFontSize"];
         
-		self.colorBlack = [defaults myColorForKey:@"ColorBlack"];
-		self.colorBlackHilite = [defaults myColorForKey:@"ColorBlackHilite"];
-		self.colorRed = [defaults myColorForKey:@"ColorRed"];
-		self.colorRedHilite = [defaults myColorForKey:@"ColorRedHilite"];
-		self.colorBlack = [defaults myColorForKey:@"ColorBlack"];
-		self.colorBlackHilite = [defaults myColorForKey:@"ColorBlackHilite"];
-		self.colorGreen = [defaults myColorForKey:@"ColorGreen"];
-		self.colorGreenHilite = [defaults myColorForKey:@"ColorGreenHilite"];
-		self.colorYellow = [defaults myColorForKey:@"ColorYellow"];
-		self.colorYellowHilite = [defaults myColorForKey:@"ColorYellowHilite"];
-		self.colorBlue = [defaults myColorForKey:@"ColorBlue"];
-		self.colorBlueHilite = [defaults myColorForKey:@"ColorBlueHilite"];
-		self.colorMagenta = [defaults myColorForKey:@"ColorMagenta"];
-		self.colorMagentaHilite = [defaults myColorForKey:@"ColorMagentaHilite"];
-		self.colorCyan = [defaults myColorForKey:@"ColorCyan"];
-		self.colorCyanHilite = [defaults myColorForKey:@"ColorCyanHilite"];
-		self.colorWhite = [defaults myColorForKey:@"ColorWhite"];
-		self.colorWhiteHilite = [defaults myColorForKey:@"ColorWhiteHilite"]; // Foreground Color
-		self.colorBG = [defaults myColorForKey:@"ColorBG"];
-		self.colorBGHilite = [defaults myColorForKey:@"ColorBGHilite"];
-		//_colorTable[0][8] = [[NSColor colorWithDeviceRed:0.75 green:0.75 blue:0.75 alpha:1.0] retain];
-		//_colorTable[1][8] = [[NSColor colorWithDeviceRed:1.00 green:1.00 blue:1.00 alpha:1.0] retain];
-		_colorTable[0][8] = [NSColor colorWithDeviceRed:0.75 green:0.75 blue:0.75 alpha:1.0];
-		_colorTable[1][8] = [NSColor colorWithDeviceRed:1.00 green:1.00 blue:1.00 alpha:1.0];
-		
-		
-		_bgColorIndex = 9;
-		_fgColorIndex = 7;
-		
-		[defaults synchronize];
-		[self refreshFont];
+        // If it is too small, we shall restore settings
+        if (self.cellWidth < 4 || self.cellHeight < 4 || self.chineseFontSize < 6 || self.englishFontSize < 4) {
+            [self restoreSettings];
+        }
         
-		// aqua: why not enable these settings by default?
-		if ([defaults objectForKey:WLRestoreConnectionKeyName] == nil)
-			[defaults setBool:YES forKey:WLRestoreConnectionKeyName];
-		if ([defaults objectForKey:WLCommandRHotkeyEnabledKeyName] == nil)
-			[defaults setBool:YES forKey:WLCommandRHotkeyEnabledKeyName];
-		if ([defaults objectForKey:WLConfirmOnCloseEnabledKeyName] == nil)
-			[defaults setBool:YES forKey:WLConfirmOnCloseEnabledKeyName];
-		if ([defaults objectForKey:WLSafePasteEnabledKeyName] == nil)
-			[defaults setBool:YES forKey:WLSafePasteEnabledKeyName];
-		if ([defaults objectForKey:WLCoverFlowModeEnabledKeyName] == nil)
-			[defaults setBool:YES forKey:WLCoverFlowModeEnabledKeyName];
-		
-		// Initialize Cache
-		[WLGlobalConfig initializeCache];
-	}
+        // Too large, restore it
+        if (self.contentSize.width > [NSScreen mainScreen].frame.size.width ||
+            self.contentSize.height > [NSScreen mainScreen].frame.size.height) {
+            [self restoreSettings];
+        }
+        
+        if ([defaults objectForKey:@"ChinesePaddingLeft"])
+            self.chineseFontPaddingLeft = [defaults floatForKey:@"ChinesePaddingLeft"];
+        else
+            self.chineseFontPaddingLeft = 1.0;
+        
+        if ([defaults objectForKey:@"EnglishPaddingLeft"])
+            self.englishFontPaddingLeft = [defaults floatForKey:@"EnglishPaddingLeft"];
+        else
+            self.englishFontPaddingLeft = 1.0;
+        
+        if ([defaults objectForKey:@"ChinesePaddingBottom"])
+            self.chineseFontPaddingBottom = [defaults floatForKey:@"ChinesePaddingBottom"];
+        else
+            self.chineseFontPaddingBottom = 1.0;
+        
+        if ([defaults objectForKey:@"EnglishPaddingBottom"])
+            self.englishFontPaddingBottom = [defaults floatForKey:@"EnglishPaddingBottom"];
+        else
+            self.englishFontPaddingBottom = 2.0;
+        
+        self.colorBlack = [defaults myColorForKey:@"ColorBlack"];
+        self.colorBlackHilite = [defaults myColorForKey:@"ColorBlackHilite"];
+        self.colorRed = [defaults myColorForKey:@"ColorRed"];
+        self.colorRedHilite = [defaults myColorForKey:@"ColorRedHilite"];
+        self.colorBlack = [defaults myColorForKey:@"ColorBlack"];
+        self.colorBlackHilite = [defaults myColorForKey:@"ColorBlackHilite"];
+        self.colorGreen = [defaults myColorForKey:@"ColorGreen"];
+        self.colorGreenHilite = [defaults myColorForKey:@"ColorGreenHilite"];
+        self.colorYellow = [defaults myColorForKey:@"ColorYellow"];
+        self.colorYellowHilite = [defaults myColorForKey:@"ColorYellowHilite"];
+        self.colorBlue = [defaults myColorForKey:@"ColorBlue"];
+        self.colorBlueHilite = [defaults myColorForKey:@"ColorBlueHilite"];
+        self.colorMagenta = [defaults myColorForKey:@"ColorMagenta"];
+        self.colorMagentaHilite = [defaults myColorForKey:@"ColorMagentaHilite"];
+        self.colorCyan = [defaults myColorForKey:@"ColorCyan"];
+        self.colorCyanHilite = [defaults myColorForKey:@"ColorCyanHilite"];
+        self.colorWhite = [defaults myColorForKey:@"ColorWhite"];
+        self.colorWhiteHilite = [defaults myColorForKey:@"ColorWhiteHilite"]; // Foreground Color
+        self.colorBG = [defaults myColorForKey:@"ColorBG"];
+        self.colorBGHilite = [defaults myColorForKey:@"ColorBGHilite"];
+        //_colorTable[0][8] = [[NSColor colorWithDeviceRed:0.75 green:0.75 blue:0.75 alpha:1.0] retain];
+        //_colorTable[1][8] = [[NSColor colorWithDeviceRed:1.00 green:1.00 blue:1.00 alpha:1.0] retain];
+        _colorTable[0][8] = [NSColor colorWithDeviceRed:0.75 green:0.75 blue:0.75 alpha:1.0];
+        _colorTable[1][8] = [NSColor colorWithDeviceRed:1.00 green:1.00 blue:1.00 alpha:1.0];
+        
+        
+        _bgColorIndex = 9;
+        _fgColorIndex = 7;
+        
+        [defaults synchronize];
+        [self refreshFont];
+        
+        // aqua: why not enable these settings by default?
+        if ([defaults objectForKey:WLRestoreConnectionKeyName] == nil)
+            [defaults setBool:YES forKey:WLRestoreConnectionKeyName];
+        if ([defaults objectForKey:WLCommandRHotkeyEnabledKeyName] == nil)
+            [defaults setBool:YES forKey:WLCommandRHotkeyEnabledKeyName];
+        if ([defaults objectForKey:WLConfirmOnCloseEnabledKeyName] == nil)
+            [defaults setBool:YES forKey:WLConfirmOnCloseEnabledKeyName];
+        if ([defaults objectForKey:WLSafePasteEnabledKeyName] == nil)
+            [defaults setBool:YES forKey:WLSafePasteEnabledKeyName];
+        if ([defaults objectForKey:WLCoverFlowModeEnabledKeyName] == nil)
+            [defaults setBool:YES forKey:WLCoverFlowModeEnabledKeyName];
+        
+        // Initialize Cache
+        [WLGlobalConfig initializeCache];
+    }
     return self;
 }
 
 
 - (void)setFontSizeRatio:(CGFloat)ratio {
-	self.englishFontSize = _englishFontSize * ratio;
-	self.chineseFontSize = _chineseFontSize * ratio;
-	self.cellWidth = _cellWidth * ratio;
-	self.cellHeight = _cellHeight * ratio;
+    self.englishFontSize = _englishFontSize * ratio;
+    self.chineseFontSize = _chineseFontSize * ratio;
+    self.cellWidth = _cellWidth * ratio;
+    self.cellHeight = _cellHeight * ratio;
 }
 
 - (void)refreshFont {
     int i, j;
     
     if (_cCTFont) 
-		CFRelease(_cCTFont);
+        CFRelease(_cCTFont);
     _cCTFont = CTFontCreateWithName((CFStringRef)_chineseFontName, _chineseFontSize, NULL);
     if (_eCTFont)
-		CFRelease(_eCTFont);
+        CFRelease(_eCTFont);
     _eCTFont = CTFontCreateWithName((CFStringRef)_englishFontName, _englishFontSize, NULL);
     if (_cCGFont)
-		CFRelease(_cCGFont);
+        CFRelease(_cCGFont);
     _cCGFont = CTFontCopyGraphicsFont(_cCTFont, NULL);
     if (_eCGFont)
-		CFRelease(_eCGFont);
+        CFRelease(_eCGFont);
     _eCGFont = CTFontCopyGraphicsFont(_eCTFont, NULL);
     
     for (i = 0; i < NUM_COLOR; i++) 
-        for (j = 0; j < 2; j++) {
-            int zero = 0;
-            CFNumberRef number = CFNumberCreate(kCFAllocatorDefault, kCFNumberIntType, &zero);
-            CFStringRef cfKeys[] = {kCTFontAttributeName, kCTForegroundColorAttributeName, kCTLigatureAttributeName};
-            
-            CFTypeRef cfValues[] = {_cCTFont, (__bridge CFTypeRef)(_colorTable[j][i]), number};
-            if (_cCTAttribute[j][i])CFRelease(_cCTAttribute[j][i]);
-            _cCTAttribute[j][i] = CFDictionaryCreate(kCFAllocatorDefault, 
-                                                     (const void **)cfKeys, 
-                                                     (const void **)cfValues, 
-                                                     3, 
-                                                     &kCFTypeDictionaryKeyCallBacks, 
-                                                     &kCFTypeDictionaryValueCallBacks);
-
-            cfValues[0] = _eCTFont;
-            if (_eCTAttribute[j][i])CFRelease(_eCTAttribute[j][i]);
-            _eCTAttribute[j][i] = CFDictionaryCreate(kCFAllocatorDefault, 
-                                                     (const void **)cfKeys, 
-                                                     (const void **)cfValues, 
-                                                     3, 
-                                                     &kCFTypeDictionaryKeyCallBacks, 
-                                                     &kCFTypeDictionaryValueCallBacks);
-            CFRelease(number);
-        }
+    for (j = 0; j < 2; j++) {
+        int zero = 0;
+        CFNumberRef number = CFNumberCreate(kCFAllocatorDefault, kCFNumberIntType, &zero);
+        CFStringRef cfKeys[] = {kCTFontAttributeName, kCTForegroundColorAttributeName, kCTLigatureAttributeName};
+        
+        CFTypeRef cfValues[] = {_cCTFont, (__bridge CFTypeRef)(_colorTable[j][i]), number};
+        if (_cCTAttribute[j][i])CFRelease(_cCTAttribute[j][i]);
+        _cCTAttribute[j][i] = CFDictionaryCreate(kCFAllocatorDefault, 
+                                                 (const void **)cfKeys, 
+                                                 (const void **)cfValues, 
+                                                 3, 
+                                                 &kCFTypeDictionaryKeyCallBacks, 
+                                                 &kCFTypeDictionaryValueCallBacks);
+        
+        cfValues[0] = _eCTFont;
+        if (_eCTAttribute[j][i])CFRelease(_eCTAttribute[j][i]);
+        _eCTAttribute[j][i] = CFDictionaryCreate(kCFAllocatorDefault, 
+                                                 (const void **)cfKeys, 
+                                                 (const void **)cfValues, 
+                                                 3, 
+                                                 &kCFTypeDictionaryKeyCallBacks, 
+                                                 &kCFTypeDictionaryValueCallBacks);
+        CFRelease(number);
+    }
     
 }
 
 #pragma mark -
 #pragma mark Accessor
 - (CGFloat)cellWidth {
-	return (CGFloat)((int)(_cellWidth + 0.5));
+    return (CGFloat)((int)(_cellWidth + 0.5));
 }
 
 - (void)setCellWidth:(CGFloat)value {
     if (value == 0) 
-		value = WLDefaultCellWidth;
+        value = WLDefaultCellWidth;
     _cellWidth = value;
     [[NSUserDefaults standardUserDefaults] setFloat:value forKey:@"CellWidth"];
 }
 
 - (CGFloat)cellHeight {
-	return (CGFloat)((int)(_cellHeight + 0.5));
+    return (CGFloat)((int)(_cellHeight + 0.5));
 }
 
 
 - (void)setCellHeight:(CGFloat)value {
     if (value == 0) 
-		value = WLDefaultCellHeight;
+        value = WLDefaultCellHeight;
     _cellHeight = value;
     [[NSUserDefaults standardUserDefaults] setFloat:value forKey:@"CellHeight"];
 }
 
 - (NSColor *)colorAtIndex:(int)i 
-				   hilite:(BOOL)h {
-	if (i >= 0 && i < NUM_COLOR) 
-		return _colorTable[h][i];
-	return _colorTable[0][NUM_COLOR - 1];
+                   hilite:(BOOL)h {
+    if (i >= 0 && i < NUM_COLOR) 
+        return _colorTable[h][i];
+    return _colorTable[0][NUM_COLOR - 1];
 }
 
 - (NSColor *)bgColorAtIndex:(int)i 
-					 hilite:(BOOL)h {
-	return [[self colorAtIndex:i hilite:h] colorWithAlphaComponent:self.colorBG.alphaComponent];
+                     hilite:(BOOL)h {
+    return [[self colorAtIndex:i hilite:h] colorWithAlphaComponent:self.colorBG.alphaComponent];
 }
 
 - (void)setColor:(NSColor *)c 
-		  hilite:(BOOL)h 
-		 atIndex:(int)i {
-	if (i >= 0 && i < NUM_COLOR) {
-		_colorTable[h][i] = [c colorUsingColorSpaceName:NSCalibratedRGBColorSpace];
-	}
+          hilite:(BOOL)h 
+         atIndex:(int)i {
+    if (i >= 0 && i < NUM_COLOR) {
+        _colorTable[h][i] = [c colorUsingColorSpaceName:NSCalibratedRGBColorSpace];
+    }
 }
 
 - (void)setShowsHiddenText:(BOOL)value {
@@ -307,23 +307,23 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(WLGlobalConfig)
 }
 
 - (CGFloat)chineseFontSize {
-	return (CGFloat)((int)(_chineseFontSize + 0.5));
+    return (CGFloat)((int)(_chineseFontSize + 0.5));
 }
 
 - (void)setChineseFontSize:(CGFloat)value {
     if (value == 0) 
-		value = WLDefaultChineseFontSize;
+        value = WLDefaultChineseFontSize;
     _chineseFontSize = value;
     [[NSUserDefaults standardUserDefaults] setFloat:value forKey:@"ChineseFontSize"];
 }
 
 - (CGFloat)englishFontSize {
-	return (CGFloat)((int)(_englishFontSize + 0.5));
+    return (CGFloat)((int)(_englishFontSize + 0.5));
 }
 
 - (void)setEnglishFontSize:(CGFloat)value {
     if (value == 0) 
-		value = WLDefaultEnglishFontSize;
+        value = WLDefaultEnglishFontSize;
     _englishFontSize = value;
     [[NSUserDefaults standardUserDefaults] setFloat:value forKey:@"EnglishFontSize"];
 }
@@ -371,7 +371,7 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(WLGlobalConfig)
 - (NSColor *)colorBlack { return _colorTable[0][0]; }
 - (void)setColorBlack:(NSColor *)c {
     if (!c)
-		c = [NSColor colorWithDeviceRed:0.00 green:0.00 blue:0.00 alpha:1.0];
+        c = [NSColor colorWithDeviceRed:0.00 green:0.00 blue:0.00 alpha:1.0];
     if (c != _colorTable[0][0]) {
         _colorTable[0][0] = [c colorUsingColorSpaceName:NSCalibratedRGBColorSpace];
     }
@@ -510,7 +510,7 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(WLGlobalConfig)
     if (!c)c = [NSColor colorWithDeviceRed:0.00 green:0.00 blue:0.00 alpha:1.0];
     if (c != _colorTable[0][9]) {
         _colorTable[0][9] = [c colorUsingColorSpaceName:NSCalibratedRGBColorSpace];
-//        if ([self colorBGHilite] != c) [self setColorBGHilite: c];
+        // if ([self colorBGHilite] != c) [self setColorBGHilite: c];
     }
     [[NSUserDefaults standardUserDefaults] setMyColor:c forKey:@"ColorBG"];
 }
@@ -520,7 +520,7 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(WLGlobalConfig)
     if (!c)c = [NSColor colorWithDeviceRed:0.00 green:0.00 blue:0.00 alpha:1.0];
     if (c != _colorTable[1][9]) {
         _colorTable[1][9] = [c colorUsingColorSpaceName:NSCalibratedRGBColorSpace];
-//        if ([self colorBG] != c) [self setColorBG: c];
+        // if ([self colorBG] != c) [self setColorBG: c];
     }
     [[NSUserDefaults standardUserDefaults] setMyColor:c forKey:@"ColorBGHilite"];
 }
@@ -554,37 +554,37 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(WLGlobalConfig)
 #pragma mark -
 #pragma mark Query Global Config
 + (BOOL)shouldEnableCoverFlow {
-	return [[NSUserDefaults standardUserDefaults] boolForKey:WLCoverFlowModeEnabledKeyName];
+    return [[NSUserDefaults standardUserDefaults] boolForKey:WLCoverFlowModeEnabledKeyName];
 }
 
 - (NSSize)contentSize {
-	// Return the proper size of all the content
-	return NSMakeSize(_column * self.cellWidth, _row * self.cellHeight);
+    // Return the proper size of all the content
+    return NSMakeSize(_column * self.cellWidth, _row * self.cellHeight);
 }
 
 #pragma mark -
 #pragma mark Restoring Settrings
 - (void)restoreSettings {
-	self.cellWidth = 12;
-	self.cellHeight = 24;
-	self.chineseFontName = @"STHeiti";
-	self.englishFontName = @"Monaco";
-	self.chineseFontSize = 22;
-	self.englishFontSize = 18;
+    self.cellWidth = 12;
+    self.cellHeight = 24;
+    self.chineseFontName = @"STHeiti";
+    self.englishFontName = @"Monaco";
+    self.chineseFontSize = 22;
+    self.englishFontSize = 18;
 }
 
 - (NSDictionary *)sizeParameters {
-	return @{WLCellWidthKeyName:@(_cellWidth), WLCellHeightKeyName:@(_cellHeight), WLChineseFontSizeKeyName:@(_chineseFontSize), WLEnglishFontSizeKeyName:@(_englishFontSize)};
+    return @{WLCellWidthKeyName:@(_cellWidth), WLCellHeightKeyName:@(_cellHeight), WLChineseFontSizeKeyName:@(_chineseFontSize), WLEnglishFontSizeKeyName:@(_englishFontSize)};
 }
 
 - (void)setSizeParameters:(NSDictionary *)sizeParameters {
-	if (sizeParameters[WLCellWidthKeyName])
-		self.cellWidth = [sizeParameters[WLCellWidthKeyName] floatValue];
-	if (sizeParameters[WLCellHeightKeyName])
-		self.cellHeight = [sizeParameters[WLCellHeightKeyName] floatValue];
-	if (sizeParameters[WLChineseFontSizeKeyName])
-		self.chineseFontSize = [sizeParameters[WLChineseFontSizeKeyName] floatValue];
-	if (sizeParameters[WLEnglishFontSizeKeyName])
-		self.englishFontSize = [sizeParameters[WLEnglishFontSizeKeyName] floatValue];
+    if (sizeParameters[WLCellWidthKeyName])
+        self.cellWidth = [sizeParameters[WLCellWidthKeyName] floatValue];
+    if (sizeParameters[WLCellHeightKeyName])
+        self.cellHeight = [sizeParameters[WLCellHeightKeyName] floatValue];
+    if (sizeParameters[WLChineseFontSizeKeyName])
+        self.chineseFontSize = [sizeParameters[WLChineseFontSizeKeyName] floatValue];
+    if (sizeParameters[WLEnglishFontSizeKeyName])
+        self.englishFontSize = [sizeParameters[WLEnglishFontSizeKeyName] floatValue];
 }
 @end

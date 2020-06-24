@@ -27,23 +27,23 @@ NSString *const WLComposeFontName = @"Helvetica";
 SYNTHESIZE_SINGLETON_FOR_CLASS(WLComposePanelController)
 
 - (void)loadNibFile {
-	if (_composePanel) {
-		// Loaded before, just return silently
-		return;
-	}
-	
+    if (_composePanel) {
+        // Loaded before, just return silently
+        return;
+    }
+    
     [[NSBundle mainBundle] loadNibNamed:kComposePanelNibFilename owner:self topLevelObjects:nil];
 }
 
 - (void)awakeFromNib {
-	_composeText.string = @"";
-	_composeText.backgroundColor = [NSColor whiteColor];
+    _composeText.string = @"";
+    _composeText.backgroundColor = [NSColor whiteColor];
     _composeText.textColor = [NSColor blackColor];
     _composeText.insertionPointColor = [NSColor blackColor];
     _composeText.font = [NSFont fontWithName:WLComposeFontName size:[WLGlobalConfig sharedInstance].englishFontSize*0.8];
-	
-	// Prepare Color Panel
-	[[NSUserDefaults standardUserDefaults] setObject:@"1Welly" forKey:@"NSColorPickerPageableNameListDefaults"];
+    
+    // Prepare Color Panel
+    [[NSUserDefaults standardUserDefaults] setObject:@"1Welly" forKey:@"NSColorPickerPageableNameListDefaults"];
     WLGlobalConfig *config = [WLGlobalConfig sharedInstance];
     NSColorPanel *colorPanel = [NSColorPanel sharedColorPanel];
     colorPanel.mode = NSColorListModeColorPanel;
@@ -65,24 +65,24 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(WLComposePanelController)
     [colorList insertColor:config.colorCyanHilite key:NSLocalizedString(@"CyanHilite", @"Color") atIndex:14];
     [colorList insertColor:config.colorWhiteHilite key:NSLocalizedString(@"WhiteHilite", @"Color") atIndex:15];
     [colorPanel attachColorList:colorList];
-	
-	_shadowForBlink = [[NSShadow alloc] init];
-	_shadowForBlink.shadowOffset = NSMakeSize(3.0, -3.0);
-	_shadowForBlink.shadowBlurRadius = 5.0;
-	
-	// Use a partially transparent color for shapes that overlap.
-	_shadowForBlink.shadowColor = [[NSColor blackColor] colorWithAlphaComponent:0.8];
+    
+    _shadowForBlink = [[NSShadow alloc] init];
+    _shadowForBlink.shadowOffset = NSMakeSize(3.0, -3.0);
+    _shadowForBlink.shadowBlurRadius = 5.0;
+    
+    // Use a partially transparent color for shapes that overlap.
+    _shadowForBlink.shadowColor = [[NSColor blackColor] colorWithAlphaComponent:0.8];
 }
 
 #pragma mark -
 #pragma mark Compose
 - (void)openComposePanelInWindow:(NSWindow *)window 
-						 forView:(NSView <NSTextInputClient>*)telnetView {
-	[self loadNibFile];
-	
-	// Propose a warning if necessary
-	if ([telnetView respondsToSelector:@selector(shouldWarnCompose)] &&
-		telnetView.shouldWarnCompose) {
+                         forView:(NSView <NSTextInputClient>*)telnetView {
+    [self loadNibFile];
+    
+    // Propose a warning if necessary
+    if ([telnetView respondsToSelector:@selector(shouldWarnCompose)] &&
+        telnetView.shouldWarnCompose) {
         NSAlert *alert = [NSAlert alertWithMessageText:NSLocalizedString(@"Are you sure you want to open the composer?", @"Sheet Title")
                                          defaultButton:NSLocalizedString(@"Confirm", @"Default Button")
                                        alternateButton:NSLocalizedString(@"Cancel", @"Cancel Button")
@@ -91,10 +91,10 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(WLComposePanelController)
         if ([alert runModal] != NSAlertDefaultReturn)
             return;
     }
-	// Set working telnet view
-	_telnetView = telnetView;
+    // Set working telnet view
+    _telnetView = telnetView;
     
-	// Open panel in window
+    // Open panel in window
     [NSApp beginSheet:_composePanel
        modalForWindow:window
         modalDelegate:nil
@@ -106,85 +106,85 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(WLComposePanelController)
 - (void)clearAll {
     _composeText.string = @"\n";
     [_composeText.textStorage removeAttribute:NSBackgroundColorAttributeName
-                                          range:NSMakeRange(0, 1)];
+                                        range:NSMakeRange(0, 1)];
     [_composeText setSelectedRange:NSMakeRange(0, 0)];
     _composeText.string = @"";
-	_composeText.backgroundColor = [NSColor whiteColor];
+    _composeText.backgroundColor = [NSColor whiteColor];
     _composeText.textColor = [NSColor blackColor];
-	_composeText.font = [NSFont fontWithName:WLComposeFontName size:[WLGlobalConfig sharedInstance].englishFontSize*0.8];
-	// TODO: reset the background color
+    _composeText.font = [NSFont fontWithName:WLComposeFontName size:[WLGlobalConfig sharedInstance].englishFontSize*0.8];
+    // TODO: reset the background color
 }
 
 - (void)closeComposePanel {
-	[self clearAll];
+    [self clearAll];
     [_composePanel endEditingFor:nil];
     [NSApp endSheet:_composePanel];
     [_composePanel orderOut:self];
-	
-	// Set working telnet view to be nil
-	_telnetView = nil;
+    
+    // Set working telnet view to be nil
+    _telnetView = nil;
 }
 
 - (IBAction)commitCompose:(id)sender {
-	if ([_telnetView respondsToSelector:@selector(ansiColorKey)]) {
-		NSString *ansiCode = [WLAnsiColorOperationManager ansiCodeStringFromAttributedString:_composeText.textStorage 
-																			 forANSIColorKey:_telnetView.ansiColorKey];
-		
-		[_telnetView insertText:ansiCode replacementRange:NSMakeRange(0, 0)];
-	} else {
-		[_telnetView insertText:_composeText.string replacementRange:NSMakeRange(0, 0)];
-	}
-	[self closeComposePanel];
+    if ([_telnetView respondsToSelector:@selector(ansiColorKey)]) {
+        NSString *ansiCode = [WLAnsiColorOperationManager ansiCodeStringFromAttributedString:_composeText.textStorage 
+                                                                             forANSIColorKey:_telnetView.ansiColorKey];
+        
+        [_telnetView insertText:ansiCode replacementRange:NSMakeRange(0, 0)];
+    } else {
+        [_telnetView insertText:_composeText.string replacementRange:NSMakeRange(0, 0)];
+    }
+    [self closeComposePanel];
 }
 
 - (IBAction)cancelCompose:(id)sender {
-	[self closeComposePanel];
+    [self closeComposePanel];
 }
 
 - (IBAction)setUnderline:(id)sender {
-	NSTextStorage *storage = _composeText.textStorage;
-	NSRange selectedRange = [_composeText selectedRange];
-	// get the underline style attribute of the first character in the text view
-	id underlineStyle = [storage attribute:NSUnderlineStyleAttributeName atIndex:selectedRange.location effectiveRange:nil];
-	// if already underlined, then the user is meant to remove the line.
-	if ([underlineStyle intValue] == NSUnderlineStyleNone) {
-		[storage addAttribute:NSUnderlineStyleAttributeName value:[NSNumber numberWithInt:NSUnderlineStyleThick] range:selectedRange];
-	}
-	else
-		[storage removeAttribute:NSUnderlineStyleAttributeName range:selectedRange];
+    NSTextStorage *storage = _composeText.textStorage;
+    NSRange selectedRange = [_composeText selectedRange];
+    // get the underline style attribute of the first character in the text view
+    id underlineStyle = [storage attribute:NSUnderlineStyleAttributeName atIndex:selectedRange.location effectiveRange:nil];
+    // if already underlined, then the user is meant to remove the line.
+    if ([underlineStyle intValue] == NSUnderlineStyleNone) {
+        [storage addAttribute:NSUnderlineStyleAttributeName value:[NSNumber numberWithInt:NSUnderlineStyleThick] range:selectedRange];
+    }
+    else
+        [storage removeAttribute:NSUnderlineStyleAttributeName range:selectedRange];
 }
 
 - (IBAction)setBlink:(id)sender {
-	NSTextStorage *storage = _composeText.textStorage;
-	NSRange selectedRange = [_composeText selectedRange];
-	
-	NSShadow *shadowAttribute = [storage attribute:NSShadowAttributeName atIndex:selectedRange.location effectiveRange:nil];
-	
-	if (shadowAttribute == nil) {
-		[storage addAttribute:NSShadowAttributeName value:_shadowForBlink range:selectedRange];
-	} else {
-		[storage removeAttribute:NSShadowAttributeName range:selectedRange];
-	}
-	
-	// get the bold style attribute of the first character in the text view
-	/* Commented by K.O.ed: Do not use bold, but use shadow
-	NSFontManager *fontManager = [NSFontManager sharedFontManager];
-	NSFont *font = [storage attribute:NSFontAttributeName atIndex:selectedRange.location effectiveRange:nil];
-	NSFontTraitMask traits = [fontManager traitsOfFont:font];
-	NSFont *newFont;
-	if (traits & NSBoldFontMask)
-		newFont = [fontManager convertFont:font toNotHaveTrait:NSBoldFontMask];
-	else
-		newFont = [fontManager convertFont:font toHaveTrait:NSBoldFontMask];
-	
-	[storage addAttribute:NSFontAttributeName value:newFont range:[_composeText selectedRange]];
-	 */
+    NSTextStorage *storage = _composeText.textStorage;
+    NSRange selectedRange = [_composeText selectedRange];
+    
+    NSShadow *shadowAttribute = [storage attribute:NSShadowAttributeName atIndex:selectedRange.location effectiveRange:nil];
+    
+    if (shadowAttribute == nil) {
+        [storage addAttribute:NSShadowAttributeName value:_shadowForBlink range:selectedRange];
+    } else {
+        [storage removeAttribute:NSShadowAttributeName range:selectedRange];
+    }
+    
+    // get the bold style attribute of the first character in the text view
+    /* Commented by K.O.ed: Do not use bold, but use shadow
+     NSFontManager *fontManager = [NSFontManager sharedFontManager];
+     NSFont *font = [storage attribute:NSFontAttributeName atIndex:selectedRange.location effectiveRange:nil];
+     NSFontTraitMask traits = [fontManager traitsOfFont:font];
+     NSFont *newFont;
+     if (traits & NSBoldFontMask)
+     newFont = [fontManager convertFont:font toNotHaveTrait:NSBoldFontMask];
+     else
+     newFont = [fontManager convertFont:font toHaveTrait:NSBoldFontMask];
+     
+     [storage addAttribute:NSFontAttributeName value:newFont range:[_composeText selectedRange]];
+     */
 }
 
 - (IBAction)changeBackgroundColor:(id)sender {
     [_composeText.textStorage addAttribute:NSBackgroundColorAttributeName
-                                       value:[sender color]
-                                       range:[_composeText selectedRange]];
+                                     value:[sender color]
+                                     range:[_composeText selectedRange]];
 }
 
 #pragma mark -
@@ -194,7 +194,7 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(WLComposePanelController)
     NSTextStorage *storage = textView.textStorage;
     NSInteger location = [textView selectedRange].location;
     if (location > 0) 
-		--location;
+        --location;
     _bgColorWell.color = [WLGlobalConfig sharedInstance].colorBG;
     if (location < storage.length) {
         NSColor *bgColor = [storage attribute:NSBackgroundColorAttributeName

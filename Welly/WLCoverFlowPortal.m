@@ -34,62 +34,62 @@ const float xscale = 1, yscale = 0.8;
 
 
 - (instancetype)initWithFrame:(NSRect)frame {
-	if ((self = [super initWithFrame:frame])) {
-		// Initialize the imageFlowView
-		_imageFlowView = [[NSClassFromString(@"IKImageFlowView") alloc] initWithFrame:frame];
-		[_imageFlowView setDataSource:self];
-		[_imageFlowView setDelegate:self];
-		[_imageFlowView setDraggingDestinationDelegate:self];
-		[_imageFlowView setHidden:NO];
-
-		// background
-		NSColor *color = [WLGlobalConfig sharedInstance].colorBG;
-		// cover flow doesn't support alpha
-		color = [color colorWithAlphaComponent:1.0];
-		[_imageFlowView setBackgroundColor:color];
-		// re-scale the image flow view
-		self.frame = self.frame;
-	}
-	return self;
+    if ((self = [super initWithFrame:frame])) {
+        // Initialize the imageFlowView
+        _imageFlowView = [[NSClassFromString(@"IKImageFlowView") alloc] initWithFrame:frame];
+        [_imageFlowView setDataSource:self];
+        [_imageFlowView setDelegate:self];
+        [_imageFlowView setDraggingDestinationDelegate:self];
+        [_imageFlowView setHidden:NO];
+        
+        // background
+        NSColor *color = [WLGlobalConfig sharedInstance].colorBG;
+        // cover flow doesn't support alpha
+        color = [color colorWithAlphaComponent:1.0];
+        [_imageFlowView setBackgroundColor:color];
+        // re-scale the image flow view
+        self.frame = self.frame;
+    }
+    return self;
 }
 
 - (void)awakeFromNib {
-	[self addSubview:_imageFlowView];
-	[self.window makeFirstResponder:self];
-	// event hanlding
-	// Add self to _imageFlowView's next responder
-	NSResponder *next = [_imageFlowView nextResponder];
-	if (self != next) {
-		[_imageFlowView setNextResponder:self];
-		self.nextResponder = next;
-	}
+    [self addSubview:_imageFlowView];
+    [self.window makeFirstResponder:self];
+    // event hanlding
+    // Add self to _imageFlowView's next responder
+    NSResponder *next = [_imageFlowView nextResponder];
+    if (self != next) {
+        [_imageFlowView setNextResponder:self];
+        self.nextResponder = next;
+    }
 }
 
 - (void)setFrame:(NSRect)frame {
-	super.frame = frame;
-	frame.origin.x += frame.size.width * (1 - xscale) / 2;
-	frame.origin.y += frame.size.height * (1 - yscale) / 2;
-	frame.size.width *= xscale;
-	frame.size.height *= yscale;
-	[_imageFlowView setFrame:frame];
-	//[_imageFlowView setNeedsDisplay:YES];
+    super.frame = frame;
+    frame.origin.x += frame.size.width * (1 - xscale) / 2;
+    frame.origin.y += frame.size.height * (1 - yscale) / 2;
+    frame.size.width *= xscale;
+    frame.size.height *= yscale;
+    [_imageFlowView setFrame:frame];
+    //[_imageFlowView setNeedsDisplay:YES];
 }
 
 - (instancetype)initWithPortalItems:(NSArray *)portalItems {
-	if ((self = [self init])) {
-		[self setPortalItems:_portalItems];
-	}
-	return self;
+    if ((self = [self init])) {
+        [self setPortalItems:_portalItems];
+    }
+    return self;
 }
 
 #pragma mark -
 #pragma mark Display
 - (void)drawRect:(NSRect)rect {
-	// background
-	NSColor *color = [WLGlobalConfig sharedInstance].colorBG;
-	// cover flow doesn't support alpha
-	color = [color colorWithAlphaComponent:1.0];
-	[color set];
+    // background
+    NSColor *color = [WLGlobalConfig sharedInstance].colorBG;
+    // cover flow doesn't support alpha
+    color = [color colorWithAlphaComponent:1.0];
+    [color set];
     NSRectFill(rect);
 }
 
@@ -99,20 +99,20 @@ const float xscale = 1, yscale = 0.8;
 }
 
 - (void)setPortalItems:(NSArray *)portalItems {
-	
-	_portalItems = [portalItems copy];
-	[self refresh];
+    
+    _portalItems = [portalItems copy];
+    [self refresh];
 }
 
 - (void)select {
-	WLPortalItem *item = _portalItems[[_imageFlowView selectedIndex]];
-	[item didSelect:self];
+    WLPortalItem *item = _portalItems[[_imageFlowView selectedIndex]];
+    [item didSelect:self];
 }
 
 #pragma mark -
 #pragma mark Override
 - (BOOL)acceptsFirstResponder {
-	return YES;
+    return YES;
 }
 
 - (BOOL)canBecomeKeyView {
@@ -122,11 +122,11 @@ const float xscale = 1, yscale = 0.8;
 #pragma mark -
 #pragma mark IKImageFlowDataSource protocol
 - (NSUInteger)numberOfItemsInImageFlow:(id)aFlow {
-	return _portalItems.count;
+    return _portalItems.count;
 }
 
 - (id)imageFlow:(id)aFlow itemAtIndex:(NSUInteger)index {
-	return _portalItems[index];
+    return _portalItems[index];
 }
 
 #pragma mark -
@@ -138,19 +138,19 @@ const float xscale = 1, yscale = 0.8;
 #pragma mark -
 #pragma mark Event handler
 - (void)keyDown:(NSEvent *)theEvent {
-	switch ([theEvent.charactersIgnoringModifiers characterAtIndex:0]) {
+    switch ([theEvent.charactersIgnoringModifiers characterAtIndex:0]) {
         case WLWhitespaceCharacter:
         case WLReturnCharacter:
             [self select];
             return;
-		case NSUpArrowFunctionKey:
-		case NSDownArrowFunctionKey:
-		case NSLeftArrowFunctionKey:
-		case NSRightArrowFunctionKey:
-			[_imageFlowView keyDown:theEvent];
-			return;
+        case NSUpArrowFunctionKey:
+        case NSDownArrowFunctionKey:
+        case NSLeftArrowFunctionKey:
+        case NSRightArrowFunctionKey:
+            [_imageFlowView keyDown:theEvent];
+            return;
     }
-	[super keyDown:theEvent];
+    [super keyDown:theEvent];
 }
 
 // private
@@ -160,37 +160,37 @@ const float xscale = 1, yscale = 0.8;
 }
 
 - (id)itemAtLocation:(NSPoint)p {
-	NSUInteger index = [self cellIndexAtLocation:p];
+    NSUInteger index = [self cellIndexAtLocation:p];
     if (index == NSNotFound || _portalItems.count <= index)
         return nil;
-	
+    
     return _portalItems[index];
 }
 
 - (void)mouseDragged:(NSEvent *)theEvent {
-	_draggingItem = [self itemAtLocation:theEvent.locationInWindow];
-	if (_draggingItem) {
-		if (![_draggingItem conformsToProtocol:@protocol(WLDraggingSource)] || 
-			!((id <WLDraggingSource>)_draggingItem).acceptsDragging) {
-			_draggingItem = nil;
-			return;
-		}
-		
-		WLPortalItem <WLDraggingSource> *draggingItem = (WLPortalItem <WLDraggingSource> *)_draggingItem;
-		NSImage *image = draggingItem.draggingImage;
-		NSSize size = image.size;
-		NSPoint pt = [_imageFlowView convertPoint:theEvent.locationInWindow fromView:nil];
-		pt.x -= size.width/2;
-		pt.y -= size.height/2;
-		NSPasteboard *pboard = draggingItem.draggingPasteboard;
-		[_imageFlowView dragImage:image at:pt offset:NSZeroSize 
-				   event:theEvent pasteboard:pboard source:self slideBack:NO];
-		return;
-	} 
+    _draggingItem = [self itemAtLocation:theEvent.locationInWindow];
+    if (_draggingItem) {
+        if (![_draggingItem conformsToProtocol:@protocol(WLDraggingSource)] || 
+            !((id <WLDraggingSource>)_draggingItem).acceptsDragging) {
+            _draggingItem = nil;
+            return;
+        }
+        
+        WLPortalItem <WLDraggingSource> *draggingItem = (WLPortalItem <WLDraggingSource> *)_draggingItem;
+        NSImage *image = draggingItem.draggingImage;
+        NSSize size = image.size;
+        NSPoint pt = [_imageFlowView convertPoint:theEvent.locationInWindow fromView:nil];
+        pt.x -= size.width/2;
+        pt.y -= size.height/2;
+        NSPasteboard *pboard = draggingItem.draggingPasteboard;
+        [_imageFlowView dragImage:image at:pt offset:NSZeroSize 
+                            event:theEvent pasteboard:pboard source:self slideBack:NO];
+        return;
+    } 
 }
 
 - (void)mouseDown:(NSEvent *)theEvent {
-	// Do not call [super mouseDown:theEvent]; to keep FirstResponder
+    // Do not call [super mouseDown:theEvent]; to keep FirstResponder
 }
 
 #pragma mark -
@@ -199,12 +199,12 @@ const float xscale = 1, yscale = 0.8;
 
 // private
 - (BOOL)draggedOut:(NSPoint)screenPoint {
-	NSPoint pt = [[_imageFlowView window] convertRectFromScreen:NSMakeRect(screenPoint.x, screenPoint.y, 0.0, 0.0)].origin;
+    NSPoint pt = [[_imageFlowView window] convertRectFromScreen:NSMakeRect(screenPoint.x, screenPoint.y, 0.0, 0.0)].origin;
     return ![_imageFlowView hitTest:pt];
 }
 
 - (void)draggedImage:(NSImage *)image 
-			 movedTo:(NSPoint)screenPoint {
+             movedTo:(NSPoint)screenPoint {
     if ([self draggedOut:screenPoint])
         [[NSCursor disappearingItemCursor] set];
     else
@@ -212,20 +212,20 @@ const float xscale = 1, yscale = 0.8;
 }
 
 - (void)draggedImage:(NSImage *)image 
-			 endedAt:(NSPoint)screenPoint 
-		   operation:(NSDragOperation)operation {
+             endedAt:(NSPoint)screenPoint 
+           operation:(NSDragOperation)operation {
     [[NSCursor arrowCursor] set];
     if (![self draggedOut:screenPoint])
         return;
-	
-	if (_draggingItem) {
-		assert([_draggingItem conformsToProtocol:@protocol(WLDraggingSource)]);
-		id <WLDraggingSource> draggingItem = (id <WLDraggingSource>) _draggingItem;
-		assert([draggingItem acceptsDragging]);
-		[draggingItem draggedToRemove:self];
-		[self refresh];
-		_draggingItem = nil;
-	}
+    
+    if (_draggingItem) {
+        assert([_draggingItem conformsToProtocol:@protocol(WLDraggingSource)]);
+        id <WLDraggingSource> draggingItem = (id <WLDraggingSource>) _draggingItem;
+        assert([draggingItem acceptsDragging]);
+        [draggingItem draggedToRemove:self];
+        [self refresh];
+        _draggingItem = nil;
+    }
 }
 
 #pragma mark -
@@ -234,12 +234,12 @@ const float xscale = 1, yscale = 0.8;
 
 // private
 - (NSDragOperation)checkSource:(id <NSDraggingInfo>)sender {
-	id item = [self itemAtLocation:[sender draggingLocation]];
+    id item = [self itemAtLocation:[sender draggingLocation]];
     if (!item)
         return NSDragOperationNone;
-	if ([item acceptsPBoard:[sender draggingPasteboard]])
-		return NSDragOperationCopy;
-	return NSDragOperationNone;
+    if ([item acceptsPBoard:[sender draggingPasteboard]])
+        return NSDragOperationCopy;
+    return NSDragOperationNone;
 }
 
 - (NSDragOperation)draggingEntered:(id <NSDraggingInfo>)sender {
@@ -260,8 +260,8 @@ const float xscale = 1, yscale = 0.8;
     id item = [self itemAtLocation:[sender draggingLocation]];
     if (item == nil || ![item conformsToProtocol:@protocol(WLPasteboardReceiver)])
         return NO;
-	
-	return [(id <WLPasteboardReceiver>)item didReceivePBoard:[sender draggingPasteboard]];
+    
+    return [(id <WLPasteboardReceiver>)item didReceivePBoard:[sender draggingPasteboard]];
 }
 
 - (void)concludeDragOperation:(id < NSDraggingInfo >)sender {

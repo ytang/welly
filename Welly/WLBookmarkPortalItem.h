@@ -11,7 +11,7 @@
 #import "WLSite.h"
 
 @interface WLBookmarkPortalItem : WLPortalItem <WLPasteboardReceiver, WLDraggingSource> {
-	WLSite *_site;
+    WLSite *_site;
     NSString *_path;
 }
 @property (readwrite, copy, nonatomic) NSString *path;

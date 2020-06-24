@@ -39,14 +39,14 @@
 - (void)reconnect;
 - (void)sendMessage:(NSData *)msg;
 - (void)sendBytes:(const void *)buf 
-		   length:(NSInteger)length;
+           length:(NSInteger)length;
 - (void)sendText:(NSString *)text;
 - (void)sendText:(NSString *)text 
-	   withDelay:(int)microsecond;
+       withDelay:(int)microsecond;
 
 /* message */
 - (void)didReceiveNewMessage:(NSString *)message
-				  fromCaller:(NSString *)caller;
+                  fromCaller:(NSString *)caller;
 - (void)increaseMessageCount:(NSInteger)value;
 - (void)resetMessageCount;
 @end

@@ -37,21 +37,21 @@
 
 /* Dirty */
 - (BOOL)isDirtyAtRow:(NSInteger)r
-			  column:(NSInteger)c;
+              column:(NSInteger)c;
 - (void)setAllDirty;
 - (void)setDirty:(BOOL)d 
-		   atRow:(NSInteger)r
-		  column:(NSInteger)c;
+           atRow:(NSInteger)r
+          column:(NSInteger)c;
 - (void)setDirtyForRow:(NSInteger)r;
 - (void)removeAllDirtyMarks;
 
 /* Access Data */
 - (attribute)attrAtRow:(NSInteger)r
-				column:(NSInteger)c ;
+                column:(NSInteger)c ;
 - (NSString *)stringAtIndex:(NSInteger)begin
-					 length:(NSInteger)length;
+                     length:(NSInteger)length;
 - (NSAttributedString *)attributedStringAtIndex:(NSInteger)location
-										 length:(NSInteger)length;
+                                         length:(NSInteger)length;
 - (cell *)cellsOfRow:(NSInteger)r NS_RETURNS_INNER_POINTER;
 - (cell)cellAtIndex:(NSInteger)index;
 
@@ -65,7 +65,7 @@
 /* Input Interface */
 - (void)feedGrid:(cell **)grid;
 - (void)setCursorX:(NSInteger)cursorX
-				 Y:(NSInteger)cursorY;
+                 Y:(NSInteger)cursorY;
 
 /* Observer Interface */
 - (void)addObserver:(id <WLTerminalObserver>)observer;

@@ -17,37 +17,37 @@
     NSInteger _cursorX;
     NSInteger _cursorY;
     NSInteger _offset;
-	
+    
     NSInteger _savedCursorX;
     NSInteger _savedCursorY;
-	
+    
     NSInteger _fgColor;
     NSInteger _bgColor;
     BOOL _bold;
     BOOL _underline;
     BOOL _blink;
     BOOL _reverse;
-	
+    
     cell **_grid;
-	
+    
     enum { TP_NORMAL, TP_ESCAPE, TP_CONTROL, TP_SCS } _state;
-	
+    
     WLIntegerArray *_csBuf;
     WLIntegerArray *_csArg;
     NSInteger _csTemp;
-	
+    
     NSInteger _scrollBeginRow;
     NSInteger _scrollEndRow;
-	
-	WLTerminal *_terminal;
-	WLConnection *_connection;
-	
-	BOOL _hasNewMessage;	// to determine if a growl notification is needed
-	
+    
+    WLTerminal *_terminal;
+    WLConnection *_connection;
+    
+    BOOL _hasNewMessage;	// to determine if a growl notification is needed
+    
     enum { VT100, VT102 } _emustd;
-	
+    
     BOOL _modeScreenReverse;  // reverse (true), not reverse (false, default)
-	BOOL _modeOriginRelative; // relative origin (true), absolute origin (false, default)
+    BOOL _modeOriginRelative; // relative origin (true), absolute origin (false, default)
     BOOL _modeWraptext;       // autowrap (true, default), wrap disabled (false)
     BOOL _modeLNM;            // line feed (true, default), new line (false)
     BOOL _modeIRM;            // insert (true), replace (false, default)
@@ -63,8 +63,8 @@
 /* Input Interface */
 - (void)feedData:(NSData *)data connection:(id)connection;
 - (void)feedBytes:(const unsigned char*)bytes 
-		   length:(NSUInteger)len 
-	   connection:(id)connection;
+           length:(NSUInteger)len 
+       connection:(id)connection;
 
 - (void)setTerminal:(WLTerminal *)terminal;
 

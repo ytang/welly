@@ -25,15 +25,15 @@ NSString * const WLButtonNameSwitchBoardsNumber;
 NSString * const WLButtonNameDeleteBoard;
 
 typedef struct {
-	int state;
-	__unsafe_unretained NSString *signature;
-	int signatureLengthOfBytes;
-	__unsafe_unretained NSString *buttonName;
-	__unsafe_unretained NSString *commandSequence;
+    int state;
+    __unsafe_unretained NSString *signature;
+    int signatureLengthOfBytes;
+    __unsafe_unretained NSString *buttonName;
+    __unsafe_unretained NSString *commandSequence;
 } WLButtonDescription;
 
 @class WLTerminalView;
 @interface WLButtonAreaHotspotHandler : WLMouseHotspotHandler <WLMouseUpHandler, WLUpdatable> {
-	NSString *_commandSequence;
+    NSString *_commandSequence;
 }
 @end

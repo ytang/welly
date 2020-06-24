@@ -12,31 +12,31 @@ static classname *sSharedInstance = nil; \
  \
 + (classname *)sharedInstance \
 { \
-	@synchronized(self) \
-	{ \
-		if (sSharedInstance == nil) \
-		{ \
-			sSharedInstance = [[self alloc] init]; \
-		} \
-	} \
-	 \
+    @synchronized(self) \
+    { \
+        if (sSharedInstance == nil) \
+        { \
+            sSharedInstance = [[self alloc] init]; \
+        } \
+    } \
+     \
 	return sSharedInstance; \
 } \
  \
 + (id)allocWithZone:(NSZone *)zone \
 { \
-	@synchronized(self) \
-	{ \
-		if (sSharedInstance == nil) \
-		{ \
-			sSharedInstance = [super allocWithZone:zone]; \
-		} \
-	} \
-	 \
-	return sSharedInstance; \
+    @synchronized(self) \
+    { \
+        if (sSharedInstance == nil) \
+        { \
+            sSharedInstance = [super allocWithZone:zone]; \
+        } \
+    } \
+     \
+    return sSharedInstance; \
 } \
  \
 - (id)copyWithZone:(NSZone *)zone \
 { \
-	return self; \
+    return self; \
 }

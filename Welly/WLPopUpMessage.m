@@ -16,21 +16,21 @@ NSTimer *_prevTimer;
 
 #pragma mark Class methods
 + (void)hidePopUpMessage {
-	if (_effectView) {
-		[_effectView removePopUpMessage];
-	}
+    if (_effectView) {
+        [_effectView removePopUpMessage];
+    }
     _prevTimer = nil;
 }
 
 + (void)showPopUpMessage:(NSString*)message 
-				duration:(CGFloat)duration 
-			  effectView:(WLEffectView *)effectView {
+                duration:(CGFloat)duration 
+              effectView:(WLEffectView *)effectView {
     if (_prevTimer) {
         [_prevTimer invalidate];
     }
-	[effectView drawPopUpMessage:message];
-	_effectView = effectView;
-	_prevTimer = [NSTimer scheduledTimerWithTimeInterval:duration
+    [effectView drawPopUpMessage:message];
+    _effectView = effectView;
+    _prevTimer = [NSTimer scheduledTimerWithTimeInterval:duration
                                                   target:self 
                                                 selector:@selector(hidePopUpMessage)
                                                 userInfo:nil

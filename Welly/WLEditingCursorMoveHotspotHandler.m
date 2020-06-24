@@ -49,172 +49,172 @@ static NSCursor *gMoveCursor = nil;
 }
 
 - (instancetype)init {
-	self = [super init];
-	if (self) {
-		if (!gMoveCursor)
-			[WLEditingCursorMoveHotspotHandler initialize];
-	}
-	return self;
+    self = [super init];
+    if (self) {
+        if (!gMoveCursor)
+            [WLEditingCursorMoveHotspotHandler initialize];
+    }
+    return self;
 }
 
 #pragma mark -
 #pragma mark Event Handle
 - (void)mouseUp:(NSEvent *)theEvent {
-	// click to move cursor
-	NSPoint p = [_view convertPoint:theEvent.locationInWindow fromView:nil];
-	NSInteger _selectionLocation = [_view convertIndexFromPoint: p];
-	
-	unsigned char cmd[_maxRow * _maxColumn * 3];
-	unsigned int cmdLength = 0;
-	id ds = _view.frontMostTerminal;
-	// FIXME: what actually matters is whether the user enables auto-break-line
-	// however, since it is enabled by default in smth (switchible by ctrl-p) and disabled in ptt,
-	// we temporarily use bbsType here...
-	if ([ds bbsType] == WLMaple) { // auto-break-line IS NOT enabled in bbs
-		NSInteger moveToRow = _selectionLocation / _maxColumn;
-		NSInteger moveToCol = _selectionLocation % _maxColumn;
-		BOOL home = NO;
-		if (moveToRow > [ds cursorRow]) {
-			cmd[cmdLength++] = 0x01;
-			home = YES;
-			for (NSInteger i = [ds cursorRow]; i < moveToRow; i++) {
-				cmd[cmdLength++] = 0x1B;
-				cmd[cmdLength++] = 0x4F;
-				cmd[cmdLength++] = 0x42;
-			} 
-		} else if (moveToRow < [ds cursorRow]) {
-			cmd[cmdLength++] = 0x01;
-			home = YES;
-			for (NSInteger i = [ds cursorRow]; i > moveToRow; i--) {
-				cmd[cmdLength++] = 0x1B;
-				cmd[cmdLength++] = 0x4F;
-				cmd[cmdLength++] = 0x41;
-			} 			
-		} 
-		
-		cell *currRow = [_view.frontMostTerminal cellsOfRow:moveToRow];
-		if (home) {
-			for (int i = 0; i < moveToCol; i++) {
-				if (currRow[i].attr.f.doubleByte != 2 || _view.frontMostConnection.site.shouldDetectDoubleByte) {
-					cmd[cmdLength++] = 0x1B;
-					cmd[cmdLength++] = 0x4F;
-					cmd[cmdLength++] = 0x43;                    
-				}
-			}
-		} else if (moveToCol > [ds cursorColumn]) {
-			for (NSInteger i = [ds cursorColumn]; i < moveToCol; i++) {
-				if (currRow[i].attr.f.doubleByte != 2 || _view.frontMostConnection.site.shouldDetectDoubleByte) {
-					cmd[cmdLength++] = 0x1B;
-					cmd[cmdLength++] = 0x4F;
-					cmd[cmdLength++] = 0x43;
-				}
-			}
-		} else if (moveToCol < [ds cursorColumn]) {
-			for (NSInteger i = [ds cursorColumn]; i > moveToCol; i--) {
-				if (currRow[i].attr.f.doubleByte != 2 || _view.frontMostConnection.site.shouldDetectDoubleByte) {
-					cmd[cmdLength++] = 0x1B;
-					cmd[cmdLength++] = 0x4F;
-					cmd[cmdLength++] = 0x44;
-				}
-			}
-		}
-	} else { // auto-break-line IS enabled in bbs
-		NSInteger thisRow = [ds cursorRow];
-		NSInteger cursorLocation = thisRow * _maxColumn + [ds cursorColumn];
-		NSInteger prevRow = -1;
-		NSInteger lastEffectiveChar = -1;
-		if (cursorLocation < _selectionLocation) {
-			for (NSInteger i = cursorLocation; i < _selectionLocation; ++i) {
-				thisRow = i / _maxColumn;
-				if (thisRow != prevRow) {
-					cell *currRow = [ds cellsOfRow:thisRow];
-					for (lastEffectiveChar = _maxColumn - 1;
-						 lastEffectiveChar != 0
-						 && (currRow[lastEffectiveChar - 1].byte == 0 || currRow[lastEffectiveChar - 1].byte == '~');
-						 --lastEffectiveChar);
-					prevRow = thisRow;
-				}
-				if (i % _maxColumn <= lastEffectiveChar
-					&& ([ds attrAtRow:i / _maxColumn column:i % _maxColumn].f.doubleByte != 2
-						|| _view.frontMostConnection.site.shouldDetectDoubleByte)) {
-					cmd[cmdLength++] = 0x1B;
-					cmd[cmdLength++] = 0x4F;
-					cmd[cmdLength++] = 0x43;                    
-				}
-			}
-		} else {
-			for (NSInteger i = cursorLocation; i > _selectionLocation; --i) {
-				thisRow = i / _maxColumn;
-				if (thisRow != prevRow) {
-					cell *currRow = [ds cellsOfRow:thisRow];
-					for (lastEffectiveChar = _maxColumn - 1;
-						 lastEffectiveChar != 0
-						 && (currRow[lastEffectiveChar - 1].byte == 0 || currRow[lastEffectiveChar - 1].byte == '~');
-						 --lastEffectiveChar);
-					prevRow = thisRow;
-				}
-				if (i % _maxColumn <= lastEffectiveChar
-					&& ([ds attrAtRow:i / _maxColumn column:i % _maxColumn].f.doubleByte != 2
-						|| _view.frontMostConnection.site.shouldDetectDoubleByte)) {
-					cmd[cmdLength++] = 0x1B;
-					cmd[cmdLength++] = 0x4F;
-					cmd[cmdLength++] = 0x44;                    
-				}					
-			}
-		}				
-	}
-	if (cmdLength > 0)
-		[_view.frontMostConnection sendBytes:cmd length:cmdLength];
+    // click to move cursor
+    NSPoint p = [_view convertPoint:theEvent.locationInWindow fromView:nil];
+    NSInteger _selectionLocation = [_view convertIndexFromPoint: p];
+    
+    unsigned char cmd[_maxRow * _maxColumn * 3];
+    unsigned int cmdLength = 0;
+    id ds = _view.frontMostTerminal;
+    // FIXME: what actually matters is whether the user enables auto-break-line
+    // however, since it is enabled by default in smth (switchible by ctrl-p) and disabled in ptt,
+    // we temporarily use bbsType here...
+    if ([ds bbsType] == WLMaple) { // auto-break-line IS NOT enabled in bbs
+        NSInteger moveToRow = _selectionLocation / _maxColumn;
+        NSInteger moveToCol = _selectionLocation % _maxColumn;
+        BOOL home = NO;
+        if (moveToRow > [ds cursorRow]) {
+            cmd[cmdLength++] = 0x01;
+            home = YES;
+            for (NSInteger i = [ds cursorRow]; i < moveToRow; i++) {
+                cmd[cmdLength++] = 0x1B;
+                cmd[cmdLength++] = 0x4F;
+                cmd[cmdLength++] = 0x42;
+            } 
+        } else if (moveToRow < [ds cursorRow]) {
+            cmd[cmdLength++] = 0x01;
+            home = YES;
+            for (NSInteger i = [ds cursorRow]; i > moveToRow; i--) {
+                cmd[cmdLength++] = 0x1B;
+                cmd[cmdLength++] = 0x4F;
+                cmd[cmdLength++] = 0x41;
+            } 			
+        } 
+        
+        cell *currRow = [_view.frontMostTerminal cellsOfRow:moveToRow];
+        if (home) {
+            for (int i = 0; i < moveToCol; i++) {
+                if (currRow[i].attr.f.doubleByte != 2 || _view.frontMostConnection.site.shouldDetectDoubleByte) {
+                    cmd[cmdLength++] = 0x1B;
+                    cmd[cmdLength++] = 0x4F;
+                    cmd[cmdLength++] = 0x43;                    
+                }
+            }
+        } else if (moveToCol > [ds cursorColumn]) {
+            for (NSInteger i = [ds cursorColumn]; i < moveToCol; i++) {
+                if (currRow[i].attr.f.doubleByte != 2 || _view.frontMostConnection.site.shouldDetectDoubleByte) {
+                    cmd[cmdLength++] = 0x1B;
+                    cmd[cmdLength++] = 0x4F;
+                    cmd[cmdLength++] = 0x43;
+                }
+            }
+        } else if (moveToCol < [ds cursorColumn]) {
+            for (NSInteger i = [ds cursorColumn]; i > moveToCol; i--) {
+                if (currRow[i].attr.f.doubleByte != 2 || _view.frontMostConnection.site.shouldDetectDoubleByte) {
+                    cmd[cmdLength++] = 0x1B;
+                    cmd[cmdLength++] = 0x4F;
+                    cmd[cmdLength++] = 0x44;
+                }
+            }
+        }
+    } else { // auto-break-line IS enabled in bbs
+        NSInteger thisRow = [ds cursorRow];
+        NSInteger cursorLocation = thisRow * _maxColumn + [ds cursorColumn];
+        NSInteger prevRow = -1;
+        NSInteger lastEffectiveChar = -1;
+        if (cursorLocation < _selectionLocation) {
+            for (NSInteger i = cursorLocation; i < _selectionLocation; ++i) {
+                thisRow = i / _maxColumn;
+                if (thisRow != prevRow) {
+                    cell *currRow = [ds cellsOfRow:thisRow];
+                    for (lastEffectiveChar = _maxColumn - 1;
+                         lastEffectiveChar != 0
+                         && (currRow[lastEffectiveChar - 1].byte == 0 || currRow[lastEffectiveChar - 1].byte == '~');
+                         --lastEffectiveChar);
+                    prevRow = thisRow;
+                }
+                if (i % _maxColumn <= lastEffectiveChar
+                    && ([ds attrAtRow:i / _maxColumn column:i % _maxColumn].f.doubleByte != 2
+                        || _view.frontMostConnection.site.shouldDetectDoubleByte)) {
+                    cmd[cmdLength++] = 0x1B;
+                    cmd[cmdLength++] = 0x4F;
+                    cmd[cmdLength++] = 0x43;                    
+                }
+            }
+        } else {
+            for (NSInteger i = cursorLocation; i > _selectionLocation; --i) {
+                thisRow = i / _maxColumn;
+                if (thisRow != prevRow) {
+                    cell *currRow = [ds cellsOfRow:thisRow];
+                    for (lastEffectiveChar = _maxColumn - 1;
+                         lastEffectiveChar != 0
+                         && (currRow[lastEffectiveChar - 1].byte == 0 || currRow[lastEffectiveChar - 1].byte == '~');
+                         --lastEffectiveChar);
+                    prevRow = thisRow;
+                }
+                if (i % _maxColumn <= lastEffectiveChar
+                    && ([ds attrAtRow:i / _maxColumn column:i % _maxColumn].f.doubleByte != 2
+                        || _view.frontMostConnection.site.shouldDetectDoubleByte)) {
+                    cmd[cmdLength++] = 0x1B;
+                    cmd[cmdLength++] = 0x4F;
+                    cmd[cmdLength++] = 0x44;                    
+                }					
+            }
+        }				
+    }
+    if (cmdLength > 0)
+        [_view.frontMostConnection sendBytes:cmd length:cmdLength];
 }
 
 - (void)mouseEntered:(NSEvent *)theEvent {
-	[[NSCursor IBeamCursor] set];
-	_manager.activeTrackingAreaUserInfo = theEvent.trackingArea.userInfo;
+    [[NSCursor IBeamCursor] set];
+    _manager.activeTrackingAreaUserInfo = theEvent.trackingArea.userInfo;
 }
 
 - (void)mouseExited:(NSEvent *)theEvent {
-	_manager.activeTrackingAreaUserInfo = nil;
-	// FIXME: Temporally solve the problem in full screen mode.
-	if ([NSCursor currentCursor] == gMoveCursor)
-		[[NSCursor arrowCursor] set];
+    _manager.activeTrackingAreaUserInfo = nil;
+    // FIXME: Temporally solve the problem in full screen mode.
+    if ([NSCursor currentCursor] == gMoveCursor)
+        [[NSCursor arrowCursor] set];
 }
 
 - (void)mouseMoved:(NSEvent *)theEvent {
-	if ([NSCursor currentCursor] != gMoveCursor)
-		[[NSCursor IBeamCursor] set];
+    if ([NSCursor currentCursor] != gMoveCursor)
+        [[NSCursor IBeamCursor] set];
 }
 
 #pragma mark -
 #pragma mark Update State
 - (BOOL)shouldUpdate {
-	if (!_view.shouldEnableMouse || !_view.connected) {
-		return YES;
-	}
-	BBSState bbsState = _view.frontMostTerminal.bbsState;
-	if (_manager.lastBBSState.state == bbsState.state)
-		return NO;
-	return YES;
+    if (!_view.shouldEnableMouse || !_view.connected) {
+        return YES;
+    }
+    BBSState bbsState = _view.frontMostTerminal.bbsState;
+    if (_manager.lastBBSState.state == bbsState.state)
+        return NO;
+    return YES;
 }
 
 - (void)update {
-	[self clear];
-	if (!_view.shouldEnableMouse || !_view.connected) {
-		return;
-	}
-	BBSState bbsState = _view.frontMostTerminal.bbsState;
-	if (bbsState.state == BBSComposePost) {
-		[_trackingAreas addObject:[_manager addTrackingAreaWithRect:_view.frame
-														   userInfo:@{WLMouseHandlerUserInfoName: self} 
-															 cursor:gMoveCursor]];
-	}
+    [self clear];
+    if (!_view.shouldEnableMouse || !_view.connected) {
+        return;
+    }
+    BBSState bbsState = _view.frontMostTerminal.bbsState;
+    if (bbsState.state == BBSComposePost) {
+        [_trackingAreas addObject:[_manager addTrackingAreaWithRect:_view.frame
+                                                           userInfo:@{WLMouseHandlerUserInfoName: self} 
+                                                             cursor:gMoveCursor]];
+    }
 }
 
 #pragma mark -
 #pragma mark Clear
 - (void)clear {
-	// Only Moving areas use cursor rects, so just discard them all.
-	[_view discardCursorRects];
-	[self removeAllTrackingAreas];
+    // Only Moving areas use cursor rects, so just discard them all.
+    [_view discardCursorRects];
+    [self removeAllTrackingAreas];
 }
 
 @end

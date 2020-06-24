@@ -24,13 +24,13 @@
 
 
 @interface WLTabView : NSTabView <WLSitesObserver> {
-	NSView *_frontMostView;
-	NSArray *_tabViews;
-	
-	IBOutlet WLTerminalView *_terminalView;
-	IBOutlet WLTabBarControl *_tabBarControl;
-	
-	WLCoverFlowPortal *_portal;
+    NSView *_frontMostView;
+    NSArray *_tabViews;
+    
+    IBOutlet WLTerminalView *_terminalView;
+    IBOutlet WLTabBarControl *_tabBarControl;
+    
+    WLCoverFlowPortal *_portal;
 }
 
 // for Font size
@@ -38,7 +38,7 @@
 - (IBAction)decreaseFontSize:(id)sender;
 
 - (void)newTabWithConnection:(WLConnection *)theConnection 
-					   label:(NSString *)theLabel;
+                       label:(NSString *)theLabel;
 - (void)newTabWithCoverFlowPortal;
 
 @property (NS_NONATOMIC_IOSONLY, readonly, strong) NSView *frontMostView;

@@ -11,7 +11,7 @@
 
 
 @interface WLProxy : NSObject {
-
+    
 }
 
 + (NSString *)proxyCommandWithAddress:(NSString *)proxyAddress type:(WLProxyType)proxyType;

@@ -22,9 +22,9 @@
 SYNTHESIZE_SINGLETON_FOR_CLASS(WLPostDownloadDelegate)
 
 - (void)loadNibFile {
-	if (!_postWindow) {
+    if (!_postWindow) {
         [[NSBundle mainBundle] loadNibNamed:kPostDownloadPanelNibFilename owner:self topLevelObjects:nil];
-	}
+    }
 }
 
 - (void)awakeFromNib {
@@ -35,19 +35,19 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(WLPostDownloadDelegate)
 #pragma mark Class Method
 + (NSString *)downloadPostFromTerminal:(WLTerminal *)terminal {
     const int sleepTime = 100000, maxAttempt = 300000;
-
-	WLConnection *connection = terminal.connection;
-
+    
+    WLConnection *connection = terminal.connection;
+    
     const NSInteger linesPerPage = [WLGlobalConfig sharedInstance].row - 1;
     NSString *lastPage[linesPerPage], *newPage[linesPerPage];
-
+    
     NSString *bottomLine = [terminal stringAtIndex:linesPerPage * [WLGlobalConfig sharedInstance].column length:[WLGlobalConfig sharedInstance].column] ?: @"";
     NSString *newBottomLine = bottomLine;
-
+    
     NSMutableString *buf = [NSMutableString string];
-
+    
     BOOL isFinished = NO;
-
+    
     for (NSInteger i = 0; i < maxAttempt && !isFinished; ++i) {
         NSInteger j = 0, lastline = linesPerPage;
         // read in the whole page, and store in 'newPage' array
@@ -67,10 +67,10 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(WLPostDownloadDelegate)
         // smth && ptt
         if ((![bottomLine hasPrefix:@"下面还有喔"]) && (bottomLine.length > 10)
             && ((![bottomLine rangeOfString:@"瀏覽"].length) || ([bottomLine rangeOfString:@"(100%)"].length > 0))) {
-			// bottom line should have this prefix if the post has not ended.
+            // bottom line should have this prefix if the post has not ended.
             isFinished = YES;
         }
-
+        
         NSInteger k = linesPerPage - 1;
         // if it is the last page, we should check if there are duplicated pages
         if (isFinished && i != 0) {
@@ -122,7 +122,7 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(WLPostDownloadDelegate)
         }
         bottomLine = newBottomLine;
     }
-
+    
     return buf;
 }
 
@@ -139,18 +139,18 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(WLPostDownloadDelegate)
 }
 
 - (void)beginPostDownloadInWindow:(NSWindow *)window 
-					  forTerminal:(WLTerminal *)terminal {
-	[self loadNibFile];
-	
+                      forTerminal:(WLTerminal *)terminal {
+    [self loadNibFile];
+    
     _postText.string = @"";
     [NSThread detachNewThreadSelector:@selector(preparePostDownload:) 
-							 toTarget:self
-						   withObject:terminal];
+                             toTarget:self
+                           withObject:terminal];
     [NSApp beginSheet:_postWindow 
-	   modalForWindow:window 
-		modalDelegate:nil 
-	   didEndSelector:nil
-		  contextInfo:nil];
+       modalForWindow:window 
+        modalDelegate:nil 
+       didEndSelector:nil
+          contextInfo:nil];
 }
 
 - (IBAction)cancelPostDownload:(id)sender {

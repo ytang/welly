@@ -22,29 +22,29 @@
 #define disableMouseByKeyingTimerInterval 0.3
 
 @interface WLTerminalView : WLTermView <NSTextInputClient, WLTerminalObserver, WLContextualMenuHandler, WLMouseUpHandler> {
-	NSTimer *_timer;
-	
-	id _markedText;
-	NSRange _selectedRange;
-	NSRange _markedRange;
-	
-	IBOutlet YLMarkedTextView *_textField;
-	IBOutlet WLEffectView *__weak _effectView;
+    NSTimer *_timer;
+    
+    id _markedText;
+    NSRange _selectedRange;
+    NSRange _markedRange;
+    
+    IBOutlet YLMarkedTextView *_textField;
+    IBOutlet WLEffectView *__weak _effectView;
     
     NSInteger _selectionLocation;
     NSInteger _selectionLength;
-	BOOL _wantsRectangleSelection;
-	BOOL _hasRectangleSelected;
-	
-	BOOL _isInUrlMode;
-	BOOL _isNotCancelingSelection;
-	BOOL _isKeying;
-	BOOL _isMouseActive;
-	
-	NSTimer *_activityCheckingTimer;
-	
-	WLMouseBehaviorManager *_mouseBehaviorDelegate;
-	WLURLManager *_urlManager;
+    BOOL _wantsRectangleSelection;
+    BOOL _hasRectangleSelected;
+    
+    BOOL _isInUrlMode;
+    BOOL _isNotCancelingSelection;
+    BOOL _isKeying;
+    BOOL _isMouseActive;
+    
+    NSTimer *_activityCheckingTimer;
+    
+    WLMouseBehaviorManager *_mouseBehaviorDelegate;
+    WLURLManager *_urlManager;
 }
 @property BOOL isInUrlMode;
 @property BOOL isMouseActive;
@@ -65,9 +65,9 @@
 
 
 - (NSRect)rectAtRow:(NSInteger)r
-			 column:(NSInteger)c
-			 height:(NSInteger)h
-			  width:(NSInteger)w;
+             column:(NSInteger)c
+             height:(NSInteger)h
+              width:(NSInteger)w;
 
 @property (NS_NONATOMIC_IOSONLY, readonly) BOOL shouldEnableMouse;
 

@@ -85,7 +85,7 @@
 } 
 
 - (instancetype)init {
-	self = [super init];
+    self = [super init];
     if (self) {
         _pid = 0;
         _fd = -1;
@@ -118,7 +118,7 @@
     term.c_oflag = OPOST | ONLCR;
     term.c_cflag = CREAD | CS8 | HUPCL;
     term.c_lflag = ICANON | ISIG | IEXTEN | ECHO | ECHOE | ECHOK | ECHOKE | ECHOCTL;
-	
+    
     term.c_cc[VEOF]      = CTRLKEY('D');
     term.c_cc[VEOL]      = -1;
     term.c_cc[VEOL2]     = -1;
@@ -137,14 +137,14 @@
     term.c_cc[VMIN]      = 1;
     term.c_cc[VTIME]     = 0;
     term.c_cc[VSTATUS]   = -1;
-	
+    
     term.c_ispeed = B38400;
     term.c_ospeed = B38400;
     size.ws_col = [WLGlobalConfig sharedInstance].column;
     size.ws_row = [WLGlobalConfig sharedInstance].row;
     size.ws_xpixel = 0;
     size.ws_ypixel = 0;
-
+    
     _pid = forkpty(&_fd, slaveName, &term, &size);
     if (_pid == 0) { /* child */
         NSArray *a = [[WLPTY parse:addr] componentsSeparatedByString:@" "];
@@ -157,7 +157,7 @@
         NSInteger n = a.count;
         char *argv[n+1];
         for (int i = 0; i < n; ++i)
-            argv[i] = (char *)[a[i] UTF8String];
+        argv[i] = (char *)[a[i] UTF8String];
         argv[n] = NULL;
         execvp(argv[0], argv);
         perror(argv[0]);
@@ -167,7 +167,7 @@
         ioctl(_fd, TIOCPKT, &one);
         [NSThread detachNewThreadSelector:@selector(readLoop:) toTarget:[self class] withObject:self];
     }
-
+    
     _connecting = YES;
     [_delegate protocolWillConnect:self];
     return YES;
@@ -190,7 +190,7 @@
         return;
     
     [_delegate protocolWillSend:self data:data];
-
+    
     const char *msg = data.bytes;
     NSInteger length = data.length;
     while (length > 0) {
@@ -269,7 +269,7 @@
             }
         }
     }
-
+    
     if (result >= 0) {
         [pty performSelectorOnMainThread:@selector(close) withObject:nil waitUntilDone:NO];
     }

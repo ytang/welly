@@ -16,21 +16,21 @@
 
 @interface WLEffectView : NSView {
     CALayer *_mainLayer;
-	
-	IBOutlet WLTerminalView *_mainView;
-	
-	CALayer *_ipAddrLayer;
-	CALayer *_clickEntryLayer;
-	CALayer *_popUpLayer;
-	CALayer *_buttonLayer;
-	
-	CALayer *_urlLineLayer;
-	CGImageRef _urlIndicatorImage;
-	CALayer *_urlIndicatorLayer;
-	int selectedItemIndex;
-	
-	CGColorRef _popUpLayerTextColor;
-	CGFontRef _popUpLayerTextFont;
+    
+    IBOutlet WLTerminalView *_mainView;
+    
+    CALayer *_ipAddrLayer;
+    CALayer *_clickEntryLayer;
+    CALayer *_popUpLayer;
+    CALayer *_buttonLayer;
+    
+    CALayer *_urlLineLayer;
+    CGImageRef _urlIndicatorImage;
+    CALayer *_urlIndicatorLayer;
+    int selectedItemIndex;
+    
+    CGColorRef _popUpLayerTextColor;
+    CGFontRef _popUpLayerTextFont;
 }
 
 // for ip seeker
@@ -43,7 +43,7 @@
 
 // for button
 - (void)drawButton:(NSRect)rect 
-	   withMessage:(NSString *)message;
+       withMessage:(NSString *)message;
 - (void)clearButton;
 
 // for URL

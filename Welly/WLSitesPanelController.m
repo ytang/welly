@@ -21,12 +21,12 @@
 /* sites accessors */
 - (id)objectInSitesAtIndex:(NSUInteger)index;
 - (void)getSites:(__unsafe_unretained id *)objects
-		   range:(NSRange)range;
+           range:(NSRange)range;
 - (void)insertObject:(id)anObject 
-	  inSitesAtIndex:(NSUInteger)index;
+      inSitesAtIndex:(NSUInteger)index;
 - (void)removeObjectFromSitesAtIndex:(NSUInteger)index;
 - (void)replaceObjectInSitesAtIndex:(NSUInteger)index 
-						 withObject:(id)anObject;
+                         withObject:(id)anObject;
 @end
 
 @implementation WLSitesPanelController
@@ -38,29 +38,29 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(WLSitesPanelController)
 #pragma mark Initialize and Destruction
 - (instancetype)init {
     if (self = [super init]) {
-		@synchronized(self) {
-			// init may be called multiple times, 
-			// but there is only one shared instance.
-			// So we need to make sure these arrays have been alloc only once
-			if (!_sites) {
-				_sites = [[NSMutableArray alloc] init];
-				[self loadSites];
-			}
-			if (!_sitesObservers)
-				_sitesObservers = [[NSMutableArray alloc] init];		}
+        @synchronized(self) {
+            // init may be called multiple times, 
+            // but there is only one shared instance.
+            // So we need to make sure these arrays have been alloc only once
+            if (!_sites) {
+                _sites = [[NSMutableArray alloc] init];
+                [self loadSites];
+            }
+            if (!_sitesObservers)
+                _sitesObservers = [[NSMutableArray alloc] init];		}
     }
     return self;
 }
 
 - (void)loadNibFile {
-	if (!_sitesPanel) {
+    if (!_sitesPanel) {
         [[NSBundle mainBundle] loadNibNamed:kSitePanelNibFilename owner:self topLevelObjects:nil];
-	}
+    }
 }
 
 - (void)awakeFromNib {
-	// register drag & drop in site view
-	[_tableView registerForDraggedTypes:@[SiteTableViewDataType]];
+    // register drag & drop in site view
+    [_tableView registerForDraggedTypes:@[SiteTableViewDataType]];
 }
 
 #pragma mark -
@@ -69,8 +69,8 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(WLSitesPanelController)
     NSArray *array = [[NSUserDefaults standardUserDefaults] arrayForKey:@"Sites"];
     for (NSDictionary *d in array)
         [self insertObject:[WLSite siteWithDictionary:d] inSitesAtIndex:self.countOfSites];
-
-	[self sitesDidChanged];
+    
+    [self sitesDidChanged];
 }
 
 - (void)saveSites {
@@ -79,7 +79,7 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(WLSitesPanelController)
         [a addObject:[s dictionaryOfSite]];
     [[NSUserDefaults standardUserDefaults] setObject:a forKey:@"Sites"];
     [[NSUserDefaults standardUserDefaults] synchronize];
-	
+    
     [self sitesDidChanged];
 }
 
@@ -87,42 +87,42 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(WLSitesPanelController)
  * Inform all sitesObservers that _sites have been changed
  */
 - (void)sitesDidChanged {
-	for (NSObject *obj in _sitesObservers) {
-		if ([obj conformsToProtocol:@protocol(WLSitesObserver)]) {
-			NSObject <WLSitesObserver> *observer = (NSObject <WLSitesObserver> *) obj;
-			[observer sitesDidChanged:_sites];
-		}
-	}
+    for (NSObject *obj in _sitesObservers) {
+        if ([obj conformsToProtocol:@protocol(WLSitesObserver)]) {
+            NSObject <WLSitesObserver> *observer = (NSObject <WLSitesObserver> *) obj;
+            [observer sitesDidChanged:_sites];
+        }
+    }
 }
 
 - (void)addSitesObserver:(NSObject<WLSitesObserver> *)observer {
-	[_sitesObservers addObject:observer];
-	[observer sitesDidChanged:_sites];
+    [_sitesObservers addObject:observer];
+    [observer sitesDidChanged:_sites];
 }
 
 + (void)addSitesObserver:(NSObject<WLSitesObserver> *)observer {
-	[[self sharedInstance] addSitesObserver:observer];
+    [[self sharedInstance] addSitesObserver:observer];
 }
 
 #pragma mark -
 #pragma mark Site Panel Actions
 - (void)openSitesPanelInWindow:(NSWindow *)mainWindow {
-	// Load Nib file if necessary
-	[self loadNibFile];
+    // Load Nib file if necessary
+    [self loadNibFile];
     [NSApp beginSheet:_sitesPanel
        modalForWindow:mainWindow
         modalDelegate:nil
        didEndSelector:NULL
           contextInfo:nil];
-	[_sitesPanel setLevel:floatWindowLevel];	
+    [_sitesPanel setLevel:floatWindowLevel];	
 }
 
 - (void)openSitesPanelInWindow:(NSWindow *)mainWindow 
-				    andAddSite:(WLSite *)site {
-	site = [site copy];
+                    andAddSite:(WLSite *)site {
+    site = [site copy];
     //[self performSelector:@selector(openSitesPanelInWindow:) withObject:mainWindow afterDelay:0.1];
-	[self openSitesPanelInWindow:mainWindow];
-	[_sitesController addObject:site];
+    [self openSitesPanelInWindow:mainWindow];
+    [_sitesController addObject:site];
     [_sitesController setSelectedObjects:@[site]];
     if (_siteNameField.acceptsFirstResponder)
         [_sitesPanel makeFirstResponder:_siteNameField];
@@ -155,7 +155,7 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(WLSitesPanelController)
     NSString *siteAddress = _siteAddressField.stringValue;
     if (siteAddress.length == 0)
         return;
-	_sitesPanel.level = 0;
+    _sitesPanel.level = 0;
     if (![siteAddress hasPrefix:@"ssh"] && [siteAddress rangeOfString:@"@"].location == NSNotFound) {
         NSBeginAlertSheet(NSLocalizedString(@"Site address format error", @"Sheet Title"),
                           nil,
@@ -218,9 +218,9 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(WLSitesPanelController)
 }
 
 - (NSDragOperation)tableView:(NSTableView*)tv 
-				validateDrop:(id <NSDraggingInfo>)info
-				 proposedRow:(NSInteger)row 
-	   proposedDropOperation:(NSTableViewDropOperation)op {
+                validateDrop:(id <NSDraggingInfo>)info
+                 proposedRow:(NSInteger)row 
+       proposedDropOperation:(NSTableViewDropOperation)op {
     // don't hover
     if (op == NSTableViewDropOn)
         return NSDragOperationNone;
@@ -228,9 +228,9 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(WLSitesPanelController)
 }
 
 - (BOOL)tableView:(NSTableView *)aTableView 
-	   acceptDrop:(id <NSDraggingInfo>)info
-			  row:(NSInteger)row 
-	dropOperation:(NSTableViewDropOperation)op {
+       acceptDrop:(id <NSDraggingInfo>)info
+              row:(NSInteger)row 
+    dropOperation:(NSTableViewDropOperation)op {
     NSPasteboard* pboard = [info draggingPasteboard];
     NSData* rowData = [pboard dataForType:SiteTableViewDataType];
     NSIndexSet* rowIndexes = [NSKeyedUnarchiver unarchiveObjectWithData:rowData];
@@ -248,11 +248,11 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(WLSitesPanelController)
 #pragma mark -
 #pragma mark Sites Accessors
 + (NSArray *)sites {
-	return [self sharedInstance].sites;
+    return [self sharedInstance].sites;
 }
 
 + (WLSite *)siteAtIndex:(NSUInteger)index {
-	return [[self sharedInstance] objectInSitesAtIndex:index];
+    return [[self sharedInstance] objectInSitesAtIndex:index];
 }
 
 - (NSUInteger)countOfSites {
@@ -260,18 +260,18 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(WLSitesPanelController)
 }
 
 - (id)objectInSitesAtIndex:(NSUInteger)index {
-	if (index >= _sites.count)
-		return NULL;
+    if (index >= _sites.count)
+        return NULL;
     return _sites[index];
 }
 
 - (void)getSites:(__unsafe_unretained id *)objects
-		   range:(NSRange)range {
+           range:(NSRange)range {
     [_sites getObjects:objects range:range];
 }
 
 - (void)insertObject:(id)anObject 
-	  inSitesAtIndex:(NSUInteger)index {
+      inSitesAtIndex:(NSUInteger)index {
     [_sites insertObject:anObject atIndex:index];
 }
 
@@ -280,7 +280,7 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(WLSitesPanelController)
 }
 
 - (void)replaceObjectInSitesAtIndex:(NSUInteger)index 
-						 withObject:(id)anObject {
+                         withObject:(id)anObject {
     _sites[index] = anObject;
 }
 @end

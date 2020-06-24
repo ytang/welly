@@ -45,230 +45,230 @@ const float WLHorizontalScrollReactivateTimeInteval = 1.0;
 #pragma mark -
 #pragma mark Initialization
 - (instancetype)initWithView:(WLTerminalView *)view {
-	self = [self init];
-	if (self) {
-		_view = view;
-		
-		_handlers = [[NSMutableArray alloc] initWithObjects:
-					 [[WLIPAddrHotspotHandler alloc] initWithManager:self],
-					 [[WLClickEntryHotspotHandler alloc] initWithManager:self],
-					 [[WLButtonAreaHotspotHandler alloc] initWithManager:self],
-					 [[WLMovingAreaHotspotHandler alloc] initWithManager:self],
-					 [[WLEditingCursorMoveHotspotHandler alloc] initWithManager:self],
-					 [[WLAuthorAreaHotspotHandler alloc] initWithManager:self],
-					 nil];
-		_horizontalScrollReactivateTimer = [NSTimer scheduledTimerWithTimeInterval:WLHorizontalScrollReactivateTimeInteval
-																			target:self
-																		  selector:@selector(reactiveHorizontalScroll:)
-																		  userInfo:nil
-																		   repeats:YES];
-		_lastHorizontalScrollDirection = WLHorizontalScrollNone;
-		
-		_lastBBSState.state = BBSUnknown;
-		_lastCursorRow = -1;
-	}
-	return self;
+    self = [self init];
+    if (self) {
+        _view = view;
+        
+        _handlers = [[NSMutableArray alloc] initWithObjects:
+                     [[WLIPAddrHotspotHandler alloc] initWithManager:self],
+                     [[WLClickEntryHotspotHandler alloc] initWithManager:self],
+                     [[WLButtonAreaHotspotHandler alloc] initWithManager:self],
+                     [[WLMovingAreaHotspotHandler alloc] initWithManager:self],
+                     [[WLEditingCursorMoveHotspotHandler alloc] initWithManager:self],
+                     [[WLAuthorAreaHotspotHandler alloc] initWithManager:self],
+                     nil];
+        _horizontalScrollReactivateTimer = [NSTimer scheduledTimerWithTimeInterval:WLHorizontalScrollReactivateTimeInteval
+                                                                            target:self
+                                                                          selector:@selector(reactiveHorizontalScroll:)
+                                                                          userInfo:nil
+                                                                           repeats:YES];
+        _lastHorizontalScrollDirection = WLHorizontalScrollNone;
+        
+        _lastBBSState.state = BBSUnknown;
+        _lastCursorRow = -1;
+    }
+    return self;
 }
 
 - (instancetype)init {
-	self = [super init];
-	if (self)
-		_normalCursor = [NSCursor arrowCursor];
-	return self;
+    self = [super init];
+    if (self)
+        _normalCursor = [NSCursor arrowCursor];
+    return self;
 }
 
 #pragma mark -
 #pragma mark Event Handle
 - (void)mouseEntered:(NSEvent *)theEvent {
-	if (!_view.connected)
-		return;
-	if (theEvent.trackingArea) {
-		NSDictionary *userInfo = theEvent.trackingArea.userInfo;
-		if (!userInfo)
-			return;
-		WLMouseHotspotHandler *handler = [userInfo valueForKey:WLMouseHandlerUserInfoName];
-		[handler mouseEntered:theEvent];		
-	}
+    if (!_view.connected)
+        return;
+    if (theEvent.trackingArea) {
+        NSDictionary *userInfo = theEvent.trackingArea.userInfo;
+        if (!userInfo)
+            return;
+        WLMouseHotspotHandler *handler = [userInfo valueForKey:WLMouseHandlerUserInfoName];
+        [handler mouseEntered:theEvent];		
+    }
 }
 
 - (void)mouseExited:(NSEvent *)theEvent {
-	if (!_view.connected)
-		return;
-	if (theEvent.trackingArea) {
-		NSDictionary *userInfo = theEvent.trackingArea.userInfo;
-		if (!userInfo)
-			return;
-		WLMouseHotspotHandler *handler = [userInfo valueForKey:WLMouseHandlerUserInfoName];
-		[handler mouseExited:theEvent];	
-	}
+    if (!_view.connected)
+        return;
+    if (theEvent.trackingArea) {
+        NSDictionary *userInfo = theEvent.trackingArea.userInfo;
+        if (!userInfo)
+            return;
+        WLMouseHotspotHandler *handler = [userInfo valueForKey:WLMouseHandlerUserInfoName];
+        [handler mouseExited:theEvent];	
+    }
 }
 
 - (void)mouseMoved:(NSEvent *)theEvent {
-	if (!_view.connected)
-		return;
-	if (_activeTrackingAreaUserInfo) {
-		WLMouseHotspotHandler *handler = [_activeTrackingAreaUserInfo valueForKey:WLMouseHandlerUserInfoName];
-		[handler mouseMoved:theEvent];
-	} else if (_backgroundTrackingAreaUserInfo) {
-		WLMouseHotspotHandler *handler = [_backgroundTrackingAreaUserInfo valueForKey:WLMouseHandlerUserInfoName];
-		[handler mouseMoved:theEvent];
-	}
+    if (!_view.connected)
+        return;
+    if (_activeTrackingAreaUserInfo) {
+        WLMouseHotspotHandler *handler = [_activeTrackingAreaUserInfo valueForKey:WLMouseHandlerUserInfoName];
+        [handler mouseMoved:theEvent];
+    } else if (_backgroundTrackingAreaUserInfo) {
+        WLMouseHotspotHandler *handler = [_backgroundTrackingAreaUserInfo valueForKey:WLMouseHandlerUserInfoName];
+        [handler mouseMoved:theEvent];
+    }
 }
 
 - (void)mouseUp:(NSEvent *)theEvent {
-	if (!_view.connected)
-		return;
-	if (_activeTrackingAreaUserInfo) {
-		WLMouseHotspotHandler *handler = [_activeTrackingAreaUserInfo valueForKey:WLMouseHandlerUserInfoName];
-		if ([handler conformsToProtocol:@protocol(WLMouseUpHandler)])
-			[handler mouseUp:theEvent];
-		return;
-	}
-	if (_backgroundTrackingAreaUserInfo) {
-		WLMouseHotspotHandler *handler = [_backgroundTrackingAreaUserInfo valueForKey:WLMouseHandlerUserInfoName];
-		if ([handler conformsToProtocol:@protocol(WLMouseUpHandler)])
-			[handler mouseUp:theEvent];
-		return;
-	}
-	
-	if (_view.frontMostTerminal.bbsState.state == BBSWaitingEnter) {
-		[_view sendText:termKeyEnter];
-	}
+    if (!_view.connected)
+        return;
+    if (_activeTrackingAreaUserInfo) {
+        WLMouseHotspotHandler *handler = [_activeTrackingAreaUserInfo valueForKey:WLMouseHandlerUserInfoName];
+        if ([handler conformsToProtocol:@protocol(WLMouseUpHandler)])
+            [handler mouseUp:theEvent];
+        return;
+    }
+    if (_backgroundTrackingAreaUserInfo) {
+        WLMouseHotspotHandler *handler = [_backgroundTrackingAreaUserInfo valueForKey:WLMouseHandlerUserInfoName];
+        if ([handler conformsToProtocol:@protocol(WLMouseUpHandler)])
+            [handler mouseUp:theEvent];
+        return;
+    }
+    
+    if (_view.frontMostTerminal.bbsState.state == BBSWaitingEnter) {
+        [_view sendText:termKeyEnter];
+    }
 }
 
 - (void)scrollWheel:(NSEvent *)theEvent {
-	const int WLScrollWheelHorizontalThreshold = 3;
-	if (_view.frontMostTerminal.connection.isConnected) {
-		// For Y-Axis
-		if (theEvent.deltaY < 0)
-			[_view sendText:termKeyDown];
-		else if (theEvent.deltaY > 0)
-			[_view sendText:termKeyUp];
-		else if (_lastHorizontalScrollDirection != WLHorizontalScrollLeft && theEvent.deltaX > WLScrollWheelHorizontalThreshold) {
-			// Disable horizontal scroll, in order to prevent multiple action
-			_lastHorizontalScrollDirection = WLHorizontalScrollLeft;
-			[_view sendText:termKeyLeft];
-		}
-		else if (_lastHorizontalScrollDirection != WLHorizontalScrollRight && theEvent.deltaX < -WLScrollWheelHorizontalThreshold){
-			// Disable horizontal scroll, in order to prevent multiple action
-			_lastHorizontalScrollDirection = WLHorizontalScrollRight;
-			[_view sendText:termKeyRight];
-		}
-	}
+    const int WLScrollWheelHorizontalThreshold = 3;
+    if (_view.frontMostTerminal.connection.isConnected) {
+        // For Y-Axis
+        if (theEvent.deltaY < 0)
+            [_view sendText:termKeyDown];
+        else if (theEvent.deltaY > 0)
+            [_view sendText:termKeyUp];
+        else if (_lastHorizontalScrollDirection != WLHorizontalScrollLeft && theEvent.deltaX > WLScrollWheelHorizontalThreshold) {
+            // Disable horizontal scroll, in order to prevent multiple action
+            _lastHorizontalScrollDirection = WLHorizontalScrollLeft;
+            [_view sendText:termKeyLeft];
+        }
+        else if (_lastHorizontalScrollDirection != WLHorizontalScrollRight && theEvent.deltaX < -WLScrollWheelHorizontalThreshold){
+            // Disable horizontal scroll, in order to prevent multiple action
+            _lastHorizontalScrollDirection = WLHorizontalScrollRight;
+            [_view sendText:termKeyRight];
+        }
+    }
 }
 
 - (NSMenu *)menuForEvent:(NSEvent *)theEvent {
-	if (_activeTrackingAreaUserInfo) {
-		WLMouseHotspotHandler *handler = [_activeTrackingAreaUserInfo valueForKey:WLMouseHandlerUserInfoName];
-		if ([handler conformsToProtocol:@protocol(WLContextualMenuHandler)])
-			return [(NSObject <WLContextualMenuHandler> *)handler menuForEvent:theEvent];
-	} 
-	if (_backgroundTrackingAreaUserInfo) {
-		WLMouseHotspotHandler *handler = [_backgroundTrackingAreaUserInfo valueForKey:WLMouseHandlerUserInfoName];
-		if ([handler conformsToProtocol:@protocol(WLContextualMenuHandler)])
-			return [(NSObject <WLContextualMenuHandler> *)handler menuForEvent:theEvent];
-	}
-	
-	return nil;
+    if (_activeTrackingAreaUserInfo) {
+        WLMouseHotspotHandler *handler = [_activeTrackingAreaUserInfo valueForKey:WLMouseHandlerUserInfoName];
+        if ([handler conformsToProtocol:@protocol(WLContextualMenuHandler)])
+            return [(NSObject <WLContextualMenuHandler> *)handler menuForEvent:theEvent];
+    } 
+    if (_backgroundTrackingAreaUserInfo) {
+        WLMouseHotspotHandler *handler = [_backgroundTrackingAreaUserInfo valueForKey:WLMouseHandlerUserInfoName];
+        if ([handler conformsToProtocol:@protocol(WLContextualMenuHandler)])
+            return [(NSObject <WLContextualMenuHandler> *)handler menuForEvent:theEvent];
+    }
+    
+    return nil;
 }
 
 #pragma mark -
 #pragma mark Add/Remove Tracking Area
 - (BOOL)isMouseInsideRect:(NSRect)rect {
-	NSPoint mousePos = _view.mouseLocationInView;
-	return [_view mouse:mousePos inRect:rect];
+    NSPoint mousePos = _view.mouseLocationInView;
+    return [_view mouse:mousePos inRect:rect];
 }
 
 - (NSTrackingArea *)addTrackingAreaWithRect:(NSRect)rect 
-								   userInfo:(NSDictionary *)userInfo {
-	NSTrackingArea *area = [[NSTrackingArea alloc] initWithRect:rect 
-														options:(  NSTrackingMouseEnteredAndExited
-																 | NSTrackingMouseMoved
-																 | NSTrackingActiveInActiveApp) 
-														  owner:self
-													   userInfo:userInfo];
-	[_view addTrackingArea:area];
-	if ([self isMouseInsideRect:rect]) {
-		NSEvent *event = [NSEvent enterExitEventWithType:NSMouseEntered 
-												location:[NSEvent mouseLocation] 
-										   modifierFlags:NSDeviceIndependentModifierFlagsMask
-											   timestamp:0
-											windowNumber:_view.window.windowNumber 
-												 context:nil
-											 eventNumber:0
-										  trackingNumber:(NSInteger)area
-												userData:nil];
-		[self mouseEntered:event];
-	}
-	return area;
+                                   userInfo:(NSDictionary *)userInfo {
+    NSTrackingArea *area = [[NSTrackingArea alloc] initWithRect:rect 
+                                                        options:(  NSTrackingMouseEnteredAndExited
+                                                                 | NSTrackingMouseMoved
+                                                                 | NSTrackingActiveInActiveApp) 
+                                                          owner:self
+                                                       userInfo:userInfo];
+    [_view addTrackingArea:area];
+    if ([self isMouseInsideRect:rect]) {
+        NSEvent *event = [NSEvent enterExitEventWithType:NSMouseEntered 
+                                                location:[NSEvent mouseLocation] 
+                                           modifierFlags:NSDeviceIndependentModifierFlagsMask
+                                               timestamp:0
+                                            windowNumber:_view.window.windowNumber 
+                                                 context:nil
+                                             eventNumber:0
+                                          trackingNumber:(NSInteger)area
+                                                userData:nil];
+        [self mouseEntered:event];
+    }
+    return area;
 }
 
 - (NSTrackingArea *)addTrackingAreaWithRect:(NSRect)rect 
-								   userInfo:(NSDictionary *)userInfo 
-									 cursor:(NSCursor *)cursor {
-	[_view addCursorRect:rect cursor:cursor];
-	return [self addTrackingAreaWithRect:rect userInfo:userInfo];
+                                   userInfo:(NSDictionary *)userInfo 
+                                     cursor:(NSCursor *)cursor {
+    [_view addCursorRect:rect cursor:cursor];
+    return [self addTrackingAreaWithRect:rect userInfo:userInfo];
 }
 
 - (void)removeTrackingArea:(NSTrackingArea *)area {
-	NSRect rect = area.rect;
-	if ([self isMouseInsideRect:rect]) {
-		NSEvent *event = [NSEvent enterExitEventWithType:NSMouseExited 
-												location:[NSEvent mouseLocation] 
-										   modifierFlags:NSDeviceIndependentModifierFlagsMask
-											   timestamp:0
-											windowNumber:_view.window.windowNumber 
-												 context:nil
-											 eventNumber:0
-										  trackingNumber:(NSInteger)area
-												userData:nil];
-		[self mouseExited:event];
-	}
-	[_view removeTrackingArea:area];
+    NSRect rect = area.rect;
+    if ([self isMouseInsideRect:rect]) {
+        NSEvent *event = [NSEvent enterExitEventWithType:NSMouseExited 
+                                                location:[NSEvent mouseLocation] 
+                                           modifierFlags:NSDeviceIndependentModifierFlagsMask
+                                               timestamp:0
+                                            windowNumber:_view.window.windowNumber 
+                                                 context:nil
+                                             eventNumber:0
+                                          trackingNumber:(NSInteger)area
+                                                userData:nil];
+        [self mouseExited:event];
+    }
+    [_view removeTrackingArea:area];
 }
 
 #pragma mark -
 #pragma mark Update State
 - (BOOL)shouldUpdate {
-	return YES;
+    return YES;
 }
 
 - (void)update {
-	for (NSObject *obj in _handlers) {
-		if ([obj conformsToProtocol:@protocol(WLUpdatable)]) {
-			NSObject <WLUpdatable> *updater = (NSObject <WLUpdatable> *)obj;
-			// Ask if should update
-			if ([updater shouldUpdate])
-				[updater update];
-		}
-	}
-	_lastBBSState = _view.frontMostTerminal.bbsState;
-	_lastCursorRow = _view.frontMostTerminal.cursorRow;
+    for (NSObject *obj in _handlers) {
+        if ([obj conformsToProtocol:@protocol(WLUpdatable)]) {
+            NSObject <WLUpdatable> *updater = (NSObject <WLUpdatable> *)obj;
+            // Ask if should update
+            if ([updater shouldUpdate])
+                [updater update];
+        }
+    }
+    _lastBBSState = _view.frontMostTerminal.bbsState;
+    _lastCursorRow = _view.frontMostTerminal.cursorRow;
 }
 
 - (void)forceUpdate {
-	_activeTrackingAreaUserInfo = nil;
-	_backgroundTrackingAreaUserInfo = nil;
-	for (NSObject *obj in _handlers) {
-		if ([obj conformsToProtocol:@protocol(WLUpdatable)])
-			[(NSObject <WLUpdatable> *)obj update];
-	}
-	_lastBBSState = _view.frontMostTerminal.bbsState;
-	_lastCursorRow = _view.frontMostTerminal.cursorRow;
+    _activeTrackingAreaUserInfo = nil;
+    _backgroundTrackingAreaUserInfo = nil;
+    for (NSObject *obj in _handlers) {
+        if ([obj conformsToProtocol:@protocol(WLUpdatable)])
+            [(NSObject <WLUpdatable> *)obj update];
+    }
+    _lastBBSState = _view.frontMostTerminal.bbsState;
+    _lastCursorRow = _view.frontMostTerminal.cursorRow;
 }
 
 #pragma mark -
 #pragma mark Accessor
 - (void)restoreNormalCursor {
-	[_normalCursor set];
+    [_normalCursor set];
 }
 
 - (void)addHandler:(WLMouseHotspotHandler *)handler {
-	[_handlers addObject:handler];
-	handler.manager = self;
+    [_handlers addObject:handler];
+    handler.manager = self;
 }
 
 - (void)reactiveHorizontalScroll:(id)sender {
-	_lastHorizontalScrollDirection = WLHorizontalScrollNone;
+    _lastHorizontalScrollDirection = WLHorizontalScrollNone;
 }
 @end

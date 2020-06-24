@@ -25,49 +25,49 @@
     /* composeWindow */
     IBOutlet NSTextView *_composeText;
     IBOutlet NSPanel *_composeWindow;
-	
+    
     IBOutlet NSWindow *_mainWindow;
     IBOutlet NSPanel *_messageWindow;
     IBOutlet id _addressBar;
     IBOutlet id _detectDoubleByteButton;
     IBOutlet id _autoReplyButton;
     IBOutlet id _mouseButton;
-
+    
     IBOutlet WLTabView *__weak _tabView;
     IBOutlet WLTabBarControl *_tabBarControl;
-	
-	/* Menus */
+    
+    /* Menus */
     IBOutlet NSMenuItem *_detectDoubleByteMenuItem;
     IBOutlet NSMenuItem *_closeWindowMenuItem;
     IBOutlet NSMenuItem *_closeTabMenuItem;
-	IBOutlet NSMenuItem *_autoReplyMenuItem;
-	
+    IBOutlet NSMenuItem *_autoReplyMenuItem;
+    
     IBOutlet NSMenuItem *_showHiddenTextMenuItem;
     IBOutlet NSMenuItem *_encodingMenuItem;
-	IBOutlet NSMenuItem *_presentationModeMenuItem;
-	
-	IBOutlet NSMenuItem *_sitesMenu;
-	
-	/* Message */
-	IBOutlet NSTextView *_unreadMessageTextView;
-	
-	// Remote Control
-	RemoteControl *_remoteControl;
-	MultiClickRemoteBehavior *_remoteControlBehavior;
-	NSTimer* _scrollTimer;
-	
-	// Full Screen
-	WLPresentationController *_presentationModeController;
+    IBOutlet NSMenuItem *_presentationModeMenuItem;
+    
+    IBOutlet NSMenuItem *_sitesMenu;
+    
+    /* Message */
+    IBOutlet NSTextView *_unreadMessageTextView;
+    
+    // Remote Control
+    RemoteControl *_remoteControl;
+    MultiClickRemoteBehavior *_remoteControlBehavior;
+    NSTimer* _scrollTimer;
+    
+    // Full Screen
+    WLPresentationController *_presentationModeController;
     
     // RSS feed
     NSThread *_rssThread;
-	
-	// 10.7 Full Screen
-	@private
-	NSRect _originalFrame;
-	CGFloat _screenRatio;
-	NSColor *_originalWindowBackgroundColor;
-	NSDictionary *_originalSizeParameters;
+    
+    // 10.7 Full Screen
+@private
+    NSRect _originalFrame;
+    CGFloat _screenRatio;
+    NSColor *_originalWindowBackgroundColor;
+    NSDictionary *_originalSizeParameters;
 }
 @property (weak, readonly) WLTabView *tabView;
 
@@ -104,13 +104,13 @@
 
 
 /*
-// for portal
-- (IBAction)browseImage:(id)sender;
-- (IBAction)removeSiteImage:(id)sender;
-- (void)openPanelDidEnd:(NSOpenPanel *)sheet 
-			 returnCode:(int)returnCode 
-			contextInfo:(void *)contextInfo;
-*/
+ // for portal
+ - (IBAction)browseImage:(id)sender;
+ - (IBAction)removeSiteImage:(id)sender;
+ - (void)openPanelDidEnd:(NSOpenPanel *)sheet 
+ returnCode:(int)returnCode 
+ contextInfo:(void *)contextInfo;
+ */
 // for resotre
 - (IBAction)restoreSettings:(id)sender;
 
