@@ -676,7 +676,7 @@ BOOL isEnglishNumberAlphabet(unsigned char c) {
 }
 
 - (void)flagsChanged:(NSEvent *)event {
-    unsigned int currentFlags = event.modifierFlags;
+    NSEventModifierFlags currentFlags = event.modifierFlags;
     // For rectangle selection
     if ((currentFlags & NSAlternateKeyMask) == NSAlternateKeyMask) {
         _wantsRectangleSelection = YES;
