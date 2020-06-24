@@ -563,8 +563,8 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(WLMainFrameController)
                       self, 
                       @selector(confirmSheetDidEnd:returnCode:contextInfo:), 
                       @selector(confirmSheetDidDismiss:returnCode:contextInfo:), nil,
-                      NSLocalizedString(@"There are %d tabs open in Welly. Do you want to quit anyway?", @"Sheet Message"),
-                      connectedConnection);
+                      NSLocalizedString(@"There are %ld tabs open in Welly. Do you want to quit anyway?", @"Sheet Message"),
+                      (long)connectedConnection);
     return NSTerminateLater;
 }
 
