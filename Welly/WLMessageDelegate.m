@@ -14,7 +14,6 @@
 #import "WLMainFrameController.h"
 #import "WLGrowlBridge.h"
 
-NSString *const WLAutoReplyGrowlTipFormat = @"AutoReplyGrowlTipFormat";
 @interface WLMessageDelegate ()
 - (void)didClickGrowlNewMessage:(id)connection;
 @end
@@ -65,7 +64,7 @@ NSString *const WLAutoReplyGrowlTipFormat = @"AutoReplyGrowlTipFormat";
         NSString *description;
         // notify auto replied
         if (_connection.site.shouldAutoReply) {
-            description = [NSString stringWithFormat:NSLocalizedString(WLAutoReplyGrowlTipFormat, @"Auto Reply"), message];
+            description = [NSString stringWithFormat:NSLocalizedString(@"AutoReplyGrowlTipFormat", @"Auto Reply"), message];
         } else {
             description = message;
         }
