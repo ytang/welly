@@ -444,7 +444,8 @@ static unsigned short gEmptyAttr;
                         // _state = TP_NORMAL;
                     } else if (c == ESC_RIS) { // 0x63 RIS reset
                         [self clearAll];
-                        _cursorX = 0, _cursorY = 0;
+                        _cursorX = 0;
+                        _cursorY = 0;
                         _state = TP_NORMAL;
                     } else {
                         NSLog(@"unprocessed esc: %c(0x%X)", c, c);
@@ -583,7 +584,8 @@ static unsigned short gEmptyAttr;
                              ^[3H		: go to row 3, column 1
                              ^[3;4H		: go to row 3, column 4 */
                             if (_csArg.size == 0) {
-                                _cursorX = 0, _cursorY = 0;
+                                _cursorX = 0;
+                                _cursorY = 0;
                             } else if (_csArg.size == 1) {
                                 NSInteger p = _csArg.front;
                                 if (p < 1) p = 1;
@@ -860,7 +862,8 @@ static unsigned short gEmptyAttr;
                             }
                             if (doClear == 1) {
                                 [self clearAll];
-                                _cursorX = 0, _cursorY = 0;
+                                _cursorX = 0;
+                                _cursorY = 0;
                             }
                         } else if (c == CSI_SGR) { // Character Attributes
                             if (_csArg.empty) { // clear
@@ -939,7 +942,10 @@ static unsigned short gEmptyAttr;
                             } else if (_csArg.size == 2) {
                                 NSInteger s = _csArg.front;
                                 NSInteger e = [_csArg at:1];
-                                if (s > e) s = [_csArg at:1], e = _csArg.front;
+                                if (s > e) {
+                                    s = [_csArg at:1];
+                                    e = _csArg.front;
+                                }
                                 _scrollBeginRow = s - 1;
                                 _scrollEndRow = e - 1;
                                 //NSLog(@"Assigning Scrolling Region between line %d and line %d",s,e);

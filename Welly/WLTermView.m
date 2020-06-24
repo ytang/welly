@@ -225,7 +225,8 @@ static NSImage *gLeftImage;
             [NSBezierPath strokeLineFromPoint:NSMakePoint(ds.cursorColumn * _fontWidth, (_maxRow - 1 - ds.cursorRow) * _fontHeight + 1)
                                       toPoint:NSMakePoint((ds.cursorColumn + 1) * _fontWidth, (_maxRow - 1 - ds.cursorRow) * _fontHeight + 1) ];
             [NSBezierPath setDefaultLineWidth:1.0];
-            _x = ds.cursorColumn, _y = ds.cursorRow;
+            _x = ds.cursorColumn;
+            _y = ds.cursorRow;
             
             /* Draw the selection */
             //[self drawSelection];
