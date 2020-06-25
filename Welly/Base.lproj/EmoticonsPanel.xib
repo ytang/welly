@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="12121" systemVersion="16G29" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="17132.0.2" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="12121"/>
-        <capability name="box content view" minToolsVersion="7.0"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="17132.0.2"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -25,16 +24,16 @@
                 <binding destination="-2" name="contentArray" keyPath="emoticons" id="41"/>
             </connections>
         </arrayController>
-        <window title="Emotions" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" hidesOnDeactivate="YES" oneShot="NO" releasedWhenClosed="NO" visibleAtLaunch="NO" animationBehavior="default" id="2" userLabel="Emoticon Panel" customClass="NSPanel">
+        <window title="Emotions" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" hidesOnDeactivate="YES" releasedWhenClosed="NO" visibleAtLaunch="NO" animationBehavior="default" id="2" userLabel="Emoticon Panel" customClass="NSPanel">
             <windowStyleMask key="styleMask" titled="YES" resizable="YES" utility="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" bottomStrut="YES"/>
             <rect key="contentRect" x="436" y="273" width="413" height="346"/>
-            <rect key="screenRect" x="0.0" y="0.0" width="1280" height="778"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="3840" height="2137"/>
             <view key="contentView" id="4">
                 <rect key="frame" x="0.0" y="0.0" width="413" height="346"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <button verticalHuggingPriority="750" imageHugsTitle="YES" id="8">
+                    <button verticalHuggingPriority="750" fixedFrame="YES" imageHugsTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="8">
                         <rect key="frame" x="285" y="3" width="96" height="32"/>
                         <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
                         <buttonCell key="cell" type="push" title="Insert" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="21">
@@ -49,7 +48,7 @@ DQ
                             <outlet property="nextKeyView" destination="12" id="35"/>
                         </connections>
                     </button>
-                    <button verticalHuggingPriority="750" imageHugsTitle="YES" id="7">
+                    <button verticalHuggingPriority="750" fixedFrame="YES" imageHugsTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="7">
                         <rect key="frame" x="189" y="3" width="96" height="32"/>
                         <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
                         <buttonCell key="cell" type="push" title="Cancel" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="22">
@@ -64,7 +63,7 @@ Gw
                             <outlet property="nextKeyView" destination="8" id="39"/>
                         </connections>
                     </button>
-                    <button verticalHuggingPriority="750" imageHugsTitle="YES" id="6">
+                    <button verticalHuggingPriority="750" fixedFrame="YES" imageHugsTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="6">
                         <rect key="frame" x="34" y="10" width="30" height="24"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <buttonCell key="cell" type="smallSquare" bezelStyle="smallSquare" image="NSRemoveTemplate" imagePosition="overlaps" alignment="center" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="23">
@@ -77,7 +76,7 @@ Gw
                             <outlet property="nextKeyView" destination="7" id="33"/>
                         </connections>
                     </button>
-                    <button verticalHuggingPriority="750" imageHugsTitle="YES" id="5">
+                    <button verticalHuggingPriority="750" fixedFrame="YES" imageHugsTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="5">
                         <rect key="frame" x="5" y="10" width="30" height="24"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <buttonCell key="cell" type="smallSquare" bezelStyle="smallSquare" image="NSAddTemplate" imagePosition="overlaps" alignment="center" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="24">
@@ -89,11 +88,11 @@ Gw
                             <outlet property="nextKeyView" destination="6" id="29"/>
                         </connections>
                     </button>
-                    <splitView dividerStyle="thin" vertical="YES" id="9">
+                    <splitView fixedFrame="YES" dividerStyle="thin" vertical="YES" translatesAutoresizingMaskIntoConstraints="NO" id="9">
                         <rect key="frame" x="5" y="41" width="403" height="299"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <scrollView autohidesScrollers="YES" horizontalLineScroll="22" horizontalPageScroll="10" verticalLineScroll="22" verticalPageScroll="10" hasHorizontalScroller="NO" usesPredominantAxisScrolling="NO" id="11">
+                            <scrollView fixedFrame="YES" autohidesScrollers="YES" horizontalLineScroll="22" horizontalPageScroll="10" verticalLineScroll="22" verticalPageScroll="10" hasHorizontalScroller="NO" usesPredominantAxisScrolling="NO" id="11">
                                 <rect key="frame" x="0.0" y="0.0" width="152" height="299"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxX="YES" heightSizable="YES"/>
                                 <clipView key="contentView" id="KBr-Ui-lTo">
@@ -102,7 +101,7 @@ Gw
                                     <subviews>
                                         <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" alternatingRowBackgroundColors="YES" columnSelection="YES" multipleSelection="NO" emptySelection="NO" autosaveColumns="NO" rowHeight="20" id="12">
                                             <rect key="frame" x="0.0" y="0.0" width="150" height="297"/>
-                                            <autoresizingMask key="autoresizingMask"/>
+                                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <size key="intercellSpacing" width="3" height="2"/>
                                             <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
                                             <tableViewGridLines key="gridStyleMask" horizontal="YES"/>
@@ -110,7 +109,6 @@ Gw
                                             <tableColumns>
                                                 <tableColumn editable="NO" width="147" minWidth="40" maxWidth="1000" id="15">
                                                     <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="left">
-                                                        <font key="font" metaFont="smallSystem"/>
                                                         <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
                                                         <color key="backgroundColor" white="0.33333299" alpha="1" colorSpace="calibratedWhite"/>
                                                     </tableHeaderCell>
@@ -144,148 +142,40 @@ Gw
                                     <outlet property="nextKeyView" destination="20" id="34"/>
                                 </connections>
                             </scrollView>
-                            <box autoresizesSubviews="NO" borderType="none" title="Box" titlePosition="noTitle" id="10">
+                            <box autoresizesSubviews="NO" fixedFrame="YES" borderType="none" title="Box" titlePosition="noTitle" id="10">
                                 <rect key="frame" x="150" y="-2" width="256" height="305"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <view key="contentView" id="PTn-Ot-s3q">
                                     <rect key="frame" x="0.0" y="0.0" width="256" height="305"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
-                                        <scrollView horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" hasHorizontalScroller="NO" usesPredominantAxisScrolling="NO" id="17">
+                                        <scrollView fixedFrame="YES" horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" hasHorizontalScroller="NO" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="17">
                                             <rect key="frame" x="5" y="1" width="252" height="304"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                            <clipView key="contentView" id="KKb-t3-Ekr">
-                                                <rect key="frame" x="1" y="1" width="250" height="302"/>
+                                            <clipView key="contentView" drawsBackground="NO" id="KKb-t3-Ekr">
+                                                <rect key="frame" x="1" y="1" width="235" height="302"/>
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 <subviews>
-                                                    <textView importsGraphics="NO" richText="NO" continuousSpellChecking="YES" spellingCorrection="YES" id="20">
-                                                        <rect key="frame" x="0.0" y="0.0" width="266" height="302"/>
+                                                    <textView importsGraphics="NO" richText="NO" verticallyResizable="YES" continuousSpellChecking="YES" spellingCorrection="YES" id="20">
+                                                        <rect key="frame" x="0.0" y="0.0" width="270" height="302"/>
                                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                                        <size key="minSize" width="250" height="302"/>
+                                                        <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
+                                                        <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                                        <size key="minSize" width="235" height="302"/>
                                                         <size key="maxSize" width="479" height="10000000"/>
-                                                        <attributedString key="textStorage">
-                                                            <fragment>
-                                                                <mutableString key="content">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum Et harumd und lookum like Greek to me, dereud facilis est er expedit distinct. Nam liber te conscient to factor tum poen legum odioque civiuda</mutableString>
-                                                                <attributes>
-                                                                    <font key="NSFont" size="14" name="LucidaGrande"/>
-                                                                    <paragraphStyle key="NSParagraphStyle" alignment="justified" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0" allowsDefaultTighteningForTruncation="NO">
-                                                                        <tabStops>
-                                                                            <textTab alignment="left" location="0.0">
-                                                                                <options/>
-                                                                            </textTab>
-                                                                            <textTab alignment="left" location="56">
-                                                                                <options/>
-                                                                            </textTab>
-                                                                            <textTab alignment="left" location="112">
-                                                                                <options/>
-                                                                            </textTab>
-                                                                            <textTab alignment="left" location="168">
-                                                                                <options/>
-                                                                            </textTab>
-                                                                            <textTab alignment="left" location="224">
-                                                                                <options/>
-                                                                            </textTab>
-                                                                            <textTab alignment="left" location="280">
-                                                                                <options/>
-                                                                            </textTab>
-                                                                            <textTab alignment="left" location="336">
-                                                                                <options/>
-                                                                            </textTab>
-                                                                            <textTab alignment="left" location="392">
-                                                                                <options/>
-                                                                            </textTab>
-                                                                            <textTab alignment="left" location="448">
-                                                                                <options/>
-                                                                            </textTab>
-                                                                            <textTab alignment="left" location="504">
-                                                                                <options/>
-                                                                            </textTab>
-                                                                            <textTab alignment="left" location="560">
-                                                                                <options/>
-                                                                            </textTab>
-                                                                            <textTab alignment="left" location="616">
-                                                                                <options/>
-                                                                            </textTab>
-                                                                            <textTab alignment="left" location="672">
-                                                                                <options/>
-                                                                            </textTab>
-                                                                            <textTab alignment="left" location="728">
-                                                                                <options/>
-                                                                            </textTab>
-                                                                            <textTab alignment="left" location="784">
-                                                                                <options/>
-                                                                            </textTab>
-                                                                            <textTab alignment="left" location="840">
-                                                                                <options/>
-                                                                            </textTab>
-                                                                            <textTab alignment="left" location="896">
-                                                                                <options/>
-                                                                            </textTab>
-                                                                            <textTab alignment="left" location="952">
-                                                                                <options/>
-                                                                            </textTab>
-                                                                            <textTab alignment="left" location="1008">
-                                                                                <options/>
-                                                                            </textTab>
-                                                                            <textTab alignment="left" location="1064">
-                                                                                <options/>
-                                                                            </textTab>
-                                                                            <textTab alignment="left" location="1120">
-                                                                                <options/>
-                                                                            </textTab>
-                                                                            <textTab alignment="left" location="1176">
-                                                                                <options/>
-                                                                            </textTab>
-                                                                            <textTab alignment="left" location="1232">
-                                                                                <options/>
-                                                                            </textTab>
-                                                                            <textTab alignment="left" location="1288">
-                                                                                <options/>
-                                                                            </textTab>
-                                                                            <textTab alignment="left" location="1344">
-                                                                                <options/>
-                                                                            </textTab>
-                                                                            <textTab alignment="left" location="1400">
-                                                                                <options/>
-                                                                            </textTab>
-                                                                            <textTab alignment="left" location="1456">
-                                                                                <options/>
-                                                                            </textTab>
-                                                                            <textTab alignment="left" location="1512">
-                                                                                <options/>
-                                                                            </textTab>
-                                                                            <textTab alignment="left" location="1568">
-                                                                                <options/>
-                                                                            </textTab>
-                                                                            <textTab alignment="left" location="1624">
-                                                                                <options/>
-                                                                            </textTab>
-                                                                            <textTab alignment="left" location="1680">
-                                                                                <options/>
-                                                                            </textTab>
-                                                                            <textTab alignment="left" location="1736">
-                                                                                <options/>
-                                                                            </textTab>
-                                                                        </tabStops>
-                                                                    </paragraphStyle>
-                                                                </attributes>
-                                                            </fragment>
-                                                        </attributedString>
                                                         <color key="insertionPointColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                         <connections>
                                                             <binding destination="3" name="value" keyPath="selection.content" id="40"/>
                                                         </connections>
                                                     </textView>
                                                 </subviews>
-                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                             </clipView>
                                             <scroller key="horizontalScroller" hidden="YES" verticalHuggingPriority="750" doubleValue="1" horizontal="YES" id="19">
                                                 <rect key="frame" x="-100" y="-100" width="87" height="18"/>
                                                 <autoresizingMask key="autoresizingMask"/>
                                             </scroller>
                                             <scroller key="verticalScroller" verticalHuggingPriority="750" horizontal="NO" id="18">
-                                                <rect key="frame" x="235" y="1" width="16" height="302"/>
+                                                <rect key="frame" x="236" y="1" width="15" height="302"/>
                                                 <autoresizingMask key="autoresizingMask"/>
                                             </scroller>
                                             <connections>
@@ -303,6 +193,7 @@ Gw
                     </splitView>
                 </subviews>
             </view>
+            <point key="canvasLocation" x="142" y="150"/>
         </window>
     </objects>
     <resources>
