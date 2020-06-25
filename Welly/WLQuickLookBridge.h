@@ -7,14 +7,13 @@
 //
 
 #import <Cocoa/Cocoa.h>
+#import <Quartz/Quartz.h>
 
-@interface WLQuickLookBridge : NSObject <NSComboBoxDataSource> {
+@interface WLQuickLookBridge : NSObject <QLPreviewPanelDataSource> {
     NSMutableArray *_URLs;
-    id _panel;
 }
 
 + (void)orderFront;
 + (void)add:(NSURL *)URL;
-//+ (void)removeAll;
 
 @end
