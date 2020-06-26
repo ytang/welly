@@ -64,7 +64,6 @@
 		9C76A2BE1F42B82C0044F830 /* WLMessageDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C76A2BC1F42B82C0044F830 /* WLMessageDelegate.m */; };
 		9C76A2C31F42B8380044F830 /* WLPreviewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C76A2C01F42B8380044F830 /* WLPreviewController.m */; };
 		9C76A2C41F42B8380044F830 /* WLQuickLookBridge.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C76A2C21F42B8380044F830 /* WLQuickLookBridge.m */; };
-		9C76A2CB1F42B84E0044F830 /* WLFeedGenerator.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C76A2C61F42B84E0044F830 /* WLFeedGenerator.m */; };
 		9C76A2CC1F42B84E0044F830 /* WLProxy.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C76A2C81F42B84E0044F830 /* WLProxy.m */; };
 		9C76A2CD1F42B84E0044F830 /* WLAnsiColorOperationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C76A2CA1F42B84E0044F830 /* WLAnsiColorOperationManager.m */; };
 		9C76A2D91F42B8B00044F830 /* WLEncoder.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C76A2D11F42B8B00044F830 /* WLEncoder.m */; };
@@ -231,8 +230,6 @@
 		9C76A2C01F42B8380044F830 /* WLPreviewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLPreviewController.m; sourceTree = "<group>"; };
 		9C76A2C11F42B8380044F830 /* WLQuickLookBridge.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLQuickLookBridge.h; sourceTree = "<group>"; };
 		9C76A2C21F42B8380044F830 /* WLQuickLookBridge.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLQuickLookBridge.m; sourceTree = "<group>"; };
-		9C76A2C51F42B84E0044F830 /* WLFeedGenerator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLFeedGenerator.h; sourceTree = "<group>"; };
-		9C76A2C61F42B84E0044F830 /* WLFeedGenerator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLFeedGenerator.m; sourceTree = "<group>"; };
 		9C76A2C71F42B84E0044F830 /* WLProxy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLProxy.h; sourceTree = "<group>"; };
 		9C76A2C81F42B84E0044F830 /* WLProxy.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLProxy.m; sourceTree = "<group>"; };
 		9C76A2C91F42B84E0044F830 /* WLAnsiColorOperationManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLAnsiColorOperationManager.h; sourceTree = "<group>"; };
@@ -480,8 +477,6 @@
 				9C76A27F1F42B7550044F830 /* RemoteControl */,
 				9C76A2801F42B7630044F830 /* Message */,
 				9C76A2811F42B76B0044F830 /* Quick Look */,
-				9C76A2C51F42B84E0044F830 /* WLFeedGenerator.h */,
-				9C76A2C61F42B84E0044F830 /* WLFeedGenerator.m */,
 				9C76A2C71F42B84E0044F830 /* WLProxy.h */,
 				9C76A2C81F42B84E0044F830 /* WLProxy.m */,
 				9C76A2C91F42B84E0044F830 /* WLAnsiColorOperationManager.h */,
@@ -814,7 +809,6 @@
 				9C76A2571F42B6500044F830 /* WLBookmarkPortalItem.m in Sources */,
 				9C76A2AD1F42B8020044F830 /* AppleRemote.m in Sources */,
 				9C76A2871F42B7A30044F830 /* WLIPAddrHotspotHandler.m in Sources */,
-				9C76A2CB1F42B84E0044F830 /* WLFeedGenerator.m in Sources */,
 				9C0DFE651F4818B3008D5F3D /* WLTabBarDummyItem.m in Sources */,
 				9C76A2C31F42B8380044F830 /* WLPreviewController.m in Sources */,
 				9C76A2B81F42B8150044F830 /* MultiClickRemoteBehavior.m in Sources */,

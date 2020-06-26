@@ -14,7 +14,6 @@
 
 #define scrollTimerInterval 0.12
 
-@class WLFeedGenerator;
 @class WLTabBarControl;
 @class WLPresentationController;
 
@@ -58,9 +57,6 @@
     
     // Full Screen
     WLPresentationController *_presentationModeController;
-    
-    // RSS feed
-    NSThread *_rssThread;
     
     // 10.7 Full Screen
 @private
@@ -113,8 +109,5 @@
  */
 // for resotre
 - (IBAction)restoreSettings:(id)sender;
-
-// for RSS feed
-- (IBAction)openRSS:(id)sender;
 
 @end

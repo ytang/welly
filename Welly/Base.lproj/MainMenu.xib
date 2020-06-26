@@ -400,7 +400,7 @@
                     <toolbarItem implicitItemIdentifier="7953CAC6-DC4D-41BB-83E0-CE03467AB4CC" label="Site Book" paletteLabel="Site Book" image="bookmark" sizingBehavior="auto" id="418">
                         <nil key="toolTip"/>
                         <button key="view" verticalHuggingPriority="750" id="416">
-                            <rect key="frame" x="15" y="14" width="28" height="19"/>
+                            <rect key="frame" x="13" y="14" width="31" height="19"/>
                             <autoresizingMask key="autoresizingMask"/>
                             <buttonCell key="cell" type="roundRect" bezelStyle="roundedRect" image="bookmark" imagePosition="overlaps" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="417">
                                 <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -414,7 +414,7 @@
                     <toolbarItem implicitItemIdentifier="67DD75FD-4809-4D58-9BE7-61AE89E4E6FC" label="Connect" paletteLabel="Connect" image="NSRefreshTemplate" sizingBehavior="auto" id="422">
                         <nil key="toolTip"/>
                         <button key="view" verticalHuggingPriority="750" id="423">
-                            <rect key="frame" x="12" y="14" width="28" height="19"/>
+                            <rect key="frame" x="15" y="14" width="23" height="19"/>
                             <autoresizingMask key="autoresizingMask"/>
                             <buttonCell key="cell" type="roundRect" bezelStyle="roundedRect" image="NSRefreshTemplate" imagePosition="only" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="424">
                                 <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -428,7 +428,7 @@
                     <toolbarItem implicitItemIdentifier="555803AF-8D9A-43AB-8B7B-B6D57B41522F" label="Add" paletteLabel="Add" image="NSAddTemplate" sizingBehavior="auto" id="419">
                         <nil key="toolTip"/>
                         <button key="view" verticalHuggingPriority="750" id="420">
-                            <rect key="frame" x="0.0" y="14" width="28" height="19"/>
+                            <rect key="frame" x="3" y="14" width="23" height="19"/>
                             <autoresizingMask key="autoresizingMask"/>
                             <buttonCell key="cell" type="roundRect" bezelStyle="roundedRect" image="NSAddTemplate" imagePosition="only" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="421">
                                 <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -442,7 +442,7 @@
                     <toolbarItem implicitItemIdentifier="05966687-5F23-47E3-B508-E2541AC0DE11" label="Address" paletteLabel="Address" sizingBehavior="auto" id="257">
                         <nil key="toolTip"/>
                         <textField key="view" verticalHuggingPriority="750" id="255">
-                            <rect key="frame" x="0.0" y="14" width="251" height="22"/>
+                            <rect key="frame" x="0.0" y="14" width="251" height="21"/>
                             <autoresizingMask key="autoresizingMask"/>
                             <string key="toolTip">[telnet://][id@]your.site.org[:port]
 ssh://[id@]your.site.org[:port]</string>
@@ -462,7 +462,7 @@ ssh://[id@]your.site.org[:port]</string>
                     <toolbarItem implicitItemIdentifier="DC4B72A9-7BA2-406A-8B68-E8EBF9D918AE" label="Emotions" paletteLabel="Emotions" sizingBehavior="auto" id="831">
                         <nil key="toolTip"/>
                         <button key="view" verticalHuggingPriority="750" id="829">
-                            <rect key="frame" x="13" y="14" width="30" height="19"/>
+                            <rect key="frame" x="14" y="14" width="28" height="19"/>
                             <autoresizingMask key="autoresizingMask"/>
                             <buttonCell key="cell" type="roundRect" title=":-)" bezelStyle="roundedRect" alignment="center" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="830">
                                 <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -476,7 +476,7 @@ ssh://[id@]your.site.org[:port]</string>
                     <toolbarItem implicitItemIdentifier="7BB02DC8-443E-4253-A65F-3ADDC3C94613" label="Full Text" paletteLabel="Full Text" sizingBehavior="auto" id="1129">
                         <nil key="toolTip"/>
                         <button key="view" verticalHuggingPriority="750" id="1127">
-                            <rect key="frame" x="11" y="14" width="30" height="19"/>
+                            <rect key="frame" x="12" y="14" width="28" height="19"/>
                             <autoresizingMask key="autoresizingMask"/>
                             <buttonCell key="cell" type="roundRect" title="全" bezelStyle="roundedRect" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="1128">
                                 <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -490,7 +490,7 @@ ssh://[id@]your.site.org[:port]</string>
                     <toolbarItem implicitItemIdentifier="821F261F-3C77-4669-8A1A-950DB20CED3C" label="Writer" paletteLabel="Writer" sizingBehavior="auto" id="1194">
                         <nil key="toolTip"/>
                         <button key="view" verticalHuggingPriority="750" id="1195">
-                            <rect key="frame" x="5" y="14" width="30" height="19"/>
+                            <rect key="frame" x="6" y="14" width="28" height="19"/>
                             <autoresizingMask key="autoresizingMask"/>
                             <buttonCell key="cell" type="roundRect" title="笔" bezelStyle="roundedRect" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="1196">
                                 <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -501,24 +501,10 @@ ssh://[id@]your.site.org[:port]</string>
                             <action selector="openComposePanel:" target="207" id="1639"/>
                         </connections>
                     </toolbarItem>
-                    <toolbarItem implicitItemIdentifier="D8EEE3D2-A136-4BBB-999B-75B01F2CCADA" label="RSS" paletteLabel="RSS" sizingBehavior="auto" id="1287">
-                        <nil key="toolTip"/>
-                        <button key="view" verticalHuggingPriority="750" id="1288">
-                            <rect key="frame" x="0.0" y="14" width="30" height="19"/>
-                            <autoresizingMask key="autoresizingMask"/>
-                            <buttonCell key="cell" type="roundRect" title=".))" bezelStyle="roundedRect" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="1289">
-                                <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                <font key="font" metaFont="cellTitle"/>
-                            </buttonCell>
-                            <connections>
-                                <action selector="openRSS:" target="207" id="1290"/>
-                            </connections>
-                        </button>
-                    </toolbarItem>
                     <toolbarItem implicitItemIdentifier="7B9B3D76-7332-4EB9-A104-D37311A16A5C" label="Anti Idle" paletteLabel="Anti Idle" image="sleep" sizingBehavior="auto" id="442">
                         <nil key="toolTip"/>
                         <button key="view" verticalHuggingPriority="750" id="440">
-                            <rect key="frame" x="10" y="14" width="30" height="19"/>
+                            <rect key="frame" x="11" y="14" width="28" height="19"/>
                             <autoresizingMask key="autoresizingMask"/>
                             <buttonCell key="cell" type="recessed" bezelStyle="recessed" image="sleep" imagePosition="overlaps" alignment="center" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="441">
                                 <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES" changeBackground="YES" changeGray="YES"/>
@@ -532,7 +518,7 @@ ssh://[id@]your.site.org[:port]</string>
                     <toolbarItem implicitItemIdentifier="665E2CFD-FAF4-4EDC-A867-5CBD55F9E2F4" label="Show Hidden" paletteLabel="Show Hidden" image="NSQuickLookTemplate" sizingBehavior="auto" id="436">
                         <nil key="toolTip"/>
                         <button key="view" verticalHuggingPriority="750" id="434">
-                            <rect key="frame" x="24" y="14" width="30" height="19"/>
+                            <rect key="frame" x="24" y="14" width="29" height="19"/>
                             <autoresizingMask key="autoresizingMask"/>
                             <buttonCell key="cell" type="recessed" bezelStyle="recessed" image="NSQuickLookTemplate" imagePosition="only" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="435">
                                 <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES" changeBackground="YES" changeGray="YES"/>
@@ -550,7 +536,7 @@ ssh://[id@]your.site.org[:port]</string>
                     <toolbarItem implicitItemIdentifier="132C5B0F-8509-4119-AE57-09A6F0DB55F0" label="Mouse" paletteLabel="Mouse" image="mouse" sizingBehavior="auto" id="1188">
                         <nil key="toolTip"/>
                         <button key="view" verticalHuggingPriority="750" id="1186">
-                            <rect key="frame" x="7" y="14" width="28" height="19"/>
+                            <rect key="frame" x="8" y="14" width="27" height="19"/>
                             <autoresizingMask key="autoresizingMask"/>
                             <buttonCell key="cell" type="recessed" bezelStyle="recessed" image="mouse" imagePosition="overlaps" alignment="center" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="1187">
                                 <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES" changeBackground="YES" changeGray="YES"/>
@@ -564,7 +550,7 @@ ssh://[id@]your.site.org[:port]</string>
                     <toolbarItem implicitItemIdentifier="D98269FF-0B86-4E2E-BB9D-A2F53CD45289" label="Double Bytes" paletteLabel="Double Bytes" sizingBehavior="auto" id="415">
                         <nil key="toolTip"/>
                         <button key="view" verticalHuggingPriority="750" id="413">
-                            <rect key="frame" x="24" y="14" width="30" height="19"/>
+                            <rect key="frame" x="25" y="14" width="28" height="19"/>
                             <autoresizingMask key="autoresizingMask"/>
                             <buttonCell key="cell" type="recessed" title="双" bezelStyle="recessed" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="414">
                                 <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES" changeBackground="YES" changeGray="YES"/>
@@ -578,7 +564,7 @@ ssh://[id@]your.site.org[:port]</string>
                     <toolbarItem implicitItemIdentifier="23A0A597-93F4-41FE-946C-E22EFACE5154" label="Auto Reply" paletteLabel="Auto Reply" image="toolbarItem:972:image" sizingBehavior="auto" id="972">
                         <nil key="toolTip"/>
                         <button key="view" verticalHuggingPriority="750" id="970">
-                            <rect key="frame" x="17" y="14" width="30" height="19"/>
+                            <rect key="frame" x="15" y="14" width="34" height="19"/>
                             <autoresizingMask key="autoresizingMask"/>
                             <buttonCell key="cell" type="recessed" title="Re:" bezelStyle="recessed" image="toolbarItem:972:image" imagePosition="overlaps" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="971">
                                 <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES" changeBackground="YES" changeGray="YES"/>

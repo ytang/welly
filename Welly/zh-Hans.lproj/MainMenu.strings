@@ -287,15 +287,6 @@
 /* Class = "NSMenuItem"; title = "Redo"; ObjectID = "1283"; */
 "1283.title" = "重做";
 
-/* Class = "NSToolbarItem"; label = "RSS"; ObjectID = "1287"; */
-"1287.label" = "RSS";
-
-/* Class = "NSToolbarItem"; paletteLabel = "RSS"; ObjectID = "1287"; */
-"1287.paletteLabel" = "RSS";
-
-/* Class = "NSButtonCell"; title = ".))"; ObjectID = "1289"; */
-"1289.title" = ".))";
-
 /* Class = "NSMenuItem"; title = "Increase Font Size"; ObjectID = "1325"; */
 "1325.title" = "增大字体大小";
 
