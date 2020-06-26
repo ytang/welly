@@ -117,9 +117,6 @@ static DBPrefsWindowController *_sharedPrefsWindowController = nil;
         viewAnimation.animationBlockingMode = NSAnimationNonblocking;
         viewAnimation.animationCurve = NSAnimationEaseInOut;
         viewAnimation.delegate = self;
-        
-        [self setCrossFade:YES]; 
-        [self setShiftSlowsAnimation:YES];
     }
     return self;
 }
@@ -143,6 +140,9 @@ static DBPrefsWindowController *_sharedPrefsWindowController = nil;
     contentSubview.autoresizingMask = (NSViewMinYMargin | NSViewWidthSizable);
     [self.window.contentView addSubview:contentSubview];
     [self.window setShowsToolbarButton:NO];
+    if (@available(macOS 10.16, *)) {
+        [self.window setToolbarStyle:NSWindowToolbarStylePreference];
+    }
 }
 
 

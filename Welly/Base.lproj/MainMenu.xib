@@ -341,7 +341,7 @@
             </items>
             <point key="canvasLocation" x="140" y="154"/>
         </menu>
-        <window title="Welly" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" releasedWhenClosed="NO" animationBehavior="default" id="21" userLabel="Window">
+        <window title="Welly" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" releasedWhenClosed="NO" animationBehavior="default" toolbarStyle="expanded" id="21" userLabel="Window">
             <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES"/>
             <windowCollectionBehavior key="collectionBehavior" fullScreenPrimary="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
@@ -401,7 +401,7 @@
                         <nil key="toolTip"/>
                         <button key="view" verticalHuggingPriority="750" id="416">
                             <rect key="frame" x="15" y="14" width="28" height="19"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                            <autoresizingMask key="autoresizingMask"/>
                             <buttonCell key="cell" type="roundRect" bezelStyle="roundedRect" image="bookmark" imagePosition="overlaps" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="417">
                                 <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                 <font key="font" metaFont="cellTitle"/>
@@ -415,7 +415,7 @@
                         <nil key="toolTip"/>
                         <button key="view" verticalHuggingPriority="750" id="423">
                             <rect key="frame" x="12" y="14" width="28" height="19"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                            <autoresizingMask key="autoresizingMask"/>
                             <buttonCell key="cell" type="roundRect" bezelStyle="roundedRect" image="NSRefreshTemplate" imagePosition="only" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="424">
                                 <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                 <font key="font" metaFont="cellTitle"/>
@@ -429,7 +429,7 @@
                         <nil key="toolTip"/>
                         <button key="view" verticalHuggingPriority="750" id="420">
                             <rect key="frame" x="0.0" y="14" width="28" height="19"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                            <autoresizingMask key="autoresizingMask"/>
                             <buttonCell key="cell" type="roundRect" bezelStyle="roundedRect" image="NSAddTemplate" imagePosition="only" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="421">
                                 <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                 <font key="font" metaFont="cellTitle"/>
@@ -443,7 +443,7 @@
                         <nil key="toolTip"/>
                         <textField key="view" verticalHuggingPriority="750" id="255">
                             <rect key="frame" x="0.0" y="14" width="251" height="22"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                            <autoresizingMask key="autoresizingMask"/>
                             <string key="toolTip">[telnet://][id@]your.site.org[:port]
 ssh://[id@]your.site.org[:port]</string>
                             <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" state="on" borderStyle="bezel" placeholderString="Site Address" drawsBackground="YES" id="256">
@@ -463,7 +463,7 @@ ssh://[id@]your.site.org[:port]</string>
                         <nil key="toolTip"/>
                         <button key="view" verticalHuggingPriority="750" id="829">
                             <rect key="frame" x="13" y="14" width="30" height="19"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                            <autoresizingMask key="autoresizingMask"/>
                             <buttonCell key="cell" type="roundRect" title=":-)" bezelStyle="roundedRect" alignment="center" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="830">
                                 <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                 <font key="font" metaFont="cellTitle"/>
@@ -477,7 +477,7 @@ ssh://[id@]your.site.org[:port]</string>
                         <nil key="toolTip"/>
                         <button key="view" verticalHuggingPriority="750" id="1127">
                             <rect key="frame" x="11" y="14" width="30" height="19"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                            <autoresizingMask key="autoresizingMask"/>
                             <buttonCell key="cell" type="roundRect" title="全" bezelStyle="roundedRect" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="1128">
                                 <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                 <font key="font" metaFont="cellTitle"/>
@@ -491,7 +491,7 @@ ssh://[id@]your.site.org[:port]</string>
                         <nil key="toolTip"/>
                         <button key="view" verticalHuggingPriority="750" id="1195">
                             <rect key="frame" x="5" y="14" width="30" height="19"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                            <autoresizingMask key="autoresizingMask"/>
                             <buttonCell key="cell" type="roundRect" title="笔" bezelStyle="roundedRect" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="1196">
                                 <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                 <font key="font" metaFont="cellTitle"/>
@@ -505,7 +505,7 @@ ssh://[id@]your.site.org[:port]</string>
                         <nil key="toolTip"/>
                         <button key="view" verticalHuggingPriority="750" id="1288">
                             <rect key="frame" x="0.0" y="14" width="30" height="19"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                            <autoresizingMask key="autoresizingMask"/>
                             <buttonCell key="cell" type="roundRect" title=".))" bezelStyle="roundedRect" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="1289">
                                 <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                 <font key="font" metaFont="cellTitle"/>
@@ -519,7 +519,7 @@ ssh://[id@]your.site.org[:port]</string>
                         <nil key="toolTip"/>
                         <button key="view" verticalHuggingPriority="750" id="440">
                             <rect key="frame" x="10" y="14" width="30" height="19"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                            <autoresizingMask key="autoresizingMask"/>
                             <buttonCell key="cell" type="recessed" bezelStyle="recessed" image="sleep" imagePosition="overlaps" alignment="center" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="441">
                                 <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES" changeBackground="YES" changeGray="YES"/>
                                 <font key="font" metaFont="systemBold" size="12"/>
@@ -533,7 +533,7 @@ ssh://[id@]your.site.org[:port]</string>
                         <nil key="toolTip"/>
                         <button key="view" verticalHuggingPriority="750" id="434">
                             <rect key="frame" x="24" y="14" width="30" height="19"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                            <autoresizingMask key="autoresizingMask"/>
                             <buttonCell key="cell" type="recessed" bezelStyle="recessed" image="NSQuickLookTemplate" imagePosition="only" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="435">
                                 <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES" changeBackground="YES" changeGray="YES"/>
                                 <font key="font" metaFont="systemBold" size="12"/>
@@ -551,7 +551,7 @@ ssh://[id@]your.site.org[:port]</string>
                         <nil key="toolTip"/>
                         <button key="view" verticalHuggingPriority="750" id="1186">
                             <rect key="frame" x="7" y="14" width="28" height="19"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                            <autoresizingMask key="autoresizingMask"/>
                             <buttonCell key="cell" type="recessed" bezelStyle="recessed" image="mouse" imagePosition="overlaps" alignment="center" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="1187">
                                 <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES" changeBackground="YES" changeGray="YES"/>
                                 <font key="font" metaFont="systemBold" size="12"/>
@@ -565,7 +565,7 @@ ssh://[id@]your.site.org[:port]</string>
                         <nil key="toolTip"/>
                         <button key="view" verticalHuggingPriority="750" id="413">
                             <rect key="frame" x="24" y="14" width="30" height="19"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                            <autoresizingMask key="autoresizingMask"/>
                             <buttonCell key="cell" type="recessed" title="双" bezelStyle="recessed" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="414">
                                 <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES" changeBackground="YES" changeGray="YES"/>
                                 <font key="font" metaFont="systemBold" size="12"/>
@@ -579,7 +579,7 @@ ssh://[id@]your.site.org[:port]</string>
                         <nil key="toolTip"/>
                         <button key="view" verticalHuggingPriority="750" id="970">
                             <rect key="frame" x="17" y="14" width="30" height="19"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                            <autoresizingMask key="autoresizingMask"/>
                             <buttonCell key="cell" type="recessed" title="Re:" bezelStyle="recessed" image="toolbarItem:972:image" imagePosition="overlaps" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="971">
                                 <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES" changeBackground="YES" changeGray="YES"/>
                                 <font key="font" metaFont="systemBold" size="12"/>
