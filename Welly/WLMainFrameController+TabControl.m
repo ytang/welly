@@ -26,7 +26,7 @@
 - (void)initializeTabControl {
     // tab control style
     [_tabBarControl setCanCloseOnlyTab:YES];
-    [_tabBarControl setStyleNamed:@"Metal"];
+    [_tabBarControl setStyleNamed:@"Yosemite"];
     NSAssert([_tabBarControl delegate] == self, @"set in .nib");
     //show a new-tab button
     [_tabBarControl setShowAddTabButton:YES];
