@@ -57,12 +57,6 @@
 "ISO" = "ISO: %@\n";
 "tiffStringFormat" = "\n设备制造商及型号：\n%@ %@";
 
-/* Cover flow */
-"Are you sure you want to delete the cover?" = "您真的要删除这个封面么？";
-"Welly will delete this cover file, please confirm." = "Welly即将删除这个站点的封面信息，请您确认";
-"Delete" = "删除";
-"Drag an image file to Welly to set the cover of this site. " = "将图片文件拖拽至 Welly 即可为本站点设置封面\n将当前封面拖出即可移除";
-
 /* Color */
 "Black" = "黑色";
 "Red" = "红色";
@@ -143,9 +137,6 @@
 "File Transfer" = "文件传输";
 "EXIF Information" = "EXIF 信息";
 "New Message Received" = "收到新消息";
-
-/* The title for New Bookmark Portal Item */
-"New Bookmark" = "新建站点";
 
 // Presentation Mode
 "Enter Presentation Mode" = "进入演示模式";

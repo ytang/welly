@@ -16,7 +16,6 @@
 
 @interface WLSitesPanelController()
 - (void)loadSites;
-- (void)sitesDidChanged;
 
 /* sites accessors */
 - (id)objectInSitesAtIndex:(NSUInteger)index;
@@ -46,8 +45,7 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(WLSitesPanelController)
                 _sites = [[NSMutableArray alloc] init];
                 [self loadSites];
             }
-            if (!_sitesObservers)
-                _sitesObservers = [[NSMutableArray alloc] init];		}
+        }
     }
     return self;
 }
@@ -69,8 +67,6 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(WLSitesPanelController)
     NSArray *array = [[NSUserDefaults standardUserDefaults] arrayForKey:@"Sites"];
     for (NSDictionary *d in array)
         [self insertObject:[WLSite siteWithDictionary:d] inSitesAtIndex:self.countOfSites];
-    
-    [self sitesDidChanged];
 }
 
 - (void)saveSites {
@@ -79,29 +75,6 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(WLSitesPanelController)
         [a addObject:[s dictionaryOfSite]];
     [[NSUserDefaults standardUserDefaults] setObject:a forKey:@"Sites"];
     [[NSUserDefaults standardUserDefaults] synchronize];
-    
-    [self sitesDidChanged];
-}
-
-/*
- * Inform all sitesObservers that _sites have been changed
- */
-- (void)sitesDidChanged {
-    for (NSObject *obj in _sitesObservers) {
-        if ([obj conformsToProtocol:@protocol(WLSitesObserver)]) {
-            NSObject <WLSitesObserver> *observer = (NSObject <WLSitesObserver> *) obj;
-            [observer sitesDidChanged:_sites];
-        }
-    }
-}
-
-- (void)addSitesObserver:(NSObject<WLSitesObserver> *)observer {
-    [_sitesObservers addObject:observer];
-    [observer sitesDidChanged:_sites];
-}
-
-+ (void)addSitesObserver:(NSObject<WLSitesObserver> *)observer {
-    [[self sharedInstance] addSitesObserver:observer];
 }
 
 #pragma mark -

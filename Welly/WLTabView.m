@@ -16,38 +16,10 @@
 
 #import "WLGlobalConfig.h"
 
-#import "WLBookmarkPortalItem.h"
-#import "WLNewBookmarkPortalItem.h"
-#import "WLCoverFlowPortal.h"
-
-@interface WLTabView ()
-
-- (void)updatePortal;
-- (void)showPortal;
-
-@end
-
-
 @implementation WLTabView
-
-- (instancetype)initWithFrame:(NSRect)frame {
-    self = [super initWithFrame:frame];
-    // Comments added by gtCarrera
-    // I moved cover flow initialization to awakeFromNib. 
-    // Because, here the fram size was wrong! It has not been really "initialized"!
-    /*
-     if (self) {
-     // Initialize the portal
-     _portal = [[WLCoverFlowPortal alloc] initWithFrame:[self frame]];
-     }*/
-    return self;
-}
 
 - (void)awakeFromNib {
     self.tabViewType = NSNoTabsNoBorder;
-    
-    // Register as sites observer
-    [WLSitesPanelController addSitesObserver:self];
     
     // Register KVO
     NSArray *observeKeys = @[@"cellWidth", @"cellHeight", @"cellSize"];
@@ -60,15 +32,6 @@
     // Set frame position and size
     [self setFrameOrigin:NSZeroPoint];
     [self setFrameSize:[WLGlobalConfig sharedInstance].contentSize];
-    // Initialize the portal
-    _portal = [[WLCoverFlowPortal alloc] initWithFrame:self.frame];
-    [self updatePortal];
-    
-    // If no active tabs, we should show the coverflow portal if necessary.
-    if (self.numberOfTabViewItems == 0) {
-        [self showPortal];
-    }
-    [_portal awakeFromNib];
 }
 
 #pragma mark -
@@ -77,14 +40,6 @@
     // Drawing the background.
     [[WLGlobalConfig sharedInstance].colorBG set];
     NSRectFill(rect);
-}
-
-- (void)showPortal {
-    // Show the coverflow portal if necessary.
-    if ([WLGlobalConfig shouldEnableCoverFlow]) {
-        [self addSubview:_portal];
-        [self.window makeFirstResponder:_portal];
-    }	
 }
 
 #pragma mark -
@@ -105,12 +60,8 @@
     return self.frontMostConnection.terminal;
 }
 
-- (BOOL)isFrontMostTabPortal {
-    return [self.frontMostView isKindOfClass:[WLCoverFlowPortal class]];
-}
-
 - (BOOL)isSelectedTabEmpty {
-    return [self isFrontMostTabPortal] || (self.frontMostConnection && (self.frontMostTerminal == nil));
+    return self.frontMostConnection && (self.frontMostTerminal == nil);
 }
 
 #pragma mark -
@@ -156,48 +107,8 @@
     [self selectTabViewItem:tabViewItem];
 }
 
-- (void)newTabWithCoverFlowPortal {
-    NSTabViewItem *tabViewItem = [self emptyTab];
-    
-    tabViewItem.view = _portal;
-    tabViewItem.label = @"Cover Flow";
-    
-    [self selectTabViewItem:tabViewItem];
-}
-
-#pragma mark -
-#pragma mark Portal Control
-// Show the portal, initiallize it if necessary
-- (void)updatePortal {
-    NSArray *sites = [[NSUserDefaults standardUserDefaults] arrayForKey:@"Sites"];
-    NSMutableArray *portalItems = [NSMutableArray arrayWithCapacity:sites.count];
-    for (NSDictionary *d in sites) {
-        WLBookmarkPortalItem *item = [[WLBookmarkPortalItem alloc] initWithSite:[WLSite siteWithDictionary:d]];
-        [portalItems addObject:item];
-    }
-    [portalItems addObject:[WLNewBookmarkPortalItem new]];
-    
-    [_portal setPortalItems:portalItems];
-}
-
-#pragma mark -
-#pragma mark WLSitesObserver protocol
-- (void)sitesDidChanged:(NSArray *)sitesAfterChange {
-    if ([WLGlobalConfig shouldEnableCoverFlow]) {
-        [self updatePortal];
-    }
-}
-
 #pragma mark -
 #pragma mark Override
-- (void)addTabViewItem:(NSTabViewItem *)tabViewItem {
-    // TODO: better solutions?
-    if ([self.subviews containsObject:_portal]) {
-        [_portal removeFromSuperview];
-    }
-    [super addTabViewItem:tabViewItem];
-}
-
 - (void)selectTabViewItem:(NSTabViewItem *)tabViewItem {
     NSView *oldView = self.selectedTabViewItem.view;
     [super selectTabViewItem:tabViewItem];
@@ -223,8 +134,6 @@
         if ([oldView conformsToProtocol:@protocol(WLTabItemContentObserver)]) {
             [(id <WLTabItemContentObserver>)oldView didChangeContent:nil];
         }
-        // If no active tabs, we should show the coverflow portal if necessary.
-        [self showPortal];
     }
 }
 
@@ -247,11 +156,7 @@
 }
 
 - (BOOL)becomeFirstResponder {
-    if (self.numberOfTabViewItems == 0 && [self.subviews containsObject:_portal]) {
-        return [self.window makeFirstResponder:_portal];
-    } else {
-        return [self.window makeFirstResponder:self.frontMostView];
-    }
+    return [self.window makeFirstResponder:self.frontMostView];
 }
 
 #pragma mark -
@@ -313,10 +218,6 @@
                        context:(void *)context {
     if ([keyPath hasPrefix:@"cell"]) {
         [self setFrameSize:[WLGlobalConfig sharedInstance].contentSize];
-        // Don't set frame origin here, leave for main controller
-        if ([self.subviews containsObject:_portal]) {
-            _portal.frame = self.frame;
-        }
     }
 }
 
@@ -324,16 +225,6 @@
 #pragma mark Trackpad Gesture Support
 // Set and reset font size
 - (void)setFontSizeRatio:(CGFloat)ratio {
-    // Comments added by gtCarrera
-    // If currently there's no tab, this means, there's only the cover flow! 
-    // (because that's the only case allowed by our design)
-    // If so, we don't change the size of the portal. 
-    // if([self numberOfTabViewItems] == 0) {
-    //     // Shoot, doesn't work now!
-    //     // [_terminalView showCustomizedPopUpMessage:@"NO TAB"];
-    //     return;
-    // }
-    // Or else, just do it..
     [[WLGlobalConfig sharedInstance] setFontSizeRatio:ratio];
     [self setNeedsDisplay:YES];
 }

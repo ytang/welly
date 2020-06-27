@@ -19,7 +19,6 @@ NSString *const WLRestoreConnectionKeyName;
 NSString *const WLCommandRHotkeyEnabledKeyName;
 NSString *const WLConfirmOnCloseEnabledKeyName;
 NSString *const WLSafePasteEnabledKeyName;
-NSString *const WLCoverFlowModeEnabledKeyName;
 
 NSString *const WLCellWidthKeyName;
 NSString *const WLCellHeightKeyName;
@@ -112,8 +111,6 @@ NSString *const WLEnglishFontSizeKeyName;
 
 + (void)initializeCache;
 + (NSString *)cacheDirectory;
-
-+ (BOOL)shouldEnableCoverFlow;
 
 - (void)restoreSettings;
 @property (NS_NONATOMIC_IOSONLY, copy) NSDictionary *sizeParameters;

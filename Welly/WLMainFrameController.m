@@ -112,9 +112,6 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(WLMainFrameController)
     
     // Ask window to receive mouseMoved
     [_mainWindow setAcceptsMouseMovedEvents:YES];
-    
-    // Register as sites observer
-    [WLSitesPanelController addSitesObserver:self];
 }
 
 #pragma mark -
@@ -650,60 +647,5 @@ withReplyEvent:(NSAppleEventDescriptor *)replyEvent {
     [[WLGlobalConfig sharedInstance] restoreSettings];
     [_mainWindow center];
 }
-
-// for portal
-/*
-- (IBAction)browseImage:(id)sender {
-    [_sitesWindow setLevel:0];
-    NSOpenPanel *openPanel = [NSOpenPanel openPanel];
-    [openPanel beginSheetForDirectory:@"~"
-                                 file:nil
-                                types:[NSArray arrayWithObjects:@"jpg", @"jpeg", @"bmp", @"png", @"gif", @"tiff", @"tif", nil]
-                       modalForWindow:_sitesWindow
-                        modalDelegate:self
-                       didEndSelector:@selector(openPanelDidEnd:returnCode:contextInfo:)
-                          contextInfo:nil];
-    //[openPanel setLevel:floatWindowLevel + 1];
-}
-
-- (void)removeImage {
-    NSFileManager *fileManager = [NSFileManager defaultManager];
-    // Get the destination dir
-    NSString *destination = [[[[[NSHomeDirectory() stringByAppendingPathComponent:@"Library"]
-                                stringByAppendingPathComponent:@"Application Support"]
-                               stringByAppendingPathComponent:@"Welly"]
-                              stringByAppendingPathComponent:@"Covers"]
-                             stringByAppendingPathComponent:[_siteNameField stringValue]];
-    
-    // For all allowed types
-    NSArray *allowedTypes = supportedCoverExtensions;
-    for (NSString *ext in allowedTypes) {
-        // Remove it!
-        [fileManager removeItemAtPath:[destination stringByAppendingPathExtension:ext] error:NULL];
-    }
-}
-
-- (IBAction)removeSiteImage:(id)sender {
-    [_sitesWindow setAlphaValue:0];
-    NSAlert *alert = [NSAlert alertWithMessageText:NSLocalizedString(@"Are you sure you want to delete the cover?", @"Sheet Title")
-                                     defaultButton:NSLocalizedString(@"Delete", @"Default Button")
-                                   alternateButton:NSLocalizedString(@"Cancel", @"Cancel Button")
-                                       otherButton:nil
-                         informativeTextWithFormat:NSLocalizedString(@"Welly will delete this cover file, please confirm.", @"Sheet Message")];
-    if ([alert runModal] == NSAlertDefaultReturn)
-        [self removeImage];
-    [_sitesWindow setAlphaValue:100];
-}
-
-- (void)openPanelDidEnd:(NSOpenPanel *)sheet
-             returnCode:(int)returnCode
-            contextInfo:(void *)contextInfo {
-    if (returnCode == NSOKButton) {
-        NSString *source = [sheet filename];
-        NSString *siteName = [_siteNameField stringValue];
-        [_telnetView addPortalImage:source forSite:siteName];
-    }
-}
- */
 
 @end

@@ -13,11 +13,7 @@
 
 - (instancetype)init {
     if (self = [super init]) {
-        if ([WLGlobalConfig shouldEnableCoverFlow]) {
-            _title = @"Cover Flow";
-        } else {
-            _title = NSLocalizedString(@"DefaultSiteName", @"Site");
-        }
+        _title = NSLocalizedString(@"DefaultSiteName", @"Site");
         _icon = nil;
         _isProcessing = NO;
         _objectCount = 0;

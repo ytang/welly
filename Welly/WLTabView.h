@@ -12,7 +12,6 @@
 #import "WLTerminal.h"
 
 @class WLTerminalView;
-@class WLCoverFlowPortal;
 @class WLConnection;
 @class WLTabBarControl;
 
@@ -23,14 +22,12 @@
 @end
 
 
-@interface WLTabView : NSTabView <WLSitesObserver> {
+@interface WLTabView : NSTabView {
     NSView *_frontMostView;
     NSArray *_tabViews;
     
     IBOutlet WLTerminalView *_terminalView;
     IBOutlet WLTabBarControl *_tabBarControl;
-    
-    WLCoverFlowPortal *_portal;
 }
 
 // for Font size
@@ -39,7 +36,6 @@
 
 - (void)newTabWithConnection:(WLConnection *)theConnection 
                        label:(NSString *)theLabel;
-- (void)newTabWithCoverFlowPortal;
 
 @property (NS_NONATOMIC_IOSONLY, readonly, strong) NSView *frontMostView;
 @property (NS_NONATOMIC_IOSONLY, readonly, strong) WLConnection *frontMostConnection;

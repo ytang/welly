@@ -56,12 +56,6 @@
 "ISO" = "ISO: %@\n";
 "tiffStringFormat" = "\nManufacturer and Model: \n%@ %@";
 
-/* Cover flow */
-"Are you sure you want to delete the cover?" = "Are you sure you want to delete the cover?";
-"Welly will delete this cover file, please confirm." = "Welly will delete this cover file, please confirm.";
-"Delete" = "Remove it anyway";
-"Drag an image file to Welly to set the cover of this site. " = "Drag an image file to Welly to set the cover of this site. \n Drag the cover out to remove.";
-
 /* Color */
 "Black" = "Black";
 "Red" = "Red";
@@ -142,9 +136,6 @@
 "File Transfer" = "File Transfer";
 "EXIF Information" = "EXIF Information";
 "New Message Received" = "New Message Received";
-
-/* The title for New Bookmark Portal Item */
-"New Bookmark" = "New Bookmark";
 
 // Presentation Mode
 "Enter Presentation Mode" = "Enter Presentation Mode";

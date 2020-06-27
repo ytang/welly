@@ -20,7 +20,7 @@
 @class RemoteControl;
 @class MultiClickRemoteBehavior;
 
-@interface WLMainFrameController : NSObject <NSTabViewDelegate, WLSitesObserver> {
+@interface WLMainFrameController : NSObject <NSTabViewDelegate> {
     /* composeWindow */
     IBOutlet NSTextView *_composeText;
     IBOutlet NSPanel *_composeWindow;
@@ -98,16 +98,6 @@
 
 - (IBAction)setEncoding:(id)sender;
 
-
-/*
- // for portal
- - (IBAction)browseImage:(id)sender;
- - (IBAction)removeSiteImage:(id)sender;
- - (void)openPanelDidEnd:(NSOpenPanel *)sheet 
- returnCode:(int)returnCode 
- contextInfo:(void *)contextInfo;
- */
-// for resotre
 - (IBAction)restoreSettings:(id)sender;
 
 @end

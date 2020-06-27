@@ -18,7 +18,6 @@ NSString *const WLRestoreConnectionKeyName = @"RestoreConnection";
 NSString *const WLCommandRHotkeyEnabledKeyName = @"CommandRHotkey";
 NSString *const WLConfirmOnCloseEnabledKeyName = @"ConfirmOnClose";
 NSString *const WLSafePasteEnabledKeyName = @"SafePaste";
-NSString *const WLCoverFlowModeEnabledKeyName = @"Portal";
 
 const CGFloat WLDefaultCellWidth = 12;
 const CGFloat WLDefaultCellHeight = 24;
@@ -161,8 +160,6 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(WLGlobalConfig)
             [defaults setBool:YES forKey:WLConfirmOnCloseEnabledKeyName];
         if ([defaults objectForKey:WLSafePasteEnabledKeyName] == nil)
             [defaults setBool:YES forKey:WLSafePasteEnabledKeyName];
-        if ([defaults objectForKey:WLCoverFlowModeEnabledKeyName] == nil)
-            [defaults setBool:YES forKey:WLCoverFlowModeEnabledKeyName];
         
         // Initialize Cache
         [WLGlobalConfig initializeCache];
@@ -553,10 +550,6 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(WLGlobalConfig)
 
 #pragma mark -
 #pragma mark Query Global Config
-+ (BOOL)shouldEnableCoverFlow {
-    return [[NSUserDefaults standardUserDefaults] boolForKey:WLCoverFlowModeEnabledKeyName];
-}
-
 - (NSSize)contentSize {
     // Return the proper size of all the content
     return NSMakeSize(_column * self.cellWidth, _row * self.cellHeight);

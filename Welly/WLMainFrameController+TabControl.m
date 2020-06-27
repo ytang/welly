@@ -30,23 +30,14 @@
     NSAssert([_tabBarControl delegate] == self, @"set in .nib");
     //show a new-tab button
     [_tabBarControl setShowAddTabButton:YES];
-    
-    // open the portal
-    // the switch
-    [self tabViewDidChangeNumberOfTabViewItems:_tabView];
 }
 
 #pragma mark -
 #pragma mark Actions
 - (IBAction)newTab:(id)sender {
-    // Draw the portal and entering the portal control mode if needed...
-    if ([WLGlobalConfig shouldEnableCoverFlow]) {
-        [_tabView newTabWithCoverFlowPortal];
-    } else {
-        [self newConnectionWithSite:[WLSite site]];
-        // let user input
-        [_mainWindow makeFirstResponder:_addressBar];
-    }
+    [self newConnectionWithSite:[WLSite site]];
+    // let user input
+    [_mainWindow makeFirstResponder:_addressBar];
 }
 
 - (IBAction)selectNextTab:(id)sender {
@@ -156,11 +147,7 @@
 - (void)tabViewDidChangeNumberOfTabViewItems:(NSTabView *)tabView {
     // all tab closed, no didSelectTabViewItem will happen
     if (tabView.numberOfTabViewItems == 0) {
-        if ([WLGlobalConfig shouldEnableCoverFlow]) {
-            [_mainWindow makeFirstResponder:tabView];
-        } else {
-            [_mainWindow makeFirstResponder:_addressBar];
-        }
+        [_mainWindow makeFirstResponder:_addressBar];
     }
 }
 

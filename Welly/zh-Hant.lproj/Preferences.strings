@@ -56,11 +56,6 @@
 /* Class = "NSButtonCell"; title = "Programatically Detect Double Byte"; ObjectID = "J4v-MX-Yp0"; */
 "J4v-MX-Yp0.title" = "程式手動偵測雙位元文字（不建議開啟）";
 
-/* Class = "NSButtonCell"; title = "Show Cover Flow site list on startup 
-(Not recommended for old machines)"; ObjectID = "LMK-rb-ohC"; */
-"LMK-rb-ohC.title" = "啓動時顯示 Cover Flow 樣式的站台列表
-（不建議低配置機器開啓）";
-
 /* Class = "NSTextFieldCell"; title = "White"; ObjectID = "LdL-Uy-Rut"; */
 "LdL-Uy-Rut.title" = "白色";
 

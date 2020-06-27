@@ -11,13 +11,6 @@
 
 #define floatWindowLevel kCGStatusWindowLevel+1
 
-@protocol WLSitesObserver
-
-- (void)sitesDidChanged:(NSArray *)sitesAfterChange;
-
-@end
-
-
 @interface WLSitesPanelController : NSObject {
     /* Sites Array */
     NSMutableArray *_sites;
@@ -35,15 +28,11 @@
     /* Password Window Outlets */
     IBOutlet NSPanel *_passwordPanel;
     IBOutlet NSSecureTextField *_passwordField;
-    
-    /* Observers */
-    NSMutableArray *_sitesObservers;
 }
 @property (readonly) NSArray *sites;
 
 /* Accessors */
 + (WLSitesPanelController *)sharedInstance;
-+ (void)addSitesObserver:(NSObject<WLSitesObserver> *)observer;
 + (NSArray *)sites;
 + (WLSite *)siteAtIndex:(NSUInteger)index;
 @property (NS_NONATOMIC_IOSONLY, readonly) NSUInteger countOfSites;
