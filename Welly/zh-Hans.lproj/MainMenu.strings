@@ -260,9 +260,6 @@
 /* Class = "NSMenuItem"; title = "Quick Look"; ObjectID = "1157"; */
 "1157.title" = "附件浏览";
 
-/* Class = "NSMenuItem"; title = "Enter Presentation Mode"; ObjectID = "1161"; */
-"1161.title" = "进入演示模式";
-
 /* Class = "NSToolbarItem"; label = "Mouse"; ObjectID = "1188"; */
 "1188.label" = "鼠标浏览";
 

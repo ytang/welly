@@ -208,12 +208,6 @@
                                     <action selector="decreaseFontSize:" target="207" id="1663"/>
                                 </connections>
                             </menuItem>
-                            <menuItem title="Enter Presentation Mode" keyEquivalent="F" id="1161">
-                                <modifierMask key="keyEquivalentModifierMask" shift="YES" command="YES"/>
-                                <connections>
-                                    <action selector="togglePresentationMode:" target="207" id="1664"/>
-                                </connections>
-                            </menuItem>
                             <menuItem title="Enter Full Screen" keyEquivalent="f" id="1665">
                                 <modifierMask key="keyEquivalentModifierMask" control="YES" command="YES"/>
                                 <connections>
@@ -654,7 +648,6 @@ ssh://[id@]your.site.org[:port]</string>
                 <outlet property="_mainWindow" destination="21" id="377"/>
                 <outlet property="_messageWindow" destination="1089" id="1091"/>
                 <outlet property="_mouseButton" destination="1186" id="1190"/>
-                <outlet property="_presentationModeMenuItem" destination="1161" id="1667"/>
                 <outlet property="_showHiddenTextMenuItem" destination="487" id="499"/>
                 <outlet property="_sitesMenu" destination="266" id="1629"/>
                 <outlet property="_tabBarControl" destination="303" id="1659"/>

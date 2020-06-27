@@ -15,7 +15,6 @@
 #define scrollTimerInterval 0.12
 
 @class WLTabBarControl;
-@class WLPresentationController;
 
 @class RemoteControl;
 @class MultiClickRemoteBehavior;
@@ -43,7 +42,6 @@
     
     IBOutlet NSMenuItem *_showHiddenTextMenuItem;
     IBOutlet NSMenuItem *_encodingMenuItem;
-    IBOutlet NSMenuItem *_presentationModeMenuItem;
     
     IBOutlet NSMenuItem *_sitesMenu;
     
@@ -55,11 +53,8 @@
     MultiClickRemoteBehavior *_remoteControlBehavior;
     NSTimer* _scrollTimer;
     
-    // Full Screen
-    WLPresentationController *_presentationModeController;
-    
-    // 10.7 Full Screen
 @private
+    // Full Screen
     NSRect _originalFrame;
     CGFloat _screenRatio;
     NSColor *_originalWindowBackgroundColor;
@@ -94,7 +89,6 @@
 
 - (IBAction)increaseFontSize:(id)sender;
 - (IBAction)decreaseFontSize:(id)sender;
-- (IBAction)togglePresentationMode:(id)sender;
 
 - (IBAction)setEncoding:(id)sender;
 

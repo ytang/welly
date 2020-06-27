@@ -21,10 +21,6 @@
 #import "WLPostDownloadDelegate.h"
 #import "DBPrefsWindowController.h"
 
-// Full Screen
-#import "WLPresentationController.h"
-#import "WLTelnetProcessor.h"
-
 // Others
 #import "WLGlobalConfig.h"
 #import "WLAnsiColorOperationManager.h"
@@ -38,7 +34,6 @@
 @interface WLMainFrameController ()
 - (void)loadLastConnections;
 - (void)updateSitesMenuWithSites:(NSArray *)sites;
-- (void)exitPresentationMode;
 @end
 
 @implementation WLMainFrameController
@@ -75,11 +70,6 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(WLMainFrameController)
     [NSTimer scheduledTimerWithTimeInterval:30 target:self selector:@selector(antiIdle:) userInfo:nil repeats:YES];
     
     [self initializeRemoteControl];
-    // FIXME: Remove this controller
-    // For full screen, initiallize the full screen controller
-    _presentationModeController = [[WLPresentationController alloc] initWithTargetView:_tabView
-                                                                             superView:_tabView.superview 
-                                                                        originalWindow:_mainWindow];
     
     // Set up color panel
     [[NSUserDefaults standardUserDefaults] setObject:@"1Welly" forKey:@"NSColorPickerPageableNameListDefaults"];
@@ -496,17 +486,10 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(WLMainFrameController)
             !_tabView.frontMostConnection.isConnected) {
             return NO;
         }
-    } else if (action == @selector(togglePresentationMode:)) {
-        if (self.inFullScreenMode && !_presentationModeController.isInPresentationMode) {
-            return NO;
-        } else
-            return YES;
     } else if (action == @selector(increaseFontSize:) ||
                action == @selector(decreaseFontSize:)) {
-        if (self.inFullScreenMode || _presentationModeController.isInPresentationMode) {
+        if (self.inFullScreenMode)
             return NO;
-        } else
-            return YES;
     }
     
     return YES;
@@ -528,8 +511,6 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(WLMainFrameController)
 } 
 
 - (NSApplicationTerminateReply)applicationShouldTerminate:(NSApplication *)sender {
-    // Restore from presentation mode firstly
-    [self exitPresentationMode];
     // Exit from full screen mode if necessary
     if (self.inFullScreenMode) {
         [_mainWindow toggleFullScreen:self];
@@ -621,15 +602,6 @@ withReplyEvent:(NSAppleEventDescriptor *)replyEvent {
 
 - (IBAction)decreaseFontSize:(id)sender {
     [_tabView decreaseFontSize:sender];
-}
-
-- (IBAction)togglePresentationMode:(id)sender {
-    [_presentationModeController togglePresentationMode];
-    _presentationModeMenuItem.title = _presentationModeController.isInPresentationMode ? NSLocalizedString(@"Exit Presentation Mode", "Presentation Mode") : NSLocalizedString(@"Enter Presentation Mode", "Presentaion Mode");
-}
-
-- (void)exitPresentationMode {
-    [_presentationModeController exitPresentationMode];
 }
 
 #pragma mark -

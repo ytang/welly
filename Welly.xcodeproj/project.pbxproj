@@ -49,7 +49,6 @@
 		9C76A29E1F42B7B10044F830 /* WLEditingCursorMoveHotspotHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C76A2941F42B7B10044F830 /* WLEditingCursorMoveHotspotHandler.m */; };
 		9C76A29F1F42B7B10044F830 /* WLAuthorAreaHotspotHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C76A2961F42B7B10044F830 /* WLAuthorAreaHotspotHandler.m */; };
 		9C76A2A01F42B7B10044F830 /* WLURLManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C76A2981F42B7B10044F830 /* WLURLManager.m */; };
-		9C76A2A31F42B7C60044F830 /* WLPresentationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C76A2A21F42B7C60044F830 /* WLPresentationController.m */; };
 		9C76A2AD1F42B8020044F830 /* AppleRemote.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C76A2A81F42B8020044F830 /* AppleRemote.m */; };
 		9C76A2AE1F42B8020044F830 /* KeyspanFrontRowControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C76A2AA1F42B8020044F830 /* KeyspanFrontRowControl.m */; };
 		9C76A2AF1F42B8020044F830 /* RemoteControlContainer.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C76A2AC1F42B8020044F830 /* RemoteControlContainer.m */; };
@@ -196,8 +195,6 @@
 		9C76A2961F42B7B10044F830 /* WLAuthorAreaHotspotHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLAuthorAreaHotspotHandler.m; sourceTree = "<group>"; };
 		9C76A2971F42B7B10044F830 /* WLURLManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLURLManager.h; sourceTree = "<group>"; };
 		9C76A2981F42B7B10044F830 /* WLURLManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLURLManager.m; sourceTree = "<group>"; };
-		9C76A2A11F42B7C60044F830 /* WLPresentationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLPresentationController.h; sourceTree = "<group>"; };
-		9C76A2A21F42B7C60044F830 /* WLPresentationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLPresentationController.m; sourceTree = "<group>"; };
 		9C76A2A71F42B8020044F830 /* AppleRemote.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppleRemote.h; sourceTree = "<group>"; };
 		9C76A2A81F42B8020044F830 /* AppleRemote.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppleRemote.m; sourceTree = "<group>"; };
 		9C76A2A91F42B8020044F830 /* KeyspanFrontRowControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KeyspanFrontRowControl.h; sourceTree = "<group>"; };
@@ -263,7 +260,6 @@
 		9CC8E75B1F42C83200737A3E /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		9CC8E75D1F42C88E00737A3E /* System.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = System.framework; path = /System/Library/Frameworks/System.framework; sourceTree = "<absolute>"; };
 		9CC8E75F1F42C8A700737A3E /* IOKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = IOKit.framework; path = System/Library/Frameworks/IOKit.framework; sourceTree = SDKROOT; };
-		9CE63CBC1F43FB1F00712447 /* WLFullScreenProcessor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLFullScreenProcessor.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -445,7 +441,6 @@
 			isa = PBXGroup;
 			children = (
 				9C76A27D1F42B73B0044F830 /* Mouse Hotspot Handler */,
-				9C76A27E1F42B74A0044F830 /* Fullscreen */,
 				9C76A27F1F42B7550044F830 /* RemoteControl */,
 				9C76A2801F42B7630044F830 /* Message */,
 				9C76A2811F42B76B0044F830 /* Quick Look */,
@@ -479,16 +474,6 @@
 				9C76A2981F42B7B10044F830 /* WLURLManager.m */,
 			);
 			name = "Mouse Hotspot Handler";
-			sourceTree = "<group>";
-		};
-		9C76A27E1F42B74A0044F830 /* Fullscreen */ = {
-			isa = PBXGroup;
-			children = (
-				9CE63CBC1F43FB1F00712447 /* WLFullScreenProcessor.h */,
-				9C76A2A11F42B7C60044F830 /* WLPresentationController.h */,
-				9C76A2A21F42B7C60044F830 /* WLPresentationController.m */,
-			);
-			name = Fullscreen;
 			sourceTree = "<group>";
 		};
 		9C76A27F1F42B7550044F830 /* RemoteControl */ = {
@@ -773,7 +758,6 @@
 				9C76A27A1F42B6CC0044F830 /* DBPrefsWindowController.m in Sources */,
 				9C76A2671F42B69D0044F830 /* WLMainFrameController+RemoteControl.m in Sources */,
 				9C76A2BD1F42B82C0044F830 /* WLGrowlBridge.m in Sources */,
-				9C76A2A31F42B7C60044F830 /* WLPresentationController.m in Sources */,
 				9C76A2691F42B69D0044F830 /* WLMainFrameController+FullScreen.m in Sources */,
 				9C769D7C1F42B55A0044F830 /* WLConnection.m in Sources */,
 				9C769D7E1F42B55A0044F830 /* WLTerminal.m in Sources */,

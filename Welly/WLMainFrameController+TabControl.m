@@ -17,7 +17,6 @@
 @interface WLMainFrameController () <MMTabBarViewDelegate>
 
 - (void)updateEncodingMenu;
-- (void)exitPresentationMode;
 
 @end
 
@@ -94,9 +93,6 @@
 }
 
 - (BOOL)tabView:(NSTabView *)tabView shouldCloseTabViewItem:(NSTabViewItem *)tabViewItem {
-    // Restore from full screen firstly
-    [self exitPresentationMode];
-    
     // TODO: why not put these in WLTabView?
     if (![tabViewItem.identifier isKindOfClass:[WLConnection class]] ||
         ![tabViewItem.identifier isConnected]) 
