@@ -65,8 +65,9 @@
 - (void)windowWillEnterFullScreen:(NSNotification *)notification {
     [_tabBarControl setHidden:YES];
     
-    // Back up the original frame of _targetView
-    _originalFrame = _tabView.frame;
+    // Back up the original frame
+    _originalTabFrame = _tabView.frame;
+    _originalWindowFrame = _mainWindow.frame;
     
     // Get the fittest ratio for the expansion
     NSRect screenRect = [NSScreen mainScreen].frame;
@@ -105,7 +106,8 @@
     
     [_mainWindow setOpaque:NO];
     // Move view back
-    _tabView.frame = _originalFrame;
+    _tabView.frame = _originalTabFrame;
+    [_mainWindow setFrame:_originalWindowFrame display:NO];
     _mainWindow.backgroundColor = _originalWindowBackgroundColor;
 }
 

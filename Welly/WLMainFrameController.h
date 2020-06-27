@@ -55,7 +55,8 @@
     
 @private
     // Full Screen
-    NSRect _originalFrame;
+    NSRect _originalTabFrame;
+    NSRect _originalWindowFrame;
     CGFloat _screenRatio;
     NSColor *_originalWindowBackgroundColor;
     NSDictionary *_originalSizeParameters;
