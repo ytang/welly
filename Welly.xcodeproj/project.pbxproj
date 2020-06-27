@@ -77,8 +77,6 @@
 		9CC8E7401F42C13B00737A3E /* SitesPanel.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9CC8E7391F42C13B00737A3E /* SitesPanel.xib */; };
 		9CC8E7451F42C23500737A3E /* Growl.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9CC8E7411F42C23500737A3E /* Growl.framework */; };
 		9CC8E7461F42C23600737A3E /* Growl.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 9CC8E7411F42C23500737A3E /* Growl.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		9CC8E7471F42C23600737A3E /* HMBlkAppKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9CC8E7421F42C23500737A3E /* HMBlkAppKit.framework */; };
-		9CC8E7481F42C23600737A3E /* HMBlkAppKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 9CC8E7421F42C23500737A3E /* HMBlkAppKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		9CC8E7501F42C7D400737A3E /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9CC8E74F1F42C7D400737A3E /* Cocoa.framework */; };
 		9CC8E7521F42C7E600737A3E /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9CC8E7511F42C7E600737A3E /* SystemConfiguration.framework */; };
 		9CC8E7541F42C7F300737A3E /* Quartz.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9CC8E7531F42C7F300737A3E /* Quartz.framework */; };
@@ -97,7 +95,6 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				9CC8E7481F42C23600737A3E /* HMBlkAppKit.framework in Embed Frameworks */,
 				9CC8E7461F42C23600737A3E /* Growl.framework in Embed Frameworks */,
 				9C0DFE621F480195008D5F3D /* MMTabBarView.framework in Embed Frameworks */,
 			);
@@ -250,7 +247,6 @@
 		9CC8E7361F42C13B00737A3E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/PostDownloadPanel.xib; sourceTree = "<group>"; };
 		9CC8E73A1F42C13B00737A3E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/SitesPanel.xib; sourceTree = "<group>"; };
 		9CC8E7411F42C23500737A3E /* Growl.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Growl.framework; path = Welly/Frameworks/Growl.framework; sourceTree = "<group>"; };
-		9CC8E7421F42C23500737A3E /* HMBlkAppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = HMBlkAppKit.framework; path = Welly/Frameworks/HMBlkAppKit.framework; sourceTree = "<group>"; };
 		9CC8E74F1F42C7D400737A3E /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		9CC8E7511F42C7E600737A3E /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		9CC8E7531F42C7F300737A3E /* Quartz.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Quartz.framework; path = System/Library/Frameworks/Quartz.framework; sourceTree = SDKROOT; };
@@ -269,7 +265,6 @@
 			files = (
 				9CC8E7501F42C7D400737A3E /* Cocoa.framework in Frameworks */,
 				9CC8E7601F42C8A700737A3E /* IOKit.framework in Frameworks */,
-				9CC8E7471F42C23600737A3E /* HMBlkAppKit.framework in Frameworks */,
 				9C0DFE611F480195008D5F3D /* MMTabBarView.framework in Frameworks */,
 				9CC8E75E1F42C88E00737A3E /* System.framework in Frameworks */,
 				9CC8E75C1F42C83200737A3E /* Foundation.framework in Frameworks */,
@@ -638,7 +633,6 @@
 			children = (
 				9C0DFE601F480195008D5F3D /* MMTabBarView.framework */,
 				9CC8E7411F42C23500737A3E /* Growl.framework */,
-				9CC8E7421F42C23500737A3E /* HMBlkAppKit.framework */,
 			);
 			name = "Third-Party Frameworks";
 			sourceTree = "<group>";
