@@ -146,10 +146,6 @@
 /* Class = "NSBox"; title = "Restore Settings"; ObjectID = "spT-xf-6as"; */
 "spT-xf-6as.title" = "恢復預置";
 
-/* Class = "NSButtonCell"; title = "Enable Remote Control support
-(Restart required)"; ObjectID = "vFh-Yl-zjE"; */
-"vFh-Yl-zjE.title" = "啓用遙控器支持（需重啓Welly）";
-
 /* Class = "NSTextFieldCell"; title = "Connections which are not configured in Sites Panel will use these default settings."; ObjectID = "xAe-Lm-abT"; */
 "xAe-Lm-abT.title" = "沒有在站台設定裡的連線皆會使用這邊的設定值。";
 

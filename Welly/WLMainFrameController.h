@@ -16,9 +16,6 @@
 
 @class WLTabBarControl;
 
-@class RemoteControl;
-@class MultiClickRemoteBehavior;
-
 @interface WLMainFrameController : NSObject <NSTabViewDelegate> {
     /* composeWindow */
     IBOutlet NSTextView *_composeText;
@@ -47,11 +44,6 @@
     
     /* Message */
     IBOutlet NSTextView *_unreadMessageTextView;
-    
-    // Remote Control
-    RemoteControl *_remoteControl;
-    MultiClickRemoteBehavior *_remoteControlBehavior;
-    NSTimer* _scrollTimer;
     
 @private
     // Full Screen

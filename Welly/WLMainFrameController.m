@@ -6,7 +6,6 @@
 //  Copyright 2007 yllan.org. All rights reserved.
 
 #import "WLMainFrameController.h"
-#import "WLMainFrameController+RemoteControl.h"
 #import "WLMainFrameController+TabControl.h"
 #import "WLMainFrameController+FullScreen.h"
 
@@ -68,8 +67,6 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(WLMainFrameController)
     [_mainWindow setFrameAutosaveName:@"wellyMainWindowFrame"];
     
     [NSTimer scheduledTimerWithTimeInterval:30 target:self selector:@selector(antiIdle:) userInfo:nil repeats:YES];
-    
-    [self initializeRemoteControl];
     
     // Set up color panel
     [[NSUserDefaults standardUserDefaults] setObject:@"1Welly" forKey:@"NSColorPickerPageableNameListDefaults"];
