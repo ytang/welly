@@ -61,16 +61,12 @@
     NSString *path;
     NSString *fmt;
     if (ssh) {
-        path = @"/usr/local/bin/ssh";
-        if (![[NSFileManager defaultManager] fileExistsAtPath:path])
-            path = @"/usr/bin/ssh";
+        path = @"/usr/bin/ssh";
         if (port == nil)
             port = @"22";
         fmt = @"%@ -o PubkeyAuthentication=no -o Protocol=2,1 -p %3$@ -x %2$@";
     } else {
-        path = @"/usr/local/bin/telnet";
-        if (![[NSFileManager defaultManager] fileExistsAtPath:path])
-            path = @"/usr/bin/telnet";
+        path = [[NSBundle mainBundle] pathForResource:@"telnet" ofType:@""];
         if (port == nil)
             port = @"23";
         range = [addr rangeOfString:@"@"];
