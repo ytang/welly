@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		10387C5B24A9AB4000415663 /* dbclient in Resources */ = {isa = PBXBuildFile; fileRef = 10387C5A24A9AB4000415663 /* dbclient */; };
 		9C034A221F43077500C55BA2 /* Preferences.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9C034A241F43077500C55BA2 /* Preferences.xib */; };
 		9C0DFE611F480195008D5F3D /* MMTabBarView.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9C0DFE601F480195008D5F3D /* MMTabBarView.framework */; };
 		9C0DFE621F480195008D5F3D /* MMTabBarView.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 9C0DFE601F480195008D5F3D /* MMTabBarView.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
@@ -97,6 +98,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		10387C5A24A9AB4000415663 /* dbclient */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.executable"; name = dbclient; path = Resources/dbclient; sourceTree = "<group>"; };
 		1056986224A86EA900E22B4B /* Welly.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Welly.entitlements; sourceTree = "<group>"; };
 		9C034A231F43077500C55BA2 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/Preferences.xib; sourceTree = "<group>"; };
 		9C034A261F43077900C55BA2 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Preferences.strings"; sourceTree = "<group>"; };
@@ -502,6 +504,7 @@
 		9C76A2DD1F42B8D30044F830 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				10387C5A24A9AB4000415663 /* dbclient */,
 				9CC8E72B1F42C06600737A3E /* Xib Files */,
 				9CC8E70A1F42BD2600737A3E /* Images */,
 				9CC8E71F1F42BF8F00737A3E /* Plists */,
@@ -664,6 +667,7 @@
 				9CC8E72E1F42C12D00737A3E /* contextualMenuItems.plist in Resources */,
 				9CC8E73B1F42C13B00737A3E /* ComposePanel.xib in Resources */,
 				9C5C1B241F42DD02006E170D /* InfoPlist.strings in Resources */,
+				10387C5B24A9AB4000415663 /* dbclient in Resources */,
 				9CC8E72A1F42C02C00737A3E /* Help in Resources */,
 				9CC8E7401F42C13B00737A3E /* SitesPanel.xib in Resources */,
 				9C9208911F42DFBF00A456D0 /* Whit.aiff in Resources */,
@@ -940,7 +944,7 @@
 				CODE_SIGN_ENTITLEMENTS = Welly/Welly.entitlements;
 				CODE_SIGN_IDENTITY = "-";
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 865;
+				CURRENT_PROJECT_VERSION = 869;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Welly/Frameworks",
@@ -948,7 +952,7 @@
 				GCC_NO_COMMON_BLOCKS = NO;
 				INFOPLIST_FILE = Welly/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
-				MARKETING_VERSION = 3.20.1;
+				MARKETING_VERSION = 2020.1;
 				OTHER_CFLAGS = "-D__DUMPPACKET__";
 				PRODUCT_BUNDLE_IDENTIFIER = com.ytang.Welly;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -962,7 +966,7 @@
 				CODE_SIGN_ENTITLEMENTS = Welly/Welly.entitlements;
 				CODE_SIGN_IDENTITY = "-";
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 865;
+				CURRENT_PROJECT_VERSION = 869;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Welly/Frameworks",
@@ -970,7 +974,7 @@
 				GCC_NO_COMMON_BLOCKS = NO;
 				INFOPLIST_FILE = Welly/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
-				MARKETING_VERSION = 3.20.1;
+				MARKETING_VERSION = 2020.1;
 				PRODUCT_BUNDLE_IDENTIFIER = com.ytang.Welly;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};

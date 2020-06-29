@@ -61,10 +61,10 @@
     NSString *path;
     NSString *fmt;
     if (ssh) {
-        path = @"/usr/bin/ssh";
+        path = [[NSBundle mainBundle] pathForResource:@"dbclient" ofType:@""];
         if (port == nil)
             port = @"22";
-        fmt = @"%@ -o PubkeyAuthentication=no -o Protocol=2,1 -p %3$@ -x %2$@";
+        fmt = @"%@ -T -p %3$@ -y %2$@";
     } else {
         path = @"/usr/bin/nc";
         if (port == nil)
