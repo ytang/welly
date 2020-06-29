@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		1056986024A86BFE00E22B4B /* telnet in Resources */ = {isa = PBXBuildFile; fileRef = 1056985F24A86BFE00E22B4B /* telnet */; };
 		9C034A221F43077500C55BA2 /* Preferences.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9C034A241F43077500C55BA2 /* Preferences.xib */; };
 		9C0DFE611F480195008D5F3D /* MMTabBarView.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9C0DFE601F480195008D5F3D /* MMTabBarView.framework */; };
 		9C0DFE621F480195008D5F3D /* MMTabBarView.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 9C0DFE601F480195008D5F3D /* MMTabBarView.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
@@ -98,7 +97,6 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		1056985F24A86BFE00E22B4B /* telnet */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.executable"; name = telnet; path = Resources/telnet; sourceTree = "<group>"; };
 		1056986224A86EA900E22B4B /* Welly.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Welly.entitlements; sourceTree = "<group>"; };
 		9C034A231F43077500C55BA2 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/Preferences.xib; sourceTree = "<group>"; };
 		9C034A261F43077900C55BA2 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Preferences.strings"; sourceTree = "<group>"; };
@@ -511,7 +509,6 @@
 				9C92088A1F42DFBF00A456D0 /* Credits.rtf */,
 				9C92088B1F42DFBF00A456D0 /* QQWry.dat */,
 				9C92088D1F42DFBF00A456D0 /* Whit.aiff */,
-				1056985F24A86BFE00E22B4B /* telnet */,
 				9CC8E7291F42C02C00737A3E /* Help */,
 			);
 			name = Resources;
@@ -669,7 +666,6 @@
 				9C5C1B241F42DD02006E170D /* InfoPlist.strings in Resources */,
 				9CC8E72A1F42C02C00737A3E /* Help in Resources */,
 				9CC8E7401F42C13B00737A3E /* SitesPanel.xib in Resources */,
-				1056986024A86BFE00E22B4B /* telnet in Resources */,
 				9C9208911F42DFBF00A456D0 /* Whit.aiff in Resources */,
 				9C92088E1F42DFBF00A456D0 /* Credits.rtf in Resources */,
 				9CC8E73E1F42C13B00737A3E /* PostDownloadPanel.xib in Resources */,

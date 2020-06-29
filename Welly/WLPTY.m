@@ -66,7 +66,7 @@
             port = @"22";
         fmt = @"%@ -o PubkeyAuthentication=no -o Protocol=2,1 -p %3$@ -x %2$@";
     } else {
-        path = [[NSBundle mainBundle] pathForResource:@"telnet" ofType:@""];
+        path = @"/usr/bin/nc";
         if (port == nil)
             port = @"23";
         range = [addr rangeOfString:@"@"];
@@ -74,7 +74,7 @@
         if (range.length > 0)
             addr = [addr substringFromIndex:range.location + range.length];
         // "-" before the port number forces the initial option negotiation
-        fmt = @"%@ -8 %@ -%@";
+        fmt = @"%@ %@ %@";
     }
     NSString *r = [NSString stringWithFormat:fmt, path, addr, port];
     return r;
@@ -161,6 +161,8 @@
     } else { /* parent */
         int one = 1;
         ioctl(_fd, TIOCPKT, &one);
+        cfmakeraw(&term);
+        tcsetattr(_fd, TCSANOW, &term);
         [NSThread detachNewThreadSelector:@selector(readLoop:) toTarget:[self class] withObject:self];
     }
     
