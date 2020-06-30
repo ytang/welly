@@ -17,6 +17,7 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(WLQuickLookBridge)
     self = [super init];
     if (self) {
         _URLs = [[NSMutableArray alloc] init];
+        _EXIFs = [[NSMutableArray alloc] init];
         [[QLPreviewPanel sharedPreviewPanel] setDataSource:self];
     }
     return self;
@@ -27,12 +28,17 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(WLQuickLookBridge)
 }
 
 + (void)add:(NSURL *)URL {
+    [self add:URL withEXIF:@""];
+}
+
++ (void)add:(NSURL *)URL withEXIF:(NSString *)EXIF {
     NSMutableArray *URLs = [self sharedInstance]->_URLs;
     // check if the url is already under preview
     NSUInteger index = [URLs indexOfObject:URL];
     if (index == NSNotFound) {
         index = URLs.count;
         [URLs addObject:URL];
+        [[self sharedInstance]->_EXIFs addObject:EXIF];
     }
     [[QLPreviewPanel sharedPreviewPanel] setCurrentPreviewItemIndex:index];
     [self orderFront];
@@ -47,6 +53,7 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(WLQuickLookBridge)
 
 - (id <QLPreviewItem>)previewPanel:(QLPreviewPanel *)panel
                 previewItemAtIndex:(NSInteger)index {
+    panel.contentView.toolTip = _EXIFs[panel.currentPreviewItemIndex];
     return _URLs[index];
 }
 

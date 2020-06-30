@@ -288,12 +288,12 @@ static void formatProps(NSMutableString *s, id *fmt, id *val) {
 - (void)downloadDidFinish:(NSURLDownload *)download {
     [sURLs removeObject:download.request.URL];
     [sDownloadedURLInfo setValue:_path forKey:download.request.URL.absoluteString];
+    NSURL *url;
     if ([_path.pathExtension isEqualToString:@"gif"]) {
-        NSURL *htmlURL = [NSURL fileURLWithPath:[_path.stringByDeletingPathExtension stringByAppendingPathExtension:@"html"]];
-        [[NSString stringWithFormat:WLGIFToHTMLFormat, [NSURL fileURLWithPath:_path]] writeToURL:htmlURL atomically:NO encoding:NSUTF8StringEncoding error:NULL];
-        [WLQuickLookBridge add:htmlURL];
+        url = [NSURL fileURLWithPath:[_path.stringByDeletingPathExtension stringByAppendingPathExtension:@"html"]];
+        [[NSString stringWithFormat:WLGIFToHTMLFormat, [NSURL fileURLWithPath:_path]] writeToURL:url atomically:NO encoding:NSUTF8StringEncoding error:NULL];
     } else {
-        [WLQuickLookBridge add:[NSURL fileURLWithPath:_path]];
+        url = [NSURL fileURLWithPath:_path];
     }
     // if (![WLGrowlBridge isMistEnabled])
     //     [WLGrowlBridge notifyWithTitle:_filename
@@ -333,7 +333,7 @@ static void formatProps(NSMutableString *s, id *fmt, id *val) {
                 // format
                 __autoreleasing id keys[] = {@"Original Date Time", @"Exposure Time", @"Focal Length", @"F Number", @"ISO", nil};
                 __autoreleasing id vals[] = {dateTime, eTimeStr, fLength, fNumber, iso};
-                formatProps(props, keys,vals);
+                formatProps(props, keys, vals);
             }
             
             NSDictionary *tiffData = metaData[(NSString *)kCGImagePropertyTIFFDictionary];
@@ -345,15 +345,12 @@ static void formatProps(NSMutableString *s, id *fmt, id *val) {
                     [props appendFormat:NSLocalizedString(@"tiffStringFormat", "\nManufacturer and Model: \n%@ %@"), makeName, modelName];
             }
             
-            if(props.length) 
-                [WLGrowlBridge notifyWithTitle:_filename
-                                   description:props
-                              notificationName:kGrowlNotificationNameEXIFInformation
-                                      isSticky:NO
-                                    identifier:download];
+            [WLQuickLookBridge add:url withEXIF:props];
             // release
         }
         CFRelease(exifSource);
+    } else {
+        [WLQuickLookBridge add:url];
     }
     
     // Commented out by K.O.ed: Don't release here, release when the delegate dealloc.

@@ -11,9 +11,11 @@
 
 @interface WLQuickLookBridge : NSObject <QLPreviewPanelDataSource> {
     NSMutableArray *_URLs;
+    NSMutableArray *_EXIFs;
 }
 
 + (void)orderFront;
 + (void)add:(NSURL *)URL;
++ (void)add:(NSURL *)URL withEXIF:(NSString *)EXIF;
 
 @end

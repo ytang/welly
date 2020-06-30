@@ -11,7 +11,6 @@
 #import "WLGrowlBridge.h"
 
 NSString *const WLGrowlNotificationNameFileTransfer = @"File Transfer";
-NSString *const WLGrowlNotificationNameEXIFInformation = @"EXIF Information";
 NSString *const WLGrowlNotificationNameNewMessageReceived = @"New Message Received";
 
 NSString *const WLGrowlClickTargetKeyName = @"ClickTarget";
@@ -29,7 +28,7 @@ NSString *const WLGrowlClickObjectKeyName = @"ClickRepresentedObject";
 }
 
 - (NSDictionary *)registrationDictionaryForGrowl {
-    NSArray *notifications = @[kGrowlNotificationNameFileTransfer, kGrowlNotificationNameEXIFInformation, kGrowlNotificationNameNewMessageReceived];
+    NSArray *notifications = @[kGrowlNotificationNameFileTransfer, kGrowlNotificationNameNewMessageReceived];
     NSMutableDictionary *dict = [NSMutableDictionary dictionary];
     dict[GROWL_NOTIFICATIONS_ALL] = notifications;
     dict[GROWL_NOTIFICATIONS_DEFAULT] = notifications;
