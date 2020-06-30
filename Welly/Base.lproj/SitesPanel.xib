@@ -386,7 +386,7 @@ ssh://[id@]your.site.org[:port]</string>
                                                             <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                                         </textFieldCell>
                                                     </textField>
-                                                    <button toolTip="点击此处设置或取消自动登录" fixedFrame="YES" imageHugsTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="24">
+                                                    <button toolTip="Setup auto-login" fixedFrame="YES" imageHugsTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="24">
                                                         <rect key="frame" x="271" y="280" width="19" height="19"/>
                                                         <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES"/>
                                                         <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="password" imagePosition="only" alignment="center" controlSize="small" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="67">

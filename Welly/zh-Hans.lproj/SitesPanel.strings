@@ -20,8 +20,8 @@
 /* Class = "NSTextField"; ibShadowedToolTip = "[proxy.server.address[:port]]"; ObjectID = "22"; */
 "22.ibShadowedToolTip" = "[proxy.server.address[:port]]";
 
-/* Class = "NSButton"; ibShadowedToolTip = "点击此处设置或取消自动登录"; ObjectID = "24"; */
-"24.ibShadowedToolTip" = "点击此处设置或取消自动登录";
+/* Class = "NSButton"; ibShadowedToolTip = "Setup auto-login"; ObjectID = "24"; */
+"24.ibShadowedToolTip" = "设置自动登录";
 
 /* Class = "NSTextField"; ibShadowedToolTip = "[telnet://][id@]your.site.org[:port]\nssh://[id@]your.site.org[:port]"; ObjectID = "36"; */
 "36.ibShadowedToolTip" = "[telnet://][id@]your.site.org[:port]\nssh://[id@]your.site.org[:port]";

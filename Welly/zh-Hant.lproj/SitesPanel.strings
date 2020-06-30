@@ -6,7 +6,7 @@
 "3.title" = "口令";
 
 /* Class = "NSTextFieldCell"; title = "Password: (or leave blank to disable auto-login)"; ObjectID = "9"; */
-"9.title" = "要啓用自動登錄，請鍵入口令；要停用自動登錄，請保持下方空白。";
+"9.title" = "要啓用自動登入，請鍵入口令；要停用自動登入，請保持下方空白。";
 
 /* Class = "NSButtonCell"; title = "OK"; ObjectID = "10"; */
 "10.title" = "確認";
@@ -20,8 +20,8 @@
 /* Class = "NSTextField"; ibShadowedToolTip = "[proxy.server.address[:port]]"; ObjectID = "22"; */
 "22.ibShadowedToolTip" = "[proxy.server.address[:port]]";
 
-/* Class = "NSButton"; ibShadowedToolTip = "点击此处设置或取消自动登录"; ObjectID = "24"; */
-"24.ibShadowedToolTip" = "点击此处设置或取消自动登录";
+/* Class = "NSButton"; ibShadowedToolTip = "Setup auto-login"; ObjectID = "24"; */
+"24.ibShadowedToolTip" = "設置自動登入";
 
 /* Class = "NSTextField"; ibShadowedToolTip = "[telnet://][id@]your.site.org[:port]\nssh://[id@]your.site.org[:port]"; ObjectID = "36"; */
 "36.ibShadowedToolTip" = "[telnet://][id@]your.site.org[:port]\nssh://[id@]your.site.org[:port]";

@@ -86,8 +86,8 @@
 /* Class = "NSTextField"; ibShadowedToolTip = "[telnet://][id@]your.site.org[:port]\nssh://[id@]your.site.org[:port]"; ObjectID = "255"; */
 "255.ibShadowedToolTip" = "[telnet://][id@]your.site.org[:port]\nssh://[id@]your.site.org[:port]";
 
-/* Class = "NSTextFieldCell"; placeholderString = "Site Address"; ObjectID = "256"; */
-"256.placeholderString" = "請輸入位址";
+/* Class = "NSTextFieldCell"; placeholderString = "Site address, e.g., ssh://id@your.site.org"; ObjectID = "256"; */
+"256.placeholderString" = "請輸入站台位址，例如 ssh://id@your.site.org";
 
 /* Class = "NSToolbarItem"; label = "Address"; ObjectID = "257"; */
 "257.label" = "位址";

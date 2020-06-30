@@ -405,20 +405,6 @@
                             <action selector="openSitePanel:" target="207" id="1631"/>
                         </connections>
                     </toolbarItem>
-                    <toolbarItem implicitItemIdentifier="67DD75FD-4809-4D58-9BE7-61AE89E4E6FC" label="Connect" paletteLabel="Connect" image="NSRefreshTemplate" sizingBehavior="auto" id="422">
-                        <nil key="toolTip"/>
-                        <button key="view" verticalHuggingPriority="750" id="423">
-                            <rect key="frame" x="15" y="14" width="23" height="19"/>
-                            <autoresizingMask key="autoresizingMask"/>
-                            <buttonCell key="cell" type="roundRect" bezelStyle="roundedRect" image="NSRefreshTemplate" imagePosition="only" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="424">
-                                <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                <font key="font" metaFont="cellTitle"/>
-                            </buttonCell>
-                            <connections>
-                                <action selector="reconnect:" target="207" id="482"/>
-                            </connections>
-                        </button>
-                    </toolbarItem>
                     <toolbarItem implicitItemIdentifier="555803AF-8D9A-43AB-8B7B-B6D57B41522F" label="Add" paletteLabel="Add" image="NSAddTemplate" sizingBehavior="auto" id="419">
                         <nil key="toolTip"/>
                         <button key="view" verticalHuggingPriority="750" id="420">
@@ -440,7 +426,7 @@
                             <autoresizingMask key="autoresizingMask"/>
                             <string key="toolTip">[telnet://][id@]your.site.org[:port]
 ssh://[id@]your.site.org[:port]</string>
-                            <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" state="on" borderStyle="bezel" placeholderString="Site Address" drawsBackground="YES" id="256">
+                            <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" state="on" borderStyle="bezel" placeholderString="Site address, e.g., ssh://id@your.site.org" drawsBackground="YES" id="256">
                                 <font key="font" metaFont="system"/>
                                 <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                 <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
@@ -450,6 +436,20 @@ ssh://[id@]your.site.org[:port]</string>
                                 <outlet property="nextKeyView" destination="206" id="309"/>
                             </connections>
                         </textField>
+                    </toolbarItem>
+                    <toolbarItem implicitItemIdentifier="67DD75FD-4809-4D58-9BE7-61AE89E4E6FC" label="Connect" paletteLabel="Connect" image="NSRefreshTemplate" sizingBehavior="auto" id="422">
+                        <nil key="toolTip"/>
+                        <button key="view" verticalHuggingPriority="750" id="423">
+                            <rect key="frame" x="15" y="14" width="23" height="19"/>
+                            <autoresizingMask key="autoresizingMask"/>
+                            <buttonCell key="cell" type="roundRect" bezelStyle="roundedRect" image="NSRefreshTemplate" imagePosition="only" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="424">
+                                <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                <font key="font" metaFont="cellTitle"/>
+                            </buttonCell>
+                            <connections>
+                                <action selector="reconnect:" target="207" id="482"/>
+                            </connections>
+                        </button>
                     </toolbarItem>
                     <toolbarItem implicitItemIdentifier="NSToolbarSpaceItem" id="236"/>
                     <toolbarItem implicitItemIdentifier="NSToolbarFlexibleSpaceItem" id="237"/>
@@ -572,9 +572,9 @@ ssh://[id@]your.site.org[:port]</string>
                 </allowedToolbarItems>
                 <defaultToolbarItems>
                     <toolbarItem reference="418"/>
-                    <toolbarItem reference="422"/>
                     <toolbarItem reference="419"/>
                     <toolbarItem reference="257"/>
+                    <toolbarItem reference="422"/>
                     <toolbarItem reference="831"/>
                     <toolbarItem reference="1129"/>
                     <toolbarItem reference="1194"/>
@@ -609,7 +609,7 @@ ssh://[id@]your.site.org[:port]</string>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES"/>
                         <clipView key="contentView" drawsBackground="NO" copiesOnScroll="NO" id="ab3-Le-rLU">
                             <rect key="frame" x="0.0" y="0.0" width="234" height="425"/>
-                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                            <autoresizingMask key="autoresizingMask"/>
                             <subviews>
                                 <textView editable="NO" selectable="NO" drawsBackground="NO" importsGraphics="NO" horizontallyResizable="YES" verticallyResizable="YES" findStyle="panel" continuousSpellChecking="YES" usesRuler="YES" spellingCorrection="YES" smartInsertDelete="YES" id="1095">
                                     <rect key="frame" x="0.0" y="0.0" width="234" height="425"/>

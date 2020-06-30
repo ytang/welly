@@ -86,8 +86,8 @@
 /* Class = "NSTextField"; ibShadowedToolTip = "[telnet://][id@]your.site.org[:port]\nssh://[id@]your.site.org[:port]"; ObjectID = "255"; */
 "255.ibShadowedToolTip" = "[telnet://][id@]your.site.org[:port]\nssh://[id@]your.site.org[:port]";
 
-/* Class = "NSTextFieldCell"; placeholderString = "Site Address"; ObjectID = "256"; */
-"256.placeholderString" = "请输入站点地址";
+/* Class = "NSTextFieldCell"; placeholderString = "Site address, e.g., ssh://id@your.site.org"; ObjectID = "256"; */
+"256.placeholderString" = "请输入站点地址，例如 ssh://id@your.site.org";
 
 /* Class = "NSToolbarItem"; label = "Address"; ObjectID = "257"; */
 "257.label" = "地址";
@@ -147,10 +147,10 @@
 "418.paletteLabel" = "地址簿";
 
 /* Class = "NSToolbarItem"; label = "Add"; ObjectID = "419"; */
-"419.label" = "加入地址簿";
+"419.label" = "收藏站点";
 
 /* Class = "NSToolbarItem"; paletteLabel = "Add"; ObjectID = "419"; */
-"419.paletteLabel" = "加入地址簿";
+"419.paletteLabel" = "收藏站点";
 
 /* Class = "NSToolbarItem"; label = "Connect"; ObjectID = "422"; */
 "422.label" = "连接";

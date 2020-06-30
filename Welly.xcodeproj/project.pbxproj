@@ -504,12 +504,12 @@
 		9C76A2DD1F42B8D30044F830 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				10387C5A24A9AB4000415663 /* dbclient */,
 				9CC8E72B1F42C06600737A3E /* Xib Files */,
 				9CC8E70A1F42BD2600737A3E /* Images */,
 				9CC8E71F1F42BF8F00737A3E /* Plists */,
 				9CC8E7201F42C00500737A3E /* Strings */,
 				9C92088A1F42DFBF00A456D0 /* Credits.rtf */,
+				10387C5A24A9AB4000415663 /* dbclient */,
 				9C92088B1F42DFBF00A456D0 /* QQWry.dat */,
 				9C92088D1F42DFBF00A456D0 /* Whit.aiff */,
 				9CC8E7291F42C02C00737A3E /* Help */,
@@ -944,7 +944,7 @@
 				CODE_SIGN_ENTITLEMENTS = Welly/Welly.entitlements;
 				CODE_SIGN_IDENTITY = "-";
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 869;
+				CURRENT_PROJECT_VERSION = 871;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Welly/Frameworks",
@@ -966,7 +966,7 @@
 				CODE_SIGN_ENTITLEMENTS = Welly/Welly.entitlements;
 				CODE_SIGN_IDENTITY = "-";
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 869;
+				CURRENT_PROJECT_VERSION = 871;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Welly/Frameworks",
