@@ -4,6 +4,6 @@ title: "Support"
 permalink: /issues/
 ---
 
-# Support
+## Support
 
 If you need any support, please [create an issue](https://github.com/ytang/welly/issues).

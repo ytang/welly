@@ -43,7 +43,7 @@ Compared with generic terminal emulators, Welly has many features specially desi
 
 We fully respect your privacy. All your data, such as your passwords, bookmarks, and emoticons, are stored locally. Welly, as a BBS client, does not collect any information. However, if you use Welly to connect to a BBS site, you are subject to that BBS site's privacy policy.
 
-# Support
+## Support
 
 If you need any support, please [create an issue](https://github.com/ytang/welly/issues).
 
