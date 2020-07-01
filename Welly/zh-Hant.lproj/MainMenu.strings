@@ -228,19 +228,19 @@
 "883.title" = "剪下";
 
 /* Class = "NSButtonCell"; title = "Re:"; ObjectID = "971"; */
-"971.title" = "回";
+"971.title" = "答";
 
 /* Class = "NSToolbarItem"; label = "Auto Reply"; ObjectID = "972"; */
-"972.label" = "自動回復";
+"972.label" = "自動應答";
 
 /* Class = "NSToolbarItem"; paletteLabel = "Auto Reply"; ObjectID = "972"; */
-"972.paletteLabel" = "自動回復";
+"972.paletteLabel" = "自動應答";
 
 /* Class = "NSMenuItem"; ibShadowedToolTip = "Enable/disable auto reply for current site"; ObjectID = "976"; */
-"976.ibShadowedToolTip" = "開啓或關閉目前站台的自動回復功能";
+"976.ibShadowedToolTip" = "開啓或關閉目前站台的自動應答功能";
 
 /* Class = "NSMenuItem"; title = "Auto Reply"; ObjectID = "976"; */
-"976.title" = "自動回復";
+"976.title" = "自動應答";
 
 /* Class = "NSWindow"; title = "Message Window"; ObjectID = "1089"; */
 "1089.title" = "訊息視窗";
