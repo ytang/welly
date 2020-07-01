@@ -1,0 +1,44 @@
+# Welly
+
+Welly is a client for terminal BBS (Bulletin Board Systems), such as MITBBS, NewSMTH, and PTT. It supports both Telnet and SSH.
+
+Compared with generic terminal emulators, Welly has many features specially designed for BBS.
+
+## Features
+
+### Browsing
+
+- You can browse the BBS using the mouse or the touchpad with gestures.
+- You can select and copy the text in normal mode or rectangle mode.
+- You can take a screenshot of the current page, or download articles in full text.
+- You can customize fonts for English and Chinese separately. You can also choose your color palette.
+- Welly has anti-idle support so that you won't be logged out due to inactivity.
+- Welly supports macOS native full-screen mode.
+- Welly can show hidden texts, such as black text on a black background.
+- Welly can tell you where an IP address resides.
+
+### Composing
+
+- You can write articles in rich text, which supports colors, spell-checking, and undo/redo operations.
+- If you paste some rich text, Welly can automatically wrap long lines or convert the colors to ANSI escape sequences, so you don't have to memorize them.
+- Welly can warn you if you accidentally hit "paste" while not in the composing screen.
+- You can save and reuse your favorite emoticons.
+
+### Attachments
+
+- You can preview images within Welly, which also shows the EXIF information.
+- You can open attachments and URLs using keyboard shortcuts.
+
+### In-BBS messaging
+
+- Welly notifies you about incoming messages in the macOS notification center.
+- Welly can automatically reply to messages while you are idle.
+
+### Connections
+
+- You can save your password for automatic login.
+- You can use HTTP, HTTPS, or SOCKS proxy servers.
+
+## Note
+
+Welly is a third-party client that conforms to standard network protocols. Welly is not related to any BBS site.
