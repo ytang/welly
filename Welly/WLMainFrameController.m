@@ -554,18 +554,12 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(WLMainFrameController)
     [NSApp replyToApplicationShouldTerminate:(returnCode == NSAlertDefaultReturn)];
 }
 
+- (BOOL)applicationShouldTerminateAfterLastWindowClosed:(NSApplication *)sender {
+    return YES;
+}
+
 #pragma mark -
 #pragma mark Window Delegation
-- (BOOL)windowShouldClose:(id)window {
-    [_mainWindow orderOut:self];
-    return NO;
-}
-
-- (void)windowWillClose:(id)window {
-    // [NSApp terminate: self];
-    //return NO;
-}
-
 - (void)windowDidBecomeKey:(NSNotification *)notification {
     // TODO:[_telnetView deactivateMouseForKeying];
     _closeWindowMenuItem.keyEquivalentModifierMask = NSCommandKeyMask|NSShiftKeyMask;
