@@ -39,6 +39,11 @@ Compared with generic terminal emulators, Welly has many features specially desi
 - You can save your password for automatic login.
 - You can use HTTP, HTTPS, or SOCKS proxy servers.
 
+## Privacy Policy
+
+We fully respect your privacy. All your data, such as your passwords, bookmarks, and emoticons, are stored locally. Welly, as a BBS client, does not collect any information. However, if you use Welly to connect to a BBS server, you are subject to that BBS server's privacy policy.
+
 ## Note
 
 Welly is a third-party client that conforms to standard network protocols. Welly is not related to any BBS site.
+
