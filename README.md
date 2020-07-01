@@ -1,5 +1,3 @@
-# Welly
-
 Welly is a client for terminal BBS (Bulletin Board Systems), such as MITBBS, NewSMTH, and PTT. It supports both Telnet and SSH.
 
 Compared with generic terminal emulators, Welly has many features specially designed for BBS.
