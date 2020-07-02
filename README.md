@@ -10,6 +10,7 @@ Compared with generic terminal emulators, Welly has many features specially desi
 - You can select and copy the text in normal mode or rectangle mode.
 - You can take a screenshot of the current page, or download articles in full text.
 - You can customize fonts for English and Chinese separately. You can also choose your color palette.
+- Welly renders fonts smoothly and seamlessly for ASCII art.
 - Welly has anti-idle support so that you won't be logged out due to inactivity.
 - Welly supports macOS native full-screen mode.
 - Welly can show hidden texts, such as black text on a black background.
