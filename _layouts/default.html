@@ -22,6 +22,10 @@
     <![endif]-->
   </head>
   <body>
+    {% if site.github.is_project_page %}
+    <a href="{{ site.github.repository_url }}"><img width="149" height="149" src="https://github.blog/wp-content/uploads/2008/12/forkme_right_darkblue_121621.png?resize=149%2C149" class="attachment-full size-full" alt="Fork me on GitHub" data-recalc-dims="1"></a>
+    {% endif %}
+
     <div class="wrapper">
       <header>
         <h1><a href="{{ "/" | absolute_url }}">{{ site.title | default: site.github.repository_name }}</a></h1>
@@ -35,7 +39,7 @@
         <p><a href="https://apps.apple.com/us/app/id1521402269"><img src="/badge.svg" alt="Download on the Mac App Store" /></a></p>
 
         {% if site.github.is_project_page %}
-        <p class="view"><a href="{{ site.github.repository_url }}"><img width="149" height="149" src="https://github.blog/wp-content/uploads/2008/12/forkme_right_darkblue_121621.png?resize=149%2C149" class="attachment-full size-full" alt="Fork me on GitHub" data-recalc-dims="1"></a></p>
+        <a href="{{ site.github.repository_url }}"><img width="149" height="149" src="https://github.blog/wp-content/uploads/2008/12/forkme_right_darkblue_121621.png?resize=149%2C149" class="attachment-full size-full" alt="Fork me on GitHub" data-recalc-dims="1"></a>
         {% endif %}
 
         {% if site.github.is_user_page %}
@@ -50,7 +54,7 @@
         </ul>
         {% endif %}
 
-        <p><a href="/">English</a>&ensp;<a href="/zh-Hans">简体中文</a>&ensp;<a href="/zh-Hant">繁體中文</a></p>
+        <p><a href="/">English</a>&emsp;<a href="/zh-Hans">简体中文</a>&emsp;<a href="/zh-Hant">繁體中文</a></p>
       </header>
       <section>
 
