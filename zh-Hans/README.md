@@ -38,6 +38,4 @@ Welly 是一个支持 Telnet 和 SSH 的 BBS 终端，用于浏览未名空间�
 
 注：Welly 是遵循标准网络协议的第三方客户端，与任何 BBS 站点均无关联。
 
-[隐私政策](https://wellybbs.com/privacy)
-
-[App 支持](https://wellybbs.com/support)
+[隐私政策](https://wellybbs.com/privacy)&emsp;[App 支持](https://wellybbs.com/support)

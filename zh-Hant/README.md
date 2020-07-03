@@ -38,6 +38,4 @@ Welly 是一個支援 Telnet 和 SSH 的 BBS 用戶端程式，用於瀏覽批�
 
 注：Welly 是遵循標準網路協定的第三方用戶端，與任何 BBS 站點均無關聯。
 
-[隱私權政策](https://wellybbs.com/privacy)
-
-[App 支援](https://wellybbs.com/support)
+[隱私權政策](https://wellybbs.com/privacy)&emsp;[App 支援](https://wellybbs.com/support)
