@@ -1,5 +1,7 @@
 ---
 layout: default-tc
+title: "Welly"
+permalink: /zh-Hant/
 ---
 
 Welly 是一個支援 Telnet 和 SSH 的 BBS 用戶端程式，用於瀏覽批踢踢實業坊、未名空間、水木社區等電子佈告欄系統。

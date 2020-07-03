@@ -1,5 +1,7 @@
 ---
 layout: default-sc
+title: "Welly"
+permalink: /zh-Hans/
 ---
 
 Welly 是一个支持 Telnet 和 SSH 的 BBS 终端，用于浏览未名空间、水木社区、批踢踢等论坛。
