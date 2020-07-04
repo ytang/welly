@@ -36,7 +36,7 @@
 "42.title" = "站名：";
 
 /* Class = "NSTextFieldCell"; title = "ANSI Color Key:"; ObjectID = "44"; */
-"44.title" = "ANSI 色彩控制码";
+"44.title" = "ANSI 色彩控制码：";
 
 /* Class = "NSTextFieldCell"; title = "Address:"; ObjectID = "46"; */
 "46.title" = "地址：";
