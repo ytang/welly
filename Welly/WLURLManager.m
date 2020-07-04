@@ -79,14 +79,12 @@ NSString *const WLMenuTitleOpenWithBrowser = @"Open With Browser";
         if (_isReadingURL) {
             // Push current char in!
             unsigned char c = _grid[_index/_maxColumn][_index%_maxColumn].byte;
-            // ']' is a legal url char actually, but it is seldom used
-            // Most of time, it is something like [http://someurl] so we just ignore the ']'
-            if (0x21 > c || c > 0x7E || c == '"' || c == '\'' || c == ']') {
+            if (0x21 > c || c > 0x7E || c == '"' || c == '\'') {
                 // Not URL anymore, add previous one
                 [self addURL];
-            } else if (c == '(') {
+            } else if (c == '(' || c == '[') {
                 ++par;
-            } else if (c == ')') {
+            } else if (c == ')' || c == ']') {
                 if (--par < 0) {
                     // Not URL anymore, add previous one
                     [self addURL];
