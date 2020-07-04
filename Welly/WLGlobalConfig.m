@@ -18,6 +18,7 @@ NSString *const WLRestoreConnectionKeyName = @"RestoreConnection";
 NSString *const WLCommandRHotkeyEnabledKeyName = @"CommandRHotkey";
 NSString *const WLConfirmOnCloseEnabledKeyName = @"ConfirmOnClose";
 NSString *const WLSafePasteEnabledKeyName = @"SafePaste";
+NSString *const WLMouseEnabledKeyName = @"EnableMouse";
 
 const CGFloat WLDefaultCellWidth = 12;
 const CGFloat WLDefaultCellHeight = 24;
@@ -69,10 +70,22 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(WLGlobalConfig)
     if (self) {
         NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
         
+        // aqua: why not enable these settings by default?
+        if ([defaults objectForKey:WLRestoreConnectionKeyName] == nil)
+            [defaults setBool:YES forKey:WLRestoreConnectionKeyName];
+        if ([defaults objectForKey:WLCommandRHotkeyEnabledKeyName] == nil)
+            [defaults setBool:YES forKey:WLCommandRHotkeyEnabledKeyName];
+        if ([defaults objectForKey:WLConfirmOnCloseEnabledKeyName] == nil)
+            [defaults setBool:YES forKey:WLConfirmOnCloseEnabledKeyName];
+        if ([defaults objectForKey:WLSafePasteEnabledKeyName] == nil)
+            [defaults setBool:YES forKey:WLSafePasteEnabledKeyName];
+        if ([defaults objectForKey:WLMouseEnabledKeyName] == nil)
+            [defaults setBool:YES forKey:WLMouseEnabledKeyName];
+
         self.showsHiddenText = [defaults boolForKey:@"ShowHiddenText"];
         self.shouldSmoothFonts = [defaults boolForKey:@"ShouldSmoothFonts"];
         self.shouldDetectDoubleByte = [defaults boolForKey:@"DetectDoubleByte"];
-        self.shouldEnableMouse = [defaults boolForKey:@"EnableMouse"];
+        self.shouldEnableMouse = [defaults boolForKey:WLMouseEnabledKeyName];
         self.defaultEncoding = (WLEncoding) [defaults integerForKey:@"DefaultEncoding"];
         self.defaultANSIColorKey = (YLANSIColorKey) [defaults integerForKey:@"DefaultANSIColorKey"];
         self.shouldRepeatBounce = [defaults boolForKey:@"RepeatBounce"];
@@ -150,16 +163,6 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(WLGlobalConfig)
         
         [defaults synchronize];
         [self refreshFont];
-        
-        // aqua: why not enable these settings by default?
-        if ([defaults objectForKey:WLRestoreConnectionKeyName] == nil)
-            [defaults setBool:YES forKey:WLRestoreConnectionKeyName];
-        if ([defaults objectForKey:WLCommandRHotkeyEnabledKeyName] == nil)
-            [defaults setBool:YES forKey:WLCommandRHotkeyEnabledKeyName];
-        if ([defaults objectForKey:WLConfirmOnCloseEnabledKeyName] == nil)
-            [defaults setBool:YES forKey:WLConfirmOnCloseEnabledKeyName];
-        if ([defaults objectForKey:WLSafePasteEnabledKeyName] == nil)
-            [defaults setBool:YES forKey:WLSafePasteEnabledKeyName];
         
         // Initialize Cache
         [WLGlobalConfig initializeCache];
@@ -286,7 +289,7 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(WLGlobalConfig)
 
 - (void)setShouldEnableMouse:(BOOL)value {
     _shouldEnableMouse = value;
-    [[NSUserDefaults standardUserDefaults] setBool:value forKey:@"EnableMouse"];
+    [[NSUserDefaults standardUserDefaults] setBool:value forKey:WLMouseEnabledKeyName];
 }
 
 - (void)setDefaultEncoding:(WLEncoding)value {

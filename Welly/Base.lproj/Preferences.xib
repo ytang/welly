@@ -682,20 +682,11 @@
             <point key="canvasLocation" x="140" y="669"/>
         </customView>
         <customView id="NOz-gS-DgR" userLabel="Connection">
-            <rect key="frame" x="0.0" y="0.0" width="466" height="253"/>
+            <rect key="frame" x="0.0" y="0.0" width="466" height="226"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
             <subviews>
-                <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" setsMaxLayoutWidthAtFirstLayout="YES" translatesAutoresizingMaskIntoConstraints="NO" id="uLO-GF-hW4">
-                    <rect key="frame" x="46" y="203" width="402" height="37"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                    <textFieldCell key="cell" controlSize="small" sendsActionOnEndEditing="YES" title="Connections which are not configured in Sites Panel will use these default settings." id="xAe-Lm-abT">
-                        <font key="font" metaFont="smallSystem"/>
-                        <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
-                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                    </textFieldCell>
-                </textField>
                 <button fixedFrame="YES" imageHugsTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="OZr-QO-7Xy">
-                    <rect key="frame" x="46" y="44" width="402" height="26"/>
+                    <rect key="frame" x="46" y="19" width="400" height="26"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <buttonCell key="cell" type="check" title="Bounce icon in the Dock repeatedly when receiving bell" bezelStyle="regularSquare" imagePosition="left" alignment="left" state="on" inset="2" id="do7-Dv-vsQ">
                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -706,7 +697,7 @@
                     </connections>
                 </button>
                 <textField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="pZw-7d-gy6">
-                    <rect key="frame" x="46" y="132" width="152" height="17"/>
+                    <rect key="frame" x="46" y="115" width="152" height="17"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <textFieldCell key="cell" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Default ANSI Color Key:" id="ANZ-2p-Fh9">
                         <font key="font" metaFont="system"/>
@@ -715,7 +706,7 @@
                     </textFieldCell>
                 </textField>
                 <popUpButton verticalHuggingPriority="750" fixedFrame="YES" imageHugsTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="FPS-BE-8W8">
-                    <rect key="frame" x="208" y="126" width="140" height="26"/>
+                    <rect key="frame" x="208" y="109" width="140" height="26"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <popUpButtonCell key="cell" type="push" title="Esc + Esc" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" inset="2" selectedItem="awQ-6t-CLP" id="1tF-vX-Htz">
                         <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
@@ -732,7 +723,7 @@
                     </connections>
                 </popUpButton>
                 <button fixedFrame="YES" imageHugsTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="2S0-e9-zeF">
-                    <rect key="frame" x="46" y="80" width="401" height="26"/>
+                    <rect key="frame" x="46" y="49" width="400" height="26"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <buttonCell key="cell" type="check" title="Programatically Detect Double Byte" bezelStyle="regularSquare" imagePosition="left" alignment="left" state="on" inset="2" id="J4v-MX-Yp0">
                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -743,7 +734,7 @@
                     </connections>
                 </button>
                 <textField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Ydd-Mc-d4G">
-                    <rect key="frame" x="82" y="172" width="116" height="17"/>
+                    <rect key="frame" x="82" y="145" width="116" height="17"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <textFieldCell key="cell" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Default Encoding:" id="1ls-A5-ttR">
                         <font key="font" metaFont="system"/>
@@ -752,7 +743,7 @@
                     </textFieldCell>
                 </textField>
                 <popUpButton verticalHuggingPriority="750" fixedFrame="YES" imageHugsTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Wqa-ei-KEf">
-                    <rect key="frame" x="208" y="166" width="140" height="26"/>
+                    <rect key="frame" x="208" y="139" width="140" height="26"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <popUpButtonCell key="cell" type="push" title="GBK" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" inset="2" selectedItem="Tg5-Pv-aFX" id="jt0-AV-XZ8">
                         <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
@@ -768,8 +759,28 @@
                         <binding destination="RAg-CG-e21" name="selectedIndex" keyPath="defaultEncoding" id="xLV-0O-NAA"/>
                     </connections>
                 </popUpButton>
+                <button fixedFrame="YES" imageHugsTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="3aW-ZX-PAt">
+                    <rect key="frame" x="46" y="79" width="400" height="26"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <buttonCell key="cell" type="check" title="Enable Mouse Browsing" bezelStyle="regularSquare" imagePosition="left" alignment="left" state="on" inset="2" id="aR7-lM-TdE">
+                        <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                        <font key="font" metaFont="system"/>
+                    </buttonCell>
+                    <connections>
+                        <binding destination="RAg-CG-e21" name="value" keyPath="shouldEnableMouse" id="XV1-Hl-mXH"/>
+                    </connections>
+                </button>
+                <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" setsMaxLayoutWidthAtFirstLayout="YES" translatesAutoresizingMaskIntoConstraints="NO" id="uLO-GF-hW4">
+                    <rect key="frame" x="46" y="169" width="402" height="37"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <textFieldCell key="cell" controlSize="small" sendsActionOnEndEditing="YES" title="Connections which are not configured in Sites Panel will use these default settings." id="xAe-Lm-abT">
+                        <font key="font" metaFont="smallSystem"/>
+                        <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                </textField>
             </subviews>
-            <point key="canvasLocation" x="139" y="-211.5"/>
+            <point key="canvasLocation" x="139" y="-225"/>
         </customView>
         <userDefaultsController representsSharedInstance="YES" id="Wx4-VD-wb7" userLabel="Shared User Defaults Controller"/>
         <customObject id="RAg-CG-e21" userLabel="GlobalConfig" customClass="WLGlobalConfig"/>

@@ -80,6 +80,9 @@
 /* Class = "CocoaBindingsConnection"; ibShadowedDisplayPattern = "%{value1}@ - %{value2}@"; ObjectID = "Zog-JT-ycd"; */
 "Zog-JT-ycd.ibShadowedDisplayPattern" = "%{value1}@ - %{value2}@";
 
+/* Class = "NSButtonCell"; title = "Enable Mouse Browsing"; ObjectID = "aR7-lM-TdE"; */
+"aR7-lM-TdE.title" = "启用鼠标浏览";
+
 /* Class = "NSMenuItem"; title = "Esc + Esc"; ObjectID = "awQ-6t-CLP"; */
 "awQ-6t-CLP.title" = "Esc + Esc";
 
