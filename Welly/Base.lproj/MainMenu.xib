@@ -192,6 +192,11 @@
                                     <action selector="toggleShowsHiddenText:" target="207" id="1647"/>
                                 </connections>
                             </menuItem>
+                            <menuItem title="Mouse Browsing" id="NP6-Kb-gZr">
+                                <connections>
+                                    <action selector="toggleMouseAction:" target="207" id="rJE-yN-lc5"/>
+                                </connections>
+                            </menuItem>
                             <menuItem title="Double Bytes Detection" id="488">
                                 <connections>
                                     <action selector="toggleDetectDoubleByte:" target="207" id="1642"/>
@@ -648,6 +653,7 @@ ssh://[id@]your.site.org[:port]</string>
                 <outlet property="_mainWindow" destination="21" id="377"/>
                 <outlet property="_messageWindow" destination="1089" id="1091"/>
                 <outlet property="_mouseButton" destination="1186" id="1190"/>
+                <outlet property="_mouseMenuItem" destination="NP6-Kb-gZr" id="sfC-s3-c7L"/>
                 <outlet property="_showHiddenTextMenuItem" destination="487" id="499"/>
                 <outlet property="_sitesMenu" destination="266" id="1629"/>
                 <outlet property="_tabBarControl" destination="303" id="1659"/>

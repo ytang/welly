@@ -36,7 +36,7 @@
     IBOutlet NSMenuItem *_closeWindowMenuItem;
     IBOutlet NSMenuItem *_closeTabMenuItem;
     IBOutlet NSMenuItem *_autoReplyMenuItem;
-    
+    IBOutlet NSMenuItem *_mouseMenuItem;
     IBOutlet NSMenuItem *_showHiddenTextMenuItem;
     IBOutlet NSMenuItem *_encodingMenuItem;
     

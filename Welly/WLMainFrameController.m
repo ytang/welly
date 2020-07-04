@@ -178,7 +178,7 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(WLMainFrameController)
         [_autoReplyButton setState:site.shouldAutoReply ? NSOnState : NSOffState];
         _autoReplyMenuItem.state = site.shouldAutoReply ? NSOnState : NSOffState;
         [_mouseButton setState:site.shouldEnableMouse ? NSOnState : NSOffState];
-        
+        _mouseMenuItem.state = site.shouldEnableMouse ? NSOnState : NSOffState;
     }
 }
 
@@ -286,6 +286,7 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(WLMainFrameController)
     if ([sender isKindOfClass:[NSMenuItem class]])
         state = !state;
     [_mouseButton setState:(state ? NSOnState : NSOffState)];
+    _mouseMenuItem.state = state ? NSOnState : NSOffState;
     
     _tabView.frontMostConnection.site.shouldEnableMouse = state;
     

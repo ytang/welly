@@ -136,6 +136,7 @@
         [_autoReplyButton setState:CELLSTATE([site shouldAutoReply])];
         [_autoReplyMenuItem setState:CELLSTATE([site shouldAutoReply])];
         [_mouseButton setState:CELLSTATE([site shouldEnableMouse])];
+        [_mouseMenuItem setState:CELLSTATE([site shouldEnableMouse])];
 #undef CELLSTATE
     }
 }
