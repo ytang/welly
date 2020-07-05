@@ -107,12 +107,11 @@
     [_mainWindow setOpaque:NO];
     // Move view back
     _tabView.frame = _originalTabFrame;
-    [_mainWindow setFrame:_originalWindowFrame display:NO];
     _mainWindow.backgroundColor = _originalWindowBackgroundColor;
 }
 
 - (void)windowDidExitFullScreen:(NSNotification *)notification {
-    
+    [_mainWindow setFrame:_originalWindowFrame display:NO];
 }
 
 @end
