@@ -4,7 +4,7 @@ title: "Welly"
 permalink: /zh-Hans/
 ---
 
-Welly 是一个支持 Telnet 和 SSH 的 BBS 终端，用于浏览未名空间、水木社区、批踢踢等论坛。
+Welly 是一个支持 Telnet 和 SSH 的 BBS 终端，用于浏览水木社区、未名空间、批踢踢等论坛。
 
 不同于传统的终端模拟器，Welly 专为 BBS 量身定制，您将会从中体验到前所未有的“灌水”快感。
 
@@ -16,7 +16,7 @@ Welly 是一个支持 Telnet 和 SSH 的 BBS 终端，用于浏览未名空间�
 - 您可以分别设置中文和英文字体，也可以自定义颜色。
 - Welly 为 ASCII 艺术进行了专门优化，实现无缝渲染字体。
 - Welly 提供防发呆功能，可以避免您被 BBS 踢下线。
-- Welly 原生支持 macOS 全屏幕模式。
+- Welly 原生支持 macOS 全屏幕模式和深色模式。
 - Welly 可以显示隐藏文字，例如黑色背景下的黑色文字。
 - Welly 可以显示 IP 地址的所在位置。
 
