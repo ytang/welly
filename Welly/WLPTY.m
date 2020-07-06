@@ -64,7 +64,7 @@
         path = [[NSBundle mainBundle] pathForResource:@"dbclient" ofType:@""];
         if (port == nil)
             port = @"22";
-        fmt = @"%@ -T -p %3$@ -y %2$@";
+        fmt = @"%@ -p %3$@ -T -y -K 59 %2$@";
     } else {
         path = @"/usr/bin/nc";
         if (port == nil)
@@ -147,7 +147,7 @@
         if ([(NSString *)a[0] hasSuffix:@"ssh"]) {
             NSString *proxyCommand = [WLProxy proxyCommandWithAddress:_proxyAddress type:_proxyType];
             if (proxyCommand) {
-                a = [[a arrayByAddingObject:@"-o"] arrayByAddingObject:proxyCommand];
+                a = [[a arrayByAddingObject:@"-J"] arrayByAddingObject:proxyCommand];
             }
         }
         NSInteger n = a.count;
