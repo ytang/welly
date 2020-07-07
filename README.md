@@ -18,7 +18,7 @@ Compared with generic terminal emulators, Welly has many features specially desi
 - You can customize fonts for English and Chinese separately. You can also choose your color palette.
 - Welly renders fonts smoothly and seamlessly for ASCII art.
 - Welly has anti-idle support so that you won't be logged out due to inactivity.
-- Welly supports macOS native full-screen mode.
+- Welly supports macOS native full-screen mode and Dark Mode.
 - Welly can show hidden texts, such as black text on a black background.
 - Welly can tell you where an IP address resides.
 
