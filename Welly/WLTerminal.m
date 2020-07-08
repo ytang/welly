@@ -310,7 +310,7 @@ inline static BOOL hasAnyString(NSString *row, NSArray *array) {
                || hasAnyString(topLine, @[@"主功能表", @"聊天說話", @"個人設定", @"工具程式", @"網路遊樂場", @"白色恐怖"])) {
         //NSLog(@"主选单");
         _bbsState.state = BBSMainMenu;
-    } else if (hasAnyString(topLine, @[@"讨论区列表", @"个人定制区", @"看板列表", @"板板列表"])) {
+    } else if (hasAnyString(topLine, @[@"讨论区列表", @"个人定制区", @"我的讨论区", @"看板列表", @"板板列表"])) {
         //NSLog(@"讨论区列表");
         _bbsState.state = BBSBoardList;
     } else if (hasAnyString(topLine, @[@"好朋友列表", @"使用者列表", @"休閒聊天"])) {
