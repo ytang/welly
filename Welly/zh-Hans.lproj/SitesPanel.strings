@@ -5,8 +5,8 @@
 /* Class = "NSWindow"; title = "Password"; ObjectID = "3"; */
 "3.title" = "密码";
 
-/* Class = "NSTextFieldCell"; title = "Password: (or leave blank to disable auto-login)"; ObjectID = "9"; */
-"9.title" = "要启用自动登录，请输入密码；要停用自动登录，请将输入框留空。";
+/* Class = "NSTextFieldCell"; title = "Enter your password or paste your SSH private key:\n(leave blank to disable auto-login)"; ObjectID = "9"; */
+"9.title" = "要启用自动登录，请输入密码，或者粘贴您的 SSH 私钥；\n要停用自动登录，请将输入框留空。";
 
 /* Class = "NSButtonCell"; title = "OK"; ObjectID = "10"; */
 "10.title" = "确定";
