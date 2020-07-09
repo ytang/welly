@@ -32,7 +32,7 @@
     BOOL _connecting;
 }
 
-+ (NSString *)parse:(NSString *)addr {
++ (NSString *)parse:(NSString *)addr pubkeyAuthentication:(BOOL)pubkeyAuthenticationFlag {
     // trim whitespaces
     addr = [addr stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
     // command, not "URL"
@@ -61,10 +61,18 @@
     NSString *path;
     NSString *fmt;
     if (ssh) {
-        path = [[NSBundle mainBundle] pathForResource:@"dbclient" ofType:@""];
         if (port == nil)
             port = @"22";
-        fmt = @"%@ -p %3$@ -T -y -K 59 %2$@";
+        if (pubkeyAuthenticationFlag) {
+            NSString *tempDir = NSTemporaryDirectory();
+            path = [NSString stringWithFormat:@"/usr/bin/ssh -i %@ -o StrictHostKeyChecking=no -o UserKnownHostsFile=%@",
+                    [tempDir stringByAppendingPathComponent:@"id"],
+                    [tempDir stringByAppendingPathComponent:@"known_hosts"]];
+            fmt = @"%@ -p %3$@ -x %2$@";
+        } else {
+            path = [[NSBundle mainBundle] pathForResource:@"dbclient" ofType:@""];
+            fmt = @"%@ -p %3$@ -T -y %2$@";
+        }
     } else {
         path = @"/usr/bin/nc";
         if (port == nil)
@@ -105,7 +113,7 @@
     }
 }
 
-- (BOOL)connect:(NSString *)addr {
+- (BOOL)connect:(NSString *)addr pubkeyAuthentication:(BOOL)pubkeyAuthenticationFlag {
     char slaveName[PATH_MAX];
     struct termios term;
     struct winsize size;
@@ -143,7 +151,7 @@
     
     _pid = forkpty(&_fd, slaveName, &term, &size);
     if (_pid == 0) { /* child */
-        NSArray *a = [[WLPTY parse:addr] componentsSeparatedByString:@" "];
+        NSArray *a = [[WLPTY parse:addr pubkeyAuthentication:pubkeyAuthenticationFlag] componentsSeparatedByString:@" "];
         if ([(NSString *)a[0] hasSuffix:@"ssh"]) {
             NSString *proxyCommand = [WLProxy proxyCommandWithAddress:_proxyAddress type:_proxyType];
             if (proxyCommand) {

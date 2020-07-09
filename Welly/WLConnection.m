@@ -18,12 +18,9 @@
 #import "WLSite.h"
 #import "WLPTY.h"
 
-@interface WLConnection ()
-- (void)login;
-@end
-
 @implementation WLConnection
 @synthesize terminalFeeder = _feeder;
+NSData *_password;
 
 - (instancetype)initWithSite:(WLSite *)site {
     self = [self init];
@@ -33,13 +30,18 @@
         
         self.site = site;
         if (!site.dummy) {
+            [self findPassword];
+            if ([self hasPrivateKey]) {
+                [self generateIdentityFile];
+            }
+
             // WLPTY as the default protocol (a proxy)
             WLPTY *protocol = [WLPTY new];
             self.protocol = protocol;
             protocol.delegate = self;
             protocol.proxyType = site.proxyType;
             protocol.proxyAddress = site.proxyAddress;
-            [protocol connect:site.address];
+            [protocol connect:site.address pubkeyAuthentication:[self hasPrivateKey]];
         }
         
         // Setup the message delegate
@@ -85,8 +87,12 @@
 - (void)protocolDidConnect:(id)protocol {
     [self setIsProcessing:NO];
     [self setConnected:YES];
-    [NSThread detachNewThreadSelector:@selector(login) toTarget:self withObject:nil];
-    //[self login];
+    if (![self hasPrivateKey]) {
+        // [self login];
+        [NSThread detachNewThreadSelector:@selector(login)
+                                 toTarget:self
+                               withObject:nil];
+    }
 }
 
 - (void)protocolDidRecv:(id)protocol 
@@ -114,7 +120,7 @@
 
 - (void)reconnect {
     [_protocol close];
-    [_protocol connect:_site.address];
+    [_protocol connect:_site.address pubkeyAuthentication:[self hasPrivateKey]];
     [self resetMessageCount];
 }
 
@@ -183,6 +189,39 @@
     }
 }
 
+#pragma mark -
+#pragma mark Auto login
+- (void)findPassword {
+    const char *service = "Welly";
+    const char *account = _site.address.UTF8String;
+    UInt32 len = 0;
+    void *pass = 0;
+    
+    OSStatus status = SecKeychainFindGenericPassword(nil,
+                                                     (UInt32)strlen(service), service,
+                                                     (UInt32)strlen(account), account,
+                                                     &len, &pass,
+                                                     nil);
+    
+    if (status == noErr) {
+        _password = [NSData dataWithBytes:pass length:len];
+        SecKeychainItemFreeContent(nil, pass);
+    } else {
+        _password = nil;
+    }
+}
+
+- (BOOL)hasPrivateKey {
+    // heuristic: assuming the length of a password is <= 60 bytes
+    return _password.length > 60;
+}
+
+- (void)generateIdentityFile {
+    NSString *path = [NSTemporaryDirectory() stringByAppendingPathComponent:@"id"];
+    [_password writeToFile:path atomically:YES];
+    [[NSFileManager defaultManager] setAttributes:@{NSFilePosixPermissions:@0600} ofItemAtPath:path error:nil];
+}
+
 - (void)login {
     @autoreleasepool {
         
@@ -203,24 +242,11 @@
                     [self sendBytes:"\r" length:1];
                 }
             }
-        } else if (_feeder.grid[_feeder.cursorY][_feeder.cursorX - 2].byte == '?') {
-            [self sendBytes:"yes\r" length:4];
-            sleep(1);
         }
-        // send password
-        const char *service = "Welly";
-        UInt32 len = 0;
-        void *pass = 0;
-        
-        OSStatus status = SecKeychainFindGenericPassword(nil,
-                                                         (UInt32)strlen(service), service,
-                                                         (UInt32)strlen(account), account,
-                                                         &len, &pass,
-                                                         nil);
-        if (status == noErr) {
-            [self sendBytes:pass length:len];
+        if (_password) {
+            // send password
+            [self sendMessage:_password];
             [self sendBytes:"\r" length:1];
-            SecKeychainItemFreeContent(nil, pass);
         }
         
     }
