@@ -35,13 +35,24 @@
 + (NSString *)parse:(NSString *)addr pubkeyAuthentication:(BOOL)pubkeyAuthenticationFlag {
     // trim whitespaces
     addr = [addr stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
-    // command, not "URL"
-    if ([addr rangeOfString:@" "].length > 0)
-        return addr;
+    // no longer support raw commands; convert to URL-style addr + options
+    NSMutableString *options = [NSMutableString string];
+    NSRange range = [addr rangeOfString:@" "];
+    if (range.length > 0) {
+        NSArray<NSString *> *components = [addr componentsSeparatedByString:@" "];
+        for (NSUInteger i = 1; i < [components count]; ++i) {
+            NSString *component = [components objectAtIndex:i];
+            // heuristic: if a component has ".", then it's an address, otherwise it's an option
+            if ([component rangeOfString:@"."].length > 0) {
+                addr = [NSString stringWithFormat:@"%@://%@", [components objectAtIndex:0], component];
+            } else if (component.length > 0) {
+                [options appendFormat:@" %@", component];
+            }
+        }
+    }
     // check protocol
     BOOL ssh;
     NSString *port = nil;
-    NSRange range;
     if ([addr.lowercaseString hasPrefix: @"ssh://"]) {
         ssh = YES;
         addr = [addr substringFromIndex:6];
@@ -68,10 +79,10 @@
             path = [NSString stringWithFormat:@"/usr/bin/ssh -i %@ -o StrictHostKeyChecking=no -o UserKnownHostsFile=%@",
                     [tempDir stringByAppendingPathComponent:@"id"],
                     [tempDir stringByAppendingPathComponent:@"known_hosts"]];
-            fmt = @"%@ -p %3$@ -x %2$@";
+            fmt = @"%@%@ -p %4$@ -x %3$@";
         } else {
             path = [[NSBundle mainBundle] pathForResource:@"dbclient" ofType:@""];
-            fmt = @"%@ -p %3$@ -T -y %2$@";
+            fmt = @"%@ -p %4$@ -T -y%2$@ %3$@";
         }
     } else {
         path = @"/usr/bin/nc";
@@ -82,9 +93,9 @@
         if (range.length > 0)
             addr = [addr substringFromIndex:range.location + range.length];
         // "-" before the port number forces the initial option negotiation
-        fmt = @"%@ %@ %@";
+        fmt = @"%@%@ %@ %@";
     }
-    NSString *r = [NSString stringWithFormat:fmt, path, addr, port];
+    NSString *r = [NSString stringWithFormat:fmt, path, options, addr, port];
     return r;
 } 
 
