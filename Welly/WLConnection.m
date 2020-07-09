@@ -87,7 +87,9 @@ NSData *_password;
 - (void)protocolDidConnect:(id)protocol {
     [self setIsProcessing:NO];
     [self setConnected:YES];
-    if (![self hasPrivateKey]) {
+    if ([self hasPrivateKey]) {
+        [self removeIdentityFile];
+    } else {
         // [self login];
         [NSThread detachNewThreadSelector:@selector(login)
                                  toTarget:self
@@ -120,6 +122,9 @@ NSData *_password;
 
 - (void)reconnect {
     [_protocol close];
+    if ([self hasPrivateKey]) {
+        [self generateIdentityFile];
+    }
     [_protocol connect:_site.address pubkeyAuthentication:[self hasPrivateKey]];
     [self resetMessageCount];
 }
@@ -216,10 +221,18 @@ NSData *_password;
     return _password.length > 60;
 }
 
+- (NSString *)identityFile {
+    return [NSTemporaryDirectory() stringByAppendingPathComponent:@"id"];
+}
+
 - (void)generateIdentityFile {
-    NSString *path = [NSTemporaryDirectory() stringByAppendingPathComponent:@"id"];
+    NSString *path = [self identityFile];
     [_password writeToFile:path atomically:YES];
     [[NSFileManager defaultManager] setAttributes:@{NSFilePosixPermissions:@0600} ofItemAtPath:path error:nil];
+}
+
+- (void)removeIdentityFile {
+    [[NSFileManager defaultManager] removeItemAtPath:[self identityFile] error:nil];
 }
 
 - (void)login {
