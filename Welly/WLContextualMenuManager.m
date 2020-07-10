@@ -32,11 +32,17 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(WLContextualMenuManager)
             if (!_openURLItemArray) {
                 NSBundle *mainBundle = [NSBundle mainBundle];
                 NSString *preferredLocalizationName = (NSString *)mainBundle.preferredLocalizations[0];
-                _openURLItemArray = [[NSArray arrayWithContentsOfFile:
-                                      [mainBundle pathForResource:WLOpenURLMenuItemFilename
-                                                           ofType:@"plist"
-                                                      inDirectory:nil
-                                                  forLocalization:preferredLocalizationName]] copy];
+                NSString *path = [mainBundle pathForResource:WLOpenURLMenuItemFilename
+                                                     ofType:@"plist"
+                                                inDirectory:nil
+                                            forLocalization:preferredLocalizationName];
+                if (!path) {
+                    path = [mainBundle pathForResource:WLOpenURLMenuItemFilename
+                                                ofType:@"plist"
+                                           inDirectory:nil
+                                       forLocalization:@"Base"];
+                }
+                _openURLItemArray = [[NSArray arrayWithContentsOfFile:path] copy];
             }
         }
     }

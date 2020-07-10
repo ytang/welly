@@ -6,7 +6,7 @@
 		<key>Title Format</key>
 		<string>Search in Google</string>
 		<key>URL Format</key>
-		<string>http://www.google.com/search?q=%@</string>
+		<string>https://www.google.com/search?q=%@</string>
 	</dict>
 </array>
 </plist>
