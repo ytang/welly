@@ -88,7 +88,10 @@ NSData *_password;
     [self setIsProcessing:NO];
     [self setConnected:YES];
     if ([self hasPrivateKey]) {
-        [self removeIdentityFile];
+        // [self removeIdentityFile];
+        [NSThread detachNewThreadSelector:@selector(removeIdentityFile)
+                                 toTarget:self
+                               withObject:nil];
     } else {
         // [self login];
         [NSThread detachNewThreadSelector:@selector(login)
@@ -232,7 +235,12 @@ NSData *_password;
 }
 
 - (void)removeIdentityFile {
-    [[NSFileManager defaultManager] removeItemAtPath:[self identityFile] error:nil];
+    @autoreleasepool {
+        while (_feeder.cursorY <= 1) {
+            sleep(1);
+        }
+        [[NSFileManager defaultManager] removeItemAtPath:[self identityFile] error:nil];
+    }
 }
 
 - (void)login {
