@@ -166,6 +166,23 @@
         if ([(NSString *)a[0] hasSuffix:@"ssh"]) {
             NSString *proxyCommand = [WLProxy proxyCommandWithAddress:_proxyAddress type:_proxyType];
             if (proxyCommand) {
+                proxyCommand = [@"ProxyCommand=" stringByAppendingString:proxyCommand];
+                a = [[a arrayByAddingObject:@"-o"] arrayByAddingObject:proxyCommand];
+            }
+        } else if ([(NSString *)a[0] hasSuffix:@"dbclient"]) {
+            NSString *proxyCommand = [WLProxy proxyCommandWithAddress:_proxyAddress type:_proxyType];
+            if (proxyCommand) {
+                NSString *addr = [a lastObject];
+                NSRange range = [addr rangeOfString:@"@"];
+                if (range.length > 0) {
+                    addr = [addr substringFromIndex:range.location + range.length];
+                }
+                NSIndexSet *indexes = [a indexesOfObjectsPassingTest:^BOOL(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+                    return [obj isEqual:@"-p"];
+                }];
+                NSString *port = [a objectAtIndex:[indexes lastIndex] + 1];
+                proxyCommand = [proxyCommand stringByReplacingOccurrencesOfString:@"%h" withString:addr];
+                proxyCommand = [proxyCommand stringByReplacingOccurrencesOfString:@"%p" withString:port];
                 a = [[a arrayByAddingObject:@"-J"] arrayByAddingObject:proxyCommand];
             }
         }
