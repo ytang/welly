@@ -236,7 +236,7 @@ NSData *_password;
 
 - (void)removeIdentityFile {
     @autoreleasepool {
-        while (_feeder.cursorY <= 1) {
+        while (_feeder.cursorY <= 3) {
             sleep(1);
         }
         [[NSFileManager defaultManager] removeItemAtPath:[self identityFile] error:nil];
