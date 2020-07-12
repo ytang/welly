@@ -6,7 +6,7 @@
 		</title>
 		<meta name="copyright" content="Copyright (c) 2008 Welly development team. All rights reserved.">
 		<link href="../styles/task.css" rel="stylesheet" media="all">
-		<meta name="keywords" content="BBS, connection, address, format">
+		<meta name="keywords" content="BBS, connection, connect, address, format, SSH, telnet">
 		<meta name="description" content="为什么我无法连接到我想上的 BBS？">
 		<style type="text/css" media="all"><!--
 #mainbox { background-color: #FFF; margin-top: 0px; margin-right: 26px; margin-left: 8px; position: absolute; top: 10px; left: 0px; visibility: visible; display: block }
@@ -122,7 +122,7 @@
 											</p>
 										</td>
 										<td valign="top" width="56%">
-											<p><font face="Lucida Grande,Arial, sans-serif">ssh://[id@]your.site.org[:port]</font></p>
+											<p><font face="Lucida Grande,Arial, sans-serif">ssh[1|2]://[id@]your.site.org[:port]</font></p>
 										</td>
 										<td valign="top" width="8">
 											<p>
@@ -175,6 +175,7 @@
 
 								</table>
 								
+                                <p>请注意，ssh:// 默认使用更为安全的 SSH-2 协议。如果您所访问的 BBS 服务器只支持 SSH-1 协议，您需要将站点地址书写为 ssh1://。</p>
                                 <p>如果您确认地址没有书写错误，那么请您检查您是否设置了<a href="helpTopic12.html">自动登录</a>但存错了密码或 SSH 私钥。</p>
                                 <p>如果以上都没有问题，那么请您检查您的网络连接是否通畅。如果网络连接也是通畅的，那么有可能是 BBS 服务器不在线，我们也无能为力了。</p>
 							</font>
