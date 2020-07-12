@@ -9,7 +9,8 @@
 #import <Cocoa/Cocoa.h>
 
 @protocol WLProtocol
-- (BOOL)connect:(NSString *)addr pubkeyAuthentication:(BOOL)pubkeyAuthenticationFlag;
+- (BOOL)connectWithPubkeyAuthentication:(NSString *)addr;
+- (BOOL)connect:(NSString *)addr withPassword:(NSData *)password;
 - (void)close;
 - (void)recv:(NSData *)data;
 - (void)send:(NSData *)data;

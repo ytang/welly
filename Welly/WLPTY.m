@@ -94,7 +94,7 @@
             path = [NSString stringWithFormat:@"%@ -%d",
                     [[NSBundle mainBundle] pathForResource:@"plink" ofType:@""],
                     version];
-            fmt = @"%@ -P %4$@ -x%2$@ %3$@";
+            fmt = @"%@ -P %4$@ -x -no-antispoof%2$@ %3$@";
         }
     } else {
         path = @"/usr/bin/nc";
@@ -136,7 +136,15 @@
     }
 }
 
-- (BOOL)connect:(NSString *)addr pubkeyAuthentication:(BOOL)pubkeyAuthenticationFlag {
+- (BOOL)connectWithPubkeyAuthentication:(NSString *)addr {
+    return [self connect:addr pubkeyAuthentication:YES withPassword:nil];
+}
+
+- (BOOL)connect:(NSString *)addr withPassword:(NSData *)password {
+    return [self connect:addr pubkeyAuthentication:NO withPassword:password];
+}
+
+- (BOOL)connect:(NSString *)addr pubkeyAuthentication:(BOOL)pubkeyAuthenticationFlag withPassword:(NSData *)password {
     char slaveName[PATH_MAX];
     struct termios term;
     struct winsize size;
@@ -196,6 +204,11 @@
                 proxyCommand = [proxyCommand stringByReplacingOccurrencesOfString:@"%h" withString:addr];
                 proxyCommand = [proxyCommand stringByReplacingOccurrencesOfString:@"%p" withString:port];
                 a = [[a arrayByAddingObject:@"-proxycmd"] arrayByAddingObject:proxyCommand];
+            }
+            if (password) {
+                a = [[a arrayByAddingObject:@"-pw"]
+                     arrayByAddingObject:[[NSString alloc] initWithData:password
+                                                               encoding:NSUTF8StringEncoding]];
             }
         }
         NSInteger n = a.count;

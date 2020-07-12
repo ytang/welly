@@ -31,9 +31,6 @@ NSData *_password;
         self.site = site;
         if (!site.dummy) {
             [self findPassword];
-            if ([self hasPrivateKey]) {
-                [self generateIdentityFile];
-            }
 
             // WLPTY as the default protocol (a proxy)
             WLPTY *protocol = [WLPTY new];
@@ -41,7 +38,7 @@ NSData *_password;
             protocol.delegate = self;
             protocol.proxyType = site.proxyType;
             protocol.proxyAddress = site.proxyAddress;
-            [protocol connect:site.address pubkeyAuthentication:[self hasPrivateKey]];
+            [self connect];
         }
         
         // Setup the message delegate
@@ -92,7 +89,7 @@ NSData *_password;
         [NSThread detachNewThreadSelector:@selector(removeIdentityFile)
                                  toTarget:self
                                withObject:nil];
-    } else {
+    } else if (![_site.address hasPrefix:@"ssh"]) {
         // [self login];
         [NSThread detachNewThreadSelector:@selector(login)
                                  toTarget:self
@@ -125,11 +122,17 @@ NSData *_password;
 
 - (void)reconnect {
     [_protocol close];
+    [self connect];
+    [self resetMessageCount];
+}
+
+- (void)connect {
     if ([self hasPrivateKey]) {
         [self generateIdentityFile];
+        [_protocol connectWithPubkeyAuthentication:_site.address];
+    } else {
+        [_protocol connect:_site.address withPassword:_password];
     }
-    [_protocol connect:_site.address pubkeyAuthentication:[self hasPrivateKey]];
-    [self resetMessageCount];
 }
 
 - (void)sendMessage:(NSData *)msg {
@@ -246,22 +249,19 @@ NSData *_password;
 - (void)login {
     @autoreleasepool {
         
-        NSString *addr = _site.address;
-        const char *account = addr.UTF8String;
+        const char *account = _site.address.UTF8String;
         // telnet; send username
-        if (![addr hasPrefix:@"ssh"]) {
-            char *pe = strchr(account, '@');
-            if (pe) {
-                char *ps = pe;
-                for (; ps >= account; --ps)
-                if (*ps == ' ' || *ps == '/')
-                    break;
-                if (ps != pe) {
-                    while (_feeder.cursorY <= 3)
-                        sleep(1);
-                    [self sendBytes:ps+1 length:pe-ps-1];
-                    [self sendBytes:"\r" length:1];
-                }
+        char *pe = strchr(account, '@');
+        if (pe) {
+            char *ps = pe;
+            for (; ps >= account; --ps)
+            if (*ps == ' ' || *ps == '/')
+                break;
+            if (ps != pe) {
+                while (_feeder.cursorY <= 3)
+                    sleep(1);
+                [self sendBytes:ps+1 length:pe-ps-1];
+                [self sendBytes:"\r" length:1];
             }
         }
         if (_password) {
