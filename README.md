@@ -4,7 +4,7 @@
 
 [English](https://wellybbs.com)&emsp;[简体中文](https://wellybbs.com/zh-Hans)&emsp;[繁體中文](https://wellybbs.com/zh-Hant)
 
-Welly is a client for terminal BBS (Bulletin Board Systems), such as MITBBS, NewSMTH, and PTT. It supports both Telnet and SSH.
+Welly is a client for terminal BBS (Bulletin Board Systems), such as MITBBS, NewSMTH, and PTT. It supports both Telnet and SSH (Version 1 & 2).
 
 Compared with generic terminal emulators, Welly has many features specially designed for BBS.
 
@@ -41,7 +41,7 @@ Compared with generic terminal emulators, Welly has many features specially desi
 
 ### Connections
 
-- You can save your password for automatic login.
+- You can save your password or SSH private key for automatic login.
 - You can use HTTP, HTTPS, or SOCKS proxy servers.
 
 ## Privacy Policy
