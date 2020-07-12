@@ -330,7 +330,7 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(WLMainFrameController)
     BOOL ssh = NO;
     
     NSString *name = [sender stringValue];
-    if ([name.lowercaseString hasPrefix:@"ssh://"]) 
+    if ([name.lowercaseString hasPrefix:@"ssh://"] || [name.lowercaseString hasPrefix:@"ssh1://"]  || [name.lowercaseString hasPrefix:@"ssh2://"])
         ssh = YES;
     // name = [name substringFromIndex: 6];
     if ([name.lowercaseString hasPrefix:@"telnet://"])
@@ -344,7 +344,7 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(WLMainFrameController)
     
     if ([name rangeOfString:@"."].location != NSNotFound) { /* Normal address */        
         for (WLSite *site in sites) 
-            if ([site.address rangeOfString:name].location != NSNotFound && !(ssh ^ [site.address hasPrefix:@"ssh://"])) 
+            if ([site.address rangeOfString:name].location != NSNotFound && !(ssh ^ ([site.address hasPrefix:@"ssh://"] || [site.address hasPrefix:@"ssh1://"] || [site.address hasPrefix:@"ssh2://"])))
                 [matchedSites addObject:site];
         if (matchedSites.count > 0) {
             [matchedSites sortUsingDescriptors:@[[[NSSortDescriptor alloc] initWithKey:@"address.length" ascending:YES]]];

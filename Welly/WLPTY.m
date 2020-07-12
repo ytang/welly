@@ -52,10 +52,20 @@
     }
     // check protocol
     BOOL ssh;
+    int version = 0;
     NSString *port = nil;
     if ([addr.lowercaseString hasPrefix: @"ssh://"]) {
         ssh = YES;
+        version = 2;
         addr = [addr substringFromIndex:6];
+    } else if ([addr.lowercaseString hasPrefix: @"ssh1://"]) {
+        ssh = YES;
+        version = 1;
+        addr = [addr substringFromIndex:7];
+    } else if ([addr.lowercaseString hasPrefix: @"ssh2://"]) {
+        ssh = YES;
+        version = 2;
+        addr = [addr substringFromIndex:7];
     } else {
         ssh = NO;
         range = [addr rangeOfString:@"://"];
@@ -81,8 +91,10 @@
                     [tempDir stringByAppendingPathComponent:@"known_hosts"]];
             fmt = @"%@%@ -p %4$@ -x %3$@";
         } else {
-            path = [[NSBundle mainBundle] pathForResource:@"dbclient" ofType:@""];
-            fmt = @"%@ -p %4$@ -T -y%2$@ %3$@";
+            path = [NSString stringWithFormat:@"%@ -%d",
+                    [[NSBundle mainBundle] pathForResource:@"plink" ofType:@""],
+                    version];
+            fmt = @"%@ -P %4$@ -x%2$@ %3$@";
         }
     } else {
         path = @"/usr/bin/nc";
@@ -169,7 +181,7 @@
                 proxyCommand = [@"ProxyCommand=" stringByAppendingString:proxyCommand];
                 a = [[a arrayByAddingObject:@"-o"] arrayByAddingObject:proxyCommand];
             }
-        } else if ([(NSString *)a[0] hasSuffix:@"dbclient"]) {
+        } else if ([(NSString *)a[0] hasSuffix:@"plink"]) {
             NSString *proxyCommand = [WLProxy proxyCommandWithAddress:_proxyAddress type:_proxyType];
             if (proxyCommand) {
                 NSString *addr = [a lastObject];
@@ -178,12 +190,12 @@
                     addr = [addr substringFromIndex:range.location + range.length];
                 }
                 NSIndexSet *indexes = [a indexesOfObjectsPassingTest:^BOOL(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-                    return [obj isEqual:@"-p"];
+                    return [obj isEqual:@"-P"];
                 }];
                 NSString *port = [a objectAtIndex:[indexes lastIndex] + 1];
                 proxyCommand = [proxyCommand stringByReplacingOccurrencesOfString:@"%h" withString:addr];
                 proxyCommand = [proxyCommand stringByReplacingOccurrencesOfString:@"%p" withString:port];
-                a = [[a arrayByAddingObject:@"-J"] arrayByAddingObject:proxyCommand];
+                a = [[a arrayByAddingObject:@"-proxycmd"] arrayByAddingObject:proxyCommand];
             }
         }
         NSInteger n = a.count;
@@ -191,7 +203,10 @@
         for (int i = 0; i < n; ++i)
         argv[i] = (char *)[a[i] UTF8String];
         argv[n] = NULL;
-        execvp(argv[0], argv);
+        char *envp[2];
+        envp[0] = (char *)[@"PUTTYDIR=" stringByAppendingString:NSTemporaryDirectory()].UTF8String;
+        envp[1] = NULL;
+        execve(argv[0], argv, envp);
         perror(argv[0]);
         sleep(-1); // don't bother
     } else { /* parent */
