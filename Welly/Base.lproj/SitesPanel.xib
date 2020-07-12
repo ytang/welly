@@ -113,7 +113,7 @@ Gw
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <clipView key="contentView" id="MQu-RD-JMS">
                                     <rect key="frame" x="1" y="1" width="112" height="338"/>
-                                    <autoresizingMask key="autoresizingMask"/>
+                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
                                         <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" alternatingRowBackgroundColors="YES" columnSelection="YES" multipleSelection="NO" emptySelection="NO" autosaveColumns="NO" id="70">
                                             <rect key="frame" x="0.0" y="0.0" width="112" height="338"/>
@@ -197,7 +197,7 @@ Gw
                                                         <rect key="frame" x="82" y="280" width="181" height="19"/>
                                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                                                         <string key="toolTip">[telnet://][id@]your.site.org[:port]
-ssh://[id@]your.site.org[:port]</string>
+ssh[1|2]://[id@]your.site.org[:port]</string>
                                                         <textFieldCell key="cell" controlSize="small" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" drawsBackground="YES" id="43">
                                                             <font key="font" metaFont="smallSystem"/>
                                                             <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>

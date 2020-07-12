@@ -429,7 +429,7 @@
                             <rect key="frame" x="0.0" y="14" width="251" height="21"/>
                             <autoresizingMask key="autoresizingMask"/>
                             <string key="toolTip">[telnet://][id@]your.site.org[:port]
-ssh://[id@]your.site.org[:port]</string>
+ssh[1|2]://[id@]your.site.org[:port]</string>
                             <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" state="on" borderStyle="bezel" placeholderString="Site address, e.g., ssh://id@your.site.org" drawsBackground="YES" id="256">
                                 <font key="font" metaFont="system"/>
                                 <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
@@ -612,7 +612,7 @@ ssh://[id@]your.site.org[:port]</string>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES"/>
                         <clipView key="contentView" drawsBackground="NO" copiesOnScroll="NO" id="ab3-Le-rLU">
                             <rect key="frame" x="0.0" y="0.0" width="234" height="425"/>
-                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                            <autoresizingMask key="autoresizingMask"/>
                             <subviews>
                                 <textView editable="NO" selectable="NO" drawsBackground="NO" importsGraphics="NO" horizontallyResizable="YES" verticallyResizable="YES" findStyle="panel" continuousSpellChecking="YES" usesRuler="YES" spellingCorrection="YES" smartInsertDelete="YES" id="1095">
                                     <rect key="frame" x="0.0" y="0.0" width="234" height="425"/>
