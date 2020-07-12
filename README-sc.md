@@ -4,7 +4,7 @@ title: "Welly"
 permalink: /zh-Hans/
 ---
 
-Welly 是一个支持 Telnet 和 SSH 的 BBS 终端，用于浏览水木社区、未名空间、批踢踢等论坛。
+Welly 是一个支持 Telnet 和 SSH (v1 和 v2) 的 BBS 终端，用于浏览水木社区、未名空间、批踢踢等论坛。
 
 不同于传统的终端模拟器，Welly 专为 BBS 量身定制，您将会从中体验到前所未有的“灌水”快感。
 
@@ -39,7 +39,7 @@ Welly 是一个支持 Telnet 和 SSH 的 BBS 终端，用于浏览水木社区�
 
 ### 网络连接
 
-- 您可以保存密码，从而实现自动登录。
+- 您可以保存密码或 SSH 私钥，从而实现自动登录。
 - 您可以使用 HTTP、HTTPS 和 SOCKS 代理服务器。
 
 注：Welly 是遵循标准网络协议的第三方客户端，与任何 BBS 站点均无关联。
