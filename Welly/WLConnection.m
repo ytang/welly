@@ -18,9 +18,11 @@
 #import "WLSite.h"
 #import "WLPTY.h"
 
-@implementation WLConnection
+@implementation WLConnection {
+    NSData *_password;
+}
+
 @synthesize terminalFeeder = _feeder;
-NSData *_password;
 
 - (instancetype)initWithSite:(WLSite *)site {
     self = [self init];
