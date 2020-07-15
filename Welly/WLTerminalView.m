@@ -1331,23 +1331,9 @@ BOOL isEnglishNumberAlphabet(unsigned char c) {
 }
 
 #pragma mark URL drawing
-- (CGImageRef)indicatorImage {
-    if (_urlIndicatorImage == NULL) {
-        NSString *path = [[NSBundle mainBundle] pathForResource:@"indicator"
-                                                         ofType:@"png"];
-        NSURL *imageURL = [NSURL fileURLWithPath:path];
-        CGImageSourceRef src = CGImageSourceCreateWithURL((CFURLRef)imageURL, NULL);
-        if (NULL != src) {
-            _urlIndicatorImage = CGImageSourceCreateImageAtIndex(src, 0, NULL);
-            CFRelease(src);
-        }
-    }
-    return _urlIndicatorImage;
-}
-
 - (void)setupURLIndicatorLayer {
     _urlIndicatorLayer = [CALayer layer];
-    _urlIndicatorLayer.contents = (id)[self indicatorImage];
+    _urlIndicatorLayer.contents = [NSImage imageNamed:@"indicator"];
     _urlIndicatorLayer.frame = CGRectMake(0, 0, 79, 90);
     [self.layer addSublayer:_urlIndicatorLayer];
 }

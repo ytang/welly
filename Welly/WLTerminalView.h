@@ -51,9 +51,7 @@
     CALayer *_buttonLayer;
     
     CALayer *_urlLineLayer;
-    CGImageRef _urlIndicatorImage;
     CALayer *_urlIndicatorLayer;
-    int selectedItemIndex;
     
     CGColorRef _popUpLayerTextColor;
     CGFontRef _popUpLayerTextFont;
