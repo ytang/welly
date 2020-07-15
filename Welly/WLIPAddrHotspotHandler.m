@@ -14,19 +14,18 @@
 #import "WLTerminal.h"
 #import "WLGlobalConfig.h"
 #import "IPSeeker.h"
-#import "WLEffectView.h"
 
 @implementation WLIPAddrHotspotHandler
 #pragma mark -
 #pragma mark Event Handler
 - (void)mouseEntered:(NSEvent *)theEvent {
     if(_view.isMouseActive) {
-        [_view.effectView drawIPAddrBox:theEvent.trackingArea.rect];
+        [_view drawIPAddrBox:theEvent.trackingArea.rect];
     }
 }
 
 - (void)mouseExited:(NSEvent *)theEvent {
-    [_view.effectView clearIPAddrBox];
+    [_view clearIPAddrBox];
 }
 
 #pragma mark -

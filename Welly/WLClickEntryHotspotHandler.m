@@ -8,7 +8,6 @@
 
 #import "WLClickEntryHotspotHandler.h"
 #import "WLMouseBehaviorManager.h"
-#import "WLEffectView.h"
 #import "WLGlobalConfig.h"
 #import "WLMainFrameController.h"
 #import "WLTerminal.h"
@@ -77,13 +76,13 @@ NSString *const WLCommandSequenceSameAuthorReading = @"\025";	// ^U
 - (void)mouseEntered:(NSEvent *)theEvent {
     _manager.activeTrackingAreaUserInfo = theEvent.trackingArea.userInfo;
     if (_view.isMouseActive) {
-        [_view.effectView drawClickEntry:theEvent.trackingArea.rect];
+        [_view drawClickEntry:theEvent.trackingArea.rect];
     }
     [[NSCursor pointingHandCursor] set];
 }
 
 - (void)mouseExited:(NSEvent *)theEvent {
-    [_view.effectView clearClickEntry];
+    [_view clearClickEntry];
     _manager.activeTrackingAreaUserInfo = nil;
     // FIXME: Temporally solve the problem in full screen mode.
     if ([NSCursor currentCursor] == [NSCursor pointingHandCursor])

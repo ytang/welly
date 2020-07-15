@@ -12,7 +12,6 @@
 #import "WLTerminalView.h"
 #import "WLConnection.h"
 #import "WLTerminal.h"
-#import "WLEffectView.h"
 
 #define fbComposePost @"\020"
 #define fbDeletePost @"dy\n"
@@ -83,14 +82,14 @@ NSString *const FBCommandSequenceEnterExcerption = @"x";
     NSDictionary *userInfo = theEvent.trackingArea.userInfo;
     if (_view.isMouseActive) {
         NSString *buttonText = userInfo[WLMouseButtonTextUserInfoName];
-        [_view.effectView drawButton:theEvent.trackingArea.rect withMessage:buttonText];
+        [_view drawButton:theEvent.trackingArea.rect withMessage:buttonText];
     }
     _manager.activeTrackingAreaUserInfo = userInfo;
     [[NSCursor pointingHandCursor] set];
 }
 
 - (void)mouseExited:(NSEvent *)theEvent {
-    [_view.effectView clearButton];
+    [_view clearButton];
     [_manager setActiveTrackingAreaUserInfo:nil];
     // FIXME: Temporally solve the problem in full screen mode.
     if ([NSCursor currentCursor] == [NSCursor pointingHandCursor])

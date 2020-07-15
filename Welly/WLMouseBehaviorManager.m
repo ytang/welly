@@ -19,7 +19,6 @@
 #import "WLTerminal.h"
 #import "WLConnection.h"
 #import "WLSite.h"
-#import "WLEffectView.h"
 
 NSString * const WLMouseHandlerUserInfoName = @"Handler";
 NSString * const WLMouseRowUserInfoName = @"Row";

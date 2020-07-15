@@ -353,14 +353,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="960" height="576"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
-                            <customView wantsLayer="YES" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="1165" customClass="WLEffectView">
-                                <rect key="frame" x="101" y="434" width="163" height="96"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                <connections>
-                                    <outlet property="_mainView" destination="1651" id="1652"/>
-                                </connections>
-                            </customView>
-                            <customView fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="1651" customClass="WLTerminalView">
+                            <customView wantsLayer="YES" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="1651" customClass="WLTerminalView">
                                 <rect key="frame" x="567" y="402" width="163" height="96"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <subviews>
@@ -370,7 +363,6 @@
                                     </customView>
                                 </subviews>
                                 <connections>
-                                    <outlet property="_effectView" destination="1165" id="1653"/>
                                     <outlet property="_textField" destination="227" id="1655"/>
                                 </connections>
                             </customView>

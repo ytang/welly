@@ -10,7 +10,6 @@
 #import "WLMouseBehaviorManager.h"
 #import "WLTerminalView.h"
 #import "WLTerminal.h"
-#import "WLEffectView.h"
 
 NSString *const WLButtonNameAuthorMode = @"Author: %@";
 
@@ -38,14 +37,14 @@ NSString *const WLMenuTitleAddAsFriend = @"Add %@ as friend";
     NSDictionary *userInfo = theEvent.trackingArea.userInfo;
     if (_view.isMouseActive) {
         NSString *buttonTitle = [NSString stringWithFormat:NSLocalizedString(WLButtonNameAuthorMode, @"Mouse Button"), userInfo[WLMouseAuthorUserInfoName]];
-        [_view.effectView drawButton:theEvent.trackingArea.rect withMessage:buttonTitle];
+        [_view drawButton:theEvent.trackingArea.rect withMessage:buttonTitle];
     }
     _manager.activeTrackingAreaUserInfo = userInfo;
     [[NSCursor pointingHandCursor] set];
 }
 
 - (void)mouseExited:(NSEvent *)theEvent {
-    [_view.effectView clearButton];
+    [_view clearButton];
     _manager.activeTrackingAreaUserInfo = nil;
     // FIXME: Temporally solve the problem in full screen mode.
     if ([NSCursor currentCursor] == [NSCursor pointingHandCursor])
