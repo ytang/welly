@@ -13,3 +13,9 @@
 
 /* Class = "NSButtonCell"; title = "Cancel"; ObjectID = "22"; */
 "22.title" = "取消";
+
+/* Class = "NSButtonCell"; title = "Insert"; ObjectID = "3rx-L8-ygM"; */
+"3rx-L8-ygM.title" = "插入";
+
+/* Class = "NSButtonCell"; title = "Cancel"; ObjectID = "NVe-xl-DkI"; */
+"NVe-xl-DkI.title" = "取消";

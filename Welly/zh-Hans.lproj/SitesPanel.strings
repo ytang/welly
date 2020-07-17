@@ -103,3 +103,15 @@
 
 /* Class = "NSButtonCell"; title = "Close"; ObjectID = "76"; */
 "76.title" = "关闭";
+
+/* Class = "NSButtonCell"; title = "Close"; ObjectID = "Z1o-K4-TWm"; */
+"Z1o-K4-TWm.title" = "关闭";
+
+/* Class = "NSButtonCell"; title = "Cancel"; ObjectID = "aKm-II-O5V"; */
+"aKm-II-O5V.title" = "取消";
+
+/* Class = "NSButtonCell"; title = "OK"; ObjectID = "cka-Ln-bCN"; */
+"cka-Ln-bCN.title" = "确定";
+
+/* Class = "NSButtonCell"; title = "Connect"; ObjectID = "idy-23-9zh"; */
+"idy-23-9zh.title" = "连接";

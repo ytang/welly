@@ -99,7 +99,19 @@
 "74.title" = "Text Cell";
 
 /* Class = "NSButtonCell"; title = "Connect"; ObjectID = "75"; */
-"75.title" = "連接";
+"75.title" = "連線";
 
 /* Class = "NSButtonCell"; title = "Close"; ObjectID = "76"; */
 "76.title" = "關閉";
+
+/* Class = "NSButtonCell"; title = "Close"; ObjectID = "Z1o-K4-TWm"; */
+"Z1o-K4-TWm.title" = "關閉";
+
+/* Class = "NSButtonCell"; title = "Cancel"; ObjectID = "aKm-II-O5V"; */
+"aKm-II-O5V.title" = "取消";
+
+/* Class = "NSButtonCell"; title = "OK"; ObjectID = "cka-Ln-bCN"; */
+"cka-Ln-bCN.title" = "確認";
+
+/* Class = "NSButtonCell"; title = "Connect"; ObjectID = "idy-23-9zh"; */
+"idy-23-9zh.title" = "連線";

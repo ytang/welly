@@ -2,8 +2,11 @@
 <document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="17132.0.2" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment identifier="macosx"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaDFRPlugin" version="17006"/>
         <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="17132.0.2"/>
+        <capability name="System colors introduced in macOS 10.14" minToolsVersion="10.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+        <capability name="the Touch Bar" minToolsVersion="8.1" minSystemVersion="10.12.2" requiredIntegratedClassName="NSTouchBar"/>
     </dependencies>
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="WLEmoticonsPanelController">
@@ -32,36 +35,6 @@
                 <rect key="frame" x="0.0" y="0.0" width="413" height="346"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <button verticalHuggingPriority="750" fixedFrame="YES" imageHugsTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="8">
-                        <rect key="frame" x="285" y="3" width="96" height="32"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
-                        <buttonCell key="cell" type="push" title="Insert" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="21">
-                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                            <font key="font" metaFont="system"/>
-                            <string key="keyEquivalent" base64-UTF8="YES">
-DQ
-</string>
-                        </buttonCell>
-                        <connections>
-                            <action selector="inputSelectedEmoticon:" target="-2" id="47"/>
-                            <outlet property="nextKeyView" destination="12" id="35"/>
-                        </connections>
-                    </button>
-                    <button verticalHuggingPriority="750" fixedFrame="YES" imageHugsTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="7">
-                        <rect key="frame" x="189" y="3" width="96" height="32"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
-                        <buttonCell key="cell" type="push" title="Cancel" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="22">
-                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                            <font key="font" metaFont="system"/>
-                            <string key="keyEquivalent" base64-UTF8="YES">
-Gw
-</string>
-                        </buttonCell>
-                        <connections>
-                            <action selector="closeEmoticonsPanel:" target="-2" id="50"/>
-                            <outlet property="nextKeyView" destination="8" id="39"/>
-                        </connections>
-                    </button>
                     <button verticalHuggingPriority="750" fixedFrame="YES" imageHugsTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="6">
                         <rect key="frame" x="34" y="10" width="30" height="24"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
@@ -190,7 +163,108 @@ Gw
                             <real value="250"/>
                         </holdingPriorities>
                     </splitView>
+                    <button verticalHuggingPriority="750" fixedFrame="YES" imageHugsTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="8">
+                        <rect key="frame" x="304" y="4" width="96" height="32"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
+                        <buttonCell key="cell" type="push" title="Insert" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="21">
+                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                            <font key="font" metaFont="system"/>
+                            <string key="keyEquivalent" base64-UTF8="YES">
+DQ
+</string>
+                        </buttonCell>
+                        <connections>
+                            <action selector="inputSelectedEmoticon:" target="-2" id="47"/>
+                            <outlet property="nextKeyView" destination="12" id="35"/>
+                        </connections>
+                    </button>
+                    <button verticalHuggingPriority="750" fixedFrame="YES" imageHugsTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="7">
+                        <rect key="frame" x="208" y="4" width="96" height="32"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
+                        <buttonCell key="cell" type="push" title="Cancel" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="22">
+                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                            <font key="font" metaFont="system"/>
+                            <string key="keyEquivalent" base64-UTF8="YES">
+Gw
+</string>
+                        </buttonCell>
+                        <connections>
+                            <action selector="closeEmoticonsPanel:" target="-2" id="50"/>
+                            <outlet property="nextKeyView" destination="8" id="39"/>
+                        </connections>
+                    </button>
                 </subviews>
+                <touchBar key="touchBar" principalItem="Hih-zZ-OOK" id="9gS-v6-kKP">
+                    <touchBarItems>
+                        <touchBarItemOtherItemsProxy identifier="NSTouchBarItemIdentifierOtherItemsProxy" id="SA0-id-1sI"/>
+                        <touchBarItem id="0ga-ja-Vd0">
+                            <viewController key="viewController" id="XZm-SI-bze">
+                                <button key="view" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Y83-sP-c4u">
+                                    <rect key="frame" x="0.0" y="0.0" width="72" height="30"/>
+                                    <buttonCell key="cell" type="push" bezelStyle="rounded" image="NSTouchBarAddTemplate" imagePosition="only" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="KuQ-GM-gYo">
+                                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                        <font key="font" usesAppearanceFont="YES"/>
+                                    </buttonCell>
+                                    <connections>
+                                        <action selector="add:" target="3" id="OU8-as-IfY"/>
+                                    </connections>
+                                </button>
+                            </viewController>
+                        </touchBarItem>
+                        <touchBarItem id="6SN-aD-4Jp">
+                            <viewController key="viewController" id="gbW-rq-8Ry">
+                                <button key="view" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="VTJ-wm-7YN">
+                                    <rect key="frame" x="0.0" y="0.0" width="72" height="30"/>
+                                    <buttonCell key="cell" type="push" bezelStyle="rounded" image="NSTouchBarRemoveTemplate" imagePosition="only" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="JzX-yn-OYH">
+                                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                        <font key="font" usesAppearanceFont="YES"/>
+                                    </buttonCell>
+                                    <connections>
+                                        <action selector="remove:" target="3" id="VEN-y6-Tuu"/>
+                                    </connections>
+                                </button>
+                            </viewController>
+                        </touchBarItem>
+                        <touchBarGroupItem id="Hih-zZ-OOK">
+                            <touchBar key="groupTouchBar" id="u5p-C9-JD7">
+                                <touchBarItems>
+                                    <touchBarItem id="T8c-lt-zGU">
+                                        <viewController key="viewController" id="ywK-Vd-rG3">
+                                            <button key="view" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="TtD-2J-6Kf">
+                                                <rect key="frame" x="0.0" y="0.0" width="72" height="30"/>
+                                                <buttonCell key="cell" type="push" title="Cancel" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="NVe-xl-DkI">
+                                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                                    <font key="font" usesAppearanceFont="YES"/>
+                                                    <string key="keyEquivalent" base64-UTF8="YES">
+Gw
+</string>
+                                                </buttonCell>
+                                                <connections>
+                                                    <action selector="closeEmoticonsPanel:" target="-2" id="U59-cH-OUF"/>
+                                                </connections>
+                                            </button>
+                                        </viewController>
+                                    </touchBarItem>
+                                    <touchBarItem id="xsR-ee-oba">
+                                        <viewController key="viewController" id="qda-Cd-Z5F">
+                                            <button key="view" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="P8d-fF-pRH">
+                                                <rect key="frame" x="0.0" y="0.0" width="72" height="30"/>
+                                                <buttonCell key="cell" type="push" title="Insert" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="3rx-L8-ygM">
+                                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                                    <font key="font" usesAppearanceFont="YES"/>
+                                                </buttonCell>
+                                                <color key="bezelColor" name="controlAccentColor" catalog="System" colorSpace="catalog"/>
+                                                <connections>
+                                                    <action selector="inputSelectedEmoticon:" target="-2" id="zN7-26-iBn"/>
+                                                </connections>
+                                            </button>
+                                        </viewController>
+                                    </touchBarItem>
+                                </touchBarItems>
+                            </touchBar>
+                        </touchBarGroupItem>
+                    </touchBarItems>
+                </touchBar>
             </view>
             <point key="canvasLocation" x="142" y="150"/>
         </window>
@@ -198,5 +272,7 @@ Gw
     <resources>
         <image name="NSAddTemplate" width="15" height="11"/>
         <image name="NSRemoveTemplate" width="15" height="2"/>
+        <image name="NSTouchBarAddTemplate" width="15" height="11"/>
+        <image name="NSTouchBarRemoveTemplate" width="15" height="2"/>
     </resources>
 </document>

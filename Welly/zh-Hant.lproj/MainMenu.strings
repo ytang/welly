@@ -299,5 +299,8 @@
 /* Class = "NSMenuItem"; title = "Enter Full Screen"; ObjectID = "1665"; */
 "1665.title" = "進入全螢幕";
 
+/* Class = "NSButtonCell"; title = ":-)"; ObjectID = "9zI-6C-77r"; */
+"9zI-6C-77r.title" = "'Д`";
+
 /* Class = "NSMenuItem"; title = "Mouse Browsing"; ObjectID = "NP6-Kb-gZr"; */
 "NP6-Kb-gZr.title" = "滑鼠瀏覽";

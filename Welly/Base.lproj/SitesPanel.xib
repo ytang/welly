@@ -2,8 +2,11 @@
 <document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="17132.0.2" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment identifier="macosx"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaDFRPlugin" version="17006"/>
         <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="17132.0.2"/>
+        <capability name="System colors introduced in macOS 10.14" minToolsVersion="10.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+        <capability name="the Touch Bar" minToolsVersion="8.1" minSystemVersion="10.12.2" requiredIntegratedClassName="NSTouchBar"/>
     </dependencies>
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="WLSitesPanelController">
@@ -422,6 +425,74 @@ ssh[1|2]://[id@]your.site.org[:port]</string>
                         </holdingPriorities>
                     </splitView>
                 </subviews>
+                <touchBar key="touchBar" principalItem="7Ky-3w-mmM" id="l66-DZ-Bxw">
+                    <touchBarItems>
+                        <touchBarItemOtherItemsProxy identifier="NSTouchBarItemIdentifierOtherItemsProxy" id="5KN-Ns-2wN"/>
+                        <touchBarItem id="PpI-n9-hwA">
+                            <viewController key="viewController" id="mcx-9z-6Io">
+                                <button key="view" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="n52-Ik-URs">
+                                    <rect key="frame" x="0.0" y="0.0" width="72" height="30"/>
+                                    <buttonCell key="cell" type="push" bezelStyle="rounded" image="NSTouchBarAddTemplate" imagePosition="only" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="OP4-7U-czf">
+                                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                        <font key="font" usesAppearanceFont="YES"/>
+                                    </buttonCell>
+                                    <connections>
+                                        <action selector="add:" target="1" id="YBM-Oa-ro9"/>
+                                    </connections>
+                                </button>
+                            </viewController>
+                        </touchBarItem>
+                        <touchBarItem id="Hp7-V9-CJa">
+                            <viewController key="viewController" id="jyY-c5-pcD">
+                                <button key="view" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="WC1-34-wX3">
+                                    <rect key="frame" x="0.0" y="0.0" width="72" height="30"/>
+                                    <buttonCell key="cell" type="push" bezelStyle="rounded" image="NSTouchBarRemoveTemplate" imagePosition="only" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="Jav-cQ-bVb">
+                                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                        <font key="font" usesAppearanceFont="YES"/>
+                                    </buttonCell>
+                                    <connections>
+                                        <action selector="remove:" target="1" id="B8Y-NM-m7A"/>
+                                    </connections>
+                                </button>
+                            </viewController>
+                        </touchBarItem>
+                        <touchBarGroupItem id="7Ky-3w-mmM">
+                            <touchBar key="groupTouchBar" id="4PX-gI-evt">
+                                <touchBarItems>
+                                    <touchBarItem id="f9e-js-0bd">
+                                        <viewController key="viewController" id="eRN-Ve-u7X">
+                                            <button key="view" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="ykk-CJ-xcB">
+                                                <rect key="frame" x="0.0" y="0.0" width="72" height="30"/>
+                                                <buttonCell key="cell" type="push" title="Close" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="Z1o-K4-TWm">
+                                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                                    <font key="font" usesAppearanceFont="YES"/>
+                                                </buttonCell>
+                                                <connections>
+                                                    <action selector="closeSitesPanel:" target="-2" id="VcW-XZ-Isx"/>
+                                                </connections>
+                                            </button>
+                                        </viewController>
+                                    </touchBarItem>
+                                    <touchBarItem id="tt0-tb-jCx">
+                                        <viewController key="viewController" id="5QO-yc-Qwr">
+                                            <button key="view" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="dgA-5a-MlF">
+                                                <rect key="frame" x="0.0" y="0.0" width="72" height="30"/>
+                                                <buttonCell key="cell" type="push" title="Connect" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="idy-23-9zh">
+                                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                                    <font key="font" usesAppearanceFont="YES"/>
+                                                </buttonCell>
+                                                <color key="bezelColor" name="controlAccentColor" catalog="System" colorSpace="catalog"/>
+                                                <connections>
+                                                    <action selector="connectSelectedSite:" target="-2" id="FJR-mr-RWQ"/>
+                                                </connections>
+                                            </button>
+                                        </viewController>
+                                    </touchBarItem>
+                                </touchBarItems>
+                            </touchBar>
+                        </touchBarGroupItem>
+                    </touchBarItems>
+                </touchBar>
             </view>
             <connections>
                 <outlet property="initialFirstResponder" destination="70" id="100"/>
@@ -488,6 +559,51 @@ Gw
                         </textFieldCell>
                     </textField>
                 </subviews>
+                <touchBar key="touchBar" principalItem="pMH-Nb-BVh" id="kwN-lB-ahH">
+                    <touchBarItems>
+                        <touchBarGroupItem id="pMH-Nb-BVh">
+                            <touchBar key="groupTouchBar" id="NSY-lg-Sf8">
+                                <touchBarItems>
+                                    <touchBarItem id="6dX-AJ-bXP">
+                                        <viewController key="viewController" id="Uo4-o8-x3M">
+                                            <button key="view" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="H5y-M6-eC7">
+                                                <rect key="frame" x="0.0" y="0.0" width="72" height="30"/>
+                                                <buttonCell key="cell" type="push" title="Cancel" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="aKm-II-O5V">
+                                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                                    <font key="font" usesAppearanceFont="YES"/>
+                                                    <string key="keyEquivalent" base64-UTF8="YES">
+Gw
+</string>
+                                                </buttonCell>
+                                                <connections>
+                                                    <action selector="cancelPassword:" target="-2" id="Bz1-kv-0ec"/>
+                                                </connections>
+                                            </button>
+                                        </viewController>
+                                    </touchBarItem>
+                                    <touchBarItem id="ebN-Ir-cPK">
+                                        <viewController key="viewController" id="IGS-dy-JV3">
+                                            <button key="view" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="NDm-Sf-gc7">
+                                                <rect key="frame" x="0.0" y="0.0" width="72" height="30"/>
+                                                <buttonCell key="cell" type="push" title="OK" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="cka-Ln-bCN">
+                                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                                    <font key="font" usesAppearanceFont="YES"/>
+                                                    <string key="keyEquivalent" base64-UTF8="YES">
+DQ
+</string>
+                                                </buttonCell>
+                                                <color key="bezelColor" name="controlAccentColor" catalog="System" colorSpace="catalog"/>
+                                                <connections>
+                                                    <action selector="confirmPassword:" target="-2" id="JU7-lV-VvG"/>
+                                                </connections>
+                                            </button>
+                                        </viewController>
+                                    </touchBarItem>
+                                </touchBarItems>
+                            </touchBar>
+                        </touchBarGroupItem>
+                    </touchBarItems>
+                </touchBar>
             </view>
             <point key="canvasLocation" x="139" y="164.5"/>
         </window>
@@ -495,6 +611,8 @@ Gw
     <resources>
         <image name="NSAddTemplate" width="15" height="11"/>
         <image name="NSRemoveTemplate" width="15" height="2"/>
+        <image name="NSTouchBarAddTemplate" width="15" height="11"/>
+        <image name="NSTouchBarRemoveTemplate" width="15" height="2"/>
         <image name="password" width="16" height="16"/>
     </resources>
 </document>
