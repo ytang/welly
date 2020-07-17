@@ -118,7 +118,7 @@ NSString *const WLMenuTitleAddAsFriend = @"Add %@ as friend";
     WLTerminal *ds = _view.frontMostTerminal;
     cell *currRow = [ds cellsOfRow:r];
     
-    if (ds.bbsState.state == BBSBrowseBoard || ds.bbsState.state == BBSMailList) {
+    if (ds.bbsState.state == BBSBrowseBoard) {
         // browsing a board
         // header/footer
         if (r < 3 || r == _maxRow - 1)
@@ -193,7 +193,7 @@ NSString *const WLMenuTitleAddAsFriend = @"Add %@ as friend";
     }
     
     BBSState bbsState = _view.frontMostTerminal.bbsState;
-    if (bbsState.state != BBSBrowseBoard && bbsState.state != BBSMailList)
+    if (bbsState.state != BBSBrowseBoard)
         return;
     for (int r = 0; r < _maxRow; ++r) {
         [self updateAuthorAreaForRow:r];

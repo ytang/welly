@@ -37,6 +37,7 @@ NSString *const WLMenuTitleQuitMode = @"Quit Mode";
             || bbsState.state == BBSBrowseBoard
             || bbsState.state == BBSFriendList
             || bbsState.state == BBSMailList
+            || bbsState.state == BBSMentionList
             || bbsState.state == BBSViewPost);
 }
 

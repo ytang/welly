@@ -322,6 +322,9 @@ inline static BOOL hasAnyString(NSString *row, NSArray *array) {
     } else if (hasAnyString(topLine, @[@"邮件选单"])) {
         //NSLog(@"邮件选单");
         _bbsState.state = BBSMailList;
+    } else if (hasAnyString(topLine, @[@"我的文章"])) {
+        //NSLog(@"我的文章");
+        _bbsState.state = BBSMentionList;
     } else if (hasAnyString(topLine, @[@"版主", @"板主", @"诚征版主中", @"徵求中"])) {
         //NSLog(@"版面");
         _bbsState.state = BBSBrowseBoard;

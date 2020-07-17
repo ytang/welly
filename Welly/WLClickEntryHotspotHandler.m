@@ -244,7 +244,7 @@ BOOL isPostTitleStarter(unichar c) {
         int bufLength = 0;
         
         // don't check the first two columns ("●" may be used as cursor)
-        for (int i = 2; i < _maxColumn - 1; ++i) {
+        for (int i = 2; i < _maxColumn; ++i) {
             int db = currRow[i].attr.f.doubleByte;
             if (db == 0) {
                 if (start == -1) {
@@ -434,7 +434,7 @@ BOOL isPostTitleStarter(unichar c) {
     
     // Update
     WLTerminal *ds = _view.frontMostTerminal;
-    if (ds.bbsState.state == BBSBrowseBoard || ds.bbsState.state == BBSMailList) {
+    if (ds.bbsState.state == BBSBrowseBoard || ds.bbsState.state == BBSMailList || ds.bbsState.state == BBSMentionList) {
         [self updatePostClickEntry];
     } else if (ds.bbsState.state == BBSBoardList) {
         [self updateBoardClickEntry];
