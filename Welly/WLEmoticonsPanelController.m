@@ -37,8 +37,13 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(WLEmoticonsPanelController)
 - (instancetype)init {
     if (self = [super init]) {
         @synchronized(self) {
-            if (!_emoticons)
+            if (!_emoticons) {
                 _emoticons = [[NSMutableArray alloc] init];
+                [[NSNotificationCenter defaultCenter] addObserver:self
+                                                         selector:@selector(updateEmoticonTouchBarItem)
+                                                             name:NSTableViewSelectionDidChangeNotification
+                                                           object:_tableView];
+            }
             [self loadNibFile];
         }
     }
@@ -63,6 +68,7 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(WLEmoticonsPanelController)
     // Load Nib file if necessary
     [self loadNibFile];
     [_emoticonsPanel makeKeyAndOrderFront:self];
+    [self updateEmoticonTouchBarItem];
 }
 
 - (IBAction)closeEmoticonsPanel:(id)sender {
@@ -138,4 +144,13 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(WLEmoticonsPanelController)
     [self addEmoticon:emoticon];
 }
 
+#pragma mark -
+#pragma mark Touch Bar
+- (void)updateEmoticonTouchBarItem {
+    NSArray *selectedEmoticons = _emoticonsController.selectedObjects;
+    if (selectedEmoticons.count == 1) {
+        YLEmoticon *emoticon = selectedEmoticons[0];
+        _emoticonTouchBarField.stringValue = emoticon.content;
+    }
+}
 @end

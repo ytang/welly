@@ -11,8 +11,10 @@
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="WLEmoticonsPanelController">
             <connections>
+                <outlet property="_emoticonTouchBarField" destination="0yb-ID-Vi6" id="Mj5-7u-8Db"/>
                 <outlet property="_emoticonsController" destination="3" id="42"/>
                 <outlet property="_emoticonsPanel" destination="2" id="49"/>
+                <outlet property="_tableView" destination="12" id="KmI-xG-LLB"/>
             </connections>
         </customObject>
         <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
@@ -67,11 +69,11 @@
                             <scrollView fixedFrame="YES" autohidesScrollers="YES" horizontalLineScroll="22" horizontalPageScroll="10" verticalLineScroll="22" verticalPageScroll="10" hasHorizontalScroller="NO" usesPredominantAxisScrolling="NO" id="11">
                                 <rect key="frame" x="0.0" y="0.0" width="152" height="299"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxX="YES" heightSizable="YES"/>
-                                <clipView key="contentView" id="KBr-Ui-lTo">
+                                <clipView key="contentView" ambiguous="YES" id="KBr-Ui-lTo">
                                     <rect key="frame" x="1" y="1" width="150" height="297"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
-                                        <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" alternatingRowBackgroundColors="YES" columnSelection="YES" multipleSelection="NO" emptySelection="NO" autosaveColumns="NO" rowHeight="20" id="12">
+                                        <tableView verticalHuggingPriority="750" ambiguous="YES" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" alternatingRowBackgroundColors="YES" columnSelection="YES" multipleSelection="NO" emptySelection="NO" autosaveColumns="NO" rowHeight="20" id="12">
                                             <rect key="frame" x="0.0" y="0.0" width="150" height="297"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <size key="intercellSpacing" width="3" height="2"/>
@@ -223,6 +225,18 @@ Gw
                                         <action selector="remove:" target="3" id="VEN-y6-Tuu"/>
                                     </connections>
                                 </button>
+                            </viewController>
+                        </touchBarItem>
+                        <touchBarItem visibilityPriority="-1000" id="PFh-ky-PZb">
+                            <viewController key="viewController" id="uWW-cT-XrD">
+                                <textField key="view" horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="0yb-ID-Vi6">
+                                    <rect key="frame" x="0.0" y="0.0" width="70" height="18"/>
+                                    <textFieldCell key="cell" lineBreakMode="clipping" title="Emoticon" id="CO4-9i-vPR">
+                                        <font key="font" usesAppearanceFont="YES"/>
+                                        <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                        <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                    </textFieldCell>
+                                </textField>
                             </viewController>
                         </touchBarItem>
                         <touchBarGroupItem id="Hih-zZ-OOK">

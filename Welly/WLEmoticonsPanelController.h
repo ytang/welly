@@ -10,9 +10,13 @@
 
 @interface WLEmoticonsPanelController : NSObject {
     IBOutlet NSPanel *_emoticonsPanel;
+    IBOutlet NSTableView *_tableView;
     IBOutlet NSArrayController *_emoticonsController;
     
     NSMutableArray *_emoticons;
+    
+    /* Touch Bar Outlets */
+    IBOutlet NSTextField *_emoticonTouchBarField;
 }
 @property (readonly) NSArray *emoticons;
 + (WLEmoticonsPanelController *)sharedInstance;
