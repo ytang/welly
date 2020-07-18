@@ -17,6 +17,7 @@
                 <outlet property="_proxyTypeButton" destination="28" id="119"/>
                 <outlet property="_siteAddressField" destination="36" id="120"/>
                 <outlet property="_siteNameField" destination="34" id="121"/>
+                <outlet property="_siteNameTouchBarField" destination="ISR-pa-irJ" id="u4i-r1-Fuh"/>
                 <outlet property="_sitesController" destination="1" id="108"/>
                 <outlet property="_sitesPanel" destination="2" id="124"/>
                 <outlet property="_tableView" destination="70" id="122"/>
@@ -456,6 +457,18 @@ ssh[1|2]://[id@]your.site.org[:port]</string>
                                 </button>
                             </viewController>
                         </touchBarItem>
+                        <touchBarItem visibilityPriority="-1000" id="V9w-vd-ybF">
+                            <viewController key="viewController" id="2wv-Zb-Lm9">
+                                <textField key="view" horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="ISR-pa-irJ">
+                                    <rect key="frame" x="0.0" y="0.0" width="32" height="18"/>
+                                    <textFieldCell key="cell" lineBreakMode="clipping" title="Site" id="x98-Rb-VAJ">
+                                        <font key="font" usesAppearanceFont="YES"/>
+                                        <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                        <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                    </textFieldCell>
+                                </textField>
+                            </viewController>
+                        </touchBarItem>
                         <touchBarGroupItem id="7Ky-3w-mmM">
                             <touchBar key="groupTouchBar" id="4PX-gI-evt">
                                 <touchBarItems>
@@ -568,6 +581,7 @@ Gw
                                         <viewController key="viewController" id="Uo4-o8-x3M">
                                             <button key="view" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="H5y-M6-eC7">
                                                 <rect key="frame" x="0.0" y="0.0" width="72" height="30"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                 <buttonCell key="cell" type="push" title="Cancel" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="aKm-II-O5V">
                                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                                     <font key="font" usesAppearanceFont="YES"/>
@@ -585,6 +599,7 @@ Gw
                                         <viewController key="viewController" id="IGS-dy-JV3">
                                             <button key="view" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="NDm-Sf-gc7">
                                                 <rect key="frame" x="0.0" y="0.0" width="72" height="30"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                 <buttonCell key="cell" type="push" title="OK" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="cka-Ln-bCN">
                                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                                     <font key="font" usesAppearanceFont="YES"/>

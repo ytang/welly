@@ -44,6 +44,10 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(WLSitesPanelController)
             if (!_sites) {
                 _sites = [[NSMutableArray alloc] init];
                 [self loadSites];
+                [[NSNotificationCenter defaultCenter] addObserver:self
+                                                         selector:@selector(updateSiteNameTouchBarField)
+                                                             name:NSTableViewSelectionDidChangeNotification
+                                                           object:_tableView];
             }
         }
     }
@@ -87,7 +91,8 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(WLSitesPanelController)
         modalDelegate:nil
        didEndSelector:NULL
           contextInfo:nil];
-    [_sitesPanel setLevel:floatWindowLevel];	
+    [_sitesPanel setLevel:floatWindowLevel];
+    [self updateSiteNameTouchBarField];
 }
 
 - (void)openSitesPanelInWindow:(NSWindow *)mainWindow 
@@ -255,5 +260,15 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(WLSitesPanelController)
 - (void)replaceObjectInSitesAtIndex:(NSUInteger)index 
                          withObject:(id)anObject {
     _sites[index] = anObject;
+}
+
+#pragma mark -
+#pragma mark Touch Bar
+- (void)updateSiteNameTouchBarField {
+    NSArray *selectedSites = _sitesController.selectedObjects;
+    if (selectedSites.count == 1) {
+        WLSite *site = selectedSites[0];
+        _siteNameTouchBarField.stringValue = site.name;
+    }
 }
 @end

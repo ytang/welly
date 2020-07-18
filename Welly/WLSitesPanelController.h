@@ -28,6 +28,9 @@
     /* Password Window Outlets */
     IBOutlet NSPanel *_passwordPanel;
     IBOutlet NSSecureTextField *_passwordField;
+    
+    /* Touch Bar Outlets */
+    IBOutlet NSTextField *_siteNameTouchBarField;
 }
 @property (readonly) NSArray *sites;
 
