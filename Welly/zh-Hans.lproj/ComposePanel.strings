@@ -34,3 +34,12 @@
 
 /* Class = "NSButtonCell"; title = "闪"; ObjectID = "23"; */
 "23.title" = "闪";
+
+/* Class = "NSButtonCell"; title = "Cancel"; ObjectID = "Sc4-Ls-j9o"; */
+"Sc4-Ls-j9o.title" = "取消";
+
+/* Class = "NSTextFieldCell"; title = "Super Writer"; ObjectID = "Vx9-Og-Tqf"; */
+"Vx9-Og-Tqf.title" = "文豪挥笔";
+
+/* Class = "NSButtonCell"; title = "OK"; ObjectID = "yFL-VS-jZb"; */
+"yFL-VS-jZb.title" = "发表文章";

@@ -2,8 +2,11 @@
 <document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="17132.0.2" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment identifier="macosx"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaDFRPlugin" version="17006"/>
         <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="17132.0.2"/>
+        <capability name="System colors introduced in macOS 10.14" minToolsVersion="10.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+        <capability name="the Touch Bar" minToolsVersion="8.1" minSystemVersion="10.12.2" requiredIntegratedClassName="NSTouchBar"/>
     </dependencies>
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="WLComposePanelController">
@@ -62,6 +65,63 @@ Gw
                                 <textView importsGraphics="NO" verticallyResizable="YES" usesFontPanel="YES" findStyle="panel" continuousSpellChecking="YES" allowsUndo="YES" usesRuler="YES" quoteSubstitution="YES" linkDetection="YES" spellingCorrection="YES" grammarChecking="YES" smartInsertDelete="YES" id="10">
                                     <rect key="frame" x="0.0" y="0.0" width="598" height="353"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                    <touchBar key="touchBar" principalItem="MtF-Cp-DqP" id="xgh-C9-bmV">
+                                        <touchBarItems>
+                                            <touchBarItem id="uPM-41-IuU">
+                                                <viewController key="viewController" id="eQz-DE-7eP">
+                                                    <textField key="view" horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Arr-zC-0k3">
+                                                        <rect key="frame" x="0.0" y="0.0" width="92" height="18"/>
+                                                        <textFieldCell key="cell" lineBreakMode="clipping" title="Super Writer" id="Vx9-Og-Tqf">
+                                                            <font key="font" usesAppearanceFont="YES"/>
+                                                            <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                                            <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                                        </textFieldCell>
+                                                    </textField>
+                                                </viewController>
+                                            </touchBarItem>
+                                            <touchBarGroupItem id="MtF-Cp-DqP">
+                                                <touchBar key="groupTouchBar" id="zc1-zq-3Hd">
+                                                    <touchBarItems>
+                                                        <touchBarItem id="F0E-Iw-XHh">
+                                                            <viewController key="viewController" id="5uw-Y4-SZR">
+                                                                <button key="view" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="5m0-fq-1D8">
+                                                                    <rect key="frame" x="0.0" y="0.0" width="72" height="30"/>
+                                                                    <buttonCell key="cell" type="push" title="Cancel" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="Sc4-Ls-j9o">
+                                                                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                                                        <font key="font" usesAppearanceFont="YES"/>
+                                                                        <string key="keyEquivalent" base64-UTF8="YES">
+Gw
+</string>
+                                                                    </buttonCell>
+                                                                    <connections>
+                                                                        <action selector="cancelCompose:" target="-2" id="SGb-be-n0a"/>
+                                                                    </connections>
+                                                                </button>
+                                                            </viewController>
+                                                        </touchBarItem>
+                                                        <touchBarItem id="Y9K-ja-By6">
+                                                            <viewController key="viewController" id="Q3d-50-hZw">
+                                                                <button key="view" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="a3J-bc-0pA">
+                                                                    <rect key="frame" x="0.0" y="0.0" width="72" height="30"/>
+                                                                    <buttonCell key="cell" type="push" title="OK" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="yFL-VS-jZb">
+                                                                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                                                        <font key="font" usesAppearanceFont="YES"/>
+                                                                        <string key="keyEquivalent" base64-UTF8="YES">
+DQ
+</string>
+                                                                    </buttonCell>
+                                                                    <color key="bezelColor" name="controlAccentColor" catalog="System" colorSpace="catalog"/>
+                                                                    <connections>
+                                                                        <action selector="commitCompose:" target="-2" id="dSQ-KV-oSX"/>
+                                                                    </connections>
+                                                                </button>
+                                                            </viewController>
+                                                        </touchBarItem>
+                                                    </touchBarItems>
+                                                </touchBar>
+                                            </touchBarGroupItem>
+                                        </touchBarItems>
+                                    </touchBar>
                                     <color key="textColor" name="gridColor" catalog="System" colorSpace="catalog"/>
                                     <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                     <size key="minSize" width="598" height="353"/>
@@ -95,7 +155,7 @@ Gw
                         <size key="minSize" width="32" height="32"/>
                         <size key="maxSize" width="32" height="32"/>
                         <button key="view" imageHugsTitle="YES" id="20">
-                            <rect key="frame" x="14" y="14" width="32" height="32"/>
+                            <rect key="frame" x="13" y="14" width="32" height="32"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                             <buttonCell key="cell" type="square" title="_______" bezelStyle="shadowlessSquare" imagePosition="overlaps" alignment="center" imageScaling="proportionallyDown" inset="2" id="21">
                                 <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -127,7 +187,7 @@ Gw
                         <size key="minSize" width="44" height="23"/>
                         <size key="maxSize" width="44" height="23"/>
                         <colorWell key="view" bordered="NO" id="24">
-                            <rect key="frame" x="14" y="14" width="44" height="23"/>
+                            <rect key="frame" x="13" y="14" width="44" height="23"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                             <color key="color" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                             <connections>
