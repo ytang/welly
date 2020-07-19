@@ -31,6 +31,7 @@
     
     /* Touch Bar Outlets */
     IBOutlet NSTextField *_siteNameTouchBarField;
+    IBOutlet NSTextField *_siteNamePasswordTouchBarField;
 }
 @property (readonly) NSArray *sites;
 

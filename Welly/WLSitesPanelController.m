@@ -45,7 +45,7 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(WLSitesPanelController)
                 _sites = [[NSMutableArray alloc] init];
                 [self loadSites];
                 [[NSNotificationCenter defaultCenter] addObserver:self
-                                                         selector:@selector(updateSiteNameTouchBarField)
+                                                         selector:@selector(updateSiteNameTouchBarItem)
                                                              name:NSTableViewSelectionDidChangeNotification
                                                            object:_tableView];
             }
@@ -92,7 +92,7 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(WLSitesPanelController)
        didEndSelector:NULL
           contextInfo:nil];
     [_sitesPanel setLevel:floatWindowLevel];
-    [self updateSiteNameTouchBarField];
+    [self updateSiteNameTouchBarItem];
 }
 
 - (void)openSitesPanelInWindow:(NSWindow *)mainWindow 
@@ -264,11 +264,12 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(WLSitesPanelController)
 
 #pragma mark -
 #pragma mark Touch Bar
-- (void)updateSiteNameTouchBarField {
+- (void)updateSiteNameTouchBarItem {
     NSArray *selectedSites = _sitesController.selectedObjects;
     if (selectedSites.count == 1) {
         WLSite *site = selectedSites[0];
         _siteNameTouchBarField.stringValue = site.name;
+        _siteNamePasswordTouchBarField.stringValue = site.name;
     }
 }
 @end
