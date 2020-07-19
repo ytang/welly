@@ -16,6 +16,8 @@
 
 #import "WLGlobalConfig.h"
 
+const NSNotificationName WLTabViewSelectionDidChangeNotification = @"WLTabViewSelectionDidChangeNotification";
+
 @implementation WLTabView
 
 - (void)awakeFromNib {
@@ -124,6 +126,12 @@
     if ((oldView != currentView) && [oldView conformsToProtocol:@protocol(WLTabItemContentObserver)]) {
         [(id <WLTabItemContentObserver>)oldView didChangeContent:nil];
     }
+    
+    [[NSNotificationCenter defaultCenter] postNotificationName:WLTabViewSelectionDidChangeNotification
+                                                        object:self
+                                                      userInfo:@{
+                                                          @"content" : self.selectedTabViewItem.identifier
+                                                      }];
 }
 
 - (void)removeTabViewItem:(NSTabViewItem *)tabViewItem {

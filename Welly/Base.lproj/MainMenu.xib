@@ -415,6 +415,19 @@
                                 </button>
                             </viewController>
                         </touchBarItem>
+                        <touchBarItem visibilityPriority="-1000" id="mg2-dr-0Bz">
+                            <viewController key="viewController" id="ksj-tT-0vf">
+                                <textField key="view" horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="aew-ks-qwX">
+                                    <rect key="frame" x="0.0" y="0.0" width="4" height="16"/>
+                                    <textFieldCell key="cell" lineBreakMode="clipping" id="U08-I6-7Pp">
+                                        <font key="font" usesAppearanceFont="YES"/>
+                                        <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                        <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                    </textFieldCell>
+                                </textField>
+                            </viewController>
+                        </touchBarItem>
+                        <touchBarSpacerItem identifier="NSTouchBarItemIdentifierFlexibleSpace" id="Cm4-ca-T74"/>
                         <touchBarItem id="cmR-31-Nos">
                             <viewController key="viewController" id="lns-At-RUP">
                                 <button key="view" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="4ir-qn-qNa">
@@ -743,6 +756,11 @@ ssh[1|2]://[id@]your.site.org[:port]</string>
         </customObject>
         <customObject id="846" customClass="WLGlobalConfig"/>
         <customObject id="1158" customClass="WLPreviewController"/>
+        <customObject id="u6W-G9-9a8" customClass="WLTouchBarController">
+            <connections>
+                <outlet property="_siteNameTouchBarField" destination="aew-ks-qwX" id="HOL-Vg-gwb"/>
+            </connections>
+        </customObject>
     </objects>
     <resources>
         <image name="NSAddTemplate" width="15" height="11"/>

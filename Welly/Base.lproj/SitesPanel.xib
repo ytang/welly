@@ -575,7 +575,7 @@ Gw
                 </subviews>
                 <touchBar key="touchBar" principalItem="pMH-Nb-BVh" id="kwN-lB-ahH">
                     <touchBarItems>
-                        <touchBarItem id="0RK-Sb-QVL">
+                        <touchBarItem visibilityPriority="-1000" id="0RK-Sb-QVL">
                             <viewController key="viewController" id="n7t-Mk-uTM">
                                 <textField key="view" horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="cSr-HL-int">
                                     <rect key="frame" x="0.0" y="0.0" width="32" height="18"/>

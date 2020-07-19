@@ -11,6 +11,8 @@
 
 #import "WLTerminal.h"
 
+const NSNotificationName WLTabViewSelectionDidChangeNotification;
+
 @class WLTerminalView;
 @class WLConnection;
 @class WLTabBarControl;
@@ -23,9 +25,6 @@
 
 
 @interface WLTabView : NSTabView {
-    NSView *_frontMostView;
-    NSArray *_tabViews;
-    
     IBOutlet WLTerminalView *_terminalView;
     IBOutlet WLTabBarControl *_tabBarControl;
 }
