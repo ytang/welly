@@ -4,7 +4,6 @@
         <deployment identifier="macosx"/>
         <plugIn identifier="com.apple.InterfaceBuilder.CocoaDFRPlugin" version="17006"/>
         <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="17132.0.2"/>
-        <capability name="System colors introduced in macOS 10.14" minToolsVersion="10.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
         <capability name="the Touch Bar" minToolsVersion="8.1" minSystemVersion="10.12.2" requiredIntegratedClassName="NSTouchBar"/>
     </dependencies>
@@ -480,6 +479,9 @@ ssh[1|2]://[id@]your.site.org[:port]</string>
                                                 <buttonCell key="cell" type="push" title="Close" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="Z1o-K4-TWm">
                                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                                     <font key="font" usesAppearanceFont="YES"/>
+                                                    <string key="keyEquivalent" base64-UTF8="YES">
+Gw
+</string>
                                                 </buttonCell>
                                                 <connections>
                                                     <action selector="closeSitesPanel:" target="-2" id="VcW-XZ-Isx"/>
@@ -494,8 +496,10 @@ ssh[1|2]://[id@]your.site.org[:port]</string>
                                                 <buttonCell key="cell" type="push" title="Connect" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="idy-23-9zh">
                                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                                     <font key="font" usesAppearanceFont="YES"/>
+                                                    <string key="keyEquivalent" base64-UTF8="YES">
+DQ
+</string>
                                                 </buttonCell>
-                                                <color key="bezelColor" name="controlAccentColor" catalog="System" colorSpace="catalog"/>
                                                 <connections>
                                                     <action selector="connectSelectedSite:" target="-2" id="FJR-mr-RWQ"/>
                                                 </connections>
@@ -618,7 +622,6 @@ Gw
 DQ
 </string>
                                                 </buttonCell>
-                                                <color key="bezelColor" name="controlAccentColor" catalog="System" colorSpace="catalog"/>
                                                 <connections>
                                                     <action selector="confirmPassword:" target="-2" id="JU7-lV-VvG"/>
                                                 </connections>
