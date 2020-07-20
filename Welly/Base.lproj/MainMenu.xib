@@ -401,16 +401,16 @@
                                 </button>
                             </viewController>
                         </touchBarItem>
-                        <touchBarItem id="tt1-HG-BXa">
-                            <viewController key="viewController" id="ayZ-K6-nqd">
-                                <button key="view" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Fkz-6u-UcP">
+                        <touchBarItem id="cmR-31-Nos">
+                            <viewController key="viewController" id="lns-At-RUP">
+                                <button key="view" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="4ir-qn-qNa">
                                     <rect key="frame" x="0.0" y="0.0" width="72" height="30"/>
-                                    <buttonCell key="cell" type="push" bezelStyle="rounded" image="NSTouchBarAddTemplate" imagePosition="only" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="hmc-1v-xuH">
+                                    <buttonCell key="cell" type="push" bezelStyle="rounded" image="NSTouchBarRefreshTemplate" imagePosition="only" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="OKR-Oj-fQ3">
                                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                         <font key="font" usesAppearanceFont="YES"/>
                                     </buttonCell>
                                     <connections>
-                                        <action selector="addCurrentSite:" target="207" id="nF9-vg-VzF"/>
+                                        <action selector="reconnect:" target="207" id="EYJ-13-RhI"/>
                                     </connections>
                                 </button>
                             </viewController>
@@ -427,21 +427,19 @@
                                 </textField>
                             </viewController>
                         </touchBarItem>
-                        <touchBarSpacerItem identifier="NSTouchBarItemIdentifierFlexibleSpace" id="Cm4-ca-T74"/>
-                        <touchBarItem id="cmR-31-Nos">
-                            <viewController key="viewController" id="lns-At-RUP">
-                                <button key="view" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="4ir-qn-qNa">
-                                    <rect key="frame" x="0.0" y="0.0" width="72" height="30"/>
-                                    <buttonCell key="cell" type="push" bezelStyle="rounded" image="NSTouchBarRefreshTemplate" imagePosition="only" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="OKR-Oj-fQ3">
-                                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                        <touchBarItem id="Xlp-yk-TBv">
+                            <viewController key="viewController" id="X2R-kr-ahw">
+                                <textField key="view" hidden="YES" horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="KSA-L2-481">
+                                    <rect key="frame" x="0.0" y="0.0" width="73" height="18"/>
+                                    <textFieldCell key="cell" lineBreakMode="clipping" title="URL Mode" id="Al6-sd-VGW">
                                         <font key="font" usesAppearanceFont="YES"/>
-                                    </buttonCell>
-                                    <connections>
-                                        <action selector="reconnect:" target="207" id="EYJ-13-RhI"/>
-                                    </connections>
-                                </button>
+                                        <color key="textColor" name="systemOrangeColor" catalog="System" colorSpace="catalog"/>
+                                        <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                    </textFieldCell>
+                                </textField>
                             </viewController>
                         </touchBarItem>
+                        <touchBarSpacerItem identifier="NSTouchBarItemIdentifierFlexibleSpace" id="Cm4-ca-T74"/>
                         <touchBarItem id="tIq-8J-cv6">
                             <viewController key="viewController" id="Rep-gK-s7Q">
                                 <button key="view" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="P5z-ea-TNs">
@@ -759,6 +757,7 @@ ssh[1|2]://[id@]your.site.org[:port]</string>
         <customObject id="u6W-G9-9a8" customClass="WLTouchBarController">
             <connections>
                 <outlet property="_siteNameTouchBarField" destination="aew-ks-qwX" id="HOL-Vg-gwb"/>
+                <outlet property="_urlModeTouchBarField" destination="KSA-L2-481" id="EuL-B3-De0"/>
             </connections>
         </customObject>
     </objects>
@@ -766,7 +765,6 @@ ssh[1|2]://[id@]your.site.org[:port]</string>
         <image name="NSAddTemplate" width="15" height="11"/>
         <image name="NSQuickLookTemplate" width="20" height="11"/>
         <image name="NSRefreshTemplate" width="14" height="14"/>
-        <image name="NSTouchBarAddTemplate" width="15" height="11"/>
         <image name="NSTouchBarBookmarksTemplate" width="19" height="13"/>
         <image name="NSTouchBarComposeTemplate" width="16" height="13"/>
         <image name="NSTouchBarDownloadTemplate" width="15" height="13"/>

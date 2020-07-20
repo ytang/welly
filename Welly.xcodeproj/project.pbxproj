@@ -379,6 +379,8 @@
 				9C76A2771F42B6CC0044F830 /* DBPrefsWindowController.m */,
 				9C76A2781F42B6CC0044F830 /* WLContextualMenuManager.h */,
 				9C76A2791F42B6CC0044F830 /* WLContextualMenuManager.m */,
+				109AEA3124C3E2E100228B3B /* WLTouchBarController.h */,
+				109AEA3224C3E2E100228B3B /* WLTouchBarController.m */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -421,8 +423,6 @@
 				9C76A2C81F42B84E0044F830 /* WLProxy.m */,
 				9C76A2C91F42B84E0044F830 /* WLAnsiColorOperationManager.h */,
 				9C76A2CA1F42B84E0044F830 /* WLAnsiColorOperationManager.m */,
-				109AEA3124C3E2E100228B3B /* WLTouchBarController.h */,
-				109AEA3224C3E2E100228B3B /* WLTouchBarController.m */,
 			);
 			name = Features;
 			sourceTree = "<group>";
@@ -944,7 +944,7 @@
 				CODE_SIGN_ENTITLEMENTS = Welly/Welly.entitlements;
 				CODE_SIGN_IDENTITY = "-";
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 922;
+				CURRENT_PROJECT_VERSION = 923;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Welly/Frameworks",
@@ -966,7 +966,7 @@
 				CODE_SIGN_ENTITLEMENTS = Welly/Welly.entitlements;
 				CODE_SIGN_IDENTITY = "-";
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 922;
+				CURRENT_PROJECT_VERSION = 923;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Welly/Frameworks",

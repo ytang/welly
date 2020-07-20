@@ -11,6 +11,7 @@
 #import "WLConnection.h"
 #import "WLTabBarDummyItem.h"
 #import "WLTabView.h"
+#import "WLTerminalView.h"
 
 #import "SynthesizeSingleton.h"
 
@@ -26,6 +27,14 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(WLTouchBarController)
                                                  selector:@selector(updateSiteName:)
                                                      name:WLTabViewSelectionDidChangeNotification
                                                    object:nil];
+        [[NSNotificationCenter defaultCenter] addObserver:self
+                                                 selector:@selector(showURLMode)
+                                                     name:WLTerminalViewEnterURLModeNotification
+                                                   object:nil];
+        [[NSNotificationCenter defaultCenter] addObserver:self
+                                                 selector:@selector(hideURLMode)
+                                                     name:WLTerminalViewExitURLModeNotification
+                                                   object:nil];
     }
     return self;
 }
@@ -39,6 +48,14 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(WLTouchBarController)
     } else {
         _siteNameTouchBarField.stringValue = @"";
     }
+}
+
+- (void)showURLMode {
+    _urlModeTouchBarField.hidden = NO;
+}
+
+- (void)hideURLMode {
+    _urlModeTouchBarField.hidden = YES;
 }
 
 @end

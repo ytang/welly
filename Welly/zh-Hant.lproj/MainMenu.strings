@@ -302,5 +302,8 @@
 /* Class = "NSButtonCell"; title = ":-)"; ObjectID = "9zI-6C-77r"; */
 "9zI-6C-77r.title" = "'Д`";
 
+/* Class = "NSTextFieldCell"; title = "URL Mode"; ObjectID = "Al6-sd-VGW"; */
+"Al6-sd-VGW.title" = "URL模式";
+
 /* Class = "NSMenuItem"; title = "Mouse Browsing"; ObjectID = "NP6-Kb-gZr"; */
 "NP6-Kb-gZr.title" = "滑鼠瀏覽";
