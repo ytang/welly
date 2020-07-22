@@ -24,6 +24,7 @@
 #import "WLGlobalConfig.h"
 #import "WLAnsiColorOperationManager.h"
 #import "WLMessageDelegate.h"
+#import "WLTouchBarController.h"
 
 #import "WLNotifications.h"
 
@@ -60,6 +61,8 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(WLMainFrameController)
     // Trigger the KVO to update the information properly.
     [WLGlobalConfig sharedInstance].showsHiddenText = [WLGlobalConfig sharedInstance].showsHiddenText;
     [WLGlobalConfig sharedInstance].cellWidth = [WLGlobalConfig sharedInstance].cellWidth;
+    
+    [WLTouchBarController.sharedInstance resetItems];
     
     //[_mainWindow setHasShadow:YES];
     [_mainWindow setOpaque:NO];

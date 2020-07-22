@@ -122,8 +122,8 @@
 "Same author reading" = "Same author reading";
 "Same thread reading" = "Same thread reading";
 // URL
-"Copy URL" = "Copy URL";
-"Open With Browser" = "Open With Browser";
+"Copy URL" = "拷貝URL";
+"Open in Browser" = "用瀏覽器打開";
 "URL Mode" = "URL模式";
 "Normal Mode" = "常規模式";
 // Selected String

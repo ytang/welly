@@ -9,6 +9,8 @@
 #import <Cocoa/Cocoa.h>
 #import "WLMouseHotspotHandler.h"
 
+const NSNotificationName WLURLManagerNotification;
+
 @interface WLURLManager : WLMouseHotspotHandler <WLUpdatable, WLMouseUpHandler, WLContextualMenuHandler> {
     NSMutableArray *_currentURLList;
     NSInteger _currentSelectedURLIndex;

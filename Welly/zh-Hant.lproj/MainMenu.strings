@@ -307,3 +307,6 @@
 
 /* Class = "NSMenuItem"; title = "Mouse Browsing"; ObjectID = "NP6-Kb-gZr"; */
 "NP6-Kb-gZr.title" = "滑鼠瀏覽";
+
+/* Class = "NSButtonCell"; title = "URL Mode"; ObjectID = "aQx-wy-X4T"; */
+"aQx-wy-X4T.title" = "URL模式";

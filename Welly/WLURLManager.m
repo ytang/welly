@@ -15,7 +15,9 @@
 #import "WLGlobalConfig.h"
 
 NSString *const WLMenuTitleCopyURL = @"Copy URL";
-NSString *const WLMenuTitleOpenWithBrowser = @"Open With Browser";
+NSString *const WLMenuTitleOpenWithBrowser = @"Open in Browser";
+
+const NSNotificationName WLURLManagerNotification = @"WLURLManagerNotification";
 
 @interface WLURLParser : NSObject {
     NSMutableString *_currentURLStringBuffer;
@@ -161,7 +163,7 @@ NSString *const WLMenuTitleOpenWithBrowser = @"Open With Browser";
     if (url != nil) {
         if ((theEvent.modifierFlags & NSShiftKeyMask) == NSShiftKeyMask) {
             // click while holding shift key or navigate web pages
-            // open the URL with browser
+            // open the URL in browser
             [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:url]];
         } else {
             // open with previewer
@@ -278,7 +280,7 @@ NSString *const WLMenuTitleOpenWithBrowser = @"Open With Browser";
     if (url != nil) {
         if ((theEvent.modifierFlags & NSShiftKeyMask) == NSShiftKeyMask) {
             // click while holding shift key or navigate web pages
-            // open the URL with browser
+            // open the URL in browser
             [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:url]];
         } else {
             // open with previewer
@@ -367,5 +369,10 @@ NSString *const WLMenuTitleOpenWithBrowser = @"Open With Browser";
     // Restore the url list pointer
     _currentSelectedURLIndex = 0;
     [_parser parse:_view.frontMostTerminal];
+    [[NSNotificationCenter defaultCenter] postNotificationName:WLURLManagerNotification
+                                                        object:self
+                                                      userInfo:@{
+                                                          @"count" : [NSNumber numberWithUnsignedLong:[_currentURLList count]]
+                                                      }];
 }
 @end

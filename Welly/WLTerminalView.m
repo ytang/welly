@@ -27,8 +27,8 @@
 #import <Carbon/Carbon.h>
 #include <math.h>
 
-const NSNotificationName WLTerminalViewEnterURLModeNotification = @"WLTerminalViewEnterURLModeNotification";
-const NSNotificationName WLTerminalViewExitURLModeNotification = @"WLTerminalViewExitURLModeNotification";
+const NSNotificationName WLTerminalViewDidEnterURLModeNotification = @"WLTerminalViewDidEnterURLModeNotification";
+const NSNotificationName WLTerminalViewDidExitURLModeNotification = @"WLTerminalViewDidExitURLModeNotification";
 
 const float WLActivityCheckingTimeInteval = 5.0;
 
@@ -1011,7 +1011,7 @@ BOOL isEnglishNumberAlphabet(unsigned char c) {
         [WLPopUpMessage showPopUpMessage:NSLocalizedString(@"URL Mode", @"URL Mode") 
                                 duration:0.5
                                     view:self];
-        [[NSNotificationCenter defaultCenter] postNotificationName:WLTerminalViewEnterURLModeNotification
+        [[NSNotificationCenter defaultCenter] postNotificationName:WLTerminalViewDidEnterURLModeNotification
                                                             object:self];
         // For Test
         NSPoint p = _urlManager.currentSelectedURLPos;
@@ -1033,7 +1033,7 @@ BOOL isEnglishNumberAlphabet(unsigned char c) {
     [WLPopUpMessage showPopUpMessage:NSLocalizedString(@"Normal Mode", @"Normal Mode")
                             duration:0.5
                                 view:self];
-    [[NSNotificationCenter defaultCenter] postNotificationName:WLTerminalViewExitURLModeNotification
+    [[NSNotificationCenter defaultCenter] postNotificationName:WLTerminalViewDidExitURLModeNotification
                                                         object:self];
     _isInUrlMode = NO;
 }

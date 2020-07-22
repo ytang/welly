@@ -429,7 +429,7 @@
                         </touchBarItem>
                         <touchBarItem id="Xlp-yk-TBv">
                             <viewController key="viewController" id="X2R-kr-ahw">
-                                <textField key="view" hidden="YES" horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="KSA-L2-481">
+                                <textField key="view" horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="KSA-L2-481">
                                     <rect key="frame" x="0.0" y="0.0" width="73" height="18"/>
                                     <textFieldCell key="cell" lineBreakMode="clipping" title="URL Mode" id="Al6-sd-VGW">
                                         <font key="font" usesAppearanceFont="YES"/>
@@ -440,6 +440,21 @@
                             </viewController>
                         </touchBarItem>
                         <touchBarSpacerItem identifier="NSTouchBarItemIdentifierFlexibleSpace" id="Cm4-ca-T74"/>
+                        <touchBarItem id="93N-Zp-B6A">
+                            <viewController key="viewController" id="9NU-3G-Fds">
+                                <button key="view" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="vPN-QB-zZD">
+                                    <rect key="frame" x="0.0" y="0.0" width="72" height="30"/>
+                                    <buttonCell key="cell" type="push" title="URL Mode" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="aQx-wy-X4T">
+                                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                        <font key="font" usesAppearanceFont="YES"/>
+                                    </buttonCell>
+                                    <color key="bezelColor" name="systemOrangeColor" catalog="System" colorSpace="catalog"/>
+                                    <connections>
+                                        <action selector="switchURLMode:" target="u6W-G9-9a8" id="d0Y-7c-UUV"/>
+                                    </connections>
+                                </button>
+                            </viewController>
+                        </touchBarItem>
                         <touchBarItem id="tIq-8J-cv6">
                             <viewController key="viewController" id="Rep-gK-s7Q">
                                 <button key="view" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="P5z-ea-TNs">
@@ -756,8 +771,16 @@ ssh[1|2]://[id@]your.site.org[:port]</string>
         <customObject id="1158" customClass="WLPreviewController"/>
         <customObject id="u6W-G9-9a8" customClass="WLTouchBarController">
             <connections>
-                <outlet property="_siteNameTouchBarField" destination="aew-ks-qwX" id="HOL-Vg-gwb"/>
-                <outlet property="_urlModeTouchBarField" destination="KSA-L2-481" id="EuL-B3-De0"/>
+                <outlet property="_composePanelButton" destination="z1W-kI-LQX" id="qba-LF-Svi"/>
+                <outlet property="_emoticonsPanelButton" destination="tIq-8J-cv6" id="5m4-lG-K1Y"/>
+                <outlet property="_flexibleSpace" destination="Cm4-ca-T74" id="iEZ-y7-D8B"/>
+                <outlet property="_postDownloadPanelButton" destination="GYQ-Yq-NL4" id="ze1-SN-S2k"/>
+                <outlet property="_reconnectButton" destination="cmR-31-Nos" id="fYQ-yJ-gbC"/>
+                <outlet property="_siteNameField" destination="mg2-dr-0Bz" id="W3b-yd-wZ6"/>
+                <outlet property="_sitesPanelButton" destination="Oe9-Ux-15Y" id="3YZ-NA-mVP"/>
+                <outlet property="_touchBar" destination="heW-Kf-yrY" id="AYH-lc-fRI"/>
+                <outlet property="_urlModeButton" destination="93N-Zp-B6A" id="E5n-dR-VNm"/>
+                <outlet property="_urlModeField" destination="Xlp-yk-TBv" id="Rcb-AT-MdC"/>
             </connections>
         </customObject>
     </objects>

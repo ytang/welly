@@ -11,11 +11,24 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface WLTouchBarController : NSObject {
-    IBOutlet NSTextField *_siteNameTouchBarField;
-    IBOutlet NSTextField *_urlModeTouchBarField;
+    IBOutlet NSTouchBar *_touchBar;
+    
+    IBOutlet NSTouchBarItem *_sitesPanelButton;
+    IBOutlet NSTouchBarItem *_reconnectButton;
+    IBOutlet NSTouchBarItem *_siteNameField;
+    IBOutlet NSTouchBarItem *_urlModeField;
+    IBOutlet NSTouchBarItem *_flexibleSpace;
+    IBOutlet NSTouchBarItem *_urlModeButton;
+    IBOutlet NSTouchBarItem *_emoticonsPanelButton;
+    IBOutlet NSTouchBarItem *_postDownloadPanelButton;
+    IBOutlet NSTouchBarItem *_composePanelButton;
 }
 
 + (WLTouchBarController *)sharedInstance;
+
+- (IBAction)switchURLMode:(id)sender;
+
+- (void)resetItems;
 
 @end
 
