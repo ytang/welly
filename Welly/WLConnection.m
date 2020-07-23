@@ -64,10 +64,10 @@
 - (void)setConnected:(BOOL)value {
     _connected = value;
     if (_connected) 
-        self.icon = [NSImage imageNamed:@"online"];
+        self.icon = [NSImage imageNamed:NSImageNameStatusAvailable];
     else {
         [self resetMessageCount];
-        self.icon = [NSImage imageNamed:@"offline"];
+        self.icon = [NSImage imageNamed:NSImageNameStatusUnavailable];
     }
 }
 
@@ -80,7 +80,7 @@
 - (void)protocolWillConnect:(id)protocol {
     [self setIsProcessing:YES];
     [self setConnected:NO];
-    self.icon = [NSImage imageNamed:@"waiting"];
+    self.icon = [NSImage imageNamed:NSImageNameStatusPartiallyAvailable];
 }
 
 - (void)protocolDidConnect:(id)protocol {

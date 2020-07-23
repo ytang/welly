@@ -391,6 +391,7 @@
                             <viewController key="viewController" id="na5-4e-M4C">
                                 <button key="view" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="J0J-Er-916">
                                     <rect key="frame" x="0.0" y="0.0" width="72" height="30"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                     <buttonCell key="cell" type="push" bezelStyle="rounded" image="NSTouchBarBookmarksTemplate" imagePosition="overlaps" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="e0l-ew-7WG">
                                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                         <font key="font" usesAppearanceFont="YES"/>
@@ -405,6 +406,7 @@
                             <viewController key="viewController" id="lns-At-RUP">
                                 <button key="view" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="4ir-qn-qNa">
                                     <rect key="frame" x="0.0" y="0.0" width="72" height="30"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                     <buttonCell key="cell" type="push" bezelStyle="rounded" image="NSTouchBarRefreshTemplate" imagePosition="only" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="OKR-Oj-fQ3">
                                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                         <font key="font" usesAppearanceFont="YES"/>
@@ -419,6 +421,7 @@
                             <viewController key="viewController" id="ksj-tT-0vf">
                                 <textField key="view" horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="aew-ks-qwX">
                                     <rect key="frame" x="0.0" y="0.0" width="4" height="16"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                     <textFieldCell key="cell" lineBreakMode="clipping" id="U08-I6-7Pp">
                                         <font key="font" usesAppearanceFont="YES"/>
                                         <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
@@ -431,6 +434,7 @@
                             <viewController key="viewController" id="X2R-kr-ahw">
                                 <textField key="view" horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="KSA-L2-481">
                                     <rect key="frame" x="0.0" y="0.0" width="73" height="18"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                     <textFieldCell key="cell" lineBreakMode="clipping" title="URL Mode" id="Al6-sd-VGW">
                                         <font key="font" usesAppearanceFont="YES"/>
                                         <color key="textColor" name="systemOrangeColor" catalog="System" colorSpace="catalog"/>
@@ -444,6 +448,7 @@
                             <viewController key="viewController" id="9NU-3G-Fds">
                                 <button key="view" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="vPN-QB-zZD">
                                     <rect key="frame" x="0.0" y="0.0" width="72" height="30"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                     <buttonCell key="cell" type="push" title="URL Mode" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="aQx-wy-X4T">
                                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                         <font key="font" usesAppearanceFont="YES"/>
@@ -459,6 +464,7 @@
                             <viewController key="viewController" id="dBE-bR-IUR">
                                 <button key="view" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Q99-7f-EZf">
                                     <rect key="frame" x="0.0" y="0.0" width="72" height="30"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                     <buttonCell key="cell" type="push" bezelStyle="rounded" image="NSTouchBarGoBackTemplate" imagePosition="only" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="V9L-WA-s5J">
                                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                         <font key="font" usesAppearanceFont="YES"/>
@@ -473,6 +479,7 @@
                             <viewController key="viewController" id="vlY-KF-lUh">
                                 <button key="view" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="B3E-R7-BDS">
                                     <rect key="frame" x="0.0" y="0.0" width="72" height="30"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                     <buttonCell key="cell" type="push" bezelStyle="rounded" image="NSTouchBarGoForwardTemplate" imagePosition="only" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="CnU-jU-ZEm">
                                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                         <font key="font" usesAppearanceFont="YES"/>
@@ -487,6 +494,7 @@
                             <viewController key="viewController" id="QiT-Ip-3e5">
                                 <button key="view" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="UnE-wA-88M">
                                     <rect key="frame" x="0.0" y="0.0" width="72" height="30"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                     <buttonCell key="cell" type="push" bezelStyle="rounded" image="NSTouchBarQuickLookTemplate" imagePosition="overlaps" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="lZL-Bo-RI6">
                                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                         <font key="font" usesAppearanceFont="YES"/>
@@ -501,6 +509,7 @@
                             <viewController key="viewController" id="B4t-2f-QZj">
                                 <button key="view" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="7Ax-Ck-aKV">
                                     <rect key="frame" x="0.0" y="0.0" width="72" height="30"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                     <buttonCell key="cell" type="push" bezelStyle="rounded" image="NSTouchBarOpenInBrowserTemplate" imagePosition="only" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="bxY-Bi-8Y9">
                                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                         <font key="font" usesAppearanceFont="YES"/>
@@ -514,6 +523,7 @@
                         <touchBarItem id="tIq-8J-cv6">
                             <viewController key="viewController" id="Rep-gK-s7Q">
                                 <button key="view" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="P5z-ea-TNs">
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                     <buttonCell key="cell" type="push" title=":-)" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="9zI-6C-77r">
                                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                         <font key="font" metaFont="system" size="18"/>
@@ -527,6 +537,7 @@
                         <touchBarItem id="GYQ-Yq-NL4">
                             <viewController key="viewController" id="E6j-Us-Oal">
                                 <button key="view" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="FbA-Z4-3ce">
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                     <buttonCell key="cell" type="push" bezelStyle="rounded" image="NSTouchBarDownloadTemplate" imagePosition="only" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="jD0-S7-7KJ">
                                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                         <font key="font" usesAppearanceFont="YES"/>
@@ -540,6 +551,7 @@
                         <touchBarItem id="z1W-kI-LQX">
                             <viewController key="viewController" id="ATg-xA-0KY">
                                 <button key="view" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="X6d-0g-gHm">
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                     <buttonCell key="cell" type="push" bezelStyle="rounded" image="NSTouchBarComposeTemplate" imagePosition="only" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="yti-gh-wux">
                                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                         <font key="font" usesAppearanceFont="YES"/>
@@ -556,12 +568,12 @@
             <toolbar key="toolbar" implicitIdentifier="9220F62B-2726-4C84-80F3-70296DDE6D4C" showsBaselineSeparator="NO" displayMode="iconAndLabel" sizeMode="regular" id="231">
                 <allowedToolbarItems>
                     <toolbarItem implicitItemIdentifier="NSToolbarSeparatorItem" id="234"/>
-                    <toolbarItem implicitItemIdentifier="7953CAC6-DC4D-41BB-83E0-CE03467AB4CC" label="Site Book" paletteLabel="Site Book" image="bookmark" sizingBehavior="auto" id="418">
+                    <toolbarItem implicitItemIdentifier="7953CAC6-DC4D-41BB-83E0-CE03467AB4CC" label="Site Book" paletteLabel="Site Book" image="NSBookmarksTemplate" sizingBehavior="auto" id="418">
                         <nil key="toolTip"/>
                         <button key="view" verticalHuggingPriority="750" id="416">
-                            <rect key="frame" x="13" y="14" width="31" height="19"/>
+                            <rect key="frame" x="15" y="14" width="27" height="19"/>
                             <autoresizingMask key="autoresizingMask"/>
-                            <buttonCell key="cell" type="roundRect" bezelStyle="roundedRect" image="bookmark" imagePosition="overlaps" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="417">
+                            <buttonCell key="cell" type="roundRect" bezelStyle="roundedRect" image="NSBookmarksTemplate" imagePosition="overlaps" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="417">
                                 <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                 <font key="font" metaFont="cellTitle"/>
                             </buttonCell>
@@ -674,12 +686,12 @@ ssh[1|2]://[id@]your.site.org[:port]</string>
                             </connections>
                         </button>
                     </toolbarItem>
-                    <toolbarItem implicitItemIdentifier="665E2CFD-FAF4-4EDC-A867-5CBD55F9E2F4" label="Show Hidden" paletteLabel="Show Hidden" image="NSQuickLookTemplate" sizingBehavior="auto" id="436">
+                    <toolbarItem implicitItemIdentifier="665E2CFD-FAF4-4EDC-A867-5CBD55F9E2F4" label="Show Hidden" paletteLabel="Show Hidden" image="NSRevealFreestandingTemplate" sizingBehavior="auto" id="436">
                         <nil key="toolTip"/>
                         <button key="view" verticalHuggingPriority="750" id="434">
-                            <rect key="frame" x="24" y="14" width="29" height="19"/>
+                            <rect key="frame" x="26" y="14" width="25" height="19"/>
                             <autoresizingMask key="autoresizingMask"/>
-                            <buttonCell key="cell" type="recessed" bezelStyle="recessed" image="NSQuickLookTemplate" imagePosition="only" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="435">
+                            <buttonCell key="cell" type="recessed" bezelStyle="recessed" image="NSRevealFreestandingTemplate" imagePosition="only" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="435">
                                 <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES" changeBackground="YES" changeGray="YES"/>
                                 <font key="font" metaFont="systemBold" size="12"/>
                                 <connections>
@@ -843,8 +855,9 @@ ssh[1|2]://[id@]your.site.org[:port]</string>
     </objects>
     <resources>
         <image name="NSAddTemplate" width="15" height="11"/>
-        <image name="NSQuickLookTemplate" width="20" height="11"/>
+        <image name="NSBookmarksTemplate" width="19" height="13"/>
         <image name="NSRefreshTemplate" width="14" height="14"/>
+        <image name="NSRevealFreestandingTemplate" width="15" height="13"/>
         <image name="NSTouchBarBookmarksTemplate" width="19" height="13"/>
         <image name="NSTouchBarComposeTemplate" width="16" height="13"/>
         <image name="NSTouchBarDownloadTemplate" width="15" height="13"/>
@@ -853,7 +866,6 @@ ssh[1|2]://[id@]your.site.org[:port]</string>
         <image name="NSTouchBarOpenInBrowserTemplate" width="15" height="13"/>
         <image name="NSTouchBarQuickLookTemplate" width="20" height="11"/>
         <image name="NSTouchBarRefreshTemplate" width="14" height="14"/>
-        <image name="bookmark" width="21" height="15"/>
         <image name="mouse" width="17" height="18"/>
         <image name="sleep" width="22" height="21"/>
         <image name="toolbarItem:972:image" width="1" height="1">
