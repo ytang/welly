@@ -19,6 +19,10 @@ NS_ASSUME_NONNULL_BEGIN
     IBOutlet NSTouchBarItem *_urlModeField;
     IBOutlet NSTouchBarItem *_flexibleSpace;
     IBOutlet NSTouchBarItem *_urlModeButton;
+    IBOutlet NSTouchBarItem *_previousURLButton;
+    IBOutlet NSTouchBarItem *_nextURLButton;
+    IBOutlet NSTouchBarItem *_previewURLButton;
+    IBOutlet NSTouchBarItem *_openURLInBrowserButton;
     IBOutlet NSTouchBarItem *_emoticonsPanelButton;
     IBOutlet NSTouchBarItem *_postDownloadPanelButton;
     IBOutlet NSTouchBarItem *_composePanelButton;
@@ -27,6 +31,10 @@ NS_ASSUME_NONNULL_BEGIN
 + (WLTouchBarController *)sharedInstance;
 
 - (IBAction)switchURLMode:(id)sender;
+- (IBAction)previousURL:(id)sender;
+- (IBAction)nextURL:(id)sender;
+- (IBAction)previewURL:(id)sender;
+- (IBAction)openURLInBrowser:(id)sender;
 
 - (void)resetItems;
 

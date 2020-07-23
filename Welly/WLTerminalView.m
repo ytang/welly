@@ -599,28 +599,23 @@ BOOL isEnglishNumberAlphabet(unsigned char c) {
     unichar c = [theEvent.characters characterAtIndex:0];
     // URL
     if(_isInUrlMode) {
-        BOOL shouldExit;
         switch(c) {
                 // Add up and down arrows' event handling here.
             case NSLeftArrowFunctionKey:
             case NSUpArrowFunctionKey:
-                [self showIndicatorAtPoint:_urlManager.movePrev];
+                [self previousURL];
                 break;
             case WLTabCharacter:
             case NSRightArrowFunctionKey:
             case NSDownArrowFunctionKey:
-                [self showIndicatorAtPoint:_urlManager.moveNext];
+                [self nextURL];
                 break;
             case WLEscapeCharacter:	// esc
                 [self exitURL];
                 break;
             case WLWhitespaceCharacter:
             case WLReturnCharacter:
-                shouldExit = [_urlManager openCurrentURL:theEvent];
-                if(shouldExit)
-                    [self exitURL];
-                else
-                    [self showIndicatorAtPoint:_urlManager.moveNext];
+                [self openURL:(theEvent.modifierFlags & NSShiftKeyMask) == NSShiftKeyMask];
                 break;
         }
         return;
@@ -1036,6 +1031,24 @@ BOOL isEnglishNumberAlphabet(unsigned char c) {
     [[NSNotificationCenter defaultCenter] postNotificationName:WLTerminalViewDidExitURLModeNotification
                                                         object:self];
     _isInUrlMode = NO;
+}
+
+- (void)previousURL {
+    [self showIndicatorAtPoint:_urlManager.movePrev];
+}
+
+- (void)nextURL {
+    [self showIndicatorAtPoint:_urlManager.moveNext];
+}
+
+- (void)openURL:(BOOL)inBrowser {
+    // broken since switching to MMTabBarView (f259c28)
+    // if ([_urlManager openCurrentURL:inBrowser])
+    //     [self exitURL];
+    // else
+    //     [self showIndicatorAtPoint:_urlManager.moveNext];
+    [_urlManager openCurrentURL:inBrowser];
+    [self exitURL];
 }
 
 #pragma mark -

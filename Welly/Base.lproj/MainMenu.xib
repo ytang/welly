@@ -455,10 +455,65 @@
                                 </button>
                             </viewController>
                         </touchBarItem>
+                        <touchBarItem id="3yi-9X-Jzc">
+                            <viewController key="viewController" id="dBE-bR-IUR">
+                                <button key="view" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Q99-7f-EZf">
+                                    <rect key="frame" x="0.0" y="0.0" width="72" height="30"/>
+                                    <buttonCell key="cell" type="push" bezelStyle="rounded" image="NSTouchBarGoBackTemplate" imagePosition="only" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="V9L-WA-s5J">
+                                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                        <font key="font" usesAppearanceFont="YES"/>
+                                    </buttonCell>
+                                    <connections>
+                                        <action selector="previousURL:" target="u6W-G9-9a8" id="fHb-ju-GEM"/>
+                                    </connections>
+                                </button>
+                            </viewController>
+                        </touchBarItem>
+                        <touchBarItem id="M8V-kG-VEY">
+                            <viewController key="viewController" id="vlY-KF-lUh">
+                                <button key="view" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="B3E-R7-BDS">
+                                    <rect key="frame" x="0.0" y="0.0" width="72" height="30"/>
+                                    <buttonCell key="cell" type="push" bezelStyle="rounded" image="NSTouchBarGoForwardTemplate" imagePosition="only" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="CnU-jU-ZEm">
+                                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                        <font key="font" usesAppearanceFont="YES"/>
+                                    </buttonCell>
+                                    <connections>
+                                        <action selector="nextURL:" target="u6W-G9-9a8" id="6FB-Ko-fG8"/>
+                                    </connections>
+                                </button>
+                            </viewController>
+                        </touchBarItem>
+                        <touchBarItem id="5oN-ry-buL">
+                            <viewController key="viewController" id="QiT-Ip-3e5">
+                                <button key="view" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="UnE-wA-88M">
+                                    <rect key="frame" x="0.0" y="0.0" width="72" height="30"/>
+                                    <buttonCell key="cell" type="push" bezelStyle="rounded" image="NSTouchBarQuickLookTemplate" imagePosition="overlaps" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="lZL-Bo-RI6">
+                                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                        <font key="font" usesAppearanceFont="YES"/>
+                                    </buttonCell>
+                                    <connections>
+                                        <action selector="previewURL:" target="u6W-G9-9a8" id="abj-jt-HZB"/>
+                                    </connections>
+                                </button>
+                            </viewController>
+                        </touchBarItem>
+                        <touchBarItem id="uap-sl-bnb">
+                            <viewController key="viewController" id="B4t-2f-QZj">
+                                <button key="view" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="7Ax-Ck-aKV">
+                                    <rect key="frame" x="0.0" y="0.0" width="72" height="30"/>
+                                    <buttonCell key="cell" type="push" bezelStyle="rounded" image="NSTouchBarOpenInBrowserTemplate" imagePosition="only" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="bxY-Bi-8Y9">
+                                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                        <font key="font" usesAppearanceFont="YES"/>
+                                    </buttonCell>
+                                    <connections>
+                                        <action selector="openURLInBrowser:" target="u6W-G9-9a8" id="JMD-Vi-S3j"/>
+                                    </connections>
+                                </button>
+                            </viewController>
+                        </touchBarItem>
                         <touchBarItem id="tIq-8J-cv6">
                             <viewController key="viewController" id="Rep-gK-s7Q">
                                 <button key="view" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="P5z-ea-TNs">
-                                    <rect key="frame" x="0.0" y="0.0" width="72" height="30"/>
                                     <buttonCell key="cell" type="push" title=":-)" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="9zI-6C-77r">
                                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                         <font key="font" metaFont="system" size="18"/>
@@ -472,7 +527,6 @@
                         <touchBarItem id="GYQ-Yq-NL4">
                             <viewController key="viewController" id="E6j-Us-Oal">
                                 <button key="view" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="FbA-Z4-3ce">
-                                    <rect key="frame" x="0.0" y="0.0" width="72" height="30"/>
                                     <buttonCell key="cell" type="push" bezelStyle="rounded" image="NSTouchBarDownloadTemplate" imagePosition="only" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="jD0-S7-7KJ">
                                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                         <font key="font" usesAppearanceFont="YES"/>
@@ -486,7 +540,6 @@
                         <touchBarItem id="z1W-kI-LQX">
                             <viewController key="viewController" id="ATg-xA-0KY">
                                 <button key="view" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="X6d-0g-gHm">
-                                    <rect key="frame" x="0.0" y="0.0" width="72" height="30"/>
                                     <buttonCell key="cell" type="push" bezelStyle="rounded" image="NSTouchBarComposeTemplate" imagePosition="only" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="yti-gh-wux">
                                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                         <font key="font" usesAppearanceFont="YES"/>
@@ -774,7 +827,11 @@ ssh[1|2]://[id@]your.site.org[:port]</string>
                 <outlet property="_composePanelButton" destination="z1W-kI-LQX" id="qba-LF-Svi"/>
                 <outlet property="_emoticonsPanelButton" destination="tIq-8J-cv6" id="5m4-lG-K1Y"/>
                 <outlet property="_flexibleSpace" destination="Cm4-ca-T74" id="iEZ-y7-D8B"/>
+                <outlet property="_nextURLButton" destination="M8V-kG-VEY" id="MZO-5p-z6K"/>
+                <outlet property="_openURLInBrowserButton" destination="uap-sl-bnb" id="Hvg-b0-reZ"/>
                 <outlet property="_postDownloadPanelButton" destination="GYQ-Yq-NL4" id="ze1-SN-S2k"/>
+                <outlet property="_previewURLButton" destination="5oN-ry-buL" id="CCx-aY-Bfk"/>
+                <outlet property="_previousURLButton" destination="3yi-9X-Jzc" id="WRW-bn-Upk"/>
                 <outlet property="_reconnectButton" destination="cmR-31-Nos" id="fYQ-yJ-gbC"/>
                 <outlet property="_siteNameField" destination="mg2-dr-0Bz" id="W3b-yd-wZ6"/>
                 <outlet property="_sitesPanelButton" destination="Oe9-Ux-15Y" id="3YZ-NA-mVP"/>
@@ -791,6 +848,10 @@ ssh[1|2]://[id@]your.site.org[:port]</string>
         <image name="NSTouchBarBookmarksTemplate" width="19" height="13"/>
         <image name="NSTouchBarComposeTemplate" width="16" height="13"/>
         <image name="NSTouchBarDownloadTemplate" width="15" height="13"/>
+        <image name="NSTouchBarGoBackTemplate" width="11" height="12"/>
+        <image name="NSTouchBarGoForwardTemplate" width="11" height="12"/>
+        <image name="NSTouchBarOpenInBrowserTemplate" width="15" height="13"/>
+        <image name="NSTouchBarQuickLookTemplate" width="20" height="11"/>
         <image name="NSTouchBarRefreshTemplate" width="14" height="14"/>
         <image name="bookmark" width="21" height="15"/>
         <image name="mouse" width="17" height="18"/>

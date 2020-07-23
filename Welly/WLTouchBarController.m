@@ -20,7 +20,10 @@ const NSNotificationName WLTerminalViewDidEnterURLModeNotification;
 const NSNotificationName WLTerminalViewDidExitURLModeNotification;
 const NSNotificationName WLURLManagerNotification;
 
-@implementation WLTouchBarController
+@implementation WLTouchBarController {
+    NSSet<NSTouchBarItem *> *_urlModeItems;
+    NSSet<NSTouchBarItem *> *_urlModeHiddenItems;
+}
 
 SYNTHESIZE_SINGLETON_FOR_CLASS(WLTouchBarController)
 
@@ -50,6 +53,8 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(WLTouchBarController)
 
 - (void)resetItems {
     _touchBar.templateItems = [NSSet setWithObjects:_sitesPanelButton, _reconnectButton, _siteNameField, _flexibleSpace, nil];
+    _urlModeItems = [NSSet setWithObjects:_urlModeField, _previousURLButton, _nextURLButton, _previewURLButton, _openURLInBrowserButton, nil];
+    _urlModeHiddenItems = [NSSet setWithObjects:_siteNameField, _urlModeButton, nil];
 }
 
 - (void)updateSiteName:(NSNotification *)notification {
@@ -69,22 +74,50 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(WLTouchBarController)
 #pragma mark -
 #pragma mark URL Mode
 - (IBAction)switchURLMode:(id)sender {
-    id view = WLMainFrameController.sharedInstance.tabView.frontMostView;
+    NSView *view = WLMainFrameController.sharedInstance.tabView.frontMostView;
     if ([view isKindOfClass:[WLTerminalView class]]) {
-        [view switchURL];
+        [(WLTerminalView *)view switchURL];
+    }
+}
+
+- (IBAction)previousURL:(id)sender {
+    NSView *view = WLMainFrameController.sharedInstance.tabView.frontMostView;
+    if ([view isKindOfClass:[WLTerminalView class]]) {
+        [(WLTerminalView *)view previousURL];
+    }
+}
+
+- (IBAction)nextURL:(id)sender {
+    NSView *view = WLMainFrameController.sharedInstance.tabView.frontMostView;
+    if ([view isKindOfClass:[WLTerminalView class]]) {
+        [(WLTerminalView *)view nextURL];
+    }
+}
+
+- (IBAction)previewURL:(id)sender {
+    NSView *view = WLMainFrameController.sharedInstance.tabView.frontMostView;
+    if ([view isKindOfClass:[WLTerminalView class]]) {
+        [(WLTerminalView *)view openURL:NO];
+    }
+}
+
+- (IBAction)openURLInBrowser:(id)sender {
+    NSView *view = WLMainFrameController.sharedInstance.tabView.frontMostView;
+    if ([view isKindOfClass:[WLTerminalView class]]) {
+        [(WLTerminalView *)view openURL:YES];
     }
 }
 
 - (void)didEnterURLMode {
     _touchBar.templateItems = [[_touchBar.templateItems objectsPassingTest:^BOOL(NSTouchBarItem * _Nonnull obj, BOOL * _Nonnull stop) {
-        return ![obj isEqual:_siteNameField] && ![obj isEqual:_urlModeButton];
-    }] setByAddingObject:_urlModeField];
+        return ![_urlModeHiddenItems containsObject:obj];
+    }] setByAddingObjectsFromSet:_urlModeItems];
 }
 
 - (void)didExitURLMode {
     _touchBar.templateItems = [[_touchBar.templateItems objectsPassingTest:^BOOL(NSTouchBarItem * _Nonnull obj, BOOL * _Nonnull stop) {
-        return ![obj isEqual:_urlModeField];
-    }] setByAddingObjectsFromArray:@[_siteNameField, _urlModeButton]];
+        return ![_urlModeItems containsObject:obj];
+    }] setByAddingObjectsFromSet:_urlModeHiddenItems];
 }
 
 - (void)updateURLMode:(NSNotification *)notification {

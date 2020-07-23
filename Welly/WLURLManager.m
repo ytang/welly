@@ -274,11 +274,11 @@ const NSNotificationName WLURLManagerNotification = @"WLURLManagerNotification";
     return self.currentSelectedURLPos;
 }
 
-- (BOOL)openCurrentURL:(NSEvent *)theEvent {
+- (BOOL)openCurrentURL:(BOOL)inBrowser {
     NSDictionary *urlInfo = _currentURLList[_currentSelectedURLIndex];
     NSString *url = urlInfo[WLURLUserInfoName];
     if (url != nil) {
-        if ((theEvent.modifierFlags & NSShiftKeyMask) == NSShiftKeyMask) {
+        if (inBrowser) {
             // click while holding shift key or navigate web pages
             // open the URL in browser
             [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:url]];
@@ -287,10 +287,7 @@ const NSNotificationName WLURLManagerNotification = @"WLURLManagerNotification";
             [WLPreviewController downloadWithURL:[NSURL URLWithString:url]];
         }
     }
-    if(_currentURLList.count > 2)
-        return NO;
-    else
-        return YES;
+    return _currentURLList.count <= 2;
 }
 
 #pragma mark -

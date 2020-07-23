@@ -18,7 +18,7 @@ const NSNotificationName WLURLManagerNotification;
     //NSMutableString *_currentURLStringBuffer;
 }
 @property (NS_NONATOMIC_IOSONLY, readonly) NSPoint currentSelectedURLPos;
-- (BOOL)openCurrentURL:(NSEvent *)event;
+- (BOOL)openCurrentURL:(BOOL)inBrowser;
 @property (NS_NONATOMIC_IOSONLY, readonly) NSPoint moveNext;
 @property (NS_NONATOMIC_IOSONLY, readonly) NSPoint movePrev;
 - (void)addURL:(NSString *)urlString

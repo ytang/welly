@@ -92,6 +92,9 @@ const NSNotificationName WLTerminalViewDidExitURLModeNotification;
 /* Url Menu */
 - (void)switchURL;
 - (void)exitURL;
+- (void)previousURL;
+- (void)nextURL;
+- (void)openURL:(BOOL)inBrowser;
 
 // Mouse operation
 - (void)deactivateMouseForKeying;
