@@ -14,6 +14,8 @@
 #import "WLConnection.h"
 #import "WLSite.h"
 
+const NSNotificationName WLTerminalBBSStateDidChangeNotification = @"WLTerminalBBSStateDidChangeNotification";
+
 @interface WLTerminal ()
 - (void)notifyObservers;
 @end
@@ -361,6 +363,11 @@ inline static BOOL hasAnyString(NSString *row, NSArray *array) {
         //NSLog(@"未知状态");
         _bbsState.state = BBSUnknown;
     }
+    [[NSNotificationCenter defaultCenter] postNotificationName:WLTerminalBBSStateDidChangeNotification
+                                                        object:self
+                                                      userInfo:@{
+                                                          @"bbsState" : [NSValue valueWithBytes:&_bbsState objCType:@encode(BBSState)]
+                                                      }];
 }
 
 # pragma mark -

@@ -27,8 +27,7 @@
 #import <Carbon/Carbon.h>
 #include <math.h>
 
-const NSNotificationName WLTerminalViewDidEnterURLModeNotification = @"WLTerminalViewDidEnterURLModeNotification";
-const NSNotificationName WLTerminalViewDidExitURLModeNotification = @"WLTerminalViewDidExitURLModeNotification";
+const NSNotificationName WLTerminalViewURLModeDidChangeNotification = @"WLTerminalViewURLModeDidChangeNotification";
 
 const float WLActivityCheckingTimeInteval = 5.0;
 
@@ -1006,8 +1005,11 @@ BOOL isEnglishNumberAlphabet(unsigned char c) {
         [WLPopUpMessage showPopUpMessage:NSLocalizedString(@"URL Mode", @"URL Mode") 
                                 duration:0.5
                                     view:self];
-        [[NSNotificationCenter defaultCenter] postNotificationName:WLTerminalViewDidEnterURLModeNotification
-                                                            object:self];
+        [[NSNotificationCenter defaultCenter] postNotificationName:WLTerminalViewURLModeDidChangeNotification
+                                                            object:self
+                                                          userInfo:@{
+                                                              @"urlMode" : [NSNumber numberWithBool:YES]
+                                                          }];
         // For Test
         NSPoint p = _urlManager.currentSelectedURLPos;
         if(p.x < 0 || p.y < 0) { // No urls available
@@ -1028,8 +1030,11 @@ BOOL isEnglishNumberAlphabet(unsigned char c) {
     [WLPopUpMessage showPopUpMessage:NSLocalizedString(@"Normal Mode", @"Normal Mode")
                             duration:0.5
                                 view:self];
-    [[NSNotificationCenter defaultCenter] postNotificationName:WLTerminalViewDidExitURLModeNotification
-                                                        object:self];
+    [[NSNotificationCenter defaultCenter] postNotificationName:WLTerminalViewURLModeDidChangeNotification
+                                                        object:self
+                                                      userInfo:@{
+                                                          @"urlMode" : [NSNumber numberWithBool:NO]
+                                                      }];
     _isInUrlMode = NO;
 }
 

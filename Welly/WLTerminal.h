@@ -12,6 +12,8 @@
 #import <Cocoa/Cocoa.h>
 #import "CommonType.h"
 
+const NSNotificationName WLTerminalBBSStateDidChangeNotification;
+
 @class WLConnection, WLMessageDelegate, WLIntegerArray;
 @class WLTerminal;
 

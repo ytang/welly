@@ -13,8 +13,7 @@
 #import "WLTermView.h"
 #import "WLTerminal.h"
 
-const NSNotificationName WLTerminalViewDidEnterURLModeNotification;
-const NSNotificationName WLTerminalViewDidExitURLModeNotification;
+const NSNotificationName WLTerminalViewURLModeDidChangeNotification;
 
 @class WLTermView;
 @class YLMarkedTextView;
