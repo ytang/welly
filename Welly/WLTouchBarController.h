@@ -23,6 +23,11 @@ NS_ASSUME_NONNULL_BEGIN
     IBOutlet NSTouchBarItem *_nextURLButton;
     IBOutlet NSTouchBarItem *_previewURLButton;
     IBOutlet NSTouchBarItem *_openURLInBrowserButton;
+    IBOutlet NSTouchBarItem *_composeButton;
+    IBOutlet NSTouchBarItem *_threadModeButton;
+    IBOutlet NSTouchBarItem *_markModeButton;
+    IBOutlet NSTouchBarItem *_authorModeButton;
+    IBOutlet NSTouchBarItem *_titleModeButton;
     IBOutlet NSTouchBarItem *_emoticonsPanelButton;
     IBOutlet NSTouchBarItem *_postDownloadPanelButton;
     IBOutlet NSTouchBarItem *_composePanelButton;
@@ -35,6 +40,11 @@ NS_ASSUME_NONNULL_BEGIN
 - (IBAction)nextURL:(id)sender;
 - (IBAction)previewURL:(id)sender;
 - (IBAction)openURLInBrowser:(id)sender;
+- (IBAction)compose:(id)sender;
+- (IBAction)threadMode:(id)sender;
+- (IBAction)markMode:(id)sender;
+- (IBAction)authorMode:(id)sender;
+- (IBAction)titleMode:(id)sender;
 
 - (void)resetItems;
 

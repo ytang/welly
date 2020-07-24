@@ -20,12 +20,19 @@ const NSNotificationName WLTerminalViewURLModeDidChangeNotification;
 const NSNotificationName WLURLManagerNotification;
 const NSNotificationName WLTerminalBBSStateDidChangeNotification;
 
+NSString *const _composeCommandSequence = @"\020";
+NSString *const _threadModeCommandSequence = @"\07""2\n";
+NSString *const _markModeCommandSequence = @"\07""3\n";
+NSString *const _authorModeCommandSequence = @"\07""5\n\n";
+NSString *const _titleModeCommandSequence = @"\07""6\n";
+
 @implementation WLTouchBarController {
     NSSet<NSTouchBarItem *> *_urlModeItems;
     NSSet<NSTouchBarItem *> *_urlModeHiddenItems;
     NSSet<NSTouchBarItem *> *_urlModeButtonItems;
     NSSet<NSTouchBarItem *> *_composePostItems;
     NSSet<NSTouchBarItem *> *_viewPostItems;
+    NSSet<NSTouchBarItem *> *_browseBoardItems;
 }
 
 SYNTHESIZE_SINGLETON_FOR_CLASS(WLTouchBarController)
@@ -61,6 +68,7 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(WLTouchBarController)
     _urlModeButtonItems = [NSSet setWithObject:_urlModeButton];
     _composePostItems = [NSSet setWithObjects:_emoticonsPanelButton, _composePanelButton, nil];
     _viewPostItems = [NSSet setWithObject:_postDownloadPanelButton];
+    _browseBoardItems = [NSSet setWithObjects:_threadModeButton, _markModeButton, _authorModeButton, _titleModeButton, _composeButton, nil];
 }
 
 - (void)updateItems:(NSSet<NSTouchBarItem *> *)items when:(BOOL)condition {
@@ -78,7 +86,9 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(WLTouchBarController)
     NSTextField *field = (NSTextField *)_siteNameField.view;
     if ([content isKindOfClass:[WLConnection class]]) {
         field.stringValue = [content site].name;
-        if (![content isConnected]) {
+        if ([content isConnected]) {
+            [self updateBBSState:[content terminal].bbsState];
+        } else {
             [self resetItems];
         }
     } else {
@@ -136,11 +146,45 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(WLTouchBarController)
 
 #pragma mark -
 #pragma mark BBS State
+- (void)updateBBSState:(BBSState)bbsState {
+    [self updateItems:_composePostItems when:bbsState.state == BBSComposePost];
+    [self updateItems:_viewPostItems when:bbsState.state == BBSViewPost];
+    if (WLMainFrameController.sharedInstance.tabView.frontMostTerminal.bbsType == WLFirebird) {
+        [self updateItems:_browseBoardItems when:bbsState.state == BBSBrowseBoard];
+    }
+}
+
 - (void)bbsStateDidChange:(NSNotification *)notification {
     BBSState bbsState;
     [notification.userInfo[@"bbsState"] getValue:&bbsState];
-    [self updateItems:_composePostItems when:bbsState.state == BBSComposePost];
-    [self updateItems:_viewPostItems when:bbsState.state == BBSViewPost];
+    [self updateBBSState:bbsState];
+}
+
+- (void)sendText:(NSString *)text {
+    NSView *view = WLMainFrameController.sharedInstance.tabView.frontMostView;
+    if ([view isKindOfClass:[WLTerminalView class]]) {
+        [(WLTerminalView *)view sendText:text];
+    }
+}
+
+- (IBAction)compose:(id)sender {
+    [self sendText:_composeCommandSequence];
+}
+
+- (IBAction)threadMode:(id)sender {
+    [self sendText:_threadModeCommandSequence];
+}
+
+- (IBAction)markMode:(id)sender {
+    [self sendText:_markModeCommandSequence];
+}
+
+- (IBAction)authorMode:(id)sender {
+    [self sendText:_authorModeCommandSequence];
+}
+
+- (IBAction)titleMode:(id)sender {
+    [self sendText:_titleModeCommandSequence];
 }
 
 @end
