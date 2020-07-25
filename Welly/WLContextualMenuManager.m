@@ -33,9 +33,9 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(WLContextualMenuManager)
                 NSBundle *mainBundle = [NSBundle mainBundle];
                 NSString *preferredLocalizationName = (NSString *)mainBundle.preferredLocalizations[0];
                 NSString *path = [mainBundle pathForResource:WLOpenURLMenuItemFilename
-                                                     ofType:@"plist"
-                                                inDirectory:nil
-                                            forLocalization:preferredLocalizationName];
+                                                      ofType:@"plist"
+                                                 inDirectory:nil
+                                             forLocalization:preferredLocalizationName];
                 if (!path) {
                     path = [mainBundle pathForResource:WLOpenURLMenuItemFilename
                                                 ofType:@"plist"

@@ -19,6 +19,7 @@ NSString *const WLCommandRHotkeyEnabledKeyName = @"CommandRHotkey";
 NSString *const WLConfirmOnCloseEnabledKeyName = @"ConfirmOnClose";
 NSString *const WLSafePasteEnabledKeyName = @"SafePaste";
 NSString *const WLMouseEnabledKeyName = @"EnableMouse";
+NSString *const WLDefaultEncodingKeyName = @"DefaultEncoding";
 
 const CGFloat WLDefaultCellWidth = 12;
 const CGFloat WLDefaultCellHeight = 24;
@@ -81,13 +82,37 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(WLGlobalConfig)
             [defaults setBool:YES forKey:WLSafePasteEnabledKeyName];
         if ([defaults objectForKey:WLMouseEnabledKeyName] == nil)
             [defaults setBool:YES forKey:WLMouseEnabledKeyName];
-
+        
+        // aqua: deal with the 1-star review on the Taiwan App Store
+        if ([defaults objectForKey:WLDefaultEncodingKeyName] == nil) {
+            for (NSString *language in NSBundle.mainBundle.preferredLocalizations) {
+                if ([language hasPrefix:@"zh-Hans"]) {
+                    [defaults setInteger:(NSInteger)WLGBKEncoding forKey:WLDefaultEncodingKeyName];
+                    break;
+                } else if ([language hasPrefix:@"zh-Hant"]) {
+                    [defaults setInteger:(NSInteger)WLBig5Encoding forKey:WLDefaultEncodingKeyName];
+                    break;
+                }
+            }
+            if ([defaults objectForKey:WLDefaultEncodingKeyName] == nil) {
+                for (NSString *language in NSLocale.preferredLanguages) {
+                    if ([language hasPrefix:@"zh-Hans"]) {
+                        [defaults setInteger:(NSInteger)WLGBKEncoding forKey:WLDefaultEncodingKeyName];
+                        break;
+                    } else if ([language hasPrefix:@"zh-Hant"]) {
+                        [defaults setInteger:(NSInteger)WLBig5Encoding forKey:WLDefaultEncodingKeyName];
+                        break;
+                    }
+                }
+            }
+        }
+        
         self.showsHiddenText = [defaults boolForKey:@"ShowHiddenText"];
         self.shouldSmoothFonts = [defaults boolForKey:@"ShouldSmoothFonts"];
         self.shouldDetectDoubleByte = [defaults boolForKey:@"DetectDoubleByte"];
         self.shouldEnableMouse = [defaults boolForKey:WLMouseEnabledKeyName];
-        self.defaultEncoding = (WLEncoding) [defaults integerForKey:@"DefaultEncoding"];
-        self.defaultANSIColorKey = (YLANSIColorKey) [defaults integerForKey:@"DefaultANSIColorKey"];
+        self.defaultEncoding = (WLEncoding)[defaults integerForKey:WLDefaultEncodingKeyName];
+        self.defaultANSIColorKey = (YLANSIColorKey)[defaults integerForKey:@"DefaultANSIColorKey"];
         self.shouldRepeatBounce = [defaults boolForKey:@"RepeatBounce"];
         
         // init code
@@ -294,7 +319,7 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(WLGlobalConfig)
 
 - (void)setDefaultEncoding:(WLEncoding)value {
     _defaultEncoding = value;
-    [[NSUserDefaults standardUserDefaults] setInteger:(NSInteger)value forKey:@"DefaultEncoding"];
+    [[NSUserDefaults standardUserDefaults] setInteger:(NSInteger)value forKey:WLDefaultEncodingKeyName];
 }
 
 - (void)setDefaultANSIColorKey:(YLANSIColorKey)value {
