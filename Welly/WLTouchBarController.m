@@ -65,9 +65,9 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(WLTouchBarController)
     _touchBar.templateItems = [NSSet setWithObjects:_sitesPanelButton, _reconnectButton, _siteNameField, _flexibleSpace, nil];
     _urlModeItems = [NSSet setWithObjects:_urlModeField, _previousURLButton, _nextURLButton, _previewURLButton, _openURLInBrowserButton, nil];
     _urlModeHiddenItems = [NSSet setWithObjects:_siteNameField, _urlModeButton, nil];
-    _urlModeButtonItems = [NSSet setWithObject:_urlModeButton];
+    _urlModeButtonItems = [NSSet setWithObjects:_urlModeButton, nil];
     _composePostItems = [NSSet setWithObjects:_emoticonsPanelButton, _composePanelButton, nil];
-    _viewPostItems = [NSSet setWithObject:_postDownloadPanelButton];
+    _viewPostItems = [NSSet setWithObjects:_postDownloadPanelButton, nil];
     _browseBoardItems = [NSSet setWithObjects:_threadModeButton, _markModeButton, _authorModeButton, _titleModeButton, _composeButton, nil];
 }
 
