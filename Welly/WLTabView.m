@@ -142,6 +142,7 @@ const NSNotificationName WLTabViewSelectionDidChangeNotification = @"WLTabViewSe
         if ([oldView conformsToProtocol:@protocol(WLTabItemContentObserver)]) {
             [(id <WLTabItemContentObserver>)oldView didChangeContent:nil];
         }
+        self.needsDisplay = YES;
     }
 }
 
