@@ -448,7 +448,6 @@
                                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                         <font key="font" usesAppearanceFont="YES"/>
                                     </buttonCell>
-                                    <color key="bezelColor" name="systemOrangeColor" catalog="System" colorSpace="catalog"/>
                                     <connections>
                                         <action selector="switchURLMode:" target="u6W-G9-9a8" id="d0Y-7c-UUV"/>
                                     </connections>
