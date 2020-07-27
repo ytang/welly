@@ -16,7 +16,8 @@ Welly 是一个支持 Telnet 和 SSH (v1 和 v2) 的 BBS 终端，用于浏览�
 - 您可以分别设置中文和英文字体，也可以自定义颜色。
 - Welly 为 ASCII 艺术进行了专门优化，实现无缝渲染字体。
 - Welly 提供防发呆功能，可以避免您被 BBS 踢下线。
-- Welly 原生支持 macOS 全屏幕模式和深色模式。
+- Welly 支持 macOS 原生全屏幕模式和深色模式。
+- Welly 支持 MacBook Pro 上的触控栏。
 - Welly 可以显示隐藏文字，例如黑色背景下的黑色文字。
 - Welly 可以显示 IP 地址的所在位置。
 
