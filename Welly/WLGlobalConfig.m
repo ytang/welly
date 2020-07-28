@@ -20,6 +20,7 @@ NSString *const WLConfirmOnCloseEnabledKeyName = @"ConfirmOnClose";
 NSString *const WLSafePasteEnabledKeyName = @"SafePaste";
 NSString *const WLMouseEnabledKeyName = @"EnableMouse";
 NSString *const WLDefaultEncodingKeyName = @"DefaultEncoding";
+NSString *const NSInitialToolTipDelay = @"NSInitialToolTipDelay";
 
 const CGFloat WLDefaultCellWidth = 12;
 const CGFloat WLDefaultCellHeight = 24;
@@ -82,6 +83,8 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(WLGlobalConfig)
             [defaults setBool:YES forKey:WLSafePasteEnabledKeyName];
         if ([defaults objectForKey:WLMouseEnabledKeyName] == nil)
             [defaults setBool:YES forKey:WLMouseEnabledKeyName];
+        if ([defaults objectForKey:NSInitialToolTipDelay] == nil)
+            [defaults setInteger:1 forKey:NSInitialToolTipDelay];
         
         // aqua: deal with the 1-star review on the Taiwan App Store
         if ([defaults objectForKey:WLDefaultEncodingKeyName] == nil) {
