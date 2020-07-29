@@ -20,6 +20,7 @@
 
 @implementation WLConnection {
     NSData *_password;
+    NSString *_identityFile;
 }
 
 @synthesize terminalFeeder = _feeder;
@@ -131,7 +132,7 @@
 - (void)connect {
     if ([self hasPrivateKey]) {
         [self generateIdentityFile];
-        [_protocol connectWithPubkeyAuthentication:_site.address];
+        [_protocol connect:_site.address withIdentityFile:_identityFile];
     } else {
         [_protocol connect:_site.address withPassword:_password];
     }
@@ -230,7 +231,10 @@
 }
 
 - (NSString *)identityFile {
-    return [NSTemporaryDirectory() stringByAppendingPathComponent:@"id"];
+    if (!_identityFile) {
+        _identityFile = [NSTemporaryDirectory() stringByAppendingPathComponent:[NSUUID UUID].UUIDString];
+    }
+    return _identityFile;
 }
 
 - (void)generateIdentityFile {

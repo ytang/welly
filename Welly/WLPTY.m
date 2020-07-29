@@ -32,7 +32,7 @@
     BOOL _connecting;
 }
 
-+ (NSString *)parse:(NSString *)addr pubkeyAuthentication:(BOOL)pubkeyAuthenticationFlag {
++ (NSString *)parse:(NSString *)addr withIdentityFile:(NSString *)identityFile {
     // trim whitespaces
     addr = [addr stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
     // no longer support raw commands; convert to URL-style addr + options
@@ -84,11 +84,10 @@
     if (ssh) {
         if (port == nil)
             port = @"22";
-        if (pubkeyAuthenticationFlag) {
-            NSString *tempDir = NSTemporaryDirectory();
+        if (identityFile) {
             path = [NSString stringWithFormat:@"/usr/bin/ssh -i %@ -o StrictHostKeyChecking=no -o UserKnownHostsFile=%@",
-                    [tempDir stringByAppendingPathComponent:@"id"],
-                    [tempDir stringByAppendingPathComponent:@"known_hosts"]];
+                    identityFile,
+                    [NSTemporaryDirectory() stringByAppendingPathComponent:@"known_hosts"]];
             fmt = @"%@%@ -p %4$@ -x %3$@";
         } else {
             path = [NSString stringWithFormat:@"%@ -%d",
@@ -136,15 +135,15 @@
     }
 }
 
-- (BOOL)connectWithPubkeyAuthentication:(NSString *)addr {
-    return [self connect:addr pubkeyAuthentication:YES withPassword:nil];
+- (BOOL)connect:(NSString *)addr withIdentityFile:(NSString *)identityFile {
+    return [self connect:addr withIdentityFile:identityFile password:nil];
 }
 
 - (BOOL)connect:(NSString *)addr withPassword:(NSData *)password {
-    return [self connect:addr pubkeyAuthentication:NO withPassword:password];
+    return [self connect:addr withIdentityFile:nil password:password];
 }
 
-- (BOOL)connect:(NSString *)addr pubkeyAuthentication:(BOOL)pubkeyAuthenticationFlag withPassword:(NSData *)password {
+- (BOOL)connect:(NSString *)addr withIdentityFile:(NSString *)identityFile password:(NSData *)password {
     char slaveName[PATH_MAX];
     struct termios term;
     struct winsize size;
@@ -182,7 +181,7 @@
     
     _pid = forkpty(&_fd, slaveName, &term, &size);
     if (_pid == 0) { /* child */
-        NSArray *a = [[WLPTY parse:addr pubkeyAuthentication:pubkeyAuthenticationFlag] componentsSeparatedByString:@" "];
+        NSArray *a = [[WLPTY parse:addr withIdentityFile:identityFile] componentsSeparatedByString:@" "];
         if ([(NSString *)a[0] hasSuffix:@"ssh"]) {
             NSString *proxyCommand = [WLProxy proxyCommandWithAddress:_proxyAddress type:_proxyType];
             if (proxyCommand) {
