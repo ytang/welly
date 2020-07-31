@@ -287,7 +287,7 @@ BOOL isPostTitleStarter(unichar c) {
         
         // TODO: fix magic numbers
         if (currRow[12].byte != 0 && currRow[12].byte != ' ' && (currRow[11].byte == ' ' || currRow[11].byte == '*'))
-            [self addClickEntryRectAtRow:r column:12 length:80-28]; // smth
+            [self addClickEntryRectAtRow:r column:12 length:80-29]; // smth
         else if (currRow[13].byte != 0 && currRow[13].byte != ' ' && (currRow[12].byte == ' ' || currRow[12].byte == '*'))
             [self addClickEntryRectAtRow:r column:13 length:80-29]; // smth overflow
         else if (currRow[10].byte != 0 && currRow[10].byte != ' ' && currRow[7].byte == ' ' && currRow[27].byte == ' ')
