@@ -47,25 +47,32 @@ NSString *const WLButtonNameDeleteBoard = @"Delete Board";
 NSString *const WLButtonNameChatWithUser = @"Chat";
 NSString *const WLButtonNameMailToUser = @"Mail";
 NSString *const WLButtonNameSendMessageToUser = @"Send Message";
+NSString *const WLButtonNameShowUserInfo = @"Show User Info";
 NSString *const WLButtonNameAddUserToFriendList = @"Add To Friend List";
 NSString *const WLButtonNameRemoveUserFromFriendList = @"Remove From Friend List";
 NSString *const WLButtonNameSwitchUserListMode = @"Switch User List Mode";
 NSString *const WLButtonNameShowUserDescription = @"Show User Description";
 NSString *const WLButtonNamePreviousUser = @"Previous User";
 NSString *const WLButtonNameNextUser = @"Next User";
+NSString *const WLButtonNameShowUserBoards = @"Show User Boards";
+NSString *const WLButtonNameSendSMSToUser = @"Send SMS";
 
 NSString *const FBCommandSequenceAuthorToNormal = @"e";
 NSString *const FBCommandSequenceChatWithUser = @"t";
 NSString *const FBCommandSequenceMailToUser = @"m";
 NSString *const FBCommandSequenceSendMessageToUser = @"s";
+NSString *const FBCommandSequenceShowUserInfo = @"i";
 NSString *const FBCommandSequenceAddUserToFriendList = @"oY\n";
 NSString *const FBCommandSequenceRemoveUserFromFriendList = @"dY\n";
 NSString *const FBCommandSequenceSwitchUserListMode = @"f";
-NSString *const FBCommandSequenceShowUserDescription = @"l";
+NSString *const FBCommandSequenceShowUserDescriptionL = @"l";
+NSString *const FBCommandSequenceShowUserDescriptionV = @"v";
 NSString *const FBCommandSequencePreviousUser = termKeyUp;
 NSString *const FBCommandSequenceNextUser = termKeyDown;
 NSString *const FBCommandSequenceJumpToMailList = @"v";
 NSString *const FBCommandSequenceEnterExcerption = @"x";
+NSString *const FBCommandSequenceShowUserBoards = @"k";
+NSString *const FBCommandSequenceSendSMSToUser = @"w";
 
 @implementation WLButtonAreaHotspotHandler
 #pragma mark -
@@ -139,16 +146,20 @@ NSString *const FBCommandSequenceEnterExcerption = @"x";
         {BBSBoardList, @"求助[h]", 7, WLButtonNameShowHelp, fbShowHelp},
         {BBSBoardList, @"[您有信件]", 10, WLButtonNameJumpToMailList, FBCommandSequenceJumpToMailList},
         /* BBSUserInfo */
+        {BBSUserInfo, @"信息[i]", 7, WLButtonNameShowUserInfo, FBCommandSequenceShowUserInfo},
         {BBSUserInfo, @"寄信[m]", 7, WLButtonNameMailToUser, FBCommandSequenceMailToUser},
         {BBSUserInfo, @"聊天[t]", 7, WLButtonNameChatWithUser, FBCommandSequenceChatWithUser},
         {BBSUserInfo, @"送讯息[s]", 9, WLButtonNameSendMessageToUser, FBCommandSequenceSendMessageToUser},
-        {BBSUserInfo, @"加,减朋", 7, WLButtonNameAddUserToFriendList, FBCommandSequenceAddUserToFriendList},
-        {BBSUserInfo, @"友[o,d]", 7, WLButtonNameRemoveUserFromFriendList, FBCommandSequenceRemoveUserFromFriendList},
+        {BBSUserInfo, @"加,减朋友[o", 11, WLButtonNameAddUserToFriendList, FBCommandSequenceAddUserToFriendList},
+        {BBSUserInfo, @",d]", 3, WLButtonNameRemoveUserFromFriendList, FBCommandSequenceRemoveUserFromFriendList},
         {BBSUserInfo, @"切换模式 [f]", 12, WLButtonNameSwitchUserListMode, FBCommandSequenceSwitchUserListMode},
         {BBSUserInfo, @"求救[h]", 7, WLButtonNameShowHelp, fbShowHelp},
-        {BBSUserInfo, @"查看说明档[l]", 13, WLButtonNameShowUserDescription, FBCommandSequenceShowUserDescription},
+        {BBSUserInfo, @"说明档[l]", 9, WLButtonNameShowUserDescription, FBCommandSequenceShowUserDescriptionL},
+        {BBSUserInfo, @"说明档[v]", 9, WLButtonNameShowUserDescription, FBCommandSequenceShowUserDescriptionV},
         {BBSUserInfo, @"选择使用", 8, WLButtonNamePreviousUser, FBCommandSequencePreviousUser},
         {BBSUserInfo, @"者[↑,↓]", 9, WLButtonNameNextUser, FBCommandSequenceNextUser},
+        {BBSUserInfo, @"驻版[k]", 7, WLButtonNameShowUserBoards, FBCommandSequenceShowUserBoards},
+        {BBSUserInfo, @"短信[w]", 7, WLButtonNameSendSMSToUser, FBCommandSequenceSendSMSToUser},
     };
     
     if (r > 3 && r < _maxRow-1)

@@ -100,12 +100,15 @@
 "Chat" = "Chat";
 "Mail" = "Mail";
 "Send Message" = "Send Message";
+"Show User Info" = "Show User Info";
 "Add To Friend List" = "Add To Friend List";
 "Remove From Friend List" = "Remove From Friend List";
 "Switch User List Mode" = "Switch User List Mode";
 "Show User Description" = "Show User Description";
 "Previous User" = "Previous User";
 "Next User" = "Next User";
+"Show User Boards" = "Show User Boards";
+"Send SMS" = "Send SMS";
 
 /* Contextual Menu */
 // Moving Area

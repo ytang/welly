@@ -101,12 +101,15 @@
 "Chat" = "聊天";
 "Mail" = "寄信";
 "Send Message" = "送讯息";
+"Show User Info" = "用户信息";
 "Add To Friend List" = "加为好友";
 "Remove From Friend List" = "断交";
 "Switch User List Mode" = "切换模式";
 "Show User Description" = "查看说明档";
 "Previous User" = "上一个用户";
 "Next User" = "下一个用户";
+"Show User Boards" = "驻版信息";
+"Send SMS" = "发送短信";
 
 /* Contextual Menu */
 // Moving Area

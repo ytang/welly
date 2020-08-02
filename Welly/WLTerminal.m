@@ -305,6 +305,9 @@ inline static BOOL hasAnyString(NSString *row, NSArray *array) {
     _bbsState.subState = BBSSubStateNone;
     if (NO) {
         // just for align
+    } else if (hasAnyString(bottomLine, @[@"朋友"])) {
+        //NSLog(@"用户信息");
+        _bbsState.state = BBSUserInfo;
     } else if (hasAnyString(bottomLine, @[@"【  】", @"【信】", @"編輯文章"])) {
         //NSLog(@"发表文章");
         _bbsState.state = BBSComposePost;
@@ -349,10 +352,6 @@ inline static BOOL hasAnyString(NSString *row, NSArray *array) {
     } else if (hasAnyString(bottomLine, @[@"阅读文章", @"主题阅读", @"同作者阅读", @"下面还有喔", @"瀏覽"])) {
         //NSLog(@"阅读文章");
         _bbsState.state = BBSViewPost;
-    } else if (hasAnyString([self stringAtRow:4], @[@"个人说明档如下", @"没有个人说明档"])
-               || hasAnyString([self stringAtRow:6], @[@"个人说明档如下", @"没有个人说明档"])) {
-        //NSLog(@"用户信息");
-        _bbsState.state = BBSUserInfo;
     } else if (hasAnyString(bottomLine, @[@"[功能键]", @"[版  主]"])) {
         //NSLog(@"浏览精华区");
         _bbsState.state = BBSBrowseExcerption;
