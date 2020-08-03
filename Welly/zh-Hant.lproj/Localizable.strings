@@ -91,7 +91,11 @@
 "Author To Normal" = "Author To Normal";
 "Display All Boards" = "Display All Boards";
 "Sort Boards" = "Sort Boards";
+"Search Boards" = "Search Boards";
 "Switch Boards Number" = "Switch Boards Number";
+"Add Board" = "Add Board";
+"Add Directory" = "Add Directory";
+"Move Board" = "Move Board";
 "Delete Board" = "Delete Board";
 "Author: %@" = "同作者: %@";
 "Jump To Mail List" = "Jump To Mail List";

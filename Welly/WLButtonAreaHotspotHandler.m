@@ -41,7 +41,11 @@ NSString *const WLButtonNameEnterExcerption = @"Enter Excerption";
 
 NSString *const WLButtonNameSwitchDisplayAllBoards = @"Display All Boards";
 NSString *const WLButtonNameSwitchSortBoards = @"Sort Boards";
+NSString *const WLButtonNameSearchBoards = @"Search Boards";
 NSString *const WLButtonNameSwitchBoardsNumber = @"Switch Boards Number";
+NSString *const WLButtonNameAddBoard = @"Add Board";
+NSString *const WLButtonNameAddDirectory = @"Add Directory";
+NSString *const WLButtonNameMoveBoard = @"Move Board";
 NSString *const WLButtonNameDeleteBoard = @"Delete Board";
 
 NSString *const WLButtonNameChatWithUser = @"Chat";
@@ -58,6 +62,10 @@ NSString *const WLButtonNameShowUserBoards = @"Show User Boards";
 NSString *const WLButtonNameSendSMSToUser = @"Send SMS";
 
 NSString *const FBCommandSequenceAuthorToNormal = @"e";
+NSString *const FBCommandSequenceSearchBoards = @"/";
+NSString *const FBCommandSequenceAddBoard = @"a";
+NSString *const FBCommandSequenceAddDirectory = @"A";
+NSString *const FBCommandSequenceMoveBoard = @"m";
 NSString *const FBCommandSequenceChatWithUser = @"t";
 NSString *const FBCommandSequenceMailToUser = @"m";
 NSString *const FBCommandSequenceSendMessageToUser = @"s";
@@ -141,7 +149,11 @@ NSString *const FBCommandSequenceSendSMSToUser = @"w";
         /* BBSBoardList */
         {BBSBoardList, @"列出[y]", 7, WLButtonNameSwitchDisplayAllBoards, fbSwitchDisplayAllBoards},
         {BBSBoardList, @"排序[S]", 7, WLButtonNameSwitchSortBoards, fbSwitchSortBoards},
+        {BBSBoardList, @"搜寻[/]", 7, WLButtonNameSearchBoards, FBCommandSequenceSearchBoards},
         {BBSBoardList, @"切换[c]", 7, WLButtonNameSwitchBoardsNumber, fbSwitchBoardsNumber},
+        {BBSBoardList, @"添加[a", 6, WLButtonNameAddBoard, FBCommandSequenceAddBoard},
+        {BBSBoardList, @",A]", 3, WLButtonNameAddDirectory, FBCommandSequenceAddDirectory},
+        {BBSBoardList, @"移动[m]", 7, WLButtonNameMoveBoard, FBCommandSequenceMoveBoard},
         {BBSBoardList, @"删除[d]", 7, WLButtonNameDeleteBoard, fbDeletePost},
         {BBSBoardList, @"求助[h]", 7, WLButtonNameShowHelp, fbShowHelp},
         {BBSBoardList, @"[您有信件]", 10, WLButtonNameJumpToMailList, FBCommandSequenceJumpToMailList},

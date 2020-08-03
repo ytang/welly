@@ -92,8 +92,12 @@
 "Author To Normal" = "切换到一般模式";
 "Display All Boards" = "列出";
 "Sort Boards" = "排序";
+"Search Boards" = "搜寻";
 "Switch Boards Number" = "切换";
-"Delete Board" = "删除版面";
+"Add Board" = "添加讨论区";
+"Add Directory" = "添加目录";
+"Move Board" = "移动讨论区";
+"Delete Board" = "删除讨论区";
 "Author: %@" = "同作者: %@";
 "Jump To Mail List" = "检查信件";
 "Enter Excerption" = "浏览精华区";
