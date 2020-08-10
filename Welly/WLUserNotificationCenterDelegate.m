@@ -27,6 +27,8 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(WLUserNotificationCenterDelegate)
     if (index != NSNotFound) {
         [view selectTabViewItemAtIndex:index];
     }
+    
+    [NSUserNotificationCenter.defaultUserNotificationCenter removeDeliveredNotification:notification];
 }
 
 - (BOOL)userNotificationCenter:(NSUserNotificationCenter *)center
