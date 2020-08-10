@@ -45,8 +45,7 @@
         }
         
         // Setup the message delegate
-        _messageDelegate = [[WLMessageDelegate alloc] init];
-        [_messageDelegate setConnection: self];
+        _messageDelegate = [[WLMessageDelegate alloc] initWithConnection:self];
     }
     return self;
 }

@@ -42,7 +42,7 @@
     WLTerminal *_terminal;
     WLConnection *_connection;
     
-    BOOL _hasNewMessage;	// to determine if a growl notification is needed
+    BOOL _hasNewMessage;	// to determine if a user notification is needed
     
     enum { VT100, VT102 } _emustd;
     

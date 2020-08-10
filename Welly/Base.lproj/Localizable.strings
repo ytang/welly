@@ -40,7 +40,7 @@
 /* Auto Reply */
 "DefaultAutoReplyString" = "[Welly] I'm not around, please contact me later.";
 "MessageWindowTitle" = "You have %d unread message(s)";
-"AutoReplyGrowlTipFormat" = "%@\n(replied automatically)";
+"AutoReplyUserNotificationFormat" = "%@\n(replied automatically)";
 
 /* Preview */
 "Connecting" = "Connecting";
@@ -138,7 +138,3 @@
 "Look Up in Dictionary" = "Look Up in Dictionary";
 "Copy" = "Copy";
 "Save as Emoticon" = "Save as Emoticon";
-
-/* Growl Notification Name */
-"File Transfer" = "File Transfer";
-"New Message Received" = "New Message Received";

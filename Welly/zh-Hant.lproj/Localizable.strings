@@ -40,7 +40,7 @@
 /* Auto Reply */
 "DefaultAutoReplyString" = "[Welly] 我現在不在，請稍後再聯絡";
 "MessageWindowTitle" = "您有 %d 條未讀訊息，請查收";
-"AutoReplyGrowlTipFormat" = "%@\n(已自動應答)";
+"AutoReplyUserNotificationFormat" = "%@\n(已自動應答)";
 
 /* Preview */
 "Connecting" = "連線中";
@@ -138,7 +138,3 @@
 "Look Up in Dictionary" = "查詢字典";
 "Copy" = "拷貝";
 "Save as Emoticon" = "儲存為表情符號";
-
-/* Growl Notification Name */
-"File Transfer" = "檔案傳輸";
-"New Message Received" = "收到新訊息";

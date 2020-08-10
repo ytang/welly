@@ -25,6 +25,7 @@
 #import "WLAnsiColorOperationManager.h"
 #import "WLMessageDelegate.h"
 #import "WLTouchBarController.h"
+#import "WLUserNotificationCenterDelegate.h"
 
 #import "WLNotifications.h"
 
@@ -63,6 +64,8 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(WLMainFrameController)
     [WLGlobalConfig sharedInstance].cellWidth = [WLGlobalConfig sharedInstance].cellWidth;
     
     [WLTouchBarController.sharedInstance resetItems];
+    
+    NSUserNotificationCenter.defaultUserNotificationCenter.delegate = WLUserNotificationCenterDelegate.sharedInstance;
     
     //[_mainWindow setHasShadow:YES];
     [_mainWindow setOpaque:NO];

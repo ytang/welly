@@ -12,11 +12,6 @@
 #import "WLSite.h"
 #import "WLTabView.h"
 #import "WLMainFrameController.h"
-#import "WLGrowlBridge.h"
-
-@interface WLMessageDelegate ()
-- (void)didClickGrowlNewMessage:(id)connection;
-@end
 
 @implementation WLMessageDelegate
 @synthesize unreadCount = _unreadCount;
@@ -64,20 +59,16 @@
         NSString *description;
         // notify auto replied
         if (_connection.site.shouldAutoReply) {
-            description = [NSString stringWithFormat:NSLocalizedString(@"AutoReplyGrowlTipFormat", @"Auto Reply"), message];
+            description = [NSString stringWithFormat:NSLocalizedString(@"AutoReplyUserNotificationFormat", @"Auto Reply"), message];
         } else {
             description = message;
         }
         
-        // should invoke growl notification
-        [WLGrowlBridge notifyWithTitle:callerName
-                           description:description 
-                      notificationName:kGrowlNotificationNameNewMessageReceived
-                              isSticky:NO
-                           clickTarget:self
-                         clickSelector:@selector(didClickGrowlNewMessage:)
-                            identifier:_connection];
-        
+        NSUserNotification *notification = [[NSUserNotification alloc] init];
+        notification.title = callerName;
+        notification.informativeText = description;
+        notification.userInfo = @{ @"identifier" : [NSData dataWithBytes:&_connection length:__SIZEOF_POINTER__] };
+        [NSUserNotificationCenter.defaultUserNotificationCenter deliverNotification:notification];
     }
 }
 
@@ -87,15 +78,5 @@
     textView.textColor = [NSColor whiteColor];
     [_unreadMessage setString:@""];
     _unreadCount = 0;
-}
-
-- (void)didClickGrowlNewMessage:(id)connection {
-    // bring the window to front
-    [NSApp activateIgnoringOtherApps:YES];
-    
-    WLTabView *view = [WLMainFrameController sharedInstance].tabView;
-    [view.window makeKeyAndOrderFront:nil];
-    // select the tab
-    [view selectTabViewItemWithIdentifier:connection];
 }
 @end
