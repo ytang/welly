@@ -61,6 +61,13 @@ NSString *const WLButtonNameNextUser = @"Next User";
 NSString *const WLButtonNameShowUserBoards = @"Show User Boards";
 NSString *const WLButtonNameSendSMSToUser = @"Send SMS";
 
+NSString *const WLButtonNameRetainMessages = @"Retain Messages";
+NSString *const WLButtonNameClearMessages = @"Clear Messages";
+NSString *const WLButtonNameMailMessages = @"Mail Messages";
+NSString *const WLButtonNameSearchID = @"Search ID";
+NSString *const WLButtonNameSearchMessages = @"Search Messages";
+NSString *const WLButtonNameShowAllMessages = @"Show All Messages";
+
 NSString *const FBCommandSequenceAuthorToNormal = @"e";
 NSString *const FBCommandSequenceSearchBoards = @"/";
 NSString *const FBCommandSequenceAddBoard = @"a";
@@ -83,6 +90,12 @@ NSString *const FBCommandSequenceJumpToMailList = @"v";
 NSString *const FBCommandSequenceEnterExcerption = @"x";
 NSString *const FBCommandSequenceShowUserBoards = @"k";
 NSString *const FBCommandSequenceSendSMSToUser = @"w";
+NSString *const FBCommandSequenceRetainMessages = @"r";
+NSString *const FBCommandSequenceClearMessages = @"c";
+NSString *const FBCommandSequenceMailMessages = @"m";
+NSString *const FBCommandSequenceSearchID = @"i";
+NSString *const FBCommandSequenceSearchMessages = @"s";
+NSString *const FBCommandSequenceShowAllMessages = @"a";
 
 @implementation WLButtonAreaHotspotHandler
 #pragma mark -
@@ -185,6 +198,13 @@ NSString *const FBCommandSequenceSendSMSToUser = @"w";
         {BBSUserInfo, @"者[↑,↓]", 9, WLButtonNameNextUser, FBCommandSequenceNextUser},
         {BBSUserInfo, @"驻版[k]", 7, WLButtonNameShowUserBoards, FBCommandSequenceShowUserBoards},
         {BBSUserInfo, @"短信[w]", 7, WLButtonNameSendSMSToUser, FBCommandSequenceSendSMSToUser},
+        /* BBSMessageList */
+        {BBSMessageList, @"保留<r>", 7, WLButtonNameRetainMessages, FBCommandSequenceRetainMessages},
+        {BBSMessageList, @"清除<c>", 7, WLButtonNameClearMessages, FBCommandSequenceClearMessages},
+        {BBSMessageList, @"寄回信箱<m>", 11, WLButtonNameMailMessages, FBCommandSequenceMailMessages},
+        {BBSMessageList, @"发讯人<i>", 9, WLButtonNameSearchID, FBCommandSequenceSearchID},
+        {BBSMessageList, @"讯息内容<s>", 11, WLButtonNameSearchMessages, FBCommandSequenceSearchMessages},
+        {BBSMessageList, @"全部<a>", 7, WLButtonNameShowAllMessages, FBCommandSequenceShowAllMessages},
     };
     
     if (r > 3 && r < _maxRow-1)

@@ -57,6 +57,7 @@ typedef struct {
      @constant   BBSMentionList      The user is browsing his mention (@, Re:, Like) list. It is similar to the <code>BBSBrowseBoard</code> state, which lists out all mention entry for selection.
      @constant   BBSFriendList       The user is browsing his friend list. Friends ids are listed.
      @constant   BBSBoardList        The user is browsing board list of BBS. Boards names are listed. There are some variants of this state, for example, the user might be browsing his FAVORITE board list. However these variants has similar behavior, so we merged them together.
+     @constant   BBSMessageList      The user is browsing his message list.
      @constant   BBSBrowseBoard      The user is browsing a board's content. Posts are listed.
      @constant   BBSBrowseExcerption The user is browsing excerption. Though its functionality is similar to the <code>BBSBrowseBoard</code> state, their behavior are different, so we treat them independently.
      @constant   BBSViewPost         The user is reading one post.
@@ -73,6 +74,7 @@ typedef struct {
         BBSMentionList,
         BBSBoardList,
         BBSFriendList,
+        BBSMessageList,
         BBSBrowseBoard,
         BBSViewPost,
         BBSComposePost,

@@ -38,7 +38,8 @@ NSString *const WLMenuTitleQuitMode = @"Quit Mode";
             || bbsState.state == BBSFriendList
             || bbsState.state == BBSMailList
             || bbsState.state == BBSMentionList
-            || bbsState.state == BBSViewPost);
+            || bbsState.state == BBSViewPost
+            || bbsState.state == BBSMessageList);
 }
 
 - (BOOL)shouldEnablePageUpDown {

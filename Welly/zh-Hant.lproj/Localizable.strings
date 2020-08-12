@@ -113,6 +113,13 @@
 "Next User" = "Next User";
 "Show User Boards" = "Show User Boards";
 "Send SMS" = "Send SMS";
+// Message List
+"Retain Messages" = "Retain Messages";
+"Clear Messages" = "Clear Messages";
+"Mail Messages" = "Mail Messages";
+"Search ID" = "Search ID";
+"Search Messages" = "Search Messages";
+"Show All Messages" = "Show All Messages";
 
 /* Contextual Menu */
 // Moving Area

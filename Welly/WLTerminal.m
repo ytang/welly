@@ -355,6 +355,9 @@ inline static BOOL hasAnyString(NSString *row, NSArray *array) {
     } else if (hasAnyString(bottomLine, @[@"[功能键]", @"[版  主]"])) {
         //NSLog(@"浏览精华区");
         _bbsState.state = BBSBrowseExcerption;
+    } else if (hasAnyString(bottomLine, @[@"讯息浏览器"])) {
+        //NSLog(@"讯息浏览器");
+        _bbsState.state = BBSMessageList;
     } else if (hasAnyString(wholePage, @[@"按任意键继续", @"按回车键", @"按 [RETURN] 继续", @"按 ◆Enter◆ 继续", @"按 <ENTER> 继续", @"按任何键继续", @"上次连线时间为", @"按任意鍵繼續", @"請按空白鍵或是Enter繼續"])) {
         //NSLog(@"按回车继续");
         _bbsState.state = BBSWaitingEnter;

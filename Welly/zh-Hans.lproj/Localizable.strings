@@ -114,6 +114,13 @@
 "Next User" = "下一个用户";
 "Show User Boards" = "驻版信息";
 "Send SMS" = "发送短信";
+// Message List
+"Retain Messages" = "保留讯息";
+"Clear Messages" = "清除讯息";
+"Mail Messages" = "寄回信箱";
+"Search ID" = "查找发讯人";
+"Search Messages" = "查找讯息内容";
+"Show All Messages" = "全部讯息";
 
 /* Contextual Menu */
 // Moving Area
