@@ -227,14 +227,6 @@ static unsigned short gEmptyAttr;
     return self;
 }
 
-- (instancetype)initWithConnection:(WLConnection *)connection {
-    self = [self init];
-    if (self) {
-        _connection = connection;
-    }
-    return self;
-}
-
 - (void)dealloc {
     for (int i = 0; i < _row; i++)
     free(_grid[i]);

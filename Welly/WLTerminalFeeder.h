@@ -9,7 +9,7 @@
 #import <Cocoa/Cocoa.h>
 #import "CommonType.h"
 
-@class WLConnection, WLIntegerArray, WLTerminal;
+@class WLIntegerArray, WLTerminal;
 
 @interface WLTerminalFeeder : NSObject {
     NSInteger  _row;
@@ -40,7 +40,6 @@
     NSInteger _scrollEndRow;
     
     WLTerminal *_terminal;
-    WLConnection *_connection;
     
     BOOL _hasNewMessage;	// to determine if a user notification is needed
     
@@ -57,7 +56,6 @@
 @property cell **grid;
 
 - (instancetype)init;
-- (instancetype)initWithConnection:(WLConnection *)connection;
 - (void)dealloc;
 
 /* Input Interface */

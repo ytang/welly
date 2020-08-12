@@ -29,7 +29,7 @@
     self = [self init];
     if (self) {
         // Create a feeder to parse content from the connection
-        _feeder = [[WLTerminalFeeder alloc] initWithConnection:self];
+        _feeder = [[WLTerminalFeeder alloc] init];
         
         self.site = site;
         if (!site.dummy) {
