@@ -12,6 +12,7 @@
 #import "WLSite.h"
 #import "WLTabView.h"
 #import "WLMainFrameController.h"
+#import "WLUserNotificationCenterDelegate.h"
 
 @implementation WLMessageDelegate
 @synthesize unreadCount = _unreadCount;
@@ -63,7 +64,10 @@
         } else {
             description = message;
         }
-        
+
+        if (!NSUserNotificationCenter.defaultUserNotificationCenter.delegate) {
+            NSUserNotificationCenter.defaultUserNotificationCenter.delegate = WLUserNotificationCenterDelegate.sharedInstance;
+        }
         NSUserNotification *notification = [[NSUserNotification alloc] init];
         notification.title = callerName;
         notification.informativeText = description;
