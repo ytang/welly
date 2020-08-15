@@ -50,6 +50,14 @@ NSString *const WLDefaultSiteName = @"DefaultSiteName";
     return [WLSite new];
 }
 
++ (WLSite *)siteWithName:(NSString *)name address:(NSString *)address encoding:(WLEncoding)encoding {
+    WLSite *s = [WLSite site];
+    s.name = name;
+    s.address = address;
+    s.encoding = encoding;
+    return s;
+}
+
 + (WLSite *)siteWithDictionary:(NSDictionary *)d {
     WLSite *s = [WLSite site];
     s.name = [d valueForKey:YLSiteNameAttributeName] ?: @"";

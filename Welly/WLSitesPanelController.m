@@ -69,8 +69,21 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(WLSitesPanelController)
 #pragma mark Save/Load Sites Array
 - (void)loadSites {
     NSArray *array = [[NSUserDefaults standardUserDefaults] arrayForKey:@"Sites"];
+    if (!array.count) {
+        [self loadDefaultSites];
+        return;
+    }
     for (NSDictionary *d in array)
         [self insertObject:[WLSite siteWithDictionary:d] inSitesAtIndex:self.countOfSites];
+}
+
+- (void)loadDefaultSites {
+    [self insertObject:[WLSite siteWithName:@"水木社区" address:@"newsmth.net" encoding:WLGBKEncoding]
+        inSitesAtIndex:self.countOfSites];
+    [self insertObject:[WLSite siteWithName:@"未名空间" address:@"mitbbs.com" encoding:WLGBKEncoding]
+        inSitesAtIndex:self.countOfSites];
+    [self insertObject:[WLSite siteWithName:@"批踢踢實業坊" address:@"ssh://bbs@ptt.cc" encoding:WLBig5Encoding]
+        inSitesAtIndex:WLGlobalConfig.sharedInstance.defaultEncoding == WLBig5Encoding ? 0 : self.countOfSites];
 }
 
 - (void)saveSites {

@@ -26,8 +26,9 @@
 @property (readwrite, copy) NSString *proxyAddress;
 
 + (WLSite *)site;
++ (WLSite *)siteWithName:(NSString *)name address:(NSString *)address encoding:(WLEncoding)encoding;
 + (WLSite *)siteWithDictionary:(NSDictionary *)d;
-- (NSDictionary *)dictionaryOfSite ;
+- (NSDictionary *)dictionaryOfSite;
 
 @property (NS_NONATOMIC_IOSONLY, getter=isDummy, readonly) BOOL dummy;
 @end
