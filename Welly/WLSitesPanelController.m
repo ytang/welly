@@ -78,7 +78,7 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(WLSitesPanelController)
 }
 
 - (void)loadDefaultSites {
-    [self insertObject:[WLSite siteWithName:@"水木社区" address:@"newsmth.net" encoding:WLGBKEncoding]
+    [self insertObject:[WLSite siteWithName:@"水木社区" address:@"bbs.newsmth.net" encoding:WLGBKEncoding]
         inSitesAtIndex:self.countOfSites];
     [self insertObject:[WLSite siteWithName:@"未名空间" address:@"mitbbs.com" encoding:WLGBKEncoding]
         inSitesAtIndex:self.countOfSites];
