@@ -595,6 +595,10 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(WLGlobalConfig)
     self.englishFontName = @"Monaco";
     self.chineseFontSize = 22;
     self.englishFontSize = 18;
+    self.chineseFontPaddingLeft = 1.0;
+    self.englishFontPaddingLeft = 1.0;
+    self.chineseFontPaddingBottom = 1.0;
+    self.englishFontPaddingBottom = 2.0;
 }
 
 - (NSDictionary *)sizeParameters {

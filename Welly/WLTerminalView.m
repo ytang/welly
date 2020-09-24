@@ -1176,7 +1176,6 @@ BOOL isEnglishNumberAlphabet(unsigned char c) {
 [CATransaction commit]
 
 #define DEFAULT_POPUP_BOX_FONT @"Helvetica"
-#define DEFAULT_POPUP_MENU_FONT @"Lucida Grande"
 
 - (void)dealloc {
     if (_buttonLayer) {
