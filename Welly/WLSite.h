@@ -26,7 +26,10 @@
 @property (readwrite, copy) NSString *proxyAddress;
 
 + (WLSite *)site;
-+ (WLSite *)siteWithName:(NSString *)name address:(NSString *)address encoding:(WLEncoding)encoding;
++ (WLSite *)siteWithName:(NSString *)name
+                 address:(NSString *)address
+                encoding:(WLEncoding)encoding
+            ansiColorKey:(YLANSIColorKey)ansiColorKey;
 + (WLSite *)siteWithDictionary:(NSDictionary *)d;
 - (NSDictionary *)dictionaryOfSite;
 

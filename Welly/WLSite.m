@@ -50,11 +50,15 @@ NSString *const WLDefaultSiteName = @"DefaultSiteName";
     return [WLSite new];
 }
 
-+ (WLSite *)siteWithName:(NSString *)name address:(NSString *)address encoding:(WLEncoding)encoding {
++ (WLSite *)siteWithName:(NSString *)name
+                 address:(NSString *)address
+                encoding:(WLEncoding)encoding
+            ansiColorKey:(YLANSIColorKey)ansiColorKey {
     WLSite *s = [WLSite site];
     s.name = name;
     s.address = address;
     s.encoding = encoding;
+    s.ansiColorKey = ansiColorKey;
     return s;
 }
 

@@ -78,11 +78,20 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(WLSitesPanelController)
 }
 
 - (void)loadDefaultSites {
-    [self insertObject:[WLSite siteWithName:@"水木社区" address:@"bbs.newsmth.net" encoding:WLGBKEncoding]
+    [self insertObject:[WLSite siteWithName:@"水木社区"
+                                    address:@"bbs.newsmth.net"
+                                   encoding:WLGBKEncoding
+                               ansiColorKey:YLEscEscANSIColorKey]
         inSitesAtIndex:self.countOfSites];
-    [self insertObject:[WLSite siteWithName:@"未名空间" address:@"mitbbs.com" encoding:WLGBKEncoding]
+    [self insertObject:[WLSite siteWithName:@"未名空间"
+                                    address:@"mitbbs.com"
+                                   encoding:WLGBKEncoding
+                               ansiColorKey:YLEscEscANSIColorKey]
         inSitesAtIndex:self.countOfSites];
-    [self insertObject:[WLSite siteWithName:@"批踢踢實業坊" address:@"ssh://bbs@ptt.cc" encoding:WLBig5Encoding]
+    [self insertObject:[WLSite siteWithName:@"批踢踢實業坊"
+                                    address:@"ssh://bbs@ptt.cc"
+                                   encoding:WLBig5Encoding
+                               ansiColorKey:YLCtrlUANSIColorKey]
         inSitesAtIndex:WLGlobalConfig.sharedInstance.defaultEncoding == WLBig5Encoding ? 0 : self.countOfSites];
 }
 
