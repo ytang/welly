@@ -70,11 +70,11 @@
 		</data>
 		<key>Resources/Assets.car</key>
 		<data>
-		5HfwlQI7EAF+U20ujVSZTRJn5Nc=
+		BJOHdRGs4+W4vQkY0FgomW3U4ac=
 		</data>
 		<key>Resources/Info.plist</key>
 		<data>
-		QCzxyjINHVaQyXme6EU1oMqU4Ic=
+		XLMYkTPakf9TZohjqu7sputEs2M=
 		</data>
 		<key>Resources/SafariAWATClose.tiff</key>
 		<data>
@@ -270,10 +270,6 @@
 	<dict>
 		<key>Headers/MMAdiumTabStyle.h</key>
 		<dict>
-			<key>hash</key>
-			<data>
-			J3lKeSVo8kt+sF7/fRCwtRxbM40=
-			</data>
 			<key>hash2</key>
 			<data>
 			frjsqqjn1aZXfMUvVYS0TnAkOhSnkarpXTj8wEW/PqE=
@@ -281,10 +277,6 @@
 		</dict>
 		<key>Headers/MMAquaTabStyle.h</key>
 		<dict>
-			<key>hash</key>
-			<data>
-			zaUo5DAixy0E5UMQzbZ6okXQR38=
-			</data>
 			<key>hash2</key>
 			<data>
 			k/+K27G4BZtQywtGKm2MK0RpsnRGQWeB2bxlVbA0D/c=
@@ -292,10 +284,6 @@
 		</dict>
 		<key>Headers/MMAttachedTabBarButton.h</key>
 		<dict>
-			<key>hash</key>
-			<data>
-			UkzjqRp2EnPCCiFXRr/0edcHY2s=
-			</data>
 			<key>hash2</key>
 			<data>
 			NpWezEWpYaWf2A3VVyzMT3Okty57f/yyzW/fGS8LRKw=
@@ -303,10 +291,6 @@
 		</dict>
 		<key>Headers/MMAttachedTabBarButtonCell.h</key>
 		<dict>
-			<key>hash</key>
-			<data>
-			LkPOHv979GrFtKFoIuy5L4MO5RU=
-			</data>
 			<key>hash2</key>
 			<data>
 			mpD0OHZvA3B+7cb2W22FC78WWLyxmQhsEObTjcJUHec=
@@ -314,10 +298,6 @@
 		</dict>
 		<key>Headers/MMCardTabStyle.h</key>
 		<dict>
-			<key>hash</key>
-			<data>
-			Aq332mPsaf0UItEEURyG8FV0tcE=
-			</data>
 			<key>hash2</key>
 			<data>
 			eWwMW0bBrx8K823I8gDq8sIxvfpMMT50CRkuTH0bRgA=
@@ -325,10 +305,6 @@
 		</dict>
 		<key>Headers/MMLiveChatTabStyle.h</key>
 		<dict>
-			<key>hash</key>
-			<data>
-			1ckm93G4VwaF42/qjv+cshftwpw=
-			</data>
 			<key>hash2</key>
 			<data>
 			kMEYT2k/61YwOX2Vzlk5r9MPVeVXxgz3cOf3MRtwLcM=
@@ -336,10 +312,6 @@
 		</dict>
 		<key>Headers/MMMetalTabStyle.h</key>
 		<dict>
-			<key>hash</key>
-			<data>
-			MP5l0UfAUV+uoyufVGgrenV4CeA=
-			</data>
 			<key>hash2</key>
 			<data>
 			hdFDYUuDPPkuQYhukj2Y9oiRUz5xwUTzBeerpn5gmQY=
@@ -347,10 +319,6 @@
 		</dict>
 		<key>Headers/MMMojaveTabStyle.h</key>
 		<dict>
-			<key>hash</key>
-			<data>
-			ffYQnLLJvaKSLFU0sE4QbVJw+Io=
-			</data>
 			<key>hash2</key>
 			<data>
 			8HkcGNCSpN7LXs+PK4PcRLfJtfexK6u/95j+SEz3nMg=
@@ -358,10 +326,6 @@
 		</dict>
 		<key>Headers/MMOverflowPopUpButton.h</key>
 		<dict>
-			<key>hash</key>
-			<data>
-			yPwB31yFWcxNjOCiKVphy8vYmCg=
-			</data>
 			<key>hash2</key>
 			<data>
 			RqeVrLM6Ivje3mFUpfLRo77kzG5MLazSjCIxIw8jinM=
@@ -369,10 +333,6 @@
 		</dict>
 		<key>Headers/MMOverflowPopUpButtonCell.h</key>
 		<dict>
-			<key>hash</key>
-			<data>
-			xlTEd/Pa1lEod0jj0klYL8UIWuM=
-			</data>
 			<key>hash2</key>
 			<data>
 			B18SPm1TG29as8S6MHhr9PeA5BQDCqcRjC4bMOZBxlM=
@@ -380,10 +340,6 @@
 		</dict>
 		<key>Headers/MMProgressIndicator.h</key>
 		<dict>
-			<key>hash</key>
-			<data>
-			ZSIGO8dIA5C/vaourSpDPjrj7Bg=
-			</data>
 			<key>hash2</key>
 			<data>
 			W49NDYIEbTAqcpF/F1CjIuyG9p+agSt1Lvc4qdjLchk=
@@ -391,10 +347,6 @@
 		</dict>
 		<key>Headers/MMRolloverButton.h</key>
 		<dict>
-			<key>hash</key>
-			<data>
-			TZzDRf6DcZ8f//3NWpqdr2NVoAE=
-			</data>
 			<key>hash2</key>
 			<data>
 			Aq7Yg2IRv/mPzXFIwSOIeve/WS6vni0+OHjwfHC31Rg=
@@ -402,10 +354,6 @@
 		</dict>
 		<key>Headers/MMRolloverButtonCell.h</key>
 		<dict>
-			<key>hash</key>
-			<data>
-			erBpNtvyqsd/9IMKp0AUe51xBII=
-			</data>
 			<key>hash2</key>
 			<data>
 			UlhqPRE1KUC0ZiA/dtweptCjb6uOzMIn5F7JkAcFC7c=
@@ -413,10 +361,6 @@
 		</dict>
 		<key>Headers/MMSafariTabStyle.h</key>
 		<dict>
-			<key>hash</key>
-			<data>
-			83RAe2vZNlRtN0SOyvCcOxjEWvg=
-			</data>
 			<key>hash2</key>
 			<data>
 			pBUwbQ2Pck/Jw0GQgn/6zPsKm1x99nXXZOseQIoHR7Q=
@@ -424,10 +368,6 @@
 		</dict>
 		<key>Headers/MMTabBarButton.Common.h</key>
 		<dict>
-			<key>hash</key>
-			<data>
-			e4oKXHzTqFGBfyzeoieQ9dE6TFM=
-			</data>
 			<key>hash2</key>
 			<data>
 			lbp1SLEXee61IwwYpKTvcbmzKnYztXFWCHEXmNIx5ig=
@@ -435,10 +375,6 @@
 		</dict>
 		<key>Headers/MMTabBarButton.h</key>
 		<dict>
-			<key>hash</key>
-			<data>
-			Io7GkvLi9e3fkL4tfPrdrmaBsp0=
-			</data>
 			<key>hash2</key>
 			<data>
 			uj4N4bwvkSeZEnx7/cOk79+KaZjAU4726OUKzcV6obM=
@@ -446,10 +382,6 @@
 		</dict>
 		<key>Headers/MMTabBarButtonCell.h</key>
 		<dict>
-			<key>hash</key>
-			<data>
-			nd5NJ1k+Xh1ekNLuk58zPrZitRc=
-			</data>
 			<key>hash2</key>
 			<data>
 			69POLeOi3Leoz4pC5vGrVCzVD4wljX+EETRdwsU54QA=
@@ -457,10 +389,6 @@
 		</dict>
 		<key>Headers/MMTabBarItem.h</key>
 		<dict>
-			<key>hash</key>
-			<data>
-			fttd+rXvy8I3u7yD2XETzn3Ekuw=
-			</data>
 			<key>hash2</key>
 			<data>
 			ftt5RGF+SERVE/U2ugHVL0pmMcvh64QZxL7Vzqs27Sc=
@@ -468,10 +396,6 @@
 		</dict>
 		<key>Headers/MMTabBarView.Globals.h</key>
 		<dict>
-			<key>hash</key>
-			<data>
-			Uum/GGaArkPvWfcNJSDui4tau4o=
-			</data>
 			<key>hash2</key>
 			<data>
 			Z56Cbfxh21VaREejdlSwR7B+GaIRUhvpQkAj3hbYB+M=
@@ -479,10 +403,6 @@
 		</dict>
 		<key>Headers/MMTabBarView.h</key>
 		<dict>
-			<key>hash</key>
-			<data>
-			AsIuicMOUHUI2M3Ku/wUNUrRn4Q=
-			</data>
 			<key>hash2</key>
 			<data>
 			m0GelHEvMtJXM6EDA7c12Rfhy4anwRGzPgXTd40xbUs=
@@ -490,10 +410,6 @@
 		</dict>
 		<key>Headers/MMTabStyle.h</key>
 		<dict>
-			<key>hash</key>
-			<data>
-			QyZ+ft+ya/uph4SUxd3djteOV+o=
-			</data>
 			<key>hash2</key>
 			<data>
 			mQYcupjsaQrFJzDjVR3whVKGsh2kAGjtgzBDY8zd0WE=
@@ -501,10 +417,6 @@
 		</dict>
 		<key>Headers/MMUnifiedTabStyle.h</key>
 		<dict>
-			<key>hash</key>
-			<data>
-			UMTR8RSYtUk/kmpNgru5W1FXU+o=
-			</data>
 			<key>hash2</key>
 			<data>
 			TjMXdZynbnkg2aNBZS7jRrV0ZLnlwzW3h1N2dE0+41g=
@@ -512,10 +424,6 @@
 		</dict>
 		<key>Headers/MMYosemiteTabStyle.h</key>
 		<dict>
-			<key>hash</key>
-			<data>
-			V/s+pcpK/3Ao8ziXGAYZlf8vIio=
-			</data>
 			<key>hash2</key>
 			<data>
 			oohMfqGbS+bbkimaIDg6RRFvVLEDFhq/DuWMO3Qlm6k=
@@ -523,10 +431,6 @@
 		</dict>
 		<key>Headers/NSBezierPath+MMTabBarViewExtensions.h</key>
 		<dict>
-			<key>hash</key>
-			<data>
-			e12SgAZvHfipqYyjU2EiV/UkaoQ=
-			</data>
 			<key>hash2</key>
 			<data>
 			4vuTbQr8kTbDrYaPy1RCOHV2Tm7O5pjfCgwtrllxY+k=
@@ -534,10 +438,6 @@
 		</dict>
 		<key>Headers/NSTabViewItem+MMTabBarViewExtensions.h</key>
 		<dict>
-			<key>hash</key>
-			<data>
-			kr0aM0tGfiRfkHj7I5nS0KBHEG4=
-			</data>
 			<key>hash2</key>
 			<data>
 			osAtNwG53ECwA0QtDTb/n1FyzxM18vJgq7MOEupTQ9c=
@@ -545,10 +445,6 @@
 		</dict>
 		<key>Modules/module.modulemap</key>
 		<dict>
-			<key>hash</key>
-			<data>
-			sDX+78k176mn0XMJxWK9EOX9Trs=
-			</data>
 			<key>hash2</key>
 			<data>
 			VY502dLu28qlmGdq87jWV79qFIp+VAO1bSow7ITz7dc=
@@ -556,10 +452,6 @@
 		</dict>
 		<key>PrivateHeaders/MMSlideButtonsAnimation.h</key>
 		<dict>
-			<key>hash</key>
-			<data>
-			1jocol5WmqbfkhHO1P3Q6TqhD48=
-			</data>
 			<key>hash2</key>
 			<data>
 			oRcgBKboFw9cFLMkJvK9UD94AREUHD01grDRfRY33y8=
@@ -567,10 +459,6 @@
 		</dict>
 		<key>PrivateHeaders/MMTabBarButton.Private.h</key>
 		<dict>
-			<key>hash</key>
-			<data>
-			2hgowKB8oUv21y0nd/uQ63o9Rbk=
-			</data>
 			<key>hash2</key>
 			<data>
 			Q/dN+H83eVoPc3nczmQYc2P/oSpDx/lJTAsJW/L9kRQ=
@@ -578,10 +466,6 @@
 		</dict>
 		<key>PrivateHeaders/MMTabBarButtonCell.Private.h</key>
 		<dict>
-			<key>hash</key>
-			<data>
-			giq5WyXc5LPNkaJvzl1ifNHAoAI=
-			</data>
 			<key>hash2</key>
 			<data>
 			pnIIxQ6pum+wvgIBZYyy/P1tY8RhMbNmeKNAEpipkhc=
@@ -589,10 +473,6 @@
 		</dict>
 		<key>PrivateHeaders/MMTabBarController.h</key>
 		<dict>
-			<key>hash</key>
-			<data>
-			Q5i+XXVT9Q6v0emzdtlUt1SFWPE=
-			</data>
 			<key>hash2</key>
 			<data>
 			quvshk5GqGZE+raI6Ht/9gDwAAdWitNr9JOGicrepD8=
@@ -600,10 +480,6 @@
 		</dict>
 		<key>PrivateHeaders/MMTabBarView.Private.h</key>
 		<dict>
-			<key>hash</key>
-			<data>
-			1DNL2NJnKWr3tcYIezfQ8/RpHfw=
-			</data>
 			<key>hash2</key>
 			<data>
 			W6n8J9Gz2vfVI9kwGxM1xLCP/xwN95BbX5m0DKS318A=
@@ -611,10 +487,6 @@
 		</dict>
 		<key>PrivateHeaders/MMTabDragAssistant.h</key>
 		<dict>
-			<key>hash</key>
-			<data>
-			vDfm2y2Y20iG33NlwQo2mMB9kAs=
-			</data>
 			<key>hash2</key>
 			<data>
 			h1QNmFFMGiA3gqX2TbFtzEtSFXd6Q8/C97LBn9Qtb7U=
@@ -622,10 +494,6 @@
 		</dict>
 		<key>PrivateHeaders/MMTabDragView.h</key>
 		<dict>
-			<key>hash</key>
-			<data>
-			BZFf6D51ji7jtg94dTHpdo6mMI4=
-			</data>
 			<key>hash2</key>
 			<data>
 			OYhpMkToHybX/UTut4egrcYmEr2CnBLVoPv2V42lSVY=
@@ -633,10 +501,6 @@
 		</dict>
 		<key>PrivateHeaders/MMTabDragWindow.h</key>
 		<dict>
-			<key>hash</key>
-			<data>
-			a43IZeywHyNH1utDNk2WwqzakpM=
-			</data>
 			<key>hash2</key>
 			<data>
 			2eMH4g6daheSTKcFHlrvhE/TqiXHjj2PzKmxxr10mws=
@@ -644,10 +508,6 @@
 		</dict>
 		<key>PrivateHeaders/MMTabDragWindowController.h</key>
 		<dict>
-			<key>hash</key>
-			<data>
-			MEJonm5luWXrV6r0kaUqSK/ibPI=
-			</data>
 			<key>hash2</key>
 			<data>
 			iyl+HeUJ92RimGKl7jjQ58j262LTwMhDKsNzMkCMgbo=
@@ -655,10 +515,6 @@
 		</dict>
 		<key>PrivateHeaders/MMTabPasteboardItem.h</key>
 		<dict>
-			<key>hash</key>
-			<data>
-			KPL5GFmP0/KV1qaF9bf0gvKs+ig=
-			</data>
 			<key>hash2</key>
 			<data>
 			UQhPjljT7u3DBVTtrbaPeLFkB0zYDHH12WZrJLMAiwk=
@@ -666,10 +522,6 @@
 		</dict>
 		<key>PrivateHeaders/NSAffineTransform+MMTabBarViewExtensions.h</key>
 		<dict>
-			<key>hash</key>
-			<data>
-			+auHINfV251dsNtmvqsGhxTBw/A=
-			</data>
 			<key>hash2</key>
 			<data>
 			DbQ61QKE1ZJPbDthvEElOCt+YnHEuy8/Zy7MrS9E5VU=
@@ -677,10 +529,6 @@
 		</dict>
 		<key>PrivateHeaders/NSCell+MMTabBarViewExtensions.h</key>
 		<dict>
-			<key>hash</key>
-			<data>
-			IDaZLKl8grmGPCI2hNzI4nvGSj8=
-			</data>
 			<key>hash2</key>
 			<data>
 			mMI1RM4ekU8hoAkyyaPtUmTihj4JW2ybjR+Zafo4zys=
@@ -688,10 +536,6 @@
 		</dict>
 		<key>PrivateHeaders/NSString+MMTabBarViewExtensions.h</key>
 		<dict>
-			<key>hash</key>
-			<data>
-			hF5EkD+u2Dlr9+h9bWBUtzQ+jt4=
-			</data>
 			<key>hash2</key>
 			<data>
 			Lwu7PPQ2imWeH/X3qhfmExC2EkRPDFsKQzZQpWOIwrs=
@@ -699,10 +543,6 @@
 		</dict>
 		<key>PrivateHeaders/NSView+MMTabBarViewExtensions.h</key>
 		<dict>
-			<key>hash</key>
-			<data>
-			ExjZLkG/vz9+Qz9Wz+IytHdLbZs=
-			</data>
 			<key>hash2</key>
 			<data>
 			u5kjXAzcITMAXilD+DuJEpvKkUBpQlUcoeJQyN7lkjo=
@@ -710,10 +550,6 @@
 		</dict>
 		<key>Resources/AdiumGradient.png</key>
 		<dict>
-			<key>hash</key>
-			<data>
-			hyjJkK9wrJwfli1ZnormTVKf5v8=
-			</data>
 			<key>hash2</key>
 			<data>
 			ISqaRvG39cRz1ScX52ZntXyuYJYzTK7kz9MHM3iwT3c=
@@ -721,10 +557,6 @@
 		</dict>
 		<key>Resources/AquaTabCloseDirty_Front.png</key>
 		<dict>
-			<key>hash</key>
-			<data>
-			/BtMAkYR3QRYHC6kkho+eUpTnlE=
-			</data>
 			<key>hash2</key>
 			<data>
 			qqLQ1z+i+JnOpvMeCgCz4sT0hbhN7YLQseONzGFL4Mc=
@@ -732,10 +564,6 @@
 		</dict>
 		<key>Resources/AquaTabCloseDirty_Front_Pressed.png</key>
 		<dict>
-			<key>hash</key>
-			<data>
-			5TKuyFKOC8wwXQlMHEacZT9HIaM=
-			</data>
 			<key>hash2</key>
 			<data>
 			9urLtzusjbskGaunYu9mViPVQEgafNsnwBTcN33usQs=
@@ -743,10 +571,6 @@
 		</dict>
 		<key>Resources/AquaTabCloseDirty_Front_Rollover.png</key>
 		<dict>
-			<key>hash</key>
-			<data>
-			/GrMPvHfgXKXwYyrNH4v86KTXpc=
-			</data>
 			<key>hash2</key>
 			<data>
 			AEjs9A5wYFEq5MZ9ESnOzvm381dp2lzzjRepKTt5fbw=
@@ -754,10 +578,6 @@
 		</dict>
 		<key>Resources/AquaTabClose_Front.tiff</key>
 		<dict>
-			<key>hash</key>
-			<data>
-			d1GtxpZ5fZzkDl1juQ7d/w84yqo=
-			</data>
 			<key>hash2</key>
 			<data>
 			ElITTTZMfwDC9Fov6CY2+DwlOH55wL08sOsO0QaNofQ=
@@ -765,10 +585,6 @@
 		</dict>
 		<key>Resources/AquaTabClose_Front_Pressed.tiff</key>
 		<dict>
-			<key>hash</key>
-			<data>
-			FP0uUKFN+T/HbO1S4puw8yOR8ho=
-			</data>
 			<key>hash2</key>
 			<data>
 			V7a0oEyB9eaQSEtY3jb5rQWbxV4CUK/AcJGbmpIpGAU=
@@ -776,10 +592,6 @@
 		</dict>
 		<key>Resources/AquaTabClose_Front_Rollover.tiff</key>
 		<dict>
-			<key>hash</key>
-			<data>
-			5mA9283rpK21ZW5Pem56OB76Zq8=
-			</data>
 			<key>hash2</key>
 			<data>
 			i8iQ9MzyAQVwVtA8bla6wERP9E5CBeLd6yoXy5GyrBo=
@@ -787,10 +599,6 @@
 		</dict>
 		<key>Resources/AquaTabNew.tiff</key>
 		<dict>
-			<key>hash</key>
-			<data>
-			dRB7CRYfjF99Y85zvupoDrlbfyE=
-			</data>
 			<key>hash2</key>
 			<data>
 			nFD8d0KgQqM9Ef8GO7pZ5hvzbnW9QXH62f7mUeYogbw=
@@ -798,10 +606,6 @@
 		</dict>
 		<key>Resources/AquaTabNewPressed.tiff</key>
 		<dict>
-			<key>hash</key>
-			<data>
-			uEZhTd9Smvt1sFBYN8rqArWTz78=
-			</data>
 			<key>hash2</key>
 			<data>
 			82UOxgrmCDZJU3MG3BT6EfhHWpQFzgp9WFva6Ej9bJE=
@@ -809,10 +613,6 @@
 		</dict>
 		<key>Resources/AquaTabNewRollover.tiff</key>
 		<dict>
-			<key>hash</key>
-			<data>
-			nzazrFRZdOuR93ww9uIY59lSYUg=
-			</data>
 			<key>hash2</key>
 			<data>
 			WU6c2wVytLNiJ97NrKoGwIIBX/CvDdPYH7WX2ab343M=
@@ -820,10 +620,6 @@
 		</dict>
 		<key>Resources/AquaTabsBackground.png</key>
 		<dict>
-			<key>hash</key>
-			<data>
-			nyaQAKrDDsvcnQKz8QaOvyl1LEU=
-			</data>
 			<key>hash2</key>
 			<data>
 			u1v+AoV6FbX5BGpQC1mh5FTBBUzYSBNHiRBDm89qO/U=
@@ -831,10 +627,6 @@
 		</dict>
 		<key>Resources/AquaTabsDown.png</key>
 		<dict>
-			<key>hash</key>
-			<data>
-			v2FjbuPEGyTJ7LMZo7K9p5eVf1g=
-			</data>
 			<key>hash2</key>
 			<data>
 			ilp5/7o/bZWfhbskGhmBtyTthECoIJcXDMbYN7LTrF0=
@@ -842,10 +634,6 @@
 		</dict>
 		<key>Resources/AquaTabsDownGraphite.png</key>
 		<dict>
-			<key>hash</key>
-			<data>
-			23qADZc4R/eSN+Fry0pghiPfwJs=
-			</data>
 			<key>hash2</key>
 			<data>
 			pt4+BhkDn0HG2AoSSuAhpuEhrj5qUZXiREcpf0XfAE8=
@@ -853,10 +641,6 @@
 		</dict>
 		<key>Resources/AquaTabsDownNonKey.png</key>
 		<dict>
-			<key>hash</key>
-			<data>
-			91Vp6UBTOQFLLxIxqYR+f5f6Bfg=
-			</data>
 			<key>hash2</key>
 			<data>
 			a40XQG8ZFtZm9ZDv5WzgabvHcOdXIKXlM1CxZfb9Ox4=
@@ -864,10 +648,6 @@
 		</dict>
 		<key>Resources/AquaTabsSeparator.png</key>
 		<dict>
-			<key>hash</key>
-			<data>
-			5bfHaH7VPV1hl3H9OGsYy+zv190=
-			</data>
 			<key>hash2</key>
 			<data>
 			xrup/Y+7qsGmXNkZBJUp0UylzSlvumrvKfRqAubtNVI=
@@ -875,10 +655,6 @@
 		</dict>
 		<key>Resources/AquaTabsSeparatorDown.png</key>
 		<dict>
-			<key>hash</key>
-			<data>
-			UfLczBw6elY31u0IDUpGpDD8dCE=
-			</data>
 			<key>hash2</key>
 			<data>
 			xW12SIb5S27omqTlW79OepV/0h/Nmp4Wkp03aZ+td8M=
@@ -886,32 +662,20 @@
 		</dict>
 		<key>Resources/Assets.car</key>
 		<dict>
-			<key>hash</key>
-			<data>
-			5HfwlQI7EAF+U20ujVSZTRJn5Nc=
-			</data>
 			<key>hash2</key>
 			<data>
-			6lbMJXPMa3nwCLZVbne6bjO8lsAcUABZMPL9ohmjVCk=
+			7H1p6Cgk+6QtslerSAZ6kl1hqWSJWYMgWECioMwx5FI=
 			</data>
 		</dict>
 		<key>Resources/Info.plist</key>
 		<dict>
-			<key>hash</key>
-			<data>
-			QCzxyjINHVaQyXme6EU1oMqU4Ic=
-			</data>
 			<key>hash2</key>
 			<data>
-			DIkTSKG8zIDTclH84I68AQdBQ3aZfHyxeggfmImwV3U=
+			9c1Bw+QemfR/cVbsFQ92tpfR/kwvcARIvj0FD/1xnPU=
 			</data>
 		</dict>
 		<key>Resources/SafariAWATClose.tiff</key>
 		<dict>
-			<key>hash</key>
-			<data>
-			xeN5icMoUac2YFY/qt+Xk3YrwpQ=
-			</data>
 			<key>hash2</key>
 			<data>
 			2YxhAX13bFrlnKJ+rr8DznhBkb224cociwONoWinjhI=
@@ -919,10 +683,6 @@
 		</dict>
 		<key>Resources/SafariAWATClosePressed.tiff</key>
 		<dict>
-			<key>hash</key>
-			<data>
-			//xB/DNWLxhCi/d8Qb39njldk0E=
-			</data>
 			<key>hash2</key>
 			<data>
 			c/iBwG/YzzZS6x4eNKL+NLQEQdIK43PFzZYxH//mlTw=
@@ -930,10 +690,6 @@
 		</dict>
 		<key>Resources/SafariAWATCloseRollover.tiff</key>
 		<dict>
-			<key>hash</key>
-			<data>
-			PeSu2BIbR6menR+8uWmeRvxh92k=
-			</data>
 			<key>hash2</key>
 			<data>
 			5T9eNUxJfSnGNG3EiRtwgjzvWcW0poaMtUrVU1i2az0=
@@ -941,10 +697,6 @@
 		</dict>
 		<key>Resources/SafariAWATFill.tiff</key>
 		<dict>
-			<key>hash</key>
-			<data>
-			Jfg2PFdp/QS0zn8TD42z0j8eHDU=
-			</data>
 			<key>hash2</key>
 			<data>
 			COHKYvoYGQ9J4KZlOJUfwBEvCCQnFXEzrPI59iTeQiQ=
@@ -952,10 +704,6 @@
 		</dict>
 		<key>Resources/SafariAWATLeftCap.tiff</key>
 		<dict>
-			<key>hash</key>
-			<data>
-			jlPf4HjU7bFJoLvCEd/KXpWIIiA=
-			</data>
 			<key>hash2</key>
 			<data>
 			jMn9dQez4cSKO+CjiRsrtgH7/mak5KZvu5SoFgiTzDE=
@@ -963,10 +711,6 @@
 		</dict>
 		<key>Resources/SafariAWATRightCap.tiff</key>
 		<dict>
-			<key>hash</key>
-			<data>
-			MKxKOOMI2FF2c/DUBHH8H7hHknE=
-			</data>
 			<key>hash2</key>
 			<data>
 			uZP0AAcQTSbMUQ0WPFSI9t6VGTQjeOkq907vh8qIkOE=
@@ -974,10 +718,6 @@
 		</dict>
 		<key>Resources/SafariAWAddTabButton.png</key>
 		<dict>
-			<key>hash</key>
-			<data>
-			MTg3+eSRh5mRUIJGYY9J1FBty9Q=
-			</data>
 			<key>hash2</key>
 			<data>
 			KZ5XGDa/OXMOEghUGKgQ//j+FEA4Ym4NoCSTYVFqMKk=
@@ -985,10 +725,6 @@
 		</dict>
 		<key>Resources/SafariAWAddTabButtonPushed.png</key>
 		<dict>
-			<key>hash</key>
-			<data>
-			VfQhrwzdrrf4BgWOKXsODdVJ9Ds=
-			</data>
 			<key>hash2</key>
 			<data>
 			46buhzkdqkhJLzRAo7cq+hvcVTj8OxpiwVsOYs/I2Ek=
@@ -996,10 +732,6 @@
 		</dict>
 		<key>Resources/SafariAWAddTabButtonRolloverPlus.png</key>
 		<dict>
-			<key>hash</key>
-			<data>
-			sBliCKqWw+R2OdnRHT9sZ2BI5Hg=
-			</data>
 			<key>hash2</key>
 			<data>
 			fV1ugodG2LCBg97HboCbp+mM4YSHgBPU0ZMdGI4lCZo=
@@ -1007,10 +739,6 @@
 		</dict>
 		<key>Resources/SafariAWBG.png</key>
 		<dict>
-			<key>hash</key>
-			<data>
-			nLJVdXAROfLKFPe2mUkdp/yBNw0=
-			</data>
 			<key>hash2</key>
 			<data>
 			NGi1xzrdoyS0Y0kD28b6U+OPNVrGXaMGG0YKgGaexbE=
@@ -1018,10 +746,6 @@
 		</dict>
 		<key>Resources/SafariAWITClose.tiff</key>
 		<dict>
-			<key>hash</key>
-			<data>
-			SX5rfEMVUvCkRnL/aAN69ZCpQhE=
-			</data>
 			<key>hash2</key>
 			<data>
 			mMwz+Xorjprq9gcXha218Dd4wnhE0idaXqtPlPE5+o0=
@@ -1029,10 +753,6 @@
 		</dict>
 		<key>Resources/SafariAWITClosePressed.tiff</key>
 		<dict>
-			<key>hash</key>
-			<data>
-			Fq+zgDRII9TCs+AwgrIVlpTAXuI=
-			</data>
 			<key>hash2</key>
 			<data>
 			MBCwkvUOO3VdbYB+MYL8v71ApilUpD1412UVF4C0mJ0=
@@ -1040,10 +760,6 @@
 		</dict>
 		<key>Resources/SafariAWITCloseRollover.tiff</key>
 		<dict>
-			<key>hash</key>
-			<data>
-			KhzsPf+RMC/NNTRfJXThJE5nnfo=
-			</data>
 			<key>hash2</key>
 			<data>
 			v7aQFzC83YT+MIInRcqVRaPhMyqDtOOLPbe8Wm0VqCM=
@@ -1051,10 +767,6 @@
 		</dict>
 		<key>Resources/SafariAWITLeftCap.tiff</key>
 		<dict>
-			<key>hash</key>
-			<data>
-			06fHWQ41oZtW2/e3hw01pJA1PwM=
-			</data>
 			<key>hash2</key>
 			<data>
 			cloDRToXJPPEmcKh45a3Zgtpwqxyf3hQvdGvOqUijvI=
@@ -1062,10 +774,6 @@
 		</dict>
 		<key>Resources/SafariAWITRightCap.tiff</key>
 		<dict>
-			<key>hash</key>
-			<data>
-			7Fs/zvizZOTmHtluxfezAtBaMGg=
-			</data>
 			<key>hash2</key>
 			<data>
 			7NFYpymGKWx/lTVCYl12Y49q7lGUqMcmzAssxcWJKdY=
@@ -1073,10 +781,6 @@
 		</dict>
 		<key>Resources/SafariIWATClose.tiff</key>
 		<dict>
-			<key>hash</key>
-			<data>
-			spB9OZZGblBPYtnyz/NES8wxPF4=
-			</data>
 			<key>hash2</key>
 			<data>
 			29LxVxx4+ok2zPzHxOHrqeo2EVbjTskWCXcwrvVDEdo=
@@ -1084,10 +788,6 @@
 		</dict>
 		<key>Resources/SafariIWATClosePressed.tiff</key>
 		<dict>
-			<key>hash</key>
-			<data>
-			/t4v8WPh8uORktCpj0Ng31T/xSI=
-			</data>
 			<key>hash2</key>
 			<data>
 			HQn9wDP/InrwnGB7tviavakB6u/YmR7p3E+oZvs28lk=
@@ -1095,10 +795,6 @@
 		</dict>
 		<key>Resources/SafariIWATCloseRollover.tiff</key>
 		<dict>
-			<key>hash</key>
-			<data>
-			5l6qxiI9ezxVfiwIKVjyAhuzKb4=
-			</data>
 			<key>hash2</key>
 			<data>
 			qzoVX7QFO9GCLBLjVvb2U4CZzoJfr12a9r+03c89pY0=
@@ -1106,10 +802,6 @@
 		</dict>
 		<key>Resources/SafariIWATFill.png</key>
 		<dict>
-			<key>hash</key>
-			<data>
-			lpTZAPv3CSWUMGxB+0krayWkqI4=
-			</data>
 			<key>hash2</key>
 			<data>
 			iio8SBZ8VnGknZADIeFvuoCCM0WrDQBvWmXKBoTNiLk=
@@ -1117,10 +809,6 @@
 		</dict>
 		<key>Resources/SafariIWATLeftCap.tiff</key>
 		<dict>
-			<key>hash</key>
-			<data>
-			6cmfOavbOjpkM0Ms792Nw8T8QPc=
-			</data>
 			<key>hash2</key>
 			<data>
 			Daqdp2J2YY6o9TQounDNwI1AHQee55iem3qQmXJdG9I=
@@ -1128,10 +816,6 @@
 		</dict>
 		<key>Resources/SafariIWATRightCap.tiff</key>
 		<dict>
-			<key>hash</key>
-			<data>
-			lErqh2ebTVjBt+wMoNcGZL6hYQE=
-			</data>
 			<key>hash2</key>
 			<data>
 			FzHalF4l0I07ZKgJ7vDpEcQ87Dvfg/RbbaO42rKUX/Y=
@@ -1139,10 +823,6 @@
 		</dict>
 		<key>Resources/SafariIWAddTabButton.png</key>
 		<dict>
-			<key>hash</key>
-			<data>
-			bX6M2sZNBMEPq74RzgLd9NBPicw=
-			</data>
 			<key>hash2</key>
 			<data>
 			sUebQwfNwz5rJLP+QEJVh2tMRU2XGbnNr6F2wMtJn94=
@@ -1150,10 +830,6 @@
 		</dict>
 		<key>Resources/SafariIWBG.png</key>
 		<dict>
-			<key>hash</key>
-			<data>
-			g45GF02G4GWV2M8IvB/od5jnVHE=
-			</data>
 			<key>hash2</key>
 			<data>
 			r1fd0EhEJEEMjuCrm7wtoAWkCM+9np8RGUVqJE/CePA=
@@ -1161,10 +837,6 @@
 		</dict>
 		<key>Resources/SafariIWITClose.tiff</key>
 		<dict>
-			<key>hash</key>
-			<data>
-			4EM4jqoX0gMK/JW4Nv44fxcDCx4=
-			</data>
 			<key>hash2</key>
 			<data>
 			E8oxg+YBMlRFUce040HAOTSW4qBE0ymFniCyK6jQqqc=
@@ -1172,10 +844,6 @@
 		</dict>
 		<key>Resources/SafariIWITClosePressed.tiff</key>
 		<dict>
-			<key>hash</key>
-			<data>
-			FVAT1bagnelSf/wW6VBDrnH0GZg=
-			</data>
 			<key>hash2</key>
 			<data>
 			rCXiv6ojV2vHqmzN93s2SGUm6v1kX58uDG92xwMZT7M=
@@ -1183,10 +851,6 @@
 		</dict>
 		<key>Resources/SafariIWITCloseRollover.tiff</key>
 		<dict>
-			<key>hash</key>
-			<data>
-			JKz+NJQCb91oH37uhRtmI1ahK+w=
-			</data>
 			<key>hash2</key>
 			<data>
 			sOrggAnKWs8VT66En3WaL/xLNPRtpbDCIl0Z60RcZ6A=
@@ -1194,10 +858,6 @@
 		</dict>
 		<key>Resources/SafariIWITLeftCap.tiff</key>
 		<dict>
-			<key>hash</key>
-			<data>
-			OMaXXHAUJBbHyrpxvTsdFVOWtfw=
-			</data>
 			<key>hash2</key>
 			<data>
 			bPiXBHIss3s36gUNsMkjWMztLsLfDRYoSm2akPhbB3o=
@@ -1205,10 +865,6 @@
 		</dict>
 		<key>Resources/SafariIWITRightCap.tiff</key>
 		<dict>
-			<key>hash</key>
-			<data>
-			ZNAQ/QuSmZZ8qdxmRQFpCRHMTyU=
-			</data>
 			<key>hash2</key>
 			<data>
 			l2+V/l3Dg1aD6IwBnOLbxQTINqlxqlS12ur/f0W8tkA=
@@ -1216,10 +872,6 @@
 		</dict>
 		<key>Resources/TabClose_Dirty.tiff</key>
 		<dict>
-			<key>hash</key>
-			<data>
-			RyvQSEbZcFDx5VoYG2N9DUwPyZg=
-			</data>
 			<key>hash2</key>
 			<data>
 			rELiPXyvyrDgzUPuqNsklDuAXlKOHsSorv5bQsBhVs0=
@@ -1227,10 +879,6 @@
 		</dict>
 		<key>Resources/TabClose_Dirty_Pressed.tiff</key>
 		<dict>
-			<key>hash</key>
-			<data>
-			hrRZ8v5HkyRB0oepUEbVoiNcseM=
-			</data>
 			<key>hash2</key>
 			<data>
 			IbRWzyvee1VfHFOjrSqMIDnVR4HxkUtqLVxKrfSQqgM=
@@ -1238,10 +886,6 @@
 		</dict>
 		<key>Resources/TabClose_Dirty_Rollover.tiff</key>
 		<dict>
-			<key>hash</key>
-			<data>
-			MMn36MgqC6jLsgAE63wfdKpdsEY=
-			</data>
 			<key>hash2</key>
 			<data>
 			Vx8/EhKYSEEkKLRMDKRyG/5/cCLzAUfQIN5MAHivrl8=
@@ -1249,10 +893,6 @@
 		</dict>
 		<key>Resources/TabClose_Front.tiff</key>
 		<dict>
-			<key>hash</key>
-			<data>
-			MHNHbCszR52C6t4l9KPkGs60l7w=
-			</data>
 			<key>hash2</key>
 			<data>
 			W/BqQ4ogqmtqQTuERreQRh345aXAs5gsTnRAT9gmvRw=
@@ -1260,10 +900,6 @@
 		</dict>
 		<key>Resources/TabClose_Front_Pressed.tiff</key>
 		<dict>
-			<key>hash</key>
-			<data>
-			m8QUk1f153IaZFTcKXeG2ztfWZk=
-			</data>
 			<key>hash2</key>
 			<data>
 			J7/7jZiWnUyw4WQc54fyPMcVx9YnkUhS+hjnn4E4RR8=
@@ -1271,10 +907,6 @@
 		</dict>
 		<key>Resources/TabClose_Front_Rollover.tiff</key>
 		<dict>
-			<key>hash</key>
-			<data>
-			85Ry0xSabTxKv2peIJxkfVnTmDw=
-			</data>
 			<key>hash2</key>
 			<data>
 			+xnhRO9axXT1hid0UX7EX+/+HcyMM1kyLnjQ5cpwcds=
@@ -1282,10 +914,6 @@
 		</dict>
 		<key>Resources/TabNewMetal.png</key>
 		<dict>
-			<key>hash</key>
-			<data>
-			Dnr2EcyTDUBf0YevBtq5kj9oNpQ=
-			</data>
 			<key>hash2</key>
 			<data>
 			H7W/7Y+JLa9q92WENcEmWEJjIybruV1xGejkG+9wE0E=
@@ -1293,10 +921,6 @@
 		</dict>
 		<key>Resources/TabNewMetalPressed.png</key>
 		<dict>
-			<key>hash</key>
-			<data>
-			yGA5nbT8IfiSY2QXGTwoWZbJGbI=
-			</data>
 			<key>hash2</key>
 			<data>
 			edaQomBQrCzWEyLd5ILWqMbQCCxBOUq5G/SclwgVkdQ=
@@ -1304,10 +928,6 @@
 		</dict>
 		<key>Resources/TabNewMetalRollover.png</key>
 		<dict>
-			<key>hash</key>
-			<data>
-			evbjgNLuMDxl0heGBzLskBxAX+4=
-			</data>
 			<key>hash2</key>
 			<data>
 			R9hlzVbfgqSYCQd1sXX35baUZCCJ0qn54TSkbCRzHYQ=
@@ -1315,10 +935,6 @@
 		</dict>
 		<key>Resources/YosemiteTabClose_Front.tiff</key>
 		<dict>
-			<key>hash</key>
-			<data>
-			pEWgpgwdKsBhKGWB9PJXbiW/kP0=
-			</data>
 			<key>hash2</key>
 			<data>
 			nIDKDo1/YyV+kOutrKiWdZuWxy6ukqdPwoOwsvU+bgA=
@@ -1326,10 +942,6 @@
 		</dict>
 		<key>Resources/YosemiteTabClose_Front_Pressed.tiff</key>
 		<dict>
-			<key>hash</key>
-			<data>
-			eqvKefg3t46q1zigY0Uf2xkzQTs=
-			</data>
 			<key>hash2</key>
 			<data>
 			DNSvPNAp2vj+YA3uc7KGh5Wh41JvShc9NNMDsj0GSZY=
@@ -1337,10 +949,6 @@
 		</dict>
 		<key>Resources/YosemiteTabClose_Front_Rollover.tiff</key>
 		<dict>
-			<key>hash</key>
-			<data>
-			2gu0jbgbp6H7ZDgPulCdaCdd8T0=
-			</data>
 			<key>hash2</key>
 			<data>
 			DIviDj8MLE6bj7LM/OhG2T27KkRncLwWEeLe3sOHv9A=
@@ -1348,10 +956,6 @@
 		</dict>
 		<key>Resources/YosemiteTabNew.tiff</key>
 		<dict>
-			<key>hash</key>
-			<data>
-			o5v/0oCyyC12xvRN6EgwvPBlGDI=
-			</data>
 			<key>hash2</key>
 			<data>
 			9bEnIeBfa2VTszhfl11GSN5vfysbhikmUMMm4tatkkw=
@@ -1359,10 +963,6 @@
 		</dict>
 		<key>Resources/YosemiteTabNewPressed.tiff</key>
 		<dict>
-			<key>hash</key>
-			<data>
-			70IthHWfYnEPyk6GOQD6KyneX0w=
-			</data>
 			<key>hash2</key>
 			<data>
 			P874mSp8HCtKvIUe0EpAkmLuCE9Uefw9CjxbzIsVvFs=
@@ -1370,10 +970,6 @@
 		</dict>
 		<key>Resources/en.lproj/InfoPlist.strings</key>
 		<dict>
-			<key>hash</key>
-			<data>
-			MiLKDDnrUKr4EmuvhS5VQwxHGK8=
-			</data>
 			<key>hash2</key>
 			<data>
 			Oc8u4Ht7Mz58F50L9NeYpbcq9qTlhPUeZCcDu/pPyCg=
@@ -1383,10 +979,6 @@
 		</dict>
 		<key>Resources/overflowImage.tiff</key>
 		<dict>
-			<key>hash</key>
-			<data>
-			TGyZX+Unc7t6q9gtPHsKYi1tsGs=
-			</data>
 			<key>hash2</key>
 			<data>
 			Zsfo0hl8JNTP/P52L0ApYgEqq8xW8FGkm4Ztydr6bco=
@@ -1394,10 +986,6 @@
 		</dict>
 		<key>Resources/overflowImagePressed.tiff</key>
 		<dict>
-			<key>hash</key>
-			<data>
-			cJw1TdoGmyDdhn+XGO4LjK725aQ=
-			</data>
 			<key>hash2</key>
 			<data>
 			njvdmg9oZY7VQ8+dVUQmsaoGSSiE4eL0uS9HpsiGMCk=
@@ -1405,10 +993,6 @@
 		</dict>
 		<key>Resources/pi.png</key>
 		<dict>
-			<key>hash</key>
-			<data>
-			I37SPOA/Tdr8pOZmwhlaRGCp46Y=
-			</data>
 			<key>hash2</key>
 			<data>
 			vnfSJ/asqj2zkiWvcHJlqzpYQ7zoF9apeSvtP6+HQZE=
