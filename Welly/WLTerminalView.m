@@ -599,17 +599,21 @@ BOOL isEnglishNumberAlphabet(unsigned char c) {
     // URL
     if(_isInUrlMode) {
         switch(c) {
-                // Add up and down arrows' event handling here.
+            // Add up and down arrows' event handling here.
+            case WLShiftTabCharacter:
             case NSLeftArrowFunctionKey:
             case NSUpArrowFunctionKey:
+            case 'k':
                 [self previousURL];
                 break;
             case WLTabCharacter:
             case NSRightArrowFunctionKey:
             case NSDownArrowFunctionKey:
+            case 'j':
                 [self nextURL];
                 break;
             case WLEscapeCharacter:	// esc
+            case 'q':
                 [self exitURL];
                 break;
             case WLWhitespaceCharacter:

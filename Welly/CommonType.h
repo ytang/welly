@@ -147,6 +147,7 @@ BOOL isSpecialSymbol(unichar ch);
 enum {
     WLWhitespaceCharacter = ' ',
     WLTabCharacter = '\t',
+    WLShiftTabCharacter = 25,
     WLEscapeCharacter = 27,
     WLReturnCharacter = '\r',
     WLNewlineCharacter = '\n',
