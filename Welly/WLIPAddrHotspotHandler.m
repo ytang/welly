@@ -93,7 +93,7 @@
                     seg = seg * 10 + (b - '0');
                     length++;
                     ++lengthInSeg;
-                    if ((seg < 255) && (i == _maxColumn - 1)) {	// available ip at the end of a row
+                    if ((seg <= 255) && (i == _maxColumn - 1)) {	// available ip at the end of a row
                         ip[state-1] = seg & 255;
                         [self addIPRect:ip row:r column:start length:length];
                     }
@@ -103,7 +103,7 @@
                     } else if (lengthInSeg == 0) { // for non-address: Apple released Mac OS 10.5.6.
                         break;
                     }
-                    if (seg < 255) {	// available ip
+                    if (seg <= 255) {	// available ip
                         ip[state-1] = seg & 255;
                         [self addIPRect:ip row:r column:start length:length];
                     }
