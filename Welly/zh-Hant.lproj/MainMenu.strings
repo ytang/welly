@@ -131,9 +131,6 @@
 /* Class = "NSMenuItem"; title = "Reconnect"; ObjectID = "330"; */
 "330.title" = "重新連線";
 
-/* Class = "NSButtonCell"; title = "双"; ObjectID = "414"; */
-"414.title" = "雙";
-
 /* Class = "NSToolbarItem"; label = "Double Bytes"; ObjectID = "415"; */
 "415.label" = "偵測雙位元";
 
@@ -200,9 +197,6 @@
 /* Class = "NSMenuItem"; title = "New Tab"; ObjectID = "500"; */
 "500.title" = "新增標籤頁";
 
-/* Class = "NSButtonCell"; title = ":-)"; ObjectID = "830"; */
-"830.title" = "'Д`";
-
 /* Class = "NSToolbarItem"; label = "Emotions"; ObjectID = "831"; */
 "831.label" = "表情符號";
 
@@ -227,9 +221,6 @@
 /* Class = "NSMenuItem"; title = "Cut"; ObjectID = "883"; */
 "883.title" = "剪下";
 
-/* Class = "NSButtonCell"; title = "Re:"; ObjectID = "971"; */
-"971.title" = "答";
-
 /* Class = "NSToolbarItem"; label = "Auto Reply"; ObjectID = "972"; */
 "972.label" = "自動應答";
 
@@ -244,9 +235,6 @@
 
 /* Class = "NSWindow"; title = "Message Window"; ObjectID = "1089"; */
 "1089.title" = "訊息視窗";
-
-/* Class = "NSButtonCell"; title = "全"; ObjectID = "1128"; */
-"1128.title" = "全";
 
 /* Class = "NSToolbarItem"; label = "Full Text"; ObjectID = "1129"; */
 "1129.label" = "全文下載";
@@ -271,9 +259,6 @@
 
 /* Class = "NSToolbarItem"; paletteLabel = "Writer"; ObjectID = "1194"; */
 "1194.paletteLabel" = "書寫機";
-
-/* Class = "NSButtonCell"; title = "笔"; ObjectID = "1196"; */
-"1196.title" = "書";
 
 /* Class = "NSMenuItem"; title = "Super Writer…"; ObjectID = "1228"; */
 "1228.title" = "書寫機...";
