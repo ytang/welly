@@ -284,9 +284,6 @@
 /* Class = "NSMenuItem"; title = "Enter Full Screen"; ObjectID = "1665"; */
 "1665.title" = "进入全屏幕";
 
-/* Class = "NSButtonCell"; title = ":-)"; ObjectID = "9zI-6C-77r"; */
-"9zI-6C-77r.title" = "囧";
-
 /* Class = "NSTextFieldCell"; title = "URL Mode"; ObjectID = "Al6-sd-VGW"; */
 "Al6-sd-VGW.title" = "URL模式";
 
