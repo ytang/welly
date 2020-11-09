@@ -126,6 +126,7 @@
 - (void)close {
     if (_pid > 0) {
         kill(_pid, SIGKILL);
+        waitpid(_pid, NULL, WNOHANG);
         _pid = 0;
     }
     if (_fd >= 0) {
