@@ -562,6 +562,15 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(WLMainFrameController)
     return YES;
 }
 
+- (void)applicationWillTerminate:(NSNotification *)notification {
+    NSInteger tabNumber = _tabView.numberOfTabViewItems;
+    for (NSInteger i = 0; i < tabNumber; i++) {
+        id connection = [_tabView tabViewItemAtIndex:i].identifier;
+        if ([connection isKindOfClass:[WLConnection class]])
+            [connection close];
+    }
+}
+
 #pragma mark -
 #pragma mark Window Delegation
 - (void)windowDidBecomeKey:(NSNotification *)notification {
