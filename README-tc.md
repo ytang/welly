@@ -6,6 +6,8 @@ permalink: /zh-Hant/
 
 Welly 是一個支援 Telnet 和 SSH (v1 和 v2) 的 BBS 用戶端程式，用於瀏覽批踢踢實業坊、未名空間、水木社區等電子佈告欄系統。
 
+Welly 原生支援採用 Apple 晶片架構和 Intel 架構的 Mac。
+
 不同於傳統的終端模擬器，Welly 專為 BBS 量身定制，您將會從中得到前所未有的體驗。
 
 ### 瀏覽 BBS

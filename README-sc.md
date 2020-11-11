@@ -6,6 +6,8 @@ permalink: /zh-Hans/
 
 Welly 是一个支持 Telnet 和 SSH (v1 和 v2) 的 BBS 终端，用于浏览水木社区、未名空间、批踢踢等论坛。
 
+Welly 原生支持采用 Apple 芯片和 Intel 芯片的 Mac。
+
 不同于传统的终端模拟器，Welly 专为 BBS 量身定制，您将会从中体验到前所未有的“灌水”快感。
 
 ### 浏览论坛
