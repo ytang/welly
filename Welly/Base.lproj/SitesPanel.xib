@@ -54,7 +54,7 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <button verticalHuggingPriority="750" fixedFrame="YES" imageHugsTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="17">
-                        <rect key="frame" x="320" y="3" width="92" height="32"/>
+                        <rect key="frame" x="336" y="5" width="92" height="32"/>
                         <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
                         <buttonCell key="cell" type="push" title="Connect" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="75">
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -66,21 +66,6 @@ DQ
                         <connections>
                             <action selector="connectSelectedSite:" target="-2" id="126"/>
                             <outlet property="nextKeyView" destination="70" id="101"/>
-                        </connections>
-                    </button>
-                    <button verticalHuggingPriority="750" fixedFrame="YES" imageHugsTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="16">
-                        <rect key="frame" x="237" y="3" width="83" height="32"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
-                        <buttonCell key="cell" type="push" title="Close" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="76">
-                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                            <font key="font" metaFont="system"/>
-                            <string key="keyEquivalent" base64-UTF8="YES">
-Gw
-</string>
-                        </buttonCell>
-                        <connections>
-                            <action selector="closeSitesPanel:" target="-2" id="127"/>
-                            <outlet property="nextKeyView" destination="17" id="97"/>
                         </connections>
                     </button>
                     <button verticalHuggingPriority="750" fixedFrame="YES" imageHugsTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="14">
@@ -253,7 +238,7 @@ ssh[1|2]://[id@]your.site.org[:port]</string>
                                                         </textFieldCell>
                                                     </textField>
                                                     <popUpButton verticalHuggingPriority="750" fixedFrame="YES" imageHugsTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="31">
-                                                        <rect key="frame" x="101" y="199" width="162" height="22"/>
+                                                        <rect key="frame" x="101" y="199" width="193" height="22"/>
                                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                         <popUpButtonCell key="cell" type="push" title="Esc + Esc" bezelStyle="rounded" alignment="left" controlSize="small" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" inset="2" selectedItem="51" id="48">
                                                             <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
@@ -271,7 +256,7 @@ ssh[1|2]://[id@]your.site.org[:port]</string>
                                                         </connections>
                                                     </popUpButton>
                                                     <popUpButton verticalHuggingPriority="750" fixedFrame="YES" imageHugsTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="30">
-                                                        <rect key="frame" x="101" y="233" width="162" height="22"/>
+                                                        <rect key="frame" x="101" y="233" width="193" height="22"/>
                                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                         <popUpButtonCell key="cell" type="push" title="Simplified Chinese (GBK)" bezelStyle="rounded" alignment="left" controlSize="small" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" inset="2" selectedItem="55" id="52">
                                                             <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
@@ -425,6 +410,21 @@ ssh[1|2]://[id@]your.site.org[:port]</string>
                             <real value="250"/>
                         </holdingPriorities>
                     </splitView>
+                    <button verticalHuggingPriority="750" fixedFrame="YES" imageHugsTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="16">
+                        <rect key="frame" x="255" y="5" width="83" height="32"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
+                        <buttonCell key="cell" type="push" title="Close" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="76">
+                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                            <font key="font" metaFont="system"/>
+                            <string key="keyEquivalent" base64-UTF8="YES">
+Gw
+</string>
+                        </buttonCell>
+                        <connections>
+                            <action selector="closeSitesPanel:" target="-2" id="127"/>
+                            <outlet property="nextKeyView" destination="17" id="97"/>
+                        </connections>
+                    </button>
                 </subviews>
                 <touchBar key="touchBar" principalItem="7Ky-3w-mmM" id="l66-DZ-Bxw">
                     <touchBarItems>
@@ -520,7 +520,7 @@ DQ
             <connections>
                 <outlet property="initialFirstResponder" destination="70" id="100"/>
             </connections>
-            <point key="canvasLocation" x="22" y="122"/>
+            <point key="canvasLocation" x="21.5" y="122"/>
         </window>
         <window title="Password" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" hidesOnDeactivate="YES" visibleAtLaunch="NO" animationBehavior="default" id="3" userLabel="Password Panel" customClass="NSPanel">
             <windowStyleMask key="styleMask" titled="YES" utility="YES"/>
