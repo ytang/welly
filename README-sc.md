@@ -4,7 +4,7 @@ title: "Welly"
 permalink: /zh-Hans/
 ---
 
-Welly 是一个支持 Telnet 和 SSH (v1 和 v2) 的 BBS 终端，用于浏览水木社区、未名空间、批踢踢等论坛。
+Welly 是一个支持 Telnet、SSH (v1 和 v2) 和 WebSocket 的 BBS 终端，用于浏览水木社区、未名空间、批踢踢等论坛。
 
 Welly 原生支持采用 Apple 芯片和 Intel 芯片的 Mac。
 

@@ -4,7 +4,7 @@ title: "Welly"
 permalink: /zh-Hant/
 ---
 
-Welly 是一個支援 Telnet 和 SSH (v1 和 v2) 的 BBS 用戶端程式，用於瀏覽批踢踢實業坊、未名空間、水木社區等電子佈告欄系統。
+Welly 是一個支援 Telnet、SSH (v1 和 v2) 和 WebSocket 的 BBS 用戶端程式，用於瀏覽批踢踢實業坊、未名空間、水木社區等電子佈告欄系統。
 
 Welly 原生支援採用 Apple 晶片架構和 Intel 架構的 Mac。
 
