@@ -222,6 +222,10 @@
                      arrayByAddingObject:[[NSString alloc] initWithData:password
                                                                encoding:NSUTF8StringEncoding]];
             }
+        } else if ([(NSString *)a[0] hasSuffix:@"websocat"] && _proxyType == WLSocksProxy) {
+            a = [[a arrayByAddingObject:@"--socks5"]
+                 arrayByAddingObject:[_proxyAddress stringByReplacingOccurrencesOfString:@"localhost"
+                                                                              withString:@"127.0.0.1"]];
         }
         NSInteger n = a.count;
         char *argv[n+1];
