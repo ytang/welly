@@ -671,7 +671,8 @@
                             <rect key="frame" x="0.0" y="14" width="251" height="21"/>
                             <autoresizingMask key="autoresizingMask"/>
                             <string key="toolTip">[telnet://][id@]example.com[:port]
-ssh[1|2]://[id@]example.com[:port]</string>
+ssh[1|2]://[id@]example.com[:port]
+wss://[id@]example.com[:port][/bbs]</string>
                             <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" state="on" borderStyle="bezel" placeholderString="Site address, e.g., ssh://id@example.com" drawsBackground="YES" id="256">
                                 <font key="font" metaFont="system"/>
                                 <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
