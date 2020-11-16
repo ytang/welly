@@ -23,8 +23,8 @@
 /* Class = "NSButton"; ibShadowedToolTip = "Setup auto-login"; ObjectID = "24"; */
 "24.ibShadowedToolTip" = "設置自動登入";
 
-/* Class = "NSTextField"; ibShadowedToolTip = "[telnet://][id@]your.site.org[:port]\nssh[1|2]://[id@]your.site.org[:port]"; ObjectID = "36"; */
-"36.ibShadowedToolTip" = "[telnet://][id@]your.site.org[:port]\nssh[1|2]://[id@]your.site.org[:port]";
+/* Class = "NSTextField"; ibShadowedToolTip = "[telnet://][id@]example.com[:port]\nssh[1|2]://[id@]example.com[:port]"; ObjectID = "36"; */
+"36.ibShadowedToolTip" = "[telnet://][id@]example.com[:port]\nssh[1|2]://[id@]example.com[:port]";
 
 /* Class = "NSButtonCell"; title = "Enable Double Bytes Detection"; ObjectID = "40"; */
 "40.title" = "偵測雙位元文字";

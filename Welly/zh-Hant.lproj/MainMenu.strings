@@ -83,11 +83,11 @@
 /* Class = "NSMenuItem"; title = "Zoom"; ObjectID = "197"; */
 "197.title" = "縮放";
 
-/* Class = "NSTextField"; ibShadowedToolTip = "[telnet://][id@]your.site.org[:port]\nssh[1|2]://[id@]your.site.org[:port]"; ObjectID = "255"; */
-"255.ibShadowedToolTip" = "[telnet://][id@]your.site.org[:port]\nssh[1|2]://[id@]your.site.org[:port]";
+/* Class = "NSTextField"; ibShadowedToolTip = "[telnet://][id@]example.com[:port]\nssh[1|2]://[id@]example.com[:port]"; ObjectID = "255"; */
+"255.ibShadowedToolTip" = "[telnet://][id@]example.com[:port]\nssh[1|2]://[id@]example.com[:port]";
 
-/* Class = "NSTextFieldCell"; placeholderString = "Site address, e.g., ssh://id@your.site.org"; ObjectID = "256"; */
-"256.placeholderString" = "站台位址，例如 ssh://id@your.site.org";
+/* Class = "NSTextFieldCell"; placeholderString = "Site address, e.g., ssh://id@example.com"; ObjectID = "256"; */
+"256.placeholderString" = "站台位址，例如 ssh://id@example.com";
 
 /* Class = "NSToolbarItem"; label = "Address"; ObjectID = "257"; */
 "257.label" = "位址";
