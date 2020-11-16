@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1005436E25620BBC000AFC25 /* websocat in Resources */ = {isa = PBXBuildFile; fileRef = 1005436D25620BBC000AFC25 /* websocat */; };
 		1096482924B9913600342321 /* plink in Resources */ = {isa = PBXBuildFile; fileRef = 1096482824B9913600342321 /* plink */; };
 		109AEA3324C3E2E100228B3B /* WLTouchBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = 109AEA3224C3E2E100228B3B /* WLTouchBarController.m */; };
 		10FB94A424DFBC1E00D0D65B /* WLUserNotificationCenterDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 10FB94A324DFBC1E00D0D65B /* WLUserNotificationCenterDelegate.m */; };
@@ -95,6 +96,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		1005436D25620BBC000AFC25 /* websocat */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.executable"; name = websocat; path = Resources/websocat; sourceTree = "<group>"; };
 		1056986224A86EA900E22B4B /* Welly.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Welly.entitlements; sourceTree = "<group>"; };
 		1096482824B9913600342321 /* plink */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.executable"; name = plink; path = Resources/plink; sourceTree = "<group>"; };
 		109AEA3124C3E2E100228B3B /* WLTouchBarController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WLTouchBarController.h; sourceTree = "<group>"; };
@@ -505,6 +507,7 @@
 				9CC8E7201F42C00500737A3E /* Strings */,
 				9C92088A1F42DFBF00A456D0 /* Credits.rtf */,
 				1096482824B9913600342321 /* plink */,
+				1005436D25620BBC000AFC25 /* websocat */,
 				9C92088B1F42DFBF00A456D0 /* QQWry.dat */,
 				9C92088D1F42DFBF00A456D0 /* Whit.aiff */,
 				9CC8E7291F42C02C00737A3E /* Help */,
@@ -653,6 +656,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1005436E25620BBC000AFC25 /* websocat in Resources */,
 				9C5C1B271F42DD1C006E170D /* Localizable.strings in Resources */,
 				9C034A221F43077500C55BA2 /* Preferences.xib in Resources */,
 				9C92088F1F42DFBF00A456D0 /* QQWry.dat in Resources */,
@@ -938,7 +942,7 @@
 				CODE_SIGN_ENTITLEMENTS = Welly/Welly.entitlements;
 				CODE_SIGN_IDENTITY = "-";
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 970;
+				CURRENT_PROJECT_VERSION = 972;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Welly/Frameworks",
@@ -946,7 +950,7 @@
 				GCC_NO_COMMON_BLOCKS = NO;
 				INFOPLIST_FILE = Welly/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
-				MARKETING_VERSION = 2020.9;
+				MARKETING_VERSION = 2020.10;
 				OTHER_CFLAGS = "-D__DUMPPACKET__";
 				PRODUCT_BUNDLE_IDENTIFIER = com.ytang.Welly;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -960,7 +964,7 @@
 				CODE_SIGN_ENTITLEMENTS = Welly/Welly.entitlements;
 				CODE_SIGN_IDENTITY = "-";
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 970;
+				CURRENT_PROJECT_VERSION = 972;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Welly/Frameworks",
@@ -968,7 +972,7 @@
 				GCC_NO_COMMON_BLOCKS = NO;
 				INFOPLIST_FILE = Welly/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
-				MARKETING_VERSION = 2020.9;
+				MARKETING_VERSION = 2020.10;
 				PRODUCT_BUNDLE_IDENTIFIER = com.ytang.Welly;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};

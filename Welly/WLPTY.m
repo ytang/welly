@@ -51,64 +51,76 @@
         }
     }
     // check protocol
-    BOOL ssh;
+    enum {SC_TELNET, SC_SSH, SC_WEBSOCKET} scheme = SC_TELNET;
     int version = 0;
     NSString *port = nil;
-    if ([addr.lowercaseString hasPrefix: @"ssh://"]) {
-        ssh = YES;
+    if ([addr.lowercaseString hasPrefix:@"ssh://"]) {
+        scheme = SC_SSH;
         version = 2;
         addr = [addr substringFromIndex:6];
-    } else if ([addr.lowercaseString hasPrefix: @"ssh1://"]) {
-        ssh = YES;
+    } else if ([addr.lowercaseString hasPrefix:@"ssh1://"]) {
+        scheme = SC_SSH;
         version = 1;
         addr = [addr substringFromIndex:7];
-    } else if ([addr.lowercaseString hasPrefix: @"ssh2://"]) {
-        ssh = YES;
+    } else if ([addr.lowercaseString hasPrefix:@"ssh2://"]) {
+        scheme = SC_SSH;
         version = 2;
         addr = [addr substringFromIndex:7];
+    } else if ([addr.lowercaseString hasPrefix:@"ws://"] ||
+               [addr.lowercaseString hasPrefix:@"wss://"]) {
+        scheme = SC_WEBSOCKET;
     } else {
-        ssh = NO;
+        scheme = SC_TELNET;
         range = [addr rangeOfString:@"://"];
         if (range.length > 0)
             addr = [addr substringFromIndex:range.location + range.length];
     }
     // check port
-    range = [addr rangeOfString:@":"];
-    if (range.length > 0) {
-        port = [addr substringFromIndex:range.location + range.length];
-        addr = [addr substringToIndex:range.location];
+    if (scheme != SC_WEBSOCKET) {
+        range = [addr rangeOfString:@":"];
+        if (range.length > 0) {
+            port = [addr substringFromIndex:range.location + range.length];
+            addr = [addr substringToIndex:range.location];
+        }
     }
     // make the command
     NSString *path;
     NSString *fmt;
-    if (ssh) {
-        if (port == nil)
-            port = @"22";
-        if (identityFile) {
-            path = [NSString stringWithFormat:@"/usr/bin/ssh -i %@ -o StrictHostKeyChecking=no -o UserKnownHostsFile=%@",
-                    identityFile,
-                    [NSTemporaryDirectory() stringByAppendingPathComponent:@"known_hosts"]];
-            fmt = @"%@%@ -p %4$@ -x %3$@";
-        } else {
-            path = [NSString stringWithFormat:@"%@ -%d",
-                    [[NSBundle mainBundle] pathForResource:@"plink" ofType:@""],
-                    version];
-            fmt = @"%@ -P %4$@ -x -no-antispoof%2$@ %3$@";
-        }
-    } else {
-        path = @"/usr/bin/nc";
-        if (port == nil)
-            port = @"23";
-        range = [addr rangeOfString:@"@"];
-        // remove username for telnet
-        if (range.length > 0)
-            addr = [addr substringFromIndex:range.location + range.length];
-        // "-" before the port number forces the initial option negotiation
-        fmt = @"%@%@ %@ %@";
+    switch (scheme) {
+        case SC_SSH:
+            if (port == nil)
+                port = @"22";
+            if (identityFile) {
+                path = [NSString stringWithFormat:@"/usr/bin/ssh -i %@ -o StrictHostKeyChecking=no -o UserKnownHostsFile=%@",
+                        identityFile,
+                        [NSTemporaryDirectory() stringByAppendingPathComponent:@"known_hosts"]];
+                fmt = @"%@%@ -p %4$@ -x %3$@";
+            } else {
+                path = [NSString stringWithFormat:@"%@ -%d",
+                        [[NSBundle mainBundle] pathForResource:@"plink" ofType:@""],
+                        version];
+                fmt = @"%@ -P %4$@ -x -no-antispoof%2$@ %3$@";
+            }
+            break;
+        case SC_WEBSOCKET:
+            path = [[NSBundle mainBundle] pathForResource:@"websocat" ofType:@""];
+            fmt = @"%@%@ -b --origin app://welly %@%@";
+            break;
+        case SC_TELNET:
+        default:
+            path = @"/usr/bin/nc";
+            if (port == nil)
+                port = @"23";
+            range = [addr rangeOfString:@"@"];
+            // remove username for telnet
+            if (range.length > 0)
+                addr = [addr substringFromIndex:range.location + range.length];
+            // "-" before the port number forces the initial option negotiation
+            fmt = @"%@%@ %@ %@";
     }
     NSString *r = [NSString stringWithFormat:fmt, path, options, addr, port];
     return r;
-} 
+}
 
 - (instancetype)init {
     self = [super init];
