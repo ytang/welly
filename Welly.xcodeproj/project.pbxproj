@@ -942,7 +942,7 @@
 				CODE_SIGN_ENTITLEMENTS = Welly/Welly.entitlements;
 				CODE_SIGN_IDENTITY = "-";
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 978;
+				CURRENT_PROJECT_VERSION = 979;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Welly/Frameworks",
@@ -950,7 +950,7 @@
 				GCC_NO_COMMON_BLOCKS = NO;
 				INFOPLIST_FILE = Welly/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
-				MARKETING_VERSION = 2020.10;
+				MARKETING_VERSION = 2020.11;
 				OTHER_CFLAGS = "-D__DUMPPACKET__";
 				PRODUCT_BUNDLE_IDENTIFIER = com.ytang.Welly;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -964,7 +964,7 @@
 				CODE_SIGN_ENTITLEMENTS = Welly/Welly.entitlements;
 				CODE_SIGN_IDENTITY = "-";
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 978;
+				CURRENT_PROJECT_VERSION = 979;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Welly/Frameworks",
@@ -972,7 +972,7 @@
 				GCC_NO_COMMON_BLOCKS = NO;
 				INFOPLIST_FILE = Welly/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
-				MARKETING_VERSION = 2020.10;
+				MARKETING_VERSION = 2020.11;
 				PRODUCT_BUNDLE_IDENTIFIER = com.ytang.Welly;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};

@@ -74,8 +74,13 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(WLContextualMenuManager)
     longURL = [longURL stringByReplacingOccurrencesOfString:@"\r" withString:@""];
     
     if ([longURL componentsSeparatedByString:@"."].count > 1) {
-        if (![longURL hasPrefix:@"http://"])
-            longURL = [@"http://" stringByAppendingString:longURL];
+        if (!([longURL containsString:@"://"] || [longURL hasPrefix:@"mailto:"])) {
+            if ([longURL rangeOfString:@"@"].location < [longURL rangeOfString:@"." options:NSBackwardsSearch].location) {
+                longURL = [@"mailto:" stringByAppendingString:longURL];
+            } else {
+                longURL = [@"http://" stringByAppendingString:longURL];
+            }
+        }
         [menu addItemWithTitle:longURL
                         action:@selector(openURL:)
                  keyEquivalent:@""];
@@ -159,8 +164,12 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(WLContextualMenuManager)
     if (!u) {
         u = [sender title];
     }
-    if (![u hasPrefix:@"http://"]) {
-        u = [@"http://" stringByAppendingString:[u stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
+    if (!([u containsString:@"://"] || [u hasPrefix:@"mailto:"])) {
+        if ([u rangeOfString:@"@"].location < [u rangeOfString:@"." options:NSBackwardsSearch].location) {
+            u = [@"mailto:" stringByAppendingString:u];
+        } else {
+            u = [@"http://" stringByAppendingString:[u stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
+        }
     }
     [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:u]];
 }
