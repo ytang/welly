@@ -72,6 +72,11 @@ NSString *const WLButtonNameBoardConfig = @"Board Info/Config";
 NSString *const WLButtonNameReply = @"Reply";
 NSString *const WLButtonNameRecommend = @"Recommend";
 NSString *const WLButtonNameCrossPost = @"Cross Post";
+NSString *const WLButtonNameEnterBoard = @"Enter Board";
+NSString *const WLButtonNameSwitchDisplayFavoriteBoards = @"Display Favorite Boards";
+NSString *const WLButtonNameMarkBoardRead = @"Read";
+NSString *const WLButtonNameMarkBoardUnread = @"Unread";
+NSString *const WLButtonNameToggleBoardFavorite = @"Toggle Favorite";
 
 // Firebird
 NSString *const FBCommandSequenceAuthorToNormal = @"e";
@@ -110,6 +115,10 @@ NSString *const MPCommandSequenceReply = @"y";
 NSString *const MPCommandSequenceRecommend = @"X";
 NSString *const MPCommandSequenceCrossPost = @"\030";
 NSString *const MPCommandSequenceShowNote = @"b";
+NSString *const MPCommandSequenceEnterBoard = @"s";
+NSString *const MPCommandSequenceMarkBoardRead = @"v";
+NSString *const MPCommandSequenceMarkBoardUnread = @"V";
+NSString *const MPCommandSequenceToggleBoardFavorite = @"m";
 
 @implementation WLButtonAreaHotspotHandler
 #pragma mark -
@@ -187,6 +196,7 @@ NSString *const MPCommandSequenceShowNote = @"b";
         {BBSBrowseBoard, @"(^X)轉錄", 8, WLButtonNameCrossPost, MPCommandSequenceCrossPost},
         {BBSBrowseBoard, @"(b)進板畫面", 11, WLButtonNameShowNote, MPCommandSequenceShowNote},
         /* BBSBoardList */
+        // Firebird
         {BBSBoardList, @"列出[y]", 7, WLButtonNameSwitchDisplayAllBoards, fbSwitchDisplayAllBoards},
         {BBSBoardList, @"排序[S]", 7, WLButtonNameSwitchSortBoards, fbSwitchSortBoards},
         {BBSBoardList, @"搜寻[/]", 7, WLButtonNameSearchBoards, FBCommandSequenceSearchBoards},
@@ -197,6 +207,17 @@ NSString *const MPCommandSequenceShowNote = @"b";
         {BBSBoardList, @"删除[d]", 7, WLButtonNameDeleteBoard, fbDeletePost},
         {BBSBoardList, @"求助[h]", 7, WLButtonNameShowHelp, fbShowHelp},
         {BBSBoardList, @"[您有信件]", 10, WLButtonNameJumpToMailList, FBCommandSequenceJumpToMailList},
+        // Maple
+        {BBSBoardList, @"[c]新文章", 9, WLButtonNameSwitchBoardsNumber, fbSwitchBoardsNumber},
+        {BBSBoardList, @"[/]搜尋", 7, WLButtonNameSearchBoards, FBCommandSequenceSearchBoards},
+        {BBSBoardList, @"[h]求助", 7, WLButtonNameShowHelp, fbShowHelp},
+        {BBSBoardList, @"(a)增加看板", 11, WLButtonNameAddBoard, FBCommandSequenceAddBoard},
+        {BBSBoardList, @"(s)進入已知板名", 15, WLButtonNameEnterBoard, MPCommandSequenceEnterBoard},
+        {BBSBoardList, @"(y)列出全部", 11, WLButtonNameSwitchDisplayAllBoards, fbSwitchDisplayAllBoards},
+        {BBSBoardList, @"(y)只列最愛", 11, WLButtonNameSwitchDisplayFavoriteBoards, fbSwitchDisplayAllBoards},
+        {BBSBoardList, @"(v/V)已", 7, WLButtonNameMarkBoardRead, MPCommandSequenceMarkBoardRead},
+        {BBSBoardList, @"讀/未讀", 7, WLButtonNameMarkBoardUnread, MPCommandSequenceMarkBoardUnread},
+        {BBSBoardList, @"(m)加入/移出最愛", 16, WLButtonNameToggleBoardFavorite, MPCommandSequenceToggleBoardFavorite},
         /* BBSFriendList */
         {BBSFriendList, @"聊天[t]", 7, WLButtonNameChatWithUser, FBCommandSequenceChatWithUser},
         {BBSFriendList, @"寄信[m]", 7, WLButtonNameMailToUser, FBCommandSequenceMailToUser},

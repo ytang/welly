@@ -126,6 +126,11 @@
 "Reply" = "回信";
 "Recommend" = "推文";
 "Cross Post" = "转贴";
+"Enter Board" = "选择讨论区";
+"Display Favorite Boards" = "列出";
+"Read" = "已读";
+"Unread" = "未读";
+"Toggle Favorite" = "添加/删除讨论区";
 
 /* Contextual Menu */
 // Moving Area

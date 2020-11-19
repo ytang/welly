@@ -125,6 +125,11 @@
 "Reply" = "Reply";
 "Recommend" = "Recommend";
 "Cross Post" = "Cross Post";
+"Enter Board" = "Enter Board";
+"Display Favorite Boards" = "Display Favorite Boards";
+"Read" = "Read";
+"Unread" = "Unread";
+"Toggle Favorite" = "Toggle Favorite";
 
 /* Contextual Menu */
 // Moving Area

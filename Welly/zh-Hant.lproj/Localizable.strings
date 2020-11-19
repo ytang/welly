@@ -82,18 +82,18 @@
 "Compose Post" = "發表文章";
 "Delete Post" = "刪除";
 "Show Note" = "進板畫面";
-"Show Help" = "說明";
+"Show Help" = "求助";
 "Normal To Digest" = "Normal To Digest";
 "Digest To Thread" = "Digest To Thread";
 "Thread To Mark" = "Thread To Mark";
 "Mark To Origin" = "Mark To Origin";
 "Origin To Normal" = "Origin To Normal";
 "Author To Normal" = "Author To Normal";
-"Display All Boards" = "Display All Boards";
+"Display All Boards" = "列出全部";
 "Sort Boards" = "Sort Boards";
-"Search Boards" = "Search Boards";
-"Switch Boards Number" = "Switch Boards Number";
-"Add Board" = "Add Board";
+"Search Boards" = "搜尋";
+"Switch Boards Number" = "切換";
+"Add Board" = "增加看板";
 "Add Directory" = "Add Directory";
 "Move Board" = "Move Board";
 "Delete Board" = "Delete Board";
@@ -125,6 +125,11 @@
 "Reply" = "回應";
 "Recommend" = "推文";
 "Cross Post" = "轉錄";
+"Enter Board" = "進入已知板名";
+"Display Favorite Boards" = "只列最愛";
+"Read" = "已讀";
+"Unread" = "未讀";
+"Toggle Favorite" = "加入/移出最愛";
 
 /* Contextual Menu */
 // Moving Area
