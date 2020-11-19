@@ -120,6 +120,11 @@
 "Search ID" = "Search ID";
 "Search Messages" = "Search Messages";
 "Show All Messages" = "Show All Messages";
+// Maple
+"Board Info/Config" = "Board Info/Config";
+"Reply" = "Reply";
+"Recommend" = "Recommend";
+"Cross Post" = "Cross Post";
 
 /* Contextual Menu */
 // Moving Area

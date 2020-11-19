@@ -121,6 +121,11 @@
 "Search ID" = "查找发讯人";
 "Search Messages" = "查找讯息内容";
 "Show All Messages" = "全部讯息";
+// Maple
+"Board Info/Config" = "讨论区信息/设置";
+"Reply" = "回信";
+"Recommend" = "推文";
+"Cross Post" = "转贴";
 
 /* Contextual Menu */
 // Moving Area

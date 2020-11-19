@@ -14,7 +14,7 @@
 #import "WLTerminal.h"
 
 #define fbComposePost @"\020"
-#define fbDeletePost @"dy\n"
+#define fbDeletePost @"dY\n"
 #define fbShowNote @"\t"
 #define fbShowHelp @"h"
 #define fbNormalToDigest @"\07""1\n"
@@ -68,6 +68,12 @@ NSString *const WLButtonNameSearchID = @"Search ID";
 NSString *const WLButtonNameSearchMessages = @"Search Messages";
 NSString *const WLButtonNameShowAllMessages = @"Show All Messages";
 
+NSString *const WLButtonNameBoardConfig = @"Board Info/Config";
+NSString *const WLButtonNameReply = @"Reply";
+NSString *const WLButtonNameRecommend = @"Recommend";
+NSString *const WLButtonNameCrossPost = @"Cross Post";
+
+// Firebird
 NSString *const FBCommandSequenceAuthorToNormal = @"e";
 NSString *const FBCommandSequenceSearchBoards = @"/";
 NSString *const FBCommandSequenceAddBoard = @"a";
@@ -96,6 +102,14 @@ NSString *const FBCommandSequenceMailMessages = @"m";
 NSString *const FBCommandSequenceSearchID = @"i";
 NSString *const FBCommandSequenceSearchMessages = @"s";
 NSString *const FBCommandSequenceShowAllMessages = @"a";
+
+// Maple
+NSString *const MPCommandSequenceEnterExcerption = @"z";
+NSString *const MPCommandSequenceBoardConfig = @"i";
+NSString *const MPCommandSequenceReply = @"y";
+NSString *const MPCommandSequenceRecommend = @"X";
+NSString *const MPCommandSequenceCrossPost = @"\030";
+NSString *const MPCommandSequenceShowNote = @"b";
 
 @implementation WLButtonAreaHotspotHandler
 #pragma mark -
@@ -149,6 +163,7 @@ NSString *const FBCommandSequenceShowAllMessages = @"a";
 - (void)updateButtonAreaForRow:(int)r {
     const WLButtonDescription buttonsDefinition[] = {
         /* BBSBrowseBoard */
+        // Firebird
         {BBSBrowseBoard, @"发表文章[Ctrl-P]", 16, WLButtonNameComposePost, fbComposePost},
         {BBSBrowseBoard, @"砍信[d]", 7, WLButtonNameDeletePost, fbDeletePost},
         {BBSBrowseBoard, @"备忘录[TAB]", 11, WLButtonNameShowNote, fbShowNote},
@@ -161,6 +176,16 @@ NSString *const FBCommandSequenceShowAllMessages = @"a";
         {BBSBrowseBoard, @"[作者模式]", 10, WLButtonNameAuthorToNormal, FBCommandSequenceAuthorToNormal},
         {BBSBrowseBoard, @"[您有信件]", 10, WLButtonNameJumpToMailList, FBCommandSequenceJumpToMailList},
         {BBSBrowseBoard, @"阅读[→,r]", 10, WLButtonNameEnterExcerption, FBCommandSequenceEnterExcerption},
+        // Maple
+        {BBSBrowseBoard, @"[Ctrl-P]發表文章", 16, WLButtonNameComposePost, fbComposePost},
+        {BBSBrowseBoard, @"[d]刪除", 7, WLButtonNameDeletePost, fbDeletePost},
+        {BBSBrowseBoard, @"[z]精華區", 9, WLButtonNameEnterExcerption, MPCommandSequenceEnterExcerption},
+        {BBSBrowseBoard, @"[i]看板資訊/設定", 16, WLButtonNameBoardConfig, MPCommandSequenceBoardConfig},
+        {BBSBrowseBoard, @"[h]說明", 7, WLButtonNameShowHelp, fbShowHelp},
+        {BBSBrowseBoard, @"(y)回應", 7, WLButtonNameReply, MPCommandSequenceReply},
+        {BBSBrowseBoard, @"(X)推文", 7, WLButtonNameRecommend, MPCommandSequenceRecommend},
+        {BBSBrowseBoard, @"(^X)轉錄", 8, WLButtonNameCrossPost, MPCommandSequenceCrossPost},
+        {BBSBrowseBoard, @"(b)進板畫面", 11, WLButtonNameShowNote, MPCommandSequenceShowNote},
         /* BBSBoardList */
         {BBSBoardList, @"列出[y]", 7, WLButtonNameSwitchDisplayAllBoards, fbSwitchDisplayAllBoards},
         {BBSBoardList, @"排序[S]", 7, WLButtonNameSwitchSortBoards, fbSwitchSortBoards},

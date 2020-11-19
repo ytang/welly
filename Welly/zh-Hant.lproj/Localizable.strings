@@ -79,10 +79,10 @@
 "If you proceed, you will lost all your current font settings for Welly, and this operation is only encouraged when your font settings are missing. Are you sure you want to continue?" = "如果繼續，Welly的所有字體預置均將被重置，是否繼續？";
 
 /* Mouse Button */
-"Compose Post" = "Compose Post";
-"Delete Post" = "Delete Post";
-"Show Note" = "Show Note";
-"Show Help" = "Show Help";
+"Compose Post" = "發表文章";
+"Delete Post" = "刪除";
+"Show Note" = "進板畫面";
+"Show Help" = "說明";
 "Normal To Digest" = "Normal To Digest";
 "Digest To Thread" = "Digest To Thread";
 "Thread To Mark" = "Thread To Mark";
@@ -99,7 +99,7 @@
 "Delete Board" = "Delete Board";
 "Author: %@" = "同作者: %@";
 "Jump To Mail List" = "Jump To Mail List";
-"Enter Excerption" = "Enter Excerption";
+"Enter Excerption" = "精華區";
 // User Info
 "Chat" = "Chat";
 "Mail" = "Mail";
@@ -120,6 +120,11 @@
 "Search ID" = "Search ID";
 "Search Messages" = "Search Messages";
 "Show All Messages" = "Show All Messages";
+// Maple
+"Board Info/Config" = "看板資訊/設定";
+"Reply" = "回應";
+"Recommend" = "推文";
+"Cross Post" = "轉錄";
 
 /* Contextual Menu */
 // Moving Area
