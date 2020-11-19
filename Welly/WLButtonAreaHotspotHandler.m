@@ -251,6 +251,11 @@ NSString *const MPCommandSequenceToggleBoardFavorite = @"m";
         {BBSMessageList, @"发讯人<i>", 9, WLButtonNameSearchID, FBCommandSequenceSearchID},
         {BBSMessageList, @"讯息内容<s>", 11, WLButtonNameSearchMessages, FBCommandSequenceSearchMessages},
         {BBSMessageList, @"全部<a>", 7, WLButtonNameShowAllMessages, FBCommandSequenceShowAllMessages},
+        /* BBSViewPost */
+        // Maple
+        {BBSViewPost, @"(y)回應", 7, WLButtonNameReply, MPCommandSequenceReply},
+        {BBSViewPost, @"(X%)推文", 8, WLButtonNameRecommend, MPCommandSequenceRecommend},
+        {BBSViewPost, @"(h)說明", 7, WLButtonNameShowHelp, fbShowHelp},
     };
     
     if (r > 3 && r < _maxRow-1)
