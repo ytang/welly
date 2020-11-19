@@ -247,6 +247,10 @@ BOOL isPostTitleStarter(unichar c) {
         
         // don't check the first two columns ("●" may be used as cursor)
         for (int i = 2; i < _maxColumn; ++i) {
+            // Skip rows with background color (e.g., in preview mode)
+            if (currRow[i].attr.f.bgColor != 9)
+                continue;
+            
             int db = currRow[i].attr.f.doubleByte;
             if (db == 0) {
                 if (start == -1) {
