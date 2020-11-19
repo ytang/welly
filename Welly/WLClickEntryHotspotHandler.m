@@ -229,11 +229,11 @@ NSString *const WLCommandSequenceSameAuthorReading = @"\025";	// ^U
 }
 
 BOOL isPostTitleStarter(unichar c) {
-    // smth: 0x25cf (solid circle "●"), 0x251c ("├"), 0x2514 ("└"), 0x2605("★")
-    // free/sjtu: 0x25c6 (solid diamond "◆")
-    // ptt: 0x25a1 (hollow square "□")
+    // smth: 0x25cf (black circle "●"), 0x251c ("├"), 0x2514 ("└"), 0x2605("★")
+    // free/sjtu: 0x25c6 (black diamond "◆")
+    // ptt: 0x25a1 (white square "□"), 0x25c7 (white diamond "◇")
     return (c == 0x25cf || c == 0x251c || c == 0x2514 || c == 0x2605
-            || c == 0x25c6 || c == 0x25a1);
+            || c == 0x25c6 || c == 0x25a1 || c == 0x25c7);
 }
 
 - (void)updatePostClickEntry {
@@ -265,9 +265,9 @@ BOOL isPostTitleStarter(unichar c) {
             } else if (db == 2) {
                 unsigned short code = (((currRow + i - 1)->byte) << 8) + ((currRow + i)->byte) - 0x8000;
                 unichar ch = [WLEncoder toUnicode:code encoding:(_view.frontMostConnection.site).encoding];
-                // smth: 0x25cf (solid circle "●"), 0x251c ("├"), 0x2514 ("└"), 0x2605("★")
-                // free/sjtu: 0x25c6 (solid diamond "◆")
-                // ptt: 0x25a1 (hollow square "□")
+                // smth: 0x25cf (black circle "●"), 0x251c ("├"), 0x2514 ("└"), 0x2605("★")
+                // free/sjtu: 0x25c6 (black diamond "◆")
+                // ptt: 0x25a1 (white square "□"), 0x25c7 (white diamond "◇")
                 if (start == -1 && isPostTitleStarter(ch))//ch >= 0x2510 && ch <= 0x260f)
                     start = i - 1;
                 end = i;
@@ -388,25 +388,42 @@ BOOL isPostTitleStarter(unichar c) {
 
 - (void)updateExcerptionClickEntry {
     WLTerminal *ds = _view.frontMostTerminal;
+    NSString *start = nil;
+    NSString *end = nil;
+    int header = 0;
+    switch (ds.bbsType) {
+        case WLFirebird:
+            start = @"标";
+            end = @"整";
+            header = 2;
+            break;
+        case WLMaple:
+            start = @"標";
+            end = @"編";
+            header = 1;
+            break;
+        default:
+            return;
+    }
     // Parse the table title line to get ranges
     NSRange postRange = {0, 0};
     int c = 0;
     for (; c < _maxColumn - 2; ++c) {
-        if ([[ds stringAtIndex:c + 2 * _maxColumn length:2] isEqualToString:@"标"]) {
+        if ([[ds stringAtIndex:c + header * _maxColumn length:2] isEqualToString:start]) {
             postRange.location = c;
             c += 2;
             break;
         }
     }
     for (; c < _maxColumn - 2; ++c) {
-        if ([[ds stringAtIndex:c + 2 * _maxColumn length:2] isEqualToString:@"整"]) {
+        if ([[ds stringAtIndex:c + header * _maxColumn length:2] isEqualToString:end]) {
             postRange.length = c - postRange.location - 1;
             break;
         }
     }
     
     // Parse each line
-    for (int r = 3; r < _maxRow - 1; ++r) {
+    for (int r = header + 1; r < _maxRow - 1; ++r) {
         cell *currRow = [ds cellsOfRow:r];
         
         for (NSInteger c = postRange.location; c < postRange.location + postRange.length; ++c)

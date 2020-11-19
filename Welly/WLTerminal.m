@@ -318,13 +318,13 @@ inline static BOOL hasAnyString(NSString *row, NSArray *array) {
     } else if (hasAnyString(topLine, @[@"讨论区列表", @"个人定制区", @"我的讨论区", @"看板列表", @"板板列表"])) {
         //NSLog(@"讨论区列表");
         _bbsState.state = BBSBoardList;
-    } else if (hasAnyString(topLine, @[@"好朋友列表", @"使用者列表", @"休閒聊天"])) {
+    } else if (hasAnyString(topLine, @[@"好朋友列表", @"使用者列表"]) || hasAnyString(bottomLine, @[@"休閒聊天"])) {
         //NSLog(@"好朋友列表");
         _bbsState.state = BBSFriendList;
     } else if (hasAnyString(topLine, @[@"处理信笺选单", @"電子郵件"])) {
         //NSLog(@"处理信笺选单");
         _bbsState.state = BBSMailMenu;
-    } else if (hasAnyString(topLine, @[@"邮件选单"])) {
+    } else if (hasAnyString(topLine, @[@"邮件选单", @"郵件選單"])) {
         //NSLog(@"邮件选单");
         _bbsState.state = BBSMailList;
     } else if (hasAnyString(topLine, @[@"我的文章"])) {
@@ -352,7 +352,7 @@ inline static BOOL hasAnyString(NSString *row, NSArray *array) {
     } else if (hasAnyString(bottomLine, @[@"阅读文章", @"主题阅读", @"同作者阅读", @"下面还有喔", @"瀏覽"])) {
         //NSLog(@"阅读文章");
         _bbsState.state = BBSViewPost;
-    } else if (hasAnyString(bottomLine, @[@"[功能键]", @"[版  主]"])) {
+    } else if (hasAnyString(bottomLine, @[@"[功能键]", @"[版  主]", @"【功能鍵】", @"【板  主】"])) {
         //NSLog(@"浏览精华区");
         _bbsState.state = BBSBrowseExcerption;
     } else if (hasAnyString(bottomLine, @[@"讯息浏览器"])) {
