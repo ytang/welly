@@ -4,9 +4,21 @@
 <array>
 	<dict>
 		<key>Title Format</key>
-		<string>在 Google 中搜索</string>
+		<string>在 Google 中搜索 %@</string>
 		<key>URL Format</key>
 		<string>https://www.google.com/search?q=%@</string>
+	</dict>
+	<dict>
+		<key>Title Format</key>
+		<string>在 Bing 中搜索 %@</string>
+		<key>URL Format</key>
+		<string>https://www.bing.com/search?q=%@</string>
+	</dict>
+	<dict>
+		<key>Title Format</key>
+		<string>在 DuckDuckGo 中搜索 %@</string>
+		<key>URL Format</key>
+		<string>https://duckduckgo.com/?q=%@</string>
 	</dict>
 </array>
 </plist>

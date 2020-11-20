@@ -4,9 +4,21 @@
 <array>
 	<dict>
 		<key>Title Format</key>
-		<string>Search in Google</string>
+		<string>Search %@ in Google</string>
 		<key>URL Format</key>
 		<string>https://www.google.com/search?q=%@</string>
+	</dict>
+	<dict>
+		<key>Title Format</key>
+		<string>Search %@ in Bing</string>
+		<key>URL Format</key>
+		<string>https://www.bing.com/search?q=%@</string>
+	</dict>
+	<dict>
+		<key>Title Format</key>
+		<string>Search %@ in DuckDuckGo</string>
+		<key>URL Format</key>
+		<string>https://duckduckgo.com/?q=%@</string>
 	</dict>
 </array>
 </plist>
