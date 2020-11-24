@@ -133,18 +133,18 @@
 
 /* Contextual Menu */
 // Moving Area
-"Press Home" = "Press Home";
-"Press End" = "Press End";
-"Quit Mode" = "Quit Mode";
+"Press Home" = "跳到開頭";
+"Press End" = "跳到結尾";
+"Quit Mode" = "離開";
 // Author Button
-"Info for %@" = "Info for %@";
-"Add %@ as friend" = "Add %@ as friend";
+"Info for %@" = "查詢 %@ 資料";
+"Add %@ as friend" = "與 %@ 交友";
 // Click Entry
-"Download post" = "Download post";
-"Thread top" = "Thread top";
-"Thread bottom" = "Thread bottom";
-"Same author reading" = "Same author reading";
-"Same thread reading" = "Same thread reading";
+"Download post" = "下載文章";
+"Thread top" = "同主題首篇";
+"Thread bottom" = "同主題末篇";
+"Same author reading" = "同作者閱讀";
+"Same thread reading" = "同主題閱讀";
 // URL
 "Copy URL" = "拷貝URL";
 "Open in Browser" = "用瀏覽器打開";

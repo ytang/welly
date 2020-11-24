@@ -138,8 +138,8 @@
 "Press End" = "跳至最底端";
 "Quit Mode" = "退出多功能阅读\tq";
 // Author Button
-"Info for %@" = "查看%@个人信息";
-"Add %@ as friend" = "添加%@为好友";
+"Info for %@" = "查看 %@ 个人信息";
+"Add %@ as friend" = "添加 %@ 为好友";
 // Click Entry
 "Download post" = "全文下载";
 "Thread top" = "同主题第一篇\t\t=";

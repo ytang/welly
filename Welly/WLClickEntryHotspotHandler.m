@@ -24,8 +24,9 @@ NSString *const WLMenuTitleSameThreadReading = @"Same thread reading";
 
 NSString *const WLCommandSequenceThreadTop = @"=";
 NSString *const WLCommandSequenceThreadBottom = @"\\";
-NSString *const WLCommandSequenceSameThreadReading = @"\030";	// ^X
-NSString *const WLCommandSequenceSameAuthorReading = @"\025";	// ^U
+NSString *const FBCommandSequenceSameThreadReading = @"\030";	// ^X
+NSString *const FBCommandSequenceSameAuthorReading = @"\025";	// ^U
+NSString *const MPCommandSequenceSameThreadReading = @"S";
 
 @implementation WLClickEntryHotspotHandler
 
@@ -145,12 +146,34 @@ NSString *const WLCommandSequenceSameAuthorReading = @"\025";	// ^U
 
 - (IBAction)sameAuthorReading:(id)sender {
     [self moveCursorBySender:sender];
-    [_view sendText:WLCommandSequenceSameAuthorReading];
+    NSString *commandSequence = nil;
+    switch (_view.frontMostTerminal.bbsType) {
+        case WLFirebird:
+            commandSequence = FBCommandSequenceSameAuthorReading;
+            break;
+        case WLMaple:
+            // Maple doesn't support same author reading
+            return;
+        default:
+            return;
+    }
+    [_view sendText:commandSequence];
 }
 
 - (IBAction)sameThreadReading:(id)sender {
     [self moveCursorBySender:sender];
-    [_view sendText:WLCommandSequenceSameThreadReading];
+    NSString *commandSequence = nil;
+    switch (_view.frontMostTerminal.bbsType) {
+        case WLFirebird:
+            commandSequence = FBCommandSequenceSameThreadReading;
+            break;
+        case WLMaple:
+            commandSequence = MPCommandSequenceSameThreadReading;
+            break;
+        default:
+            return;
+    }
+    [_view sendText:commandSequence];
 }
 
 - (NSMenu *)menuForEvent:(NSEvent *)theEvent {
@@ -165,12 +188,14 @@ NSString *const WLCommandSequenceSameAuthorReading = @"\025";	// ^U
         [menu addItemWithTitle:NSLocalizedString(WLMenuTitleThreadBottom, @"Contextual Menu")
                         action:@selector(threadBottom:)
                  keyEquivalent:@""];
-        [menu addItemWithTitle:NSLocalizedString(WLMenuTitleSameAuthorReading, @"Contextual Menu")
-                        action:@selector(sameAuthorReading:)
-                 keyEquivalent:@""];
         [menu addItemWithTitle:NSLocalizedString(WLMenuTitleSameThreadReading, @"Contextual Menu")
                         action:@selector(sameThreadReading:)
                  keyEquivalent:@""];
+        if (_view.frontMostTerminal.bbsType == WLFirebird) {
+            [menu addItemWithTitle:NSLocalizedString(WLMenuTitleSameAuthorReading, @"Contextual Menu")
+                            action:@selector(sameAuthorReading:)
+                     keyEquivalent:@""];
+        }
     }
     
     for (NSMenuItem *item in menu.itemArray) {
