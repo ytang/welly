@@ -47,7 +47,7 @@ NSString *const WLMenuTitleQuitMode = @"Quit Mode";
 }
 
 - (BOOL)shouldEnableExitAreaForState:(BBSState)bbsState {
-    if (bbsState.state == BBSComposePost || bbsState.state == BBSWaitingEnter)
+    if (bbsState.state == BBSComposePost || bbsState.state == BBSWaitingEnter || bbsState.state == BBSWaitingSpace)
         return NO;
     return YES;
 }

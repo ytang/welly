@@ -130,8 +130,15 @@ const float WLHorizontalScrollReactivateTimeInteval = 1.0;
         return;
     }
     
-    if (_view.frontMostTerminal.bbsState.state == BBSWaitingEnter) {
-        [_view sendText:termKeyEnter];
+    switch (_view.frontMostTerminal.bbsState.state) {
+        case BBSWaitingEnter:
+            [_view sendText:termKeyEnter];
+            break;
+        case BBSWaitingSpace:
+            [_view sendText:@" "];
+            break;
+        default:
+            break;
     }
 }
 

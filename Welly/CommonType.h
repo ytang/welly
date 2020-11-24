@@ -62,7 +62,8 @@ typedef struct {
      @constant   BBSBrowseExcerption The user is browsing excerption. Though its functionality is similar to the <code>BBSBrowseBoard</code> state, their behavior are different, so we treat them independently.
      @constant   BBSViewPost         The user is reading one post.
      @constant   BBSComposePost      The user is writing his post or editing existed post. These two states' supported operation is almost the same, so we merged them together.
-     @constant   BBSWaitingEnter     The BBS is waiting for the user pressing enter key.
+     @constant   BBSWaitingEnter     The BBS is waiting for the user pressing the enter key.
+     @constant   BBSWaitingSpace     The BBS is waiting for the user pressing the space key.
      @constant   BBSWaitingConfirm   The BBS is waiting for the user to confirm operation. (Y/N)
      @constant   BBSUserInfo         The user is querying some user's information.
      */
@@ -79,6 +80,7 @@ typedef struct {
         BBSViewPost,
         BBSComposePost,
         BBSWaitingEnter,
+        BBSWaitingSpace,
         BBSUserInfo,
         BBSConfirmPost,
         BBSBrowseExcerption,

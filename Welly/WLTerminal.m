@@ -361,6 +361,9 @@ inline static BOOL hasAnyString(NSString *row, NSArray *array) {
     } else if (hasAnyString(wholePage, @[@"按任意键继续", @"按回车键", @"按 [RETURN] 继续", @"按 ◆Enter◆ 继续", @"按 <ENTER> 继续", @"按任何键继续", @"上次连线时间为", @"按任意鍵繼續", @"請按空白鍵或是Enter繼續"])) {
         //NSLog(@"按回车继续");
         _bbsState.state = BBSWaitingEnter;
+    } else if (hasAnyString(wholePage, @[@"請按 空白鍵 繼續"])) {
+        //NSLog(@"按空白键继续");
+        _bbsState.state = BBSWaitingSpace;
     } else {
         //NSLog(@"未知状态");
         _bbsState.state = BBSUnknown;
