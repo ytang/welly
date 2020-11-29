@@ -21,10 +21,10 @@ const NSNotificationName WLURLManagerNotification;
 const NSNotificationName WLTerminalBBSStateDidChangeNotification;
 
 NSString *const _composeCommandSequence = @"\020";
-NSString *const _threadModeCommandSequence = @"\07""2\n";
-NSString *const _markModeCommandSequence = @"\07""3\n";
-NSString *const _authorModeCommandSequence = @"\07""5\n\n";
-NSString *const _titleModeCommandSequence = @"\07""6\n";
+NSString *const _threadModeCommandSequence = @"\07""2\r";
+NSString *const _markModeCommandSequence = @"\07""3\r";
+NSString *const _authorModeCommandSequence = @"\07""5\r\r";
+NSString *const _titleModeCommandSequence = @"\07""6\r";
 
 @implementation WLTouchBarController {
     NSSet<NSTouchBarItem *> *_urlModeItems;
@@ -33,6 +33,7 @@ NSString *const _titleModeCommandSequence = @"\07""6\n";
     NSSet<NSTouchBarItem *> *_composePostItems;
     NSSet<NSTouchBarItem *> *_viewPostItems;
     NSSet<NSTouchBarItem *> *_browseBoardItems;
+    NSSet<NSTouchBarItem *> *_fbBrowseBoardItems;
 }
 
 SYNTHESIZE_SINGLETON_FOR_CLASS(WLTouchBarController)
@@ -68,7 +69,8 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(WLTouchBarController)
     _urlModeButtonItems = [NSSet setWithObjects:_urlModeButton, nil];
     _composePostItems = [NSSet setWithObjects:_emoticonsPanelButton, _composePanelButton, nil];
     _viewPostItems = [NSSet setWithObjects:_postDownloadPanelButton, nil];
-    _browseBoardItems = [NSSet setWithObjects:_threadModeButton, _markModeButton, _authorModeButton, _titleModeButton, _composeButton, nil];
+    _browseBoardItems = [NSSet setWithObjects:_composeButton, nil];
+    _fbBrowseBoardItems = [NSSet setWithObjects:_threadModeButton, _markModeButton, _authorModeButton, _titleModeButton, nil];
 }
 
 - (void)updateItems:(NSSet<NSTouchBarItem *> *)items when:(BOOL)condition {
@@ -149,8 +151,9 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(WLTouchBarController)
 - (void)updateBBSState:(BBSState)bbsState {
     [self updateItems:_composePostItems when:bbsState.state == BBSComposePost];
     [self updateItems:_viewPostItems when:bbsState.state == BBSViewPost];
+    [self updateItems:_browseBoardItems when:bbsState.state == BBSBrowseBoard];
     if (WLMainFrameController.sharedInstance.tabView.frontMostTerminal.bbsType == WLFirebird) {
-        [self updateItems:_browseBoardItems when:bbsState.state == BBSBrowseBoard];
+        [self updateItems:_fbBrowseBoardItems when:bbsState.state == BBSBrowseBoard];
     }
 }
 
