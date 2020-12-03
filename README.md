@@ -17,7 +17,8 @@ Compared with generic terminal emulators, Welly has many features specially desi
 - You can browse the BBS using the mouse or the touchpad with gestures.
 - You can select and copy the text in normal mode or rectangle mode.
 - You can take a screenshot of the current page, or download articles in full text.
-- You can customize fonts for English and Chinese separately. You can also choose your color palette.
+- You can choose your color palette or use a transparent background.
+- You can customize fonts for English and Chinese separately.
 - Welly renders fonts smoothly and seamlessly for ASCII art.
 - Welly has anti-idle support so that you won't be logged out due to inactivity.
 - Welly supports macOS native full-screen mode and Dark Mode.

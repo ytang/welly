@@ -342,7 +342,7 @@
             </items>
             <point key="canvasLocation" x="140" y="154"/>
         </menu>
-        <window title="Welly" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" releasedWhenClosed="NO" animationBehavior="default" titlebarAppearsTransparent="YES" toolbarStyle="expanded" id="21" userLabel="Window">
+        <window title="Welly" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" releasedWhenClosed="NO" animationBehavior="default" toolbarStyle="expanded" id="21" userLabel="Window">
             <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES"/>
             <windowCollectionBehavior key="collectionBehavior" fullScreenPrimary="YES"/>
             <rect key="contentRect" x="136" y="95" width="960" height="598"/>
@@ -356,18 +356,18 @@
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
                             <customView fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="1651" customClass="WLTerminalView">
-                                <rect key="frame" x="567" y="402" width="163" height="96"/>
+                                <rect key="frame" x="0.0" y="0.0" width="960" height="576"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <subviews>
                                     <customView wantsLayer="YES" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="1165" customClass="WLEffectView">
-                                        <rect key="frame" x="0.0" y="0.0" width="163" height="96"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="960" height="576"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <connections>
                                             <outlet property="_mainView" destination="1651" id="1652"/>
                                         </connections>
                                     </customView>
                                     <customView hidden="YES" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="227" customClass="YLMarkedTextView">
-                                        <rect key="frame" x="-41" y="20" width="245" height="36"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="960" height="576"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                     </customView>
                                 </subviews>

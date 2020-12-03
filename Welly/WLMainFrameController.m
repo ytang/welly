@@ -66,6 +66,7 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(WLMainFrameController)
     
     //[_mainWindow setHasShadow:YES];
     [_mainWindow setOpaque:NO];
+    _mainWindow.backgroundColor = NSColor.clearColor;
     
     [_mainWindow setFrameAutosaveName:@"wellyMainWindowFrame"];
     
