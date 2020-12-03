@@ -26,7 +26,6 @@
     self = [self initWithFrame:view.frame];
     if (self) {
         _mainView = view;
-        [self setWantsLayer:YES];
     }
     return self;
 }
@@ -36,7 +35,6 @@
     if (self) {
         // Initialization code here.
         self.frame = frame;
-        [self setWantsLayer:YES];
     }
     return self;
 }
@@ -48,26 +46,6 @@
     
     CGColorRelease(_popUpLayerTextColor);
     CGFontRelease(_popUpLayerTextFont);
-}
-
-- (void)setupLayer {
-    NSRect contentFrame = _mainView.frame;
-    self.frame = contentFrame;
-    
-    // mainLayer is the layer that gets scaled. All of its sublayers
-    // are automatically scaled with it.
-    if (!_mainLayer) {
-        _mainLayer = [CALayer layer];
-        
-        // Make the background color to be a dark gray with a 50% alpha similar to
-        // the real Dashbaord.
-        CGColorRef bgColor = CGColorCreateGenericRGB(0.0, 0.0, 0.0, 0.0);
-        _mainLayer.backgroundColor = bgColor;
-        CGColorRelease(bgColor);
-        
-        self.layer = _mainLayer;
-    }
-    _mainLayer.frame = NSRectToCGRect(contentFrame);
 }
 
 - (void)clear {
@@ -86,7 +64,6 @@
 }
 
 - (void)awakeFromNib {
-    [self setupLayer];
 }
 
 - (void)setIPAddrBox {
@@ -103,7 +80,7 @@
     _ipAddrLayer.cornerRadius = 6.0;
     
     // Insert the layer into the root layer
-    [_mainLayer addSublayer:_ipAddrLayer];
+    [self.layer addSublayer:_ipAddrLayer];
 }
 
 - (void)drawIPAddrBox:(NSRect)rect {
@@ -137,7 +114,7 @@
     _clickEntryLayer.cornerRadius = 6.0;
     
     // Insert the layer into the root layer
-    [_mainLayer addSublayer:_clickEntryLayer];
+    [self.layer addSublayer:_clickEntryLayer];
 }
 
 - (void)drawClickEntry:(NSRect)rect {
@@ -187,7 +164,7 @@
     [_buttonLayer addAnimation:buttonTrans forKey:kCATransition];
     [_buttonLayer setHidden:YES];
     // Insert the layer into the root layer
-    [_mainLayer addSublayer:_buttonLayer];
+    [self.layer addSublayer:_buttonLayer];
 }
 
 - (void)drawButton:(NSRect)rect
@@ -256,7 +233,7 @@
     _urlIndicatorLayer = [CALayer layer];
     _urlIndicatorLayer.contents = [NSImage imageNamed:@"indicator"];
     _urlIndicatorLayer.frame = CGRectMake(0, 0, 79, 90);
-    [_mainLayer addSublayer:_urlIndicatorLayer];
+    [self.layer addSublayer:_urlIndicatorLayer];
 }
 
 - (void)showIndicatorAtPoint:(NSPoint)point {
@@ -310,7 +287,7 @@
     
     [_popUpLayer addSublayer:textLayer];
     // Insert the layer into the root layer
-    [_mainLayer addSublayer:_popUpLayer];
+    [self.layer addSublayer:_popUpLayer];
 }
 
 // Just similiar to the code of "addNewLayer"...

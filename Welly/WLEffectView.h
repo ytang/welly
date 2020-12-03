@@ -14,8 +14,6 @@
 #define DEFAULT_POPUP_BOX_FONT @"Helvetica"
 
 @interface WLEffectView : NSView {
-    CALayer *_mainLayer;
-    
     IBOutlet WLTerminalView *_mainView;
     
     CALayer *_ipAddrLayer;
@@ -55,5 +53,4 @@
 
 - (void)resize;
 - (void)clear;
-- (void)setupLayer;
 @end
