@@ -27,7 +27,7 @@ NSString *const WLRangeLocationUserInfoName;
 NSString *const WLRangeLengthUserInfoName;
 
 
-@class WLTerminalView;
+@class WLTerminalView, WLEffectView;
 /*!
  @class
  @abstract    Manages mouse behavior for <code>YLView</code>, including <code>mouseUp:</code>, <code>mouseEntered:</code>, <code>mouseExited:</code>, <code>mouseMoved:</code>, and <code>menuForEvent:</code>.

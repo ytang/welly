@@ -17,6 +17,7 @@ const NSNotificationName WLTerminalViewURLModeDidChangeNotification;
 
 @class WLTermView;
 @class YLMarkedTextView;
+@class WLEffectView;
 @class WLMouseBehaviorManager;
 @class WLURLManager;
 
@@ -30,6 +31,7 @@ const NSNotificationName WLTerminalViewURLModeDidChangeNotification;
     NSRange _markedRange;
     
     IBOutlet YLMarkedTextView *_textField;
+    IBOutlet WLEffectView *__weak _effectView;
     
     NSInteger _selectionLocation;
     NSInteger _selectionLength;
@@ -45,21 +47,10 @@ const NSNotificationName WLTerminalViewURLModeDidChangeNotification;
     
     WLMouseBehaviorManager *_mouseBehaviorDelegate;
     WLURLManager *_urlManager;
-
-    // Core Animation
-    CALayer *_ipAddrLayer;
-    CALayer *_clickEntryLayer;
-    CALayer *_popUpLayer;
-    CALayer *_buttonLayer;
-    
-    CALayer *_urlLineLayer;
-    CALayer *_urlIndicatorLayer;
-    
-    CGColorRef _popUpLayerTextColor;
-    CGFontRef _popUpLayerTextFont;
 }
 @property BOOL isInUrlMode;
 @property BOOL isMouseActive;
+@property (weak, readonly) WLEffectView *effectView;
 
 @property (NS_NONATOMIC_IOSONLY, readonly) BOOL shouldWarnCompose;
 
@@ -101,29 +92,4 @@ const NSNotificationName WLTerminalViewURLModeDidChangeNotification;
 
 - (NSInteger)convertIndexFromPoint:(NSPoint)aPoint;
 @property (NS_NONATOMIC_IOSONLY, readonly) NSPoint mouseLocationInView;
-
-#pragma mark -
-#pragma mark Core Animation
-// for ip seeker
-- (void)drawIPAddrBox:(NSRect)rect;
-- (void)clearIPAddrBox;
-
-// for post view
-- (void)drawClickEntry:(NSRect)rect;
-- (void)clearClickEntry;
-
-// for button
-- (void)drawButton:(NSRect)rect
-       withMessage:(NSString *)message;
-- (void)clearButton;
-
-// for URL
-- (void)showIndicatorAtPoint:(NSPoint)point;
-- (void)removeIndicator;
-
-// To show pop up message by core animation
-// This method might be changed in future
-// by gtCarrera @ 9#
-- (void)drawPopUpMessage:(NSString*)message;
-- (void)removePopUpMessage;
 @end

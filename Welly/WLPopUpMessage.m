@@ -7,29 +7,29 @@
 //
 
 #import "WLPopUpMessage.h"
-#import "WLTerminalView.h"
+#import "WLEffectView.h"
 
 @implementation WLPopUpMessage
 
-WLTerminalView *_view;
+WLEffectView *_effectView;
 NSTimer *_prevTimer;
 
 #pragma mark Class methods
 + (void)hidePopUpMessage {
-    if (_view) {
-        [_view removePopUpMessage];
+    if (_effectView) {
+        [_effectView removePopUpMessage];
     }
     _prevTimer = nil;
 }
 
 + (void)showPopUpMessage:(NSString*)message 
                 duration:(CGFloat)duration 
-                    view:(WLTerminalView *)view {
+              effectView:(WLEffectView *)effectView {
     if (_prevTimer) {
         [_prevTimer invalidate];
     }
-    [view drawPopUpMessage:message];
-    _view = view;
+    [effectView drawPopUpMessage:message];
+    _effectView = effectView;
     _prevTimer = [NSTimer scheduledTimerWithTimeInterval:duration
                                                   target:self 
                                                 selector:@selector(hidePopUpMessage)

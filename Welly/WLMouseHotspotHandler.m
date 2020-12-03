@@ -7,6 +7,7 @@
 //
 #import "WLMouseHotspotHandler.h"
 #import "WLTerminalView.h"
+#import "WLEffectView.h"
 #import "WLGlobalConfig.h"
 #import "WLMouseBehaviorManager.h"
 

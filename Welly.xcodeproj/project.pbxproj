@@ -28,6 +28,7 @@
 		9C76A23F1F42B6300044F830 /* WLTermView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C76A2341F42B6300044F830 /* WLTermView.m */; };
 		9C76A2401F42B6300044F830 /* WLTerminalView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C76A2361F42B6300044F830 /* WLTerminalView.m */; };
 		9C76A2411F42B6300044F830 /* YLMarkedTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C76A2381F42B6300044F830 /* YLMarkedTextView.m */; };
+		9C76A2421F42B6300044F830 /* WLEffectView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C76A23A1F42B6300044F830 /* WLEffectView.m */; };
 		9C76A2431F42B6300044F830 /* WLPopUpMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C76A23C1F42B6300044F830 /* WLPopUpMessage.m */; };
 		9C76A2441F42B6300044F830 /* WLAsciiArtRender.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C76A23E1F42B6300044F830 /* WLAsciiArtRender.m */; };
 		9C76A24C1F42B6400044F830 /* WLTabView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C76A2461F42B6400044F830 /* WLTabView.m */; };
@@ -141,6 +142,8 @@
 		9C76A2361F42B6300044F830 /* WLTerminalView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLTerminalView.m; sourceTree = "<group>"; };
 		9C76A2371F42B6300044F830 /* YLMarkedTextView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YLMarkedTextView.h; sourceTree = "<group>"; };
 		9C76A2381F42B6300044F830 /* YLMarkedTextView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YLMarkedTextView.m; sourceTree = "<group>"; };
+		9C76A2391F42B6300044F830 /* WLEffectView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLEffectView.h; sourceTree = "<group>"; };
+		9C76A23A1F42B6300044F830 /* WLEffectView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLEffectView.m; sourceTree = "<group>"; };
 		9C76A23B1F42B6300044F830 /* WLPopUpMessage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLPopUpMessage.h; sourceTree = "<group>"; };
 		9C76A23C1F42B6300044F830 /* WLPopUpMessage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLPopUpMessage.m; sourceTree = "<group>"; };
 		9C76A23D1F42B6300044F830 /* WLAsciiArtRender.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLAsciiArtRender.h; sourceTree = "<group>"; };
@@ -346,6 +349,8 @@
 				9C76A2361F42B6300044F830 /* WLTerminalView.m */,
 				9C76A2371F42B6300044F830 /* YLMarkedTextView.h */,
 				9C76A2381F42B6300044F830 /* YLMarkedTextView.m */,
+				9C76A2391F42B6300044F830 /* WLEffectView.h */,
+				9C76A23A1F42B6300044F830 /* WLEffectView.m */,
 				9C76A23B1F42B6300044F830 /* WLPopUpMessage.h */,
 				9C76A23C1F42B6300044F830 /* WLPopUpMessage.m */,
 				9C76A23D1F42B6300044F830 /* WLAsciiArtRender.h */,
@@ -715,6 +720,7 @@
 				9C76A2DC1F42B8B00044F830 /* WLGlobalConfig.m in Sources */,
 				9C76A29B1F42B7B10044F830 /* WLMovingAreaHotspotHandler.m in Sources */,
 				9C76A2991F42B7B10044F830 /* WLClickEntryHotspotHandler.m in Sources */,
+				9C76A2421F42B6300044F830 /* WLEffectView.m in Sources */,
 				9C76A29A1F42B7B10044F830 /* WLMouseHotspotHandler.m in Sources */,
 				9C76A29D1F42B7B10044F830 /* WLMouseBehaviorManager.m in Sources */,
 				9C76A23F1F42B6300044F830 /* WLTermView.m in Sources */,

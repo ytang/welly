@@ -8,13 +8,13 @@
 
 #import <Cocoa/Cocoa.h>
 
-@class WLTerminalView;
+@class WLEffectView;
 @interface WLPopUpMessage:NSObject {
 }
 
 + (void)showPopUpMessage:(NSString*)message 
                 duration:(CGFloat)duration 
-                    view:(WLTerminalView *)view;
+              effectView:(WLEffectView *)effectView;
 
 + (void)hidePopUpMessage;
 
