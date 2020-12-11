@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="17506" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="17701" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment identifier="macosx"/>
         <plugIn identifier="com.apple.InterfaceBuilder.CocoaDFRPlugin" version="17008"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="17506"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="17701"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
         <capability name="the Touch Bar" minToolsVersion="8.1" minSystemVersion="10.12.2" requiredIntegratedClassName="NSTouchBar"/>
     </dependencies>
@@ -676,12 +676,12 @@
                     <toolbarItem implicitItemIdentifier="05966687-5F23-47E3-B508-E2541AC0DE11" label="Address" paletteLabel="Address" sizingBehavior="auto" id="257">
                         <nil key="toolTip"/>
                         <textField key="view" verticalHuggingPriority="750" id="255">
-                            <rect key="frame" x="0.0" y="14" width="251" height="21"/>
+                            <rect key="frame" x="0.0" y="14" width="251" height="22"/>
                             <autoresizingMask key="autoresizingMask"/>
                             <string key="toolTip">[telnet://][id@]example.com[:port]
 ssh[1|2]://[id@]example.com[:port]
 wss://[id@]example.com[:port][/bbs]</string>
-                            <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" state="on" borderStyle="bezel" placeholderString="Site address, e.g., ssh://id@example.com" drawsBackground="YES" id="256">
+                            <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" state="on" borderStyle="bezel" placeholderString="Site address, e.g., ssh://id@example.com" bezelStyle="round" id="256">
                                 <font key="font" metaFont="system"/>
                                 <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                 <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
