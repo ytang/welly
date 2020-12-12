@@ -137,10 +137,10 @@
 /* Class = "NSToolbarItem"; paletteLabel = "Double Bytes"; ObjectID = "415"; */
 "415.paletteLabel" = "侦测双字节";
 
-/* Class = "NSToolbarItem"; label = "Site Book"; ObjectID = "418"; */
+/* Class = "NSToolbarItem"; label = "Sites"; ObjectID = "418"; */
 "418.label" = "地址簿";
 
-/* Class = "NSToolbarItem"; paletteLabel = "Site Book"; ObjectID = "418"; */
+/* Class = "NSToolbarItem"; paletteLabel = "Sites"; ObjectID = "418"; */
 "418.paletteLabel" = "地址簿";
 
 /* Class = "NSToolbarItem"; label = "Add"; ObjectID = "419"; */

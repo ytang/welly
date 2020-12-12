@@ -645,7 +645,7 @@
             <toolbar key="toolbar" implicitIdentifier="9220F62B-2726-4C84-80F3-70296DDE6D4C" showsBaselineSeparator="NO" displayMode="iconAndLabel" sizeMode="regular" id="231">
                 <allowedToolbarItems>
                     <toolbarItem implicitItemIdentifier="NSToolbarSeparatorItem" id="234"/>
-                    <toolbarItem implicitItemIdentifier="7953CAC6-DC4D-41BB-83E0-CE03467AB4CC" label="Site Book" paletteLabel="Site Book" image="NSBookmarksTemplate" sizingBehavior="auto" id="418">
+                    <toolbarItem implicitItemIdentifier="7953CAC6-DC4D-41BB-83E0-CE03467AB4CC" label="Sites" paletteLabel="Sites" image="NSBookmarksTemplate" sizingBehavior="auto" id="418">
                         <nil key="toolTip"/>
                         <button key="view" verticalHuggingPriority="750" id="416">
                             <rect key="frame" x="13" y="14" width="31" height="23"/>
