@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="17132.0.2" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="17701" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
-        <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaDFRPlugin" version="17006"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="17132.0.2"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaDFRPlugin" version="17008"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="17701"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
         <capability name="the Touch Bar" minToolsVersion="8.1" minSystemVersion="10.12.2" requiredIntegratedClassName="NSTouchBar"/>
     </dependencies>
@@ -28,7 +27,7 @@
                 <binding destination="-2" name="contentArray" keyPath="emoticons" id="41"/>
             </connections>
         </arrayController>
-        <window title="Emotions" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" hidesOnDeactivate="YES" releasedWhenClosed="NO" visibleAtLaunch="NO" animationBehavior="default" id="2" userLabel="Emoticon Panel" customClass="NSPanel">
+        <window title="Emoticons" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" hidesOnDeactivate="YES" releasedWhenClosed="NO" visibleAtLaunch="NO" animationBehavior="default" id="2" userLabel="Emoticon Panel" customClass="NSPanel">
             <windowStyleMask key="styleMask" titled="YES" resizable="YES" utility="YES"/>
             <rect key="contentRect" x="436" y="273" width="413" height="346"/>
             <rect key="screenRect" x="0.0" y="0.0" width="3840" height="2135"/>
@@ -70,7 +69,7 @@
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxX="YES" heightSizable="YES"/>
                                 <clipView key="contentView" id="KBr-Ui-lTo">
                                     <rect key="frame" x="1" y="1" width="150" height="297"/>
-                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                    <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" alternatingRowBackgroundColors="YES" columnSelection="YES" multipleSelection="NO" emptySelection="NO" autosaveColumns="NO" rowHeight="20" id="12">
                                             <rect key="frame" x="0.0" y="0.0" width="150" height="297"/>
@@ -80,7 +79,7 @@
                                             <tableViewGridLines key="gridStyleMask" horizontal="YES"/>
                                             <color key="gridColor" name="gridColor" catalog="System" colorSpace="catalog"/>
                                             <tableColumns>
-                                                <tableColumn editable="NO" width="138" minWidth="40" maxWidth="1000" id="15">
+                                                <tableColumn editable="NO" width="109" minWidth="40" maxWidth="1000" id="15">
                                                     <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="left">
                                                         <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
                                                         <color key="backgroundColor" white="0.33333299" alpha="1" colorSpace="calibratedWhite"/>
@@ -127,7 +126,7 @@
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <clipView key="contentView" drawsBackground="NO" id="KKb-t3-Ekr">
                                                 <rect key="frame" x="1" y="1" width="235" height="302"/>
-                                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                                <autoresizingMask key="autoresizingMask"/>
                                                 <subviews>
                                                     <textView importsGraphics="NO" richText="NO" verticallyResizable="YES" continuousSpellChecking="YES" spellingCorrection="YES" id="20">
                                                         <rect key="frame" x="0.0" y="0.0" width="270" height="302"/>
@@ -202,6 +201,7 @@ Gw
                             <viewController key="viewController" id="XZm-SI-bze">
                                 <button key="view" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Y83-sP-c4u">
                                     <rect key="frame" x="0.0" y="0.0" width="72" height="30"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                     <buttonCell key="cell" type="push" bezelStyle="rounded" image="NSTouchBarAddTemplate" imagePosition="only" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="KuQ-GM-gYo">
                                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                         <font key="font" usesAppearanceFont="YES"/>
@@ -216,6 +216,7 @@ Gw
                             <viewController key="viewController" id="gbW-rq-8Ry">
                                 <button key="view" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="VTJ-wm-7YN">
                                     <rect key="frame" x="0.0" y="0.0" width="72" height="30"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                     <buttonCell key="cell" type="push" bezelStyle="rounded" image="NSTouchBarRemoveTemplate" imagePosition="only" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="JzX-yn-OYH">
                                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                         <font key="font" usesAppearanceFont="YES"/>
@@ -230,6 +231,7 @@ Gw
                             <viewController key="viewController" id="uWW-cT-XrD">
                                 <textField key="view" horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="0yb-ID-Vi6">
                                     <rect key="frame" x="0.0" y="0.0" width="70" height="18"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                     <textFieldCell key="cell" lineBreakMode="clipping" title="Emoticon" id="CO4-9i-vPR">
                                         <font key="font" usesAppearanceFont="YES"/>
                                         <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
@@ -245,6 +247,7 @@ Gw
                                         <viewController key="viewController" id="ywK-Vd-rG3">
                                             <button key="view" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="TtD-2J-6Kf">
                                                 <rect key="frame" x="0.0" y="0.0" width="72" height="30"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                 <buttonCell key="cell" type="push" title="Cancel" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="NVe-xl-DkI">
                                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                                     <font key="font" usesAppearanceFont="YES"/>
@@ -262,6 +265,7 @@ Gw
                                         <viewController key="viewController" id="qda-Cd-Z5F">
                                             <button key="view" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="P8d-fF-pRH">
                                                 <rect key="frame" x="0.0" y="0.0" width="72" height="30"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                 <buttonCell key="cell" type="push" title="Insert" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="3rx-L8-ygM">
                                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                                     <font key="font" usesAppearanceFont="YES"/>
@@ -285,9 +289,9 @@ DQ
         </window>
     </objects>
     <resources>
-        <image name="NSAddTemplate" width="15" height="11"/>
-        <image name="NSRemoveTemplate" width="15" height="2"/>
-        <image name="NSTouchBarAddTemplate" width="15" height="11"/>
-        <image name="NSTouchBarRemoveTemplate" width="15" height="2"/>
+        <image name="NSAddTemplate" width="15" height="13"/>
+        <image name="NSRemoveTemplate" width="15" height="4"/>
+        <image name="NSTouchBarAddTemplate" width="15" height="13"/>
+        <image name="NSTouchBarRemoveTemplate" width="15" height="4"/>
     </resources>
 </document>

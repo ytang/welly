@@ -197,13 +197,13 @@
 /* Class = "NSMenuItem"; title = "New Tab"; ObjectID = "500"; */
 "500.title" = "新建标签";
 
-/* Class = "NSToolbarItem"; label = "Emotions"; ObjectID = "831"; */
+/* Class = "NSToolbarItem"; label = "Emoticons"; ObjectID = "831"; */
 "831.label" = "表情符号";
 
-/* Class = "NSToolbarItem"; paletteLabel = "Emotions"; ObjectID = "831"; */
+/* Class = "NSToolbarItem"; paletteLabel = "Emoticons"; ObjectID = "831"; */
 "831.paletteLabel" = "表情符号";
 
-/* Class = "NSMenuItem"; title = "Emotions..."; ObjectID = "836"; */
+/* Class = "NSMenuItem"; title = "Emoticons..."; ObjectID = "836"; */
 "836.title" = "表情符号...";
 
 /* Class = "NSMenuItem"; title = "Encoding"; ObjectID = "840"; */
