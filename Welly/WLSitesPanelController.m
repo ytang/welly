@@ -93,6 +93,11 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(WLSitesPanelController)
                                    encoding:WLBig5Encoding
                                ansiColorKey:YLCtrlUANSIColorKey]
         inSitesAtIndex:WLGlobalConfig.sharedInstance.defaultEncoding == WLBig5Encoding ? 0 : self.countOfSites];
+    [self insertObject:[WLSite siteWithName:@"大话西游BBS"
+                                    address:@"bbs.zixia.net"
+                                   encoding:WLGBKEncoding
+                               ansiColorKey:YLEscEscANSIColorKey]
+        inSitesAtIndex:self.countOfSites];
 }
 
 - (void)saveSites {
