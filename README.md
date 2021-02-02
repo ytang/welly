@@ -1,4 +1,4 @@
-Welly is a client for terminal BBS (Bulletin Board Systems), such as MITBBS, NewSMTH, and PTT. It supports Telnet, SSH (Version 1 & 2), and WebSocket.
+Welly is a client for terminal BBS (Bulletin Board Systems), such as MITBBS, NewSMTH, PTT, and zixia BBS. It supports Telnet, SSH (Version 1 & 2), and WebSocket.
 
 Welly is optimized for both Macs with Apple silicon and Intel-based Macs.
 
