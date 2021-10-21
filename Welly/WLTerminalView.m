@@ -639,8 +639,22 @@ BOOL isEnglishNumberAlphabet(unsigned char c) {
         return;
     }
     
-    if (c == NSUpArrowFunctionKey) arrow[2] = arrow[5] = 'A';
-    if (c == NSDownArrowFunctionKey) arrow[2] = arrow[5] = 'B';
+    if (c == NSUpArrowFunctionKey){
+        // alt + up == PageUp
+        if ([theEvent modifierFlags] & NSAlternateKeyMask) {
+            [self.frontMostConnection sendText:termKeyPageUp];
+            return;
+        }
+        arrow[2] = arrow[5] = 'A';
+    }
+    if (c == NSDownArrowFunctionKey){
+        // alt + down = PageDown
+        if ([theEvent modifierFlags] & NSAlternateKeyMask) {
+            [self.frontMostConnection sendText:termKeyPageDown];
+            return;
+        }
+        arrow[2] = arrow[5] = 'B';
+    }
     if (c == NSRightArrowFunctionKey) arrow[2] = arrow[5] = 'C';
     if (c == NSLeftArrowFunctionKey) arrow[2] = arrow[5] = 'D';
     
