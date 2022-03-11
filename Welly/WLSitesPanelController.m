@@ -79,12 +79,17 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(WLSitesPanelController)
 
 - (void)loadDefaultSites {
     [self insertObject:[WLSite siteWithName:@"水木社区"
-                                    address:@"bbs.newsmth.net"
+                                    address:@"bbs.mysmth.net"
                                    encoding:WLGBKEncoding
                                ansiColorKey:YLEscEscANSIColorKey]
         inSitesAtIndex:self.countOfSites];
     [self insertObject:[WLSite siteWithName:@"未名空间"
-                                    address:@"mitbbs.com"
+                                    address:@"107.23.37.111"
+                                   encoding:WLGBKEncoding
+                               ansiColorKey:YLEscEscANSIColorKey]
+        inSitesAtIndex:self.countOfSites];
+    [self insertObject:[WLSite siteWithName:@"大话西游BBS"
+                                    address:@"bbs.zixia.net"
                                    encoding:WLGBKEncoding
                                ansiColorKey:YLEscEscANSIColorKey]
         inSitesAtIndex:self.countOfSites];
@@ -93,11 +98,11 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(WLSitesPanelController)
                                    encoding:WLBig5Encoding
                                ansiColorKey:YLCtrlUANSIColorKey]
         inSitesAtIndex:WLGlobalConfig.sharedInstance.defaultEncoding == WLBig5Encoding ? 0 : self.countOfSites];
-    [self insertObject:[WLSite siteWithName:@"大话西游BBS"
-                                    address:@"bbs.zixia.net"
-                                   encoding:WLGBKEncoding
-                               ansiColorKey:YLEscEscANSIColorKey]
-        inSitesAtIndex:self.countOfSites];
+    [self insertObject:[WLSite siteWithName:@"批踢踢實業坊 WebSocket"
+                                    address:@"wss://ws.ptt.cc/bbs"
+                                   encoding:WLBig5Encoding
+                               ansiColorKey:YLCtrlUANSIColorKey]
+        inSitesAtIndex:WLGlobalConfig.sharedInstance.defaultEncoding == WLBig5Encoding ? 1 : self.countOfSites];
 }
 
 - (void)saveSites {
