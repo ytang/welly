@@ -627,64 +627,75 @@ BOOL isEnglishNumberAlphabet(unsigned char c) {
     }
     
     [self clearSelection];
-    unsigned char arrow[6] = {0x1B, 0x4F, 0x00, 0x1B, 0x4F, 0x00};
-    unsigned char buf[10];
-    
-    WLTerminal *ds = self.frontMostTerminal;
     
     if ((theEvent.modifierFlags & NSControlKeyMask) &&
-        ((theEvent.modifierFlags & NSAlternateKeyMask) == 0 )) {
-        buf[0] = c;
+        !(theEvent.modifierFlags & NSAlternateKeyMask)) {
+        unsigned char buf[] = {c};
         [self.frontMostConnection sendBytes:buf length:1];
         return;
     }
     
-    if (c == NSUpArrowFunctionKey){
-        // alt + up == PageUp
-        if ([theEvent modifierFlags] & NSAlternateKeyMask) {
-            [self.frontMostConnection sendText:termKeyPageUp];
-            return;
-        }
-        arrow[2] = arrow[5] = 'A';
-    }
-    if (c == NSDownArrowFunctionKey){
-        // alt + down = PageDown
-        if ([theEvent modifierFlags] & NSAlternateKeyMask) {
-            [self.frontMostConnection sendText:termKeyPageDown];
-            return;
-        }
-        arrow[2] = arrow[5] = 'B';
-    }
-    if (c == NSRightArrowFunctionKey) arrow[2] = arrow[5] = 'C';
-    if (c == NSLeftArrowFunctionKey) arrow[2] = arrow[5] = 'D';
-    
-    if (![self hasMarkedText] && 
-        (c == NSUpArrowFunctionKey ||
-         c == NSDownArrowFunctionKey ||
-         c == NSRightArrowFunctionKey || 
-         c == NSLeftArrowFunctionKey)) {
-        [ds updateDoubleByteStateForRow:ds.cursorRow];
-        if ((c == NSRightArrowFunctionKey && [ds attrAtRow:ds.cursorRow column:ds.cursorColumn].f.doubleByte == 1) || 
-            (c == NSLeftArrowFunctionKey && ds.cursorColumn > 0 && [ds attrAtRow:ds.cursorRow column:ds.cursorColumn - 1].f.doubleByte == 2))
-            if (self.frontMostConnection.site.shouldDetectDoubleByte) {
-                [self.frontMostConnection sendBytes:arrow length:6];
+    if (theEvent.modifierFlags & NSAlternateKeyMask) {
+        // PR #4: Alt + Up/Down/Right/Left => PageUp/PageDown/End/Home
+        switch (c) {
+            case NSUpArrowFunctionKey:
+                [self.frontMostConnection sendText:termKeyPageUp];
                 return;
-            }
-        
-        [self.frontMostConnection sendBytes:arrow length:3];
-        return;
+            case NSDownArrowFunctionKey:
+                [self.frontMostConnection sendText:termKeyPageDown];
+                return;
+            case NSRightArrowFunctionKey:
+                [self.frontMostConnection sendText:termKeyEnd];
+                return;
+            case NSLeftArrowFunctionKey:
+                [self.frontMostConnection sendText:termKeyHome];
+                return;
+        }
     }
     
-    if (![self hasMarkedText] && (c == NSDeleteCharacter)) {
-        //buf[0] = buf[1] = NSBackspaceCharacter;
-        // Modified by K.O.ed: using 0x7F instead of 0x08
-        buf[0] = buf[1] = NSDeleteCharacter;
-        if (self.frontMostConnection.site.shouldDetectDoubleByte &&
-            ds.cursorColumn > 0 && [ds attrAtRow:ds.cursorRow column:ds.cursorColumn - 1].f.doubleByte == 2)
-            [self.frontMostConnection sendBytes:buf length:2];
-        else
-            [self.frontMostConnection sendBytes:buf length:1];
-        return;
+    WLTerminal *ds = self.frontMostTerminal;
+    if (![self hasMarkedText]) {
+        if (c == NSDeleteCharacter) {
+            //buf[0] = buf[1] = NSBackspaceCharacter;
+            // Modified by K.O.ed: using 0x7F instead of 0x08
+            unsigned char buf[] = {NSDeleteCharacter, NSDeleteCharacter};
+            if (self.frontMostConnection.site.shouldDetectDoubleByte &&
+                ds.cursorColumn > 0 &&
+                [ds attrAtRow:ds.cursorRow column:ds.cursorColumn - 1].f.doubleByte == 2)
+                [self.frontMostConnection sendBytes:buf length:2];
+            else
+                [self.frontMostConnection sendBytes:buf length:1];
+            return;
+        }
+        
+        unsigned char arrow[6] = {0x1B, 0x4F, 0x00, 0x1B, 0x4F, 0x00};
+        switch (c) {
+            case NSUpArrowFunctionKey:
+                arrow[2] = arrow[5] = 'A';
+                break;
+            case NSDownArrowFunctionKey:
+                arrow[2] = arrow[5] = 'B';
+                break;
+            case NSRightArrowFunctionKey:
+                arrow[2] = arrow[5] = 'C';
+                break;
+            case NSLeftArrowFunctionKey:
+                arrow[2] = arrow[5] = 'D';
+                break;
+        }
+        
+        if (arrow[2]) {
+            [ds updateDoubleByteStateForRow:ds.cursorRow];
+            if (self.frontMostConnection.site.shouldDetectDoubleByte &&
+                ((c == NSRightArrowFunctionKey &&
+                  [ds attrAtRow:ds.cursorRow column:ds.cursorColumn].f.doubleByte == 1) ||
+                 (c == NSLeftArrowFunctionKey && ds.cursorColumn > 0 &&
+                  [ds attrAtRow:ds.cursorRow column:ds.cursorColumn - 1].f.doubleByte == 2)))
+                [self.frontMostConnection sendBytes:arrow length:6];
+            else
+                [self.frontMostConnection sendBytes:arrow length:3];
+            return;
+        }
     }
     
     [self interpretKeyEvents:@[theEvent]];
