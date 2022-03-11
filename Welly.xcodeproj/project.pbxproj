@@ -61,7 +61,6 @@
 		9C76A2DA1F42B8B00044F830 /* CommonType.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C76A2D31F42B8B00044F830 /* CommonType.m */; };
 		9C76A2DB1F42B8B00044F830 /* WLIntegerArray.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C76A2D51F42B8B00044F830 /* WLIntegerArray.m */; };
 		9C76A2DC1F42B8B00044F830 /* WLGlobalConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C76A2D71F42B8B00044F830 /* WLGlobalConfig.m */; };
-		9C92088E1F42DFBF00A456D0 /* Credits.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 9C92088A1F42DFBF00A456D0 /* Credits.rtf */; };
 		9C92088F1F42DFBF00A456D0 /* QQWry.dat in Resources */ = {isa = PBXBuildFile; fileRef = 9C92088B1F42DFBF00A456D0 /* QQWry.dat */; };
 		9C9208911F42DFBF00A456D0 /* Whit.aiff in Resources */ = {isa = PBXBuildFile; fileRef = 9C92088D1F42DFBF00A456D0 /* Whit.aiff */; };
 		9CC8E72A1F42C02C00737A3E /* Help in Resources */ = {isa = PBXBuildFile; fileRef = 9CC8E7291F42C02C00737A3E /* Help */; };
@@ -80,6 +79,7 @@
 		9CC8E75C1F42C83200737A3E /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9CC8E75B1F42C83200737A3E /* Foundation.framework */; };
 		9CC8E75E1F42C88E00737A3E /* System.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9CC8E75D1F42C88E00737A3E /* System.framework */; };
 		9CC8E7601F42C8A700737A3E /* IOKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9CC8E75F1F42C8A700737A3E /* IOKit.framework */; };
+		F07832BC27DBF82F00220034 /* Credits.rtf in Resources */ = {isa = PBXBuildFile; fileRef = F07832BA27DBF82F00220034 /* Credits.rtf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -210,7 +210,6 @@
 		9C76A2D61F42B8B00044F830 /* WLGlobalConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLGlobalConfig.h; sourceTree = "<group>"; };
 		9C76A2D71F42B8B00044F830 /* WLGlobalConfig.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLGlobalConfig.m; sourceTree = "<group>"; };
 		9C76A2D81F42B8B00044F830 /* WLNotifications.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLNotifications.h; sourceTree = "<group>"; };
-		9C92088A1F42DFBF00A456D0 /* Credits.rtf */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.rtf; name = Credits.rtf; path = Resources/Credits.rtf; sourceTree = "<group>"; };
 		9C92088B1F42DFBF00A456D0 /* QQWry.dat */ = {isa = PBXFileReference; lastKnownFileType = file; name = QQWry.dat; path = Resources/QQWry.dat; sourceTree = "<group>"; };
 		9C92088D1F42DFBF00A456D0 /* Whit.aiff */ = {isa = PBXFileReference; lastKnownFileType = audio.aiff; name = Whit.aiff; path = Resources/Whit.aiff; sourceTree = "<group>"; };
 		9C9871101F43193100575006 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/SitesPanel.strings"; sourceTree = "<group>"; };
@@ -239,6 +238,9 @@
 		9CC8E75B1F42C83200737A3E /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		9CC8E75D1F42C88E00737A3E /* System.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = System.framework; path = /System/Library/Frameworks/System.framework; sourceTree = "<absolute>"; };
 		9CC8E75F1F42C8A700737A3E /* IOKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = IOKit.framework; path = System/Library/Frameworks/IOKit.framework; sourceTree = SDKROOT; };
+		F07832BB27DBF82F00220034 /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; name = Base; path = Base.lproj/Credits.rtf; sourceTree = "<group>"; };
+		F07832BD27DBF8BA00220034 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; name = "zh-Hans"; path = "zh-Hans.lproj/Credits.rtf"; sourceTree = "<group>"; };
+		F07832BE27DBF8C300220034 /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; name = "zh-Hant"; path = "zh-Hant.lproj/Credits.rtf"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -506,11 +508,11 @@
 		9C76A2DD1F42B8D30044F830 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				F07832BA27DBF82F00220034 /* Credits.rtf */,
 				9CC8E72B1F42C06600737A3E /* Xib Files */,
 				9CC8E70A1F42BD2600737A3E /* Images */,
 				9CC8E71F1F42BF8F00737A3E /* Plists */,
 				9CC8E7201F42C00500737A3E /* Strings */,
-				9C92088A1F42DFBF00A456D0 /* Credits.rtf */,
 				1096482824B9913600342321 /* plink */,
 				1005436D25620BBC000AFC25 /* websocat */,
 				9C92088B1F42DFBF00A456D0 /* QQWry.dat */,
@@ -664,6 +666,7 @@
 				1005436E25620BBC000AFC25 /* websocat in Resources */,
 				9C5C1B271F42DD1C006E170D /* Localizable.strings in Resources */,
 				9C034A221F43077500C55BA2 /* Preferences.xib in Resources */,
+				F07832BC27DBF82F00220034 /* Credits.rtf in Resources */,
 				9C92088F1F42DFBF00A456D0 /* QQWry.dat in Resources */,
 				1096482924B9913600342321 /* plink in Resources */,
 				9CC8E73C1F42C13B00737A3E /* EmoticonsPanel.xib in Resources */,
@@ -674,7 +677,6 @@
 				9CC8E72A1F42C02C00737A3E /* Help in Resources */,
 				9CC8E7401F42C13B00737A3E /* SitesPanel.xib in Resources */,
 				9C9208911F42DFBF00A456D0 /* Whit.aiff in Resources */,
-				9C92088E1F42DFBF00A456D0 /* Credits.rtf in Resources */,
 				9CC8E73E1F42C13B00737A3E /* PostDownloadPanel.xib in Resources */,
 				9CC8E73D1F42C13B00737A3E /* MainMenu.xib in Resources */,
 			);
@@ -829,6 +831,16 @@
 			name = SitesPanel.xib;
 			sourceTree = "<group>";
 		};
+		F07832BA27DBF82F00220034 /* Credits.rtf */ = {
+			isa = PBXVariantGroup;
+			children = (
+				F07832BB27DBF82F00220034 /* Base */,
+				F07832BD27DBF8BA00220034 /* zh-Hans */,
+				F07832BE27DBF8C300220034 /* zh-Hant */,
+			);
+			name = Credits.rtf;
+			sourceTree = "<group>";
+		};
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
@@ -948,7 +960,7 @@
 				CODE_SIGN_ENTITLEMENTS = Welly/Welly.entitlements;
 				CODE_SIGN_IDENTITY = "-";
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 1006;
+				CURRENT_PROJECT_VERSION = 1007;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Welly/Frameworks",
@@ -970,7 +982,7 @@
 				CODE_SIGN_ENTITLEMENTS = Welly/Welly.entitlements;
 				CODE_SIGN_IDENTITY = "-";
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 1006;
+				CURRENT_PROJECT_VERSION = 1007;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Welly/Frameworks",
