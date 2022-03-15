@@ -61,6 +61,8 @@ NSString *const WLButtonNamePreviousUser = @"Previous User";
 NSString *const WLButtonNameNextUser = @"Next User";
 NSString *const WLButtonNameShowUserBoards = @"Show User Boards";
 NSString *const WLButtonNameSendSMSToUser = @"Send SMS";
+NSString *const WLButtonNameSwitchSortUsers = @"Sort Users";
+NSString *const WLButtonNameFriendList = @"Friend List";
 
 NSString *const WLButtonNameRetainMessages = @"Retain Messages";
 NSString *const WLButtonNameClearMessages = @"Clear Messages";
@@ -128,6 +130,14 @@ NSString *const MPCommandSequenceEnterBoard = @"s";
 NSString *const MPCommandSequenceMarkBoardRead = @"v";
 NSString *const MPCommandSequenceMarkBoardUnread = @"V";
 NSString *const MPCommandSequenceToggleBoardFavorite = @"m";
+NSString *const MPCommandSequenceSwitchSortUsers = @"\t";
+NSString *const MPCommandSequenceSwitchUserListMode = @"f";
+NSString *const MPCommandSequenceAddUserToFriendList = @"a";
+NSString *const MPCommandSequenceFriendList = @"o";
+NSString *const MPCommandSequenceShowUserInfo = @"q";
+NSString *const MPCommandSequenceSendMessageToUser = @"w";
+NSString *const MPCommandSequenceChatWithUser = @"t";
+NSString *const MPCommandSequenceMailToUser = @"m";
 NSString *const MPCommandSequenceExternalMail = @"O";
 NSString *const MPCommandSequenceRecycleBin = @"~";
 NSString *const MPCommandSequenceForward = @"x";
@@ -232,6 +242,7 @@ NSString *const MPCommandSequenceBatchDelete = @"D";
         {BBSBoardList, @"讀/未讀", 7, WLButtonNameMarkBoardUnread, MPCommandSequenceMarkBoardUnread},
         {BBSBoardList, @"(m)加入/移出最愛", 16, WLButtonNameToggleBoardFavorite, MPCommandSequenceToggleBoardFavorite},
         /* BBSFriendList */
+        // Firebird
         {BBSFriendList, @"聊天[t]", 7, WLButtonNameChatWithUser, FBCommandSequenceChatWithUser},
         {BBSFriendList, @"寄信[m]", 7, WLButtonNameMailToUser, FBCommandSequenceMailToUser},
         {BBSFriendList, @"送讯息[s]", 9, WLButtonNameSendMessageToUser, FBCommandSequenceSendMessageToUser},
@@ -241,6 +252,16 @@ NSString *const MPCommandSequenceBatchDelete = @"D";
         {BBSFriendList, @"切换模式 [c]", 12, WLButtonNameSwitchUserListMode, FBCommandSequenceSwitchUserListModeC},
         {BBSFriendList, @"切换模式 [f]", 12, WLButtonNameSwitchUserListMode, FBCommandSequenceSwitchUserListModeF},
         {BBSFriendList, @"求救[h]", 7, WLButtonNameShowHelp, fbShowHelp},
+        // Maple
+        {BBSFriendList, @"(TAB/", 5, WLButtonNameSwitchSortUsers, MPCommandSequenceSwitchSortUsers},
+        {BBSFriendList, @"f)排序/好友", 11, WLButtonNameSwitchUserListMode, MPCommandSequenceSwitchUserListMode},
+        {BBSFriendList, @"(a/", 3, WLButtonNameAddUserToFriendList, MPCommandSequenceAddUserToFriendList},
+        {BBSFriendList, @"o)交友", 6, WLButtonNameFriendList, MPCommandSequenceFriendList},
+        {BBSFriendList, @"(q/w)查詢", 9, WLButtonNameShowUserInfo, MPCommandSequenceShowUserInfo},
+        {BBSFriendList, @"/丟水球", 7, WLButtonNameSendMessageToUser, MPCommandSequenceSendMessageToUser},
+        {BBSFriendList, @"(t/m)聊天", 9, WLButtonNameChatWithUser, MPCommandSequenceChatWithUser},
+        {BBSFriendList, @"/寫信", 5, WLButtonNameMailToUser, MPCommandSequenceMailToUser},
+        {BBSFriendList, @"(h)說明", 7, WLButtonNameShowHelp, fbShowHelp},
         /* BBSUserInfo */
         {BBSUserInfo, @"信息[i]", 7, WLButtonNameShowUserInfo, FBCommandSequenceShowUserInfo},
         {BBSUserInfo, @"寄信[m]", 7, WLButtonNameMailToUser, FBCommandSequenceMailToUser},

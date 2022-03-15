@@ -101,18 +101,20 @@
 "Jump To Mail List" = "Jump To Mail List";
 "Enter Excerption" = "精華區";
 // User Info
-"Chat" = "Chat";
-"Mail" = "Mail";
-"Send Message" = "Send Message";
-"Show User Info" = "Show User Info";
-"Add To Friend List" = "Add To Friend List";
-"Remove From Friend List" = "Remove From Friend List";
-"Switch User List Mode" = "Switch User List Mode";
+"Chat" = "聊天";
+"Mail" = "寫信";
+"Send Message" = "丟水球";
+"Show User Info" = "使用者資訊";
+"Add To Friend List" = "增加好友";
+"Remove From Friend List" = "刪除好友";
+"Switch User List Mode" = "切換模式";
 "Show User Description" = "Show User Description";
 "Previous User" = "Previous User";
 "Next User" = "Next User";
 "Show User Boards" = "Show User Boards";
 "Send SMS" = "Send SMS";
+"Sort Users" = "排序";
+"Friend List" = "好友名單";
 // Message List
 "Retain Messages" = "Retain Messages";
 "Clear Messages" = "Clear Messages";
