@@ -257,9 +257,9 @@ NSString *const MPCommandSequenceSameThreadReading = @"S";
 BOOL isPostTitleStarter(unichar c) {
     // smth: 0x25cf (black circle "●"), 0x251c ("├"), 0x2514 ("└"), 0x2605("★")
     // free/sjtu: 0x25c6 (black diamond "◆")
-    // ptt: 0x25a1 (white square "□"), 0x25c7 (white diamond "◇")
+    // ptt: 0x25a1 (white square "□"), 0x25c7 (white diamond "◇"), 0x8f49 ("轉")
     return (c == 0x25cf || c == 0x251c || c == 0x2514 || c == 0x2605
-            || c == 0x25c6 || c == 0x25a1 || c == 0x25c7);
+            || c == 0x25c6 || c == 0x25a1 || c == 0x25c7 || c == 0x8f49);
 }
 
 - (void)updatePostClickEntry {
