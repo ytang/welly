@@ -130,6 +130,12 @@
 "Read" = "已讀";
 "Unread" = "未讀";
 "Toggle Favorite" = "加入/移出最愛";
+// Mail List
+"Batch Delete" = "範圍砍信";
+"External Mail" = "站外信";
+"Recycle Bin" = "資源回收筒";
+"Forward" = "轉寄";
+"Compose Mail" = "寄發新信";
 
 /* Contextual Menu */
 // Moving Area

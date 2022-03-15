@@ -79,6 +79,12 @@ NSString *const WLButtonNameMarkBoardRead = @"Read";
 NSString *const WLButtonNameMarkBoardUnread = @"Unread";
 NSString *const WLButtonNameToggleBoardFavorite = @"Toggle Favorite";
 
+NSString *const WLButtonNameBatchDelete = @"Batch Delete";
+NSString *const WLButtonNameExternalMail = @"External Mail";
+NSString *const WLButtonNameRecycleBin = @"Recycle Bin";
+NSString *const WLButtonNameForward = @"Forward";
+NSString *const WLButtonNameComposeMail = @"Compose Mail";
+
 // Firebird
 NSString *const FBCommandSequenceAuthorToNormal = @"e";
 NSString *const FBCommandSequenceSearchBoards = @"/";
@@ -108,6 +114,8 @@ NSString *const FBCommandSequenceMailMessages = @"m";
 NSString *const FBCommandSequenceSearchID = @"i";
 NSString *const FBCommandSequenceSearchMessages = @"s";
 NSString *const FBCommandSequenceShowAllMessages = @"a";
+NSString *const FBCommandSequenceReply = @"R";
+NSString *const FBCommandSequenceBatchDelete = @"D";
 
 // Maple
 NSString *const MPCommandSequenceEnterExcerption = @"z";
@@ -120,6 +128,10 @@ NSString *const MPCommandSequenceEnterBoard = @"s";
 NSString *const MPCommandSequenceMarkBoardRead = @"v";
 NSString *const MPCommandSequenceMarkBoardUnread = @"V";
 NSString *const MPCommandSequenceToggleBoardFavorite = @"m";
+NSString *const MPCommandSequenceExternalMail = @"O";
+NSString *const MPCommandSequenceRecycleBin = @"~";
+NSString *const MPCommandSequenceForward = @"x";
+NSString *const MPCommandSequenceBatchDelete = @"D";
 
 @implementation WLButtonAreaHotspotHandler
 #pragma mark -
@@ -255,8 +267,24 @@ NSString *const MPCommandSequenceToggleBoardFavorite = @"m";
         /* BBSViewPost */
         // Maple
         {BBSViewPost, @"(y)回應", 7, WLButtonNameReply, MPCommandSequenceReply},
+        {BBSViewPost, @"(y)回信", 7, WLButtonNameReply, MPCommandSequenceReply},
         {BBSViewPost, @"(X%)推文", 8, WLButtonNameRecommend, MPCommandSequenceRecommend},
         {BBSViewPost, @"(h)說明", 7, WLButtonNameShowHelp, fbShowHelp},
+        /* BBSMailList */
+        // Firebird
+        {BBSMailList, @"回信[R]", 7, WLButtonNameReply, FBCommandSequenceReply},
+        {BBSMailList, @"砍信／", 6, WLButtonNameDeletePost, fbDeletePost},
+        {BBSMailList, @"清除旧信[d,D]", 13, WLButtonNameBatchDelete, FBCommandSequenceBatchDelete},
+        {BBSMailList, @"求助[h]", 7, WLButtonNameShowHelp, fbShowHelp},
+        // Maple
+        {BBSMailList, @"[O]站外信", 9, WLButtonNameExternalMail, MPCommandSequenceExternalMail},
+        {BBSMailList, @"[h]求助", 7, WLButtonNameShowHelp, fbShowHelp},
+        {BBSMailList, @"[~]資源回收筒", 13, WLButtonNameRecycleBin, MPCommandSequenceRecycleBin},
+        {BBSMailList, @"(R/y)回信", 9, WLButtonNameReply, MPCommandSequenceReply},
+        {BBSMailList, @"(x)站內轉寄", 11, WLButtonNameForward, MPCommandSequenceForward},
+        {BBSMailList, @"(d/", 3, WLButtonNameDeletePost, fbDeletePost},
+        {BBSMailList, @"D)刪信", 6, WLButtonNameBatchDelete, MPCommandSequenceBatchDelete},
+        {BBSMailList, @"(^P)寄發新信", 12, WLButtonNameComposeMail, fbComposePost},
     };
     
     if (r > 3 && r < _maxRow-1)

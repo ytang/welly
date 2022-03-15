@@ -130,6 +130,12 @@
 "Read" = "Read";
 "Unread" = "Unread";
 "Toggle Favorite" = "Toggle Favorite";
+// Mail List
+"Batch Delete" = "Batch Delete";
+"External Mail" = "External Mail";
+"Recycle Bin" = "Recycle Bin";
+"Forward" = "Forward";
+"Compose Mail" = "Compose Mail";
 
 /* Contextual Menu */
 // Moving Area
