@@ -1,4 +1,4 @@
 theme: jekyll-theme-minimal
 title: Welly
-description: Telnet and SSH BBS client
+description: Telnet, SSH, and WebSocket BBS client
 logo: /assets/welly.png
