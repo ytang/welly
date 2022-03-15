@@ -138,6 +138,7 @@ NSString *const MPCommandSequenceShowUserInfo = @"q";
 NSString *const MPCommandSequenceSendMessageToUser = @"w";
 NSString *const MPCommandSequenceChatWithUser = @"t";
 NSString *const MPCommandSequenceMailToUser = @"m";
+NSString *const MPCommandSequenceJumpToMailList = @"r";
 NSString *const MPCommandSequenceExternalMail = @"O";
 NSString *const MPCommandSequenceRecycleBin = @"~";
 NSString *const MPCommandSequenceForward = @"x";
@@ -262,6 +263,7 @@ NSString *const MPCommandSequenceBatchDelete = @"D";
         {BBSFriendList, @"(t/m)聊天", 9, WLButtonNameChatWithUser, MPCommandSequenceChatWithUser},
         {BBSFriendList, @"/寫信", 5, WLButtonNameMailToUser, MPCommandSequenceMailToUser},
         {BBSFriendList, @"(h)說明", 7, WLButtonNameShowHelp, fbShowHelp},
+        {BBSFriendList, @"你有新信件", 10, WLButtonNameJumpToMailList, MPCommandSequenceJumpToMailList},
         /* BBSUserInfo */
         {BBSUserInfo, @"信息[i]", 7, WLButtonNameShowUserInfo, FBCommandSequenceShowUserInfo},
         {BBSUserInfo, @"寄信[m]", 7, WLButtonNameMailToUser, FBCommandSequenceMailToUser},
