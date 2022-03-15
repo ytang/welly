@@ -75,6 +75,9 @@ NSString *const WLButtonNameBoardConfig = @"Board Info/Config";
 NSString *const WLButtonNameReply = @"Reply";
 NSString *const WLButtonNameRecommend = @"Recommend";
 NSString *const WLButtonNameCrossPost = @"Cross Post";
+NSString *const WLButtonNameSearchTitle = @"Search Title";
+NSString *const WLButtonNameSearchAuthor = @"Search Author";
+
 NSString *const WLButtonNameEnterBoard = @"Enter Board";
 NSString *const WLButtonNameSwitchDisplayFavoriteBoards = @"Display Favorite Boards";
 NSString *const WLButtonNameMarkBoardRead = @"Read";
@@ -125,6 +128,8 @@ NSString *const MPCommandSequenceBoardConfig = @"i";
 NSString *const MPCommandSequenceReply = @"y";
 NSString *const MPCommandSequenceRecommend = @"X";
 NSString *const MPCommandSequenceCrossPost = @"\030";
+NSString *const MPCommandSequenceSearchTitle = @"/";
+NSString *const MPCommandSequenceSearchAuthor = @"a";
 NSString *const MPCommandSequenceShowNote = @"b";
 NSString *const MPCommandSequenceEnterBoard = @"s";
 NSString *const MPCommandSequenceMarkBoardRead = @"v";
@@ -218,6 +223,8 @@ NSString *const MPCommandSequenceBatchDelete = @"D";
         {BBSBrowseBoard, @"(y)回應", 7, WLButtonNameReply, MPCommandSequenceReply},
         {BBSBrowseBoard, @"(X)推文", 7, WLButtonNameRecommend, MPCommandSequenceRecommend},
         {BBSBrowseBoard, @"(^X)轉錄", 8, WLButtonNameCrossPost, MPCommandSequenceCrossPost},
+        {BBSBrowseBoard, @"(/?a)找標題", 11, WLButtonNameSearchTitle, MPCommandSequenceSearchTitle},
+        {BBSBrowseBoard, @"/作者", 5, WLButtonNameSearchAuthor, MPCommandSequenceSearchAuthor},
         {BBSBrowseBoard, @"(b)進板畫面", 11, WLButtonNameShowNote, MPCommandSequenceShowNote},
         /* BBSBoardList */
         // Firebird
