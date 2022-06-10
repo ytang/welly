@@ -212,8 +212,6 @@ static NSCursor *gMoveCursor = nil;
 #pragma mark -
 #pragma mark Clear
 - (void)clear {
-    // Only Moving areas use cursor rects, so just discard them all.
-    [_view discardCursorRects];
     [self removeAllTrackingAreas];
 }
 
