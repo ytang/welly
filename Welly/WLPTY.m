@@ -104,7 +104,7 @@
             break;
         case SC_WEBSOCKET:
             path = [[NSBundle mainBundle] pathForResource:@"websocat" ofType:@""];
-            fmt = @"%@%@ -b --origin app://welly %@%@";
+            fmt = @"%@%@ -b --origin app://welly %@";
             break;
         case SC_TELNET:
         default:
@@ -192,9 +192,9 @@
     size.ws_xpixel = 0;
     size.ws_ypixel = 0;
     
+    NSArray *a = [[WLPTY parse:addr withIdentityFile:identityFile] componentsSeparatedByString:@" "];
     _pid = forkpty(&_fd, slaveName, &term, &size);
     if (_pid == 0) { /* child */
-        NSArray *a = [[WLPTY parse:addr withIdentityFile:identityFile] componentsSeparatedByString:@" "];
         if ([(NSString *)a[0] hasSuffix:@"ssh"]) {
             NSString *proxyCommand = [WLProxy proxyCommandWithAddress:_proxyAddress type:_proxyType];
             if (proxyCommand) {
