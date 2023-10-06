@@ -634,6 +634,7 @@
 				TargetAttributes = {
 					9C769BC51F42AED20044F830 = {
 						CreatedOnToolsVersion = 8.3.3;
+						DevelopmentTeam = AALZJYW2AF;
 						ProvisioningStyle = Automatic;
 					};
 				};
@@ -959,8 +960,10 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = Welly/Welly.entitlements;
 				CODE_SIGN_IDENTITY = "-";
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 1029;
+				CURRENT_PROJECT_VERSION = 1030;
+				DEVELOPMENT_TEAM = AALZJYW2AF;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Welly/Frameworks",
@@ -981,8 +984,10 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = Welly/Welly.entitlements;
 				CODE_SIGN_IDENTITY = "-";
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 1029;
+				CURRENT_PROJECT_VERSION = 1030;
+				DEVELOPMENT_TEAM = AALZJYW2AF;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Welly/Frameworks",
