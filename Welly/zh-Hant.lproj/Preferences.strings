@@ -5,7 +5,7 @@
 /* Class = "NSButtonCell"; title = "Confirm on dangerous posting"; ObjectID = "0Im-5M-3k6"; */
 "0Im-5M-3k6.title" = "在非編輯文章狀態下粘貼時先確認";
 
-/* Class = "NSButtonCell"; title = "⌘R for reconnect"; ObjectID = "1Dg-fJ-ZSo"; */
+/* Class = "NSButtonCell"; title = "⌘R to reconnect"; ObjectID = "1Dg-fJ-ZSo"; */
 "1Dg-fJ-ZSo.title" = "使用 ⌘R 為重新連線的快速鍵";
 
 /* Class = "NSTextFieldCell"; title = "Default Encoding:"; ObjectID = "1ls-A5-ttR"; */
