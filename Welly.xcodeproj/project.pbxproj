@@ -962,7 +962,7 @@
 				CODE_SIGN_IDENTITY = "-";
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 1030;
+				CURRENT_PROJECT_VERSION = 1031;
 				DEVELOPMENT_TEAM = AALZJYW2AF;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -971,7 +971,7 @@
 				GCC_NO_COMMON_BLOCKS = NO;
 				INFOPLIST_FILE = Welly/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
-				MARKETING_VERSION = 2023.1;
+				MARKETING_VERSION = 2024.1;
 				OTHER_CFLAGS = "-D__DUMPPACKET__";
 				PRODUCT_BUNDLE_IDENTIFIER = com.ytang.Welly;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -986,7 +986,7 @@
 				CODE_SIGN_IDENTITY = "-";
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 1030;
+				CURRENT_PROJECT_VERSION = 1031;
 				DEVELOPMENT_TEAM = AALZJYW2AF;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -995,7 +995,7 @@
 				GCC_NO_COMMON_BLOCKS = NO;
 				INFOPLIST_FILE = Welly/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
-				MARKETING_VERSION = 2023.1;
+				MARKETING_VERSION = 2024.1;
 				PRODUCT_BUNDLE_IDENTIFIER = com.ytang.Welly;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};

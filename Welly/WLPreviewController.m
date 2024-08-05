@@ -186,7 +186,7 @@ static BOOL sHasCacheDir = NO;
     // dectect file type to avoid useless download
     // by gtCarrera @ 9#
     NSString *fileType = _filename.pathExtension.lowercaseString;
-    NSArray *allowedTypes = @[@"jpg", @"jpeg", @"bmp", @"png", @"gif", @"tiff", @"tif", @"pdf"];
+    NSArray *allowedTypes = @[@"avif", @"bmp", @"gif", @"heic", @"jpeg", @"jpg", @"pdf", @"png", @"svg", @"tif", @"tiff", @"webp"];
     Boolean canView = [allowedTypes containsObject:fileType];
     if (!canView) {
         // Close the progress bar window
