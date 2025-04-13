@@ -231,7 +231,7 @@
 
 - (NSString *)identityFile {
     if (!_identityFile) {
-        _identityFile = [NSTemporaryDirectory() stringByAppendingPathComponent:[NSUUID UUID].UUIDString];
+        _identityFile = [[WLGlobalConfig tmpDirectory] stringByAppendingPathComponent:[NSUUID UUID].UUIDString];
     }
     return _identityFile;
 }

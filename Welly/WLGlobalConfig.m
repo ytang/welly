@@ -579,6 +579,29 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(WLGlobalConfig)
     [[NSFileManager defaultManager] createDirectoryAtPath:cacheDir withIntermediateDirectories:YES attributes:nil error:NULL];
 }
 
++ (NSString *)tmpDirectory {
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSApplicationSupportDirectory, NSUserDomainMask, YES);
+    NSString *appSupportDir = [paths firstObject];
+    NSString *appName = [[NSBundle mainBundle] objectForInfoDictionaryKey:(NSString *)kCFBundleNameKey];
+    NSString *appPath = [appSupportDir stringByAppendingPathComponent:appName];
+    NSString *fullPath = [appPath stringByAppendingPathComponent:@"tmp"];
+
+
+    NSFileManager *fileManager = [NSFileManager defaultManager];
+    NSError *error;
+    if (![fileManager fileExistsAtPath:fullPath]) {
+        [fileManager createDirectoryAtPath:fullPath
+               withIntermediateDirectories:YES
+                                attributes:nil
+                                     error:&error];
+        if (error) {
+            NSLog(@"Error creating directory: %@", error.localizedDescription);
+            return nil;
+        }
+    }
+    return fullPath;
+}
+
 #pragma mark -
 #pragma mark Query Global Config
 - (NSSize)contentSize {

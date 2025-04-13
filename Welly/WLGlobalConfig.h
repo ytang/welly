@@ -112,6 +112,8 @@ NSString *const WLEnglishFontSizeKeyName;
 + (void)initializeCache;
 + (NSString *)cacheDirectory;
 
++ (NSString *)tmpDirectory;
+
 - (void)restoreSettings;
 @property (NS_NONATOMIC_IOSONLY, copy) NSDictionary *sizeParameters;
 @end
