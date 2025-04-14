@@ -91,9 +91,8 @@
             if (port == nil)
                 port = @"22";
             if (identityFile) {
-                path = [NSString stringWithFormat:@"/usr/bin/ssh -i %@ -o StrictHostKeyChecking=no -o UserKnownHostsFile=%@",
-                        identityFile,
-                        [[WLGlobalConfig tmpDirectory] stringByAppendingPathComponent:@"known_hosts"]];
+                path = [NSString stringWithFormat:@"/usr/bin/ssh -i %@ -o StrictHostKeyChecking=no",
+                        identityFile];
                 fmt = @"%@%@ -p %4$@ -x %3$@";
             } else {
                 path = [NSString stringWithFormat:@"%@ -%d",
@@ -196,6 +195,9 @@
     _pid = forkpty(&_fd, slaveName, &term, &size);
     if (_pid == 0) { /* child */
         if ([(NSString *)a[0] hasSuffix:@"ssh"]) {
+            a = [[a arrayByAddingObject:@"-o"]
+                 arrayByAddingObject:[NSString stringWithFormat:@"UserKnownHostsFile=\"%@\"",
+                                      [[WLGlobalConfig tmpDirectory] stringByAppendingPathComponent:@"known_hosts"]]];
             NSString *proxyCommand = [WLProxy proxyCommandWithAddress:_proxyAddress type:_proxyType];
             if (proxyCommand) {
                 proxyCommand = [@"ProxyCommand=" stringByAppendingString:proxyCommand];

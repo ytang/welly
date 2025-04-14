@@ -586,18 +586,21 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(WLGlobalConfig)
     NSString *appPath = [appSupportDir stringByAppendingPathComponent:appName];
     NSString *fullPath = [appPath stringByAppendingPathComponent:@"tmp"];
 
-
     NSFileManager *fileManager = [NSFileManager defaultManager];
-    NSError *error;
-    if (![fileManager fileExistsAtPath:fullPath]) {
+    BOOL isDir;
+    if (![fileManager fileExistsAtPath:fullPath
+                           isDirectory:&isDir]) {
+        NSError *error;
         [fileManager createDirectoryAtPath:fullPath
                withIntermediateDirectories:YES
                                 attributes:nil
                                      error:&error];
         if (error) {
             NSLog(@"Error creating directory: %@", error.localizedDescription);
-            return nil;
+            return NSTemporaryDirectory();
         }
+    } else if (!isDir) {
+        return NSTemporaryDirectory();
     }
     return fullPath;
 }
