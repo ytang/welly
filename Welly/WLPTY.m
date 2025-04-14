@@ -93,7 +93,7 @@
             if (identityFile) {
                 path = [NSString stringWithFormat:@"/usr/bin/ssh -i %@ -o StrictHostKeyChecking=no -o UserKnownHostsFile=%@",
                         identityFile,
-                        [NSTemporaryDirectory() stringByAppendingPathComponent:@"known_hosts"]];
+                        [[WLGlobalConfig tmpDirectory] stringByAppendingPathComponent:@"known_hosts"]];
                 fmt = @"%@%@ -p %4$@ -x %3$@";
             } else {
                 path = [NSString stringWithFormat:@"%@ -%d",
@@ -233,7 +233,7 @@
         argv[i] = (char *)[a[i] UTF8String];
         argv[n] = NULL;
         char *envp[2];
-        envp[0] = (char *)[@"PUTTYDIR=" stringByAppendingString:NSTemporaryDirectory()].UTF8String;
+        envp[0] = (char *)[@"PUTTYDIR=" stringByAppendingString:[WLGlobalConfig tmpDirectory]].UTF8String;
         envp[1] = NULL;
         execve(argv[0], argv, envp);
         perror(argv[0]);
