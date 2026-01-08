@@ -150,6 +150,9 @@
        fromStart:(NSInteger)s
            toEnd:(NSInteger)e;
 - (void)reverseAll;
+- (void)setAllDirty;
+- (void)setDirtyForRow:(NSInteger)r;
+- (void)setDirty:(BOOL)d atRow:(NSInteger)r column:(NSInteger)c;
 @end
 
 @implementation WLTerminalFeeder
@@ -173,7 +176,7 @@ if (_cursorX <= _column - 1) { \
     _grid[_cursorY][_cursorX].attr.f.blink = _blink; \
     _grid[_cursorY][_cursorX].attr.f.reverse = _reverse; \
     _grid[_cursorY][_cursorX].attr.f.url = NO; \
-    [_terminal setDirty:YES atRow:_cursorY column:_cursorX]; \
+    [self setDirty:YES atRow:_cursorY column:_cursorX]; \
     _cursorX++; \
 }
 
@@ -216,11 +219,13 @@ static unsigned short gEmptyAttr;
         _modeIRM = NO;
         _emustd = VT102;
         _grid = (cell **) malloc(sizeof(cell *) * _row);
+        _dirty = (BOOL **) malloc(sizeof(BOOL *) * _row);
         int i;
         for (i = 0; i < _row; i++) {
             // NOTE: in case _cursorX will exceed _column size (at the border of the
             // screen), we allocate one more unit for this array
             _grid[i] = (cell *) malloc(sizeof(cell) * (_column + 1));
+            _dirty[i] = (BOOL *) malloc(sizeof(BOOL) * _column);
         }
         [self clearAll];
     }
@@ -228,9 +233,12 @@ static unsigned short gEmptyAttr;
 }
 
 - (void)dealloc {
-    for (int i = 0; i < _row; i++)
-    free(_grid[i]);
+    for (int i = 0; i < _row; i++) {
+        free(_grid[i]);
+        free(_dirty[i]);
+    }
     free(_grid);
+    free(_dirty);
 }
 
 # pragma mark -
@@ -295,7 +303,7 @@ static unsigned short gEmptyAttr;
                             for (x = _scrollBeginRow; x < _scrollEndRow; x++)
                             _grid[x] = _grid[x + 1];
                             _grid[_scrollEndRow] = emptyLine;
-                            [_terminal setAllDirty];
+                            [self setAllDirty];
                         } else {
                             _cursorY++;
                             if (_cursorY >= _row) _cursorY = _row - 1;
@@ -373,7 +381,7 @@ static unsigned short gEmptyAttr;
                             for (x = _scrollBeginRow; x < _scrollEndRow; x++)
                             _grid[x] = _grid[x + 1];
                             _grid[_scrollEndRow] = emptyLine;
-                            [_terminal setAllDirty];
+                            [self setAllDirty];
                         } else {
                             _cursorY++;
                             if (_cursorY >= _row) _cursorY = _row - 1;
@@ -425,7 +433,7 @@ static unsigned short gEmptyAttr;
                             for (x = _scrollBeginRow; x < _scrollEndRow; x++)
                             _grid[x] = _grid[x + 1];
                             _grid[_scrollEndRow] = emptyLine;
-                            [_terminal setAllDirty];
+                            [self setAllDirty];
                         } else {
                             _cursorY++;
                             if (_cursorY >= _row) _cursorY = _row - 1;
@@ -492,7 +500,7 @@ static unsigned short gEmptyAttr;
                             for (x = _scrollBeginRow; x < _scrollEndRow; x++)
                             _grid[x] = _grid[x + 1];
                             _grid[_scrollEndRow] = emptyLine;
-                            [_terminal setAllDirty]; // We might not need to set everything dirty.
+                            [self setAllDirty]; // We might not need to set everything dirty.
                         } else {
                             _cursorY++;
                             if (_cursorY >= _row) _cursorY = _row - 1;
@@ -654,7 +662,7 @@ static unsigned short gEmptyAttr;
                                 _grid[_cursorY] = emptyRow;
                             }
                             for (j = _cursorY; j <= _scrollEndRow; j++)
-                            [_terminal setDirtyForRow:j];
+                            [self setDirtyForRow:j];
                         } else if (c == CSI_DL ) { // Delete Line
                             NSInteger lineNumber = 0;
                             if (_csArg.size == 0)
@@ -673,7 +681,7 @@ static unsigned short gEmptyAttr;
                                 _grid[_scrollEndRow] = emptyRow;
                             }
                             for (j = _cursorY; j <= _scrollEndRow; j++)
-                            [_terminal setDirtyForRow:j];
+                            [self setDirtyForRow:j];
                         } else if (c == CSI_DCH) { // Delete characters at the current cursor position.
                             NSInteger p = 1;
                             if (_csArg.size == 1) {
@@ -689,7 +697,9 @@ static unsigned short gEmptyAttr;
                                     _grid[_cursorY][j].attr.v = gEmptyAttr;
                                     _grid[_cursorY][j].attr.f.bgColor = _bgColor;
                                 }
-                                [_terminal setDirty:YES atRow:_cursorY column:j];
+                                [self setDirty:YES atRow:_cursorY column:j];
+
+
                             }
                         } else if (c == CSI_HPA) { // goto to absolute character position
                             NSInteger p = 0;
@@ -960,12 +970,13 @@ static unsigned short gEmptyAttr;
                         _state = TP_NORMAL;
                     }
                     
-                    break;
             }
         }
         
         [_terminal setCursorX:_cursorX Y:_cursorY];
-        [_terminal feedGrid:_grid];
+        [_terminal feedGrid:_grid withDirty:_dirty];
+        for (int i = 0; i < _row; i++)
+            memset(_dirty[i], 0, sizeof(BOOL) * _column);
         
         if (_hasNewMessage) {
             // new incoming message
@@ -1048,7 +1059,8 @@ static unsigned short gEmptyAttr;
         _grid[r][i].byte = '\0';
         _grid[r][i].attr.v = gEmptyAttr;
         _grid[r][i].attr.f.bgColor = _bgColor;
-        [_terminal setDirty:YES atRow:r column:i];
+        _grid[r][i].attr.f.bgColor = _bgColor;
+        [self setDirty:YES atRow:r column:i];
     }
 }
 
@@ -1060,11 +1072,24 @@ static unsigned short gEmptyAttr;
             _grid[j][i].attr.f.fgColor = tmpColorIndex;
         }
     }
-    [_terminal setAllDirty];
+    [self setAllDirty];
 }
 
 - (cell *)cellsOfRow:(NSInteger)r {
     return _grid[r];
+}
+
+- (void)setAllDirty {
+    for (int i = 0; i < _row; i++)
+        memset(_dirty[i], 1, sizeof(BOOL) * _column);
+}
+
+- (void)setDirtyForRow:(NSInteger)r {
+    memset(_dirty[r], 1, sizeof(BOOL) * _column);
+}
+
+- (void)setDirty:(BOOL)d atRow:(NSInteger)r column:(NSInteger)c {
+    _dirty[r][c] = d;
 }
 
 @end
