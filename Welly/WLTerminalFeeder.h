@@ -29,6 +29,7 @@
     BOOL _reverse;
     
     cell **_grid;
+    BOOL **_dirty;
     
     enum { TP_NORMAL, TP_ESCAPE, TP_CONTROL, TP_SCS } _state;
     
