@@ -43,6 +43,7 @@ NSString *const WLEnglishFontSizeKeyName;
 @property (readwrite, assign, nonatomic) BOOL shouldDetectDoubleByte;
 @property (readwrite, assign, nonatomic) BOOL shouldEnableMouse;
 @property (readwrite, assign, nonatomic) BOOL shouldRepeatBounce;
+@property (readwrite) BOOL autoMetricOptimization;
 @property (readwrite, assign, nonatomic) WLEncoding defaultEncoding;
 @property (readwrite, assign, nonatomic) YLANSIColorKey defaultANSIColorKey;
 @property (readwrite, assign) BOOL blinkTicker;
@@ -65,6 +66,7 @@ NSString *const WLEnglishFontSizeKeyName;
 + (WLGlobalConfig *)sharedInstance;
 
 - (void)refreshFont;
+- (void)optimizeMetrics;
 
 - (NSColor *)colorAtIndex:(int)i 
                    hilite:(BOOL)h;

@@ -63,6 +63,11 @@
 
 
 - (void)windowWillEnterFullScreen:(NSNotification *)notification {
+    self.isHandlingFullScreen = YES;
+    
+    // Disable auto optimization immediately to prevent any metric interference during full screen
+    [WLGlobalConfig sharedInstance].autoMetricOptimization = NO;
+    
     [_tabBarControl setHidden:YES];
     
     // Back up the original frame
@@ -112,6 +117,11 @@
 
 - (void)windowDidExitFullScreen:(NSNotification *)notification {
     [_mainWindow setFrame:_originalWindowFrame display:NO];
+    _screenRatio = 0.0f;
+    self.isHandlingFullScreen = NO;
+    
+    // Re-enable auto optimization after fully exiting
+    [WLGlobalConfig sharedInstance].autoMetricOptimization = YES;
 }
 
 @end

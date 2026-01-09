@@ -97,8 +97,10 @@ static DBPrefsWindowController *_sharedPrefsWindowController = nil;
 }
 
 - (void)awakeFromNib {
+    NSLog(@"[DEBUG] DBPrefsWindowController: awakeFromNib - Start");
     [self setupMenuOfURLScheme:@"telnet" forPopUpButton:_telnetPopUpButton];
     [self setupMenuOfURLScheme:@"ssh" forPopUpButton:_sshPopUpButton];
+    NSLog(@"[DEBUG] DBPrefsWindowController: awakeFromNib - End");
 }
 
 - (instancetype)initWithWindow:(NSWindow *)window
@@ -135,7 +137,9 @@ static DBPrefsWindowController *_sharedPrefsWindowController = nil;
                                                               NSMiniaturizableWindowMask)
                                                      backing:NSBackingStoreBuffered
                                                        defer:YES];
+    [window setCollectionBehavior:NSWindowCollectionBehaviorFullScreenAuxiliary | NSWindowCollectionBehaviorCanJoinAllSpaces];
     self.window = window;
+    NSLog(@"[DEBUG] DBPrefsWindowController: windowDidLoad (Window Created)");
     contentSubview = [[NSView alloc] initWithFrame:self.window.contentView.frame];
     contentSubview.autoresizingMask = (NSViewMinYMargin | NSViewWidthSizable);
     [self.window.contentView addSubview:contentSubview];
@@ -294,6 +298,7 @@ static DBPrefsWindowController *_sharedPrefsWindowController = nil;
 
 - (IBAction)showWindow:(id)sender 
 {
+    NSLog(@"[DEBUG] DBPrefsWindowController: showWindow Called");
     // This forces the resources in the nib to load.
     (void)self.window;
     
@@ -323,6 +328,7 @@ static DBPrefsWindowController *_sharedPrefsWindowController = nil;
     [self.window center];
     
     [super showWindow:sender];
+    NSLog(@"[DEBUG] DBPrefsWindowController: showWindow Finished");
 }
 
 

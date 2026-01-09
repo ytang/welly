@@ -16,7 +16,7 @@
 
 @class WLTabBarControl;
 
-@interface WLMainFrameController : NSObject <NSTabViewDelegate> {
+@interface WLMainFrameController : NSObject <NSTabViewDelegate, NSWindowRestoration> {
     /* composeWindow */
     IBOutlet NSTextView *_composeText;
     IBOutlet NSPanel *_composeWindow;
@@ -54,6 +54,8 @@
     NSDictionary *_originalSizeParameters;
 }
 @property (weak, readonly) WLTabView *tabView;
+@property (readonly) NSWindow *window;
+@property (readwrite, assign) BOOL isHandlingFullScreen;
 
 + (WLMainFrameController *)sharedInstance;
 

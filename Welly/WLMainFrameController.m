@@ -58,6 +58,9 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(WLMainFrameController)
                                              context:nil];
     
     [self initializeTabControl];
+
+
+
     // Trigger the KVO to update the information properly.
     [WLGlobalConfig sharedInstance].showsHiddenText = [WLGlobalConfig sharedInstance].showsHiddenText;
     [WLGlobalConfig sharedInstance].cellWidth = [WLGlobalConfig sharedInstance].cellWidth;
@@ -68,7 +71,12 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(WLMainFrameController)
     [_mainWindow setOpaque:NO];
     _mainWindow.backgroundColor = NSColor.clearColor;
     
+    // Ensure window is resizable to prevent Full Screen hangs
+    _mainWindow.styleMask |= NSWindowStyleMaskResizable;
+    _isHandlingFullScreen = NO;
+    
     [_mainWindow setFrameAutosaveName:@"wellyMainWindowFrame"];
+    _mainWindow.restorationClass = [WLMainFrameController class];
     
     [NSTimer scheduledTimerWithTimeInterval:30 target:self selector:@selector(antiIdle:) userInfo:nil repeats:YES];
     
@@ -219,14 +227,21 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(WLMainFrameController)
         r.size.width = config.cellWidth * config.column;
         r.size.height = config.cellHeight * config.row + shift;
         r.origin.y = topLeftCorner - r.size.height;
-        [_mainWindow setFrame:r display:YES animate:NO];
+        
+        // Prevent resizing if in full screen or transitioning
+        // We rely on isHandlingFullScreen flag or _screenRatio being non-zero
+        if (!self.isHandlingFullScreen && _screenRatio == 0.0f) {
+            [_mainWindow setFrame:r display:YES animate:NO];
+        }
         
         // Leave the task of resizing subviews to autoresizing
         //NSRect tabRect = [_tabBarControl frame];
         //tabRect.size.width = r.size.width;
         //[_tabBarControl setFrame:tabRect];
     } else if ([keyPath hasPrefix:@"chineseFont"] || [keyPath hasPrefix:@"englishFont"] || [keyPath hasPrefix:@"color"]) {
-        [[WLGlobalConfig sharedInstance] refreshFont];
+        if (![keyPath hasSuffix:@"PaddingLeft"] && ![keyPath hasSuffix:@"PaddingBottom"]) {
+            [[WLGlobalConfig sharedInstance] refreshFont];
+        }
     }
 }
 
@@ -563,6 +578,10 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(WLMainFrameController)
     return YES;
 }
 
+- (BOOL)applicationSupportsSecureRestorableState:(NSApplication *)app {
+    return YES;
+}
+
 - (void)applicationWillTerminate:(NSNotification *)notification {
     NSInteger tabNumber = _tabView.numberOfTabViewItems;
     for (NSInteger i = 0; i < tabNumber; i++) {
@@ -583,6 +602,20 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(WLMainFrameController)
 - (void)windowDidResignKey:(NSNotification *)notification {
     _closeWindowMenuItem.keyEquivalentModifierMask = NSCommandKeyMask;
     _closeTabMenuItem.keyEquivalent = @"";
+}
+
++ (void)restoreWindowWithIdentifier:(NSString *)identifier
+                              state:(NSCoder *)state
+                  completionHandler:(void (^)(NSWindow *, NSError *))completionHandler {
+    // Return the existing shared window if available
+    if ([identifier isEqualToString:@"wellyMainWindowFrame"]) {
+        WLMainFrameController *controller = [NSApp delegate];
+        if (controller && [controller isKindOfClass:[WLMainFrameController class]]) {
+            completionHandler(controller.window, nil);
+            return;
+        }
+    }
+    completionHandler(nil, nil); // Or explicit error
 }
 
 - (void)getUrl:(NSAppleEventDescriptor *)event 

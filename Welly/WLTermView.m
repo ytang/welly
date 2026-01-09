@@ -659,12 +659,10 @@ static NSImage *gLeftImage;
             
             // Modified by K.O.ed: All background color use same alpha setting.
             NSColor *bgColor = [gConfig bgColorAtIndex:lastBackgroundColor hilite:lastBold];
-            //bgColor = [bgColor colorWithAlphaComponent:[[gConfig colorBG] alphaComponent]];
-            [bgColor set];
-            
-            //[[gConfig colorAtIndex: lastBackgroundColor hilite: lastBold] set];
-            // [NSBezierPath fillRect: rect];
-            NSRectFillUsingOperation(rect, NSCompositeCopy);
+            if (bgColor && !NSIsEmptyRect(rect)) {
+                [bgColor set];
+                NSRectFillUsingOperation(rect, NSCompositeCopy);
+            }
             
             /* finish this segment */
             length = 1;
