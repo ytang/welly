@@ -18,7 +18,6 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(WLQuickLookBridge)
     if (self) {
         _URLs = [[NSMutableArray alloc] init];
         _EXIFs = [[NSMutableArray alloc] init];
-        [[QLPreviewPanel sharedPreviewPanel] setDataSource:self];
     }
     return self;
 }
@@ -40,8 +39,8 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(WLQuickLookBridge)
         [URLs addObject:URL];
         [[self sharedInstance]->_EXIFs addObject:EXIF];
     }
-    [[QLPreviewPanel sharedPreviewPanel] setCurrentPreviewItemIndex:index];
     [self orderFront];
+    [[QLPreviewPanel sharedPreviewPanel] setCurrentPreviewItemIndex:index];
 }
 
 #pragma mark -
