@@ -70,7 +70,7 @@
     _originalWindowFrame = _mainWindow.frame;
     
     // Get the fittest ratio for the expansion
-    NSRect screenRect = [NSScreen mainScreen].frame;
+    NSRect screenRect = [NSScreen mainScreen].visibleFrame;
     
     CGFloat ratioH = screenRect.size.height / _tabView.frame.size.height;
     CGFloat ratioW = screenRect.size.width / _tabView.frame.size.width;
@@ -81,7 +81,7 @@
     
     // Record new origin
     
-    NSPoint newOP = {(screenRect.size.width - _tabView.frame.size.width) / 2, (screenRect.size.height - _tabView.frame.size.height) / 2};
+    NSPoint newOP = {screenRect.origin.x + (screenRect.size.width - _tabView.frame.size.width) / 2, screenRect.origin.y + (screenRect.size.height - _tabView.frame.size.height) / 2};
     
     // Set the window style
     [_mainWindow setOpaque:YES];

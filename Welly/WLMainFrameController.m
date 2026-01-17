@@ -25,6 +25,7 @@
 #import "WLAnsiColorOperationManager.h"
 #import "WLMessageDelegate.h"
 #import "WLTouchBarController.h"
+#import "WLQuickLookBridge.h"
 
 #import "WLNotifications.h"
 
@@ -623,6 +624,23 @@ withReplyEvent:(NSAppleEventDescriptor *)replyEvent {
     // Set the font settings
     [[WLGlobalConfig sharedInstance] restoreSettings];
     [_mainWindow center];
+}
+
+#pragma mark -
+#pragma mark QLPreviewPanelController
+
+- (BOOL)acceptsPreviewPanelControl:(QLPreviewPanel *)panel {
+    return YES;
+}
+
+- (void)beginPreviewPanelControl:(QLPreviewPanel *)panel {
+    panel.delegate = [WLQuickLookBridge sharedInstance];
+    panel.dataSource = [WLQuickLookBridge sharedInstance];
+}
+
+- (void)endPreviewPanelControl:(QLPreviewPanel *)panel {
+    panel.delegate = nil;
+    panel.dataSource = nil;
 }
 
 @end

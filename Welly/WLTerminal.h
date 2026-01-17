@@ -66,6 +66,8 @@ const NSNotificationName WLTerminalBBSStateDidChangeNotification;
 
 /* Input Interface */
 - (void)feedGrid:(cell **)grid;
+- (void)feedGrid:(cell **)grid withDirty:(BOOL **)dirty;
+- (BOOL **)snapshotDirtyFlags;
 - (void)setCursorX:(NSInteger)cursorX
                  Y:(NSInteger)cursorY;
 

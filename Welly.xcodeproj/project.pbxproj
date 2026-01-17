@@ -634,7 +634,7 @@
 				TargetAttributes = {
 					9C769BC51F42AED20044F830 = {
 						CreatedOnToolsVersion = 8.3.3;
-						DevelopmentTeam = AALZJYW2AF;
+						DevelopmentTeam = Q62T4BUM4K;
 						ProvisioningStyle = Automatic;
 					};
 				};
@@ -963,7 +963,7 @@
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1040;
-				DEVELOPMENT_TEAM = AALZJYW2AF;
+				DEVELOPMENT_TEAM = Q62T4BUM4K;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Welly/Frameworks",
@@ -987,7 +987,7 @@
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1040;
-				DEVELOPMENT_TEAM = AALZJYW2AF;
+				DEVELOPMENT_TEAM = Q62T4BUM4K;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Welly/Frameworks",

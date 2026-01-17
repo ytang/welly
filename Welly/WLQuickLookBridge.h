@@ -9,11 +9,12 @@
 #import <Cocoa/Cocoa.h>
 #import <Quartz/Quartz.h>
 
-@interface WLQuickLookBridge : NSObject <QLPreviewPanelDataSource> {
+@interface WLQuickLookBridge : NSObject <QLPreviewPanelDataSource, QLPreviewPanelDelegate> {
     NSMutableArray *_URLs;
     NSMutableArray *_EXIFs;
 }
 
++ (WLQuickLookBridge *)sharedInstance;
 + (void)orderFront;
 + (void)add:(NSURL *)URL;
 + (void)add:(NSURL *)URL withEXIF:(NSString *)EXIF;
