@@ -572,7 +572,6 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(WLMainFrameController)
                     returnCode:(int)returnCode 
                    contextInfo:(void *)contextInfo {
     [[NSUserDefaults standardUserDefaults] synchronize];
-    [NSApp replyToApplicationShouldTerminate:(returnCode == NSAlertDefaultReturn)];
 }
 
 - (BOOL)applicationShouldTerminateAfterLastWindowClosed:(NSApplication *)sender {
