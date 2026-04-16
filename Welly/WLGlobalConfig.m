@@ -118,6 +118,8 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(WLGlobalConfig)
         self.defaultANSIColorKey = (YLANSIColorKey)[defaults integerForKey:@"DefaultANSIColorKey"];
         self.shouldRepeatBounce = [defaults boolForKey:@"RepeatBounce"];
         
+        self.autoMetricOptimization = YES;
+        
         // init code
         _row = 24;
         _column = 80;
@@ -212,15 +214,27 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(WLGlobalConfig)
     if (_cCTFont) 
         CFRelease(_cCTFont);
     _cCTFont = CTFontCreateWithName((CFStringRef)_chineseFontName, _chineseFontSize, NULL);
+    if (!_cCTFont) {
+        // Fallback or safety
+        _cCTFont = CTFontCreateWithName(CFSTR("STHeiti"), _chineseFontSize, NULL);
+    }
+    
     if (_eCTFont)
         CFRelease(_eCTFont);
     _eCTFont = CTFontCreateWithName((CFStringRef)_englishFontName, _englishFontSize, NULL);
+    if (!_eCTFont) {
+        _eCTFont = CTFontCreateWithName(CFSTR("Monaco"), _englishFontSize, NULL);
+    }
+
     if (_cCGFont)
         CFRelease(_cCGFont);
-    _cCGFont = CTFontCopyGraphicsFont(_cCTFont, NULL);
+    if (_cCTFont)
+        _cCGFont = CTFontCopyGraphicsFont(_cCTFont, NULL);
+    
     if (_eCGFont)
         CFRelease(_eCGFont);
-    _eCGFont = CTFontCopyGraphicsFont(_eCTFont, NULL);
+    if (_eCTFont)
+        _eCGFont = CTFontCopyGraphicsFont(_eCTFont, NULL);
     
     for (i = 0; i < NUM_COLOR; i++) 
     for (j = 0; j < 2; j++) {
@@ -248,6 +262,64 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(WLGlobalConfig)
         CFRelease(number);
     }
     
+
+    
+    if (self.autoMetricOptimization) {
+        [self optimizeMetrics];
+    }
+}
+
+- (void)optimizeMetrics {
+    if (!_eCTFont || !_cCTFont) return;
+    
+    // English calculation (using 'W' as broad character)
+    unichar eChar = 'W';
+    CGGlyph eGlyph;
+    CTFontGetGlyphsForCharacters(_eCTFont, &eChar, &eGlyph, 1);
+    CGSize eAdvance;
+    CTFontGetAdvancesForGlyphs(_eCTFont, kCTFontOrientationHorizontal, &eGlyph, &eAdvance, 1);
+    CGFloat wE = eAdvance.width;
+    CGFloat eAscent = CTFontGetAscent(_eCTFont);
+    CGFloat eDescent = CTFontGetDescent(_eCTFont);
+    
+    // Chinese calculation (using '国' as standard block character)
+    unichar cChar = 0x56FD; // '国'
+    CGGlyph cGlyph;
+    CTFontGetGlyphsForCharacters(_cCTFont, &cChar, &cGlyph, 1);
+    CGSize cAdvance;
+    CTFontGetAdvancesForGlyphs(_cCTFont, kCTFontOrientationHorizontal, &cGlyph, &cAdvance, 1);
+    CGFloat wC = cAdvance.width;
+    CGFloat cAscent = CTFontGetAscent(_cCTFont);
+    CGFloat cDescent = CTFontGetDescent(_cCTFont);
+    
+    // Determine optimal cell size
+    // Cell width should accommodate English char and half of Chinese char
+    // Use floor/ceil to ensure integers to avoid subpixel rounding issues in getters/setters oscillation
+    CGFloat optimalWidth = ceil(MAX(wE, wC / 2.0));
+    
+    // Cell height is max of total lines heights
+    CGFloat optimalHeight = ceil(MAX(eAscent + eDescent, cAscent + cDescent));
+    
+    // Set minimal defaults and sanity caps
+    if (optimalWidth < 1) optimalWidth = 12;
+    if (optimalHeight < 1) optimalHeight = 24;
+    if (optimalWidth > 100) optimalWidth = 100; // Sanity cap
+    if (optimalHeight > 200) optimalHeight = 200; // Sanity cap
+    
+    // Determine margins to center the glyphs
+    CGFloat ePadB = (optimalHeight - (eAscent + eDescent)) / 2.0;
+    CGFloat cPadB = (optimalHeight - (cAscent + cDescent)) / 2.0;
+    
+    CGFloat ePadL = (optimalWidth - wE) / 2.0;
+    CGFloat cPadL = (optimalWidth * 2 - wC) / 2.0;
+    
+    // Apply updates only if changed (handled by setters now)
+    self.cellWidth = optimalWidth;
+    self.cellHeight = optimalHeight;
+    self.englishFontPaddingLeft = ePadL;
+    self.englishFontPaddingBottom = ePadB;
+    self.chineseFontPaddingLeft = cPadL;
+    self.chineseFontPaddingBottom = cPadB;
 }
 
 #pragma mark -
@@ -259,6 +331,7 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(WLGlobalConfig)
 - (void)setCellWidth:(CGFloat)value {
     if (value == 0) 
         value = WLDefaultCellWidth;
+    if (_cellWidth == value) return;
     _cellWidth = value;
     [[NSUserDefaults standardUserDefaults] setFloat:value forKey:@"CellWidth"];
 }
@@ -271,6 +344,7 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(WLGlobalConfig)
 - (void)setCellHeight:(CGFloat)value {
     if (value == 0) 
         value = WLDefaultCellHeight;
+    if (_cellHeight == value) return;
     _cellHeight = value;
     [[NSUserDefaults standardUserDefaults] setFloat:value forKey:@"CellHeight"];
 }
@@ -632,13 +706,22 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(WLGlobalConfig)
 }
 
 - (void)setSizeParameters:(NSDictionary *)sizeParameters {
-    if (sizeParameters[WLCellWidthKeyName])
-        self.cellWidth = [sizeParameters[WLCellWidthKeyName] floatValue];
-    if (sizeParameters[WLCellHeightKeyName])
-        self.cellHeight = [sizeParameters[WLCellHeightKeyName] floatValue];
+    // We update ivars directly where possible to avoid triggering intermediate KVO/refreshFont calls,
+    // then trigger a single refresh at the end if needed, OR we rely on individual setters if they are safe.
+    // Given the setters trigger specific logic (NSUserDefaults, KVO), we should be careful.
+    
+    // To assume atomic update, we might want to pause KVO or logic, but that's hard.
+    // Instead, let's just set them.
+    
     if (sizeParameters[WLChineseFontSizeKeyName])
         self.chineseFontSize = [sizeParameters[WLChineseFontSizeKeyName] floatValue];
     if (sizeParameters[WLEnglishFontSizeKeyName])
         self.englishFontSize = [sizeParameters[WLEnglishFontSizeKeyName] floatValue];
+        
+    // Update cell dimensions last, as they might trigger layout which relies on font size
+    if (sizeParameters[WLCellWidthKeyName])
+        self.cellWidth = [sizeParameters[WLCellWidthKeyName] floatValue];
+    if (sizeParameters[WLCellHeightKeyName])
+        self.cellHeight = [sizeParameters[WLCellHeightKeyName] floatValue];
 }
 @end

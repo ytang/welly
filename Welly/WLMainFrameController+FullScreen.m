@@ -63,6 +63,11 @@
 
 
 - (void)windowWillEnterFullScreen:(NSNotification *)notification {
+    self.isHandlingFullScreen = YES;
+    
+    // Disable auto optimization immediately to prevent any metric interference during full screen
+    [WLGlobalConfig sharedInstance].autoMetricOptimization = NO;
+    
     [_tabBarControl setHidden:YES];
     
     // Back up the original frame
@@ -70,7 +75,7 @@
     _originalWindowFrame = _mainWindow.frame;
     
     // Get the fittest ratio for the expansion
-    NSRect screenRect = [NSScreen mainScreen].frame;
+    NSRect screenRect = [NSScreen mainScreen].visibleFrame;
     
     CGFloat ratioH = screenRect.size.height / _tabView.frame.size.height;
     CGFloat ratioW = screenRect.size.width / _tabView.frame.size.width;
@@ -81,7 +86,7 @@
     
     // Record new origin
     
-    NSPoint newOP = {(screenRect.size.width - _tabView.frame.size.width) / 2, (screenRect.size.height - _tabView.frame.size.height) / 2};
+    NSPoint newOP = {screenRect.origin.x + (screenRect.size.width - _tabView.frame.size.width) / 2, screenRect.origin.y + (screenRect.size.height - _tabView.frame.size.height) / 2};
     
     // Set the window style
     [_mainWindow setOpaque:YES];
@@ -112,6 +117,11 @@
 
 - (void)windowDidExitFullScreen:(NSNotification *)notification {
     [_mainWindow setFrame:_originalWindowFrame display:NO];
+    _screenRatio = 0.0f;
+    self.isHandlingFullScreen = NO;
+    
+    // Re-enable auto optimization after fully exiting
+    [WLGlobalConfig sharedInstance].autoMetricOptimization = YES;
 }
 
 @end

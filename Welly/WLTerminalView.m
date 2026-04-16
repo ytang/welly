@@ -797,6 +797,10 @@ BOOL isEnglishNumberAlphabet(unsigned char c) {
     return YES;
 }
 
+- (BOOL)acceptsFirstMouse:(NSEvent *)theEvent {
+    return YES;
+}
+
 + (NSMenu *)defaultMenu {
     return [[NSMenu alloc] init];
 }

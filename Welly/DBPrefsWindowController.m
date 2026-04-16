@@ -135,6 +135,7 @@ static DBPrefsWindowController *_sharedPrefsWindowController = nil;
                                                               NSMiniaturizableWindowMask)
                                                      backing:NSBackingStoreBuffered
                                                        defer:YES];
+    [window setCollectionBehavior:NSWindowCollectionBehaviorFullScreenAuxiliary | NSWindowCollectionBehaviorCanJoinAllSpaces];
     self.window = window;
     contentSubview = [[NSView alloc] initWithFrame:self.window.contentView.frame];
     contentSubview.autoresizingMask = (NSViewMinYMargin | NSViewWidthSizable);

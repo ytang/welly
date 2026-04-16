@@ -63,9 +63,20 @@ const NSNotificationName WLTerminalBBSStateDidChangeNotification = @"WLTerminalB
 #pragma mark -
 #pragma mark input interface
 - (void)feedGrid:(cell **)grid {
-    // Clear the url list
-    for (int i = 0; i < _maxRow; i++) {
-        memcpy(_grid[i], grid[i], sizeof(cell) * (_maxColumn + 1));
+    [self feedGrid:grid withDirty:NULL];
+}
+
+- (void)feedGrid:(cell **)grid withDirty:(BOOL **)dirty {
+    @synchronized(self) {
+        // Clear the url list
+        for (int i = 0; i < _maxRow; i++) {
+            memcpy(_grid[i], grid[i], sizeof(cell) * (_maxColumn + 1));
+            if (dirty) {
+                for (int j = 0; j < _maxColumn; j++) {
+                    _dirty[i][j] = _dirty[i][j] || dirty[i][j];
+                }
+            }
+        }
     }
     
     for (int i = 0; i < _maxRow; i++) {
@@ -80,6 +91,35 @@ const NSNotificationName WLTerminalBBSStateDidChangeNotification = @"WLTerminalB
      withObject:nil
      afterDelay:0.01];
      */
+}
+
+- (BOOL **)snapshotDirtyFlags {
+    BOOL **snapshot = (BOOL **)malloc(sizeof(BOOL *) * _maxRow);
+    @synchronized(self) {
+        // First pass: Copy current dirty state to snapshot
+        for (int i = 0; i < _maxRow; i++) {
+            snapshot[i] = (BOOL *)malloc(sizeof(BOOL) * _maxColumn);
+            memcpy(snapshot[i], _dirty[i], sizeof(BOOL) * _maxColumn);
+            memset(_dirty[i], 0, sizeof(BOOL) * _maxColumn);
+        }
+        
+        // Second pass: Propagate dirty to neighbors (Top and Right) to handle font leakage
+        for (int i = 0; i < _maxRow; i++) {
+            for (int j = 0; j < _maxColumn; j++) {
+                if (snapshot[i][j]) {
+                    // Propagate to Top (i-1)
+                    if (i > 0) {
+                        snapshot[i-1][j] = YES;
+                    }
+                    // Propagate to Right (j+1)
+                    if (j < _maxColumn - 1) {
+                        snapshot[i][j+1] = YES;
+                    }
+                }
+            }
+        }
+    }
+    return snapshot;
 }
 
 - (void)setCursorX:(NSInteger)cursorX
@@ -115,9 +155,11 @@ const NSNotificationName WLTerminalBBSStateDidChangeNotification = @"WLTerminalB
 # pragma mark -
 # pragma mark Dirty
 - (void)setAllDirty {
-    for (int r = 0; r < _maxRow; r++)
-    for (int c = 0; c < _maxColumn; c++)
-    _dirty[r][c] = YES;
+    @synchronized(self) {
+        for (int r = 0; r < _maxRow; r++)
+        for (int c = 0; c < _maxColumn; c++)
+        _dirty[r][c] = YES;
+    }
 }
 
 - (void)setDirtyForRow:(NSInteger)r {
@@ -133,7 +175,9 @@ const NSNotificationName WLTerminalBBSStateDidChangeNotification = @"WLTerminalB
 - (void)setDirty:(BOOL)d
            atRow:(NSInteger)r
           column:(NSInteger)c {
-    _dirty[r][c] = d;
+    @synchronized(self) {
+        _dirty[r][c] = d;
+    }
 }
 
 - (void)removeAllDirtyMarks {

@@ -28,7 +28,8 @@ static NSImage *gLeftImage;
                             to:(int)end;
 - (void)drawBlink;
 - (void)drawStringForRow:(int)r
-                 context:(CGContextRef)myCGContext;
+                 context:(CGContextRef)myCGContext
+                   dirty:(BOOL *)dirtyRow;
 - (void)tick;
 @end
 
@@ -295,7 +296,7 @@ static NSImage *gLeftImage;
                          fraction:1.0];
         
         [gConfig->_colorTable[0][gConfig.bgColorIndex] set];
-        NSRectFill(NSMakeRect(0, (_maxRow - end - 1) * _fontHeight, _maxColumn * _fontWidth, _fontHeight));
+        NSRectFillUsingOperation(NSMakeRect(0, (_maxRow - end - 1) * _fontHeight, _maxColumn * _fontWidth, _fontHeight), NSCompositeCopy);
         [_backedImage unlockFocus];
     }
 }
@@ -317,7 +318,7 @@ static NSImage *gLeftImage;
                         operation:NSCompositeCopy fraction:1.0];
         
         [gConfig->_colorTable[0][gConfig.bgColorIndex] set];
-        NSRectFill(NSMakeRect(0, (_maxRow - start - 1) * _fontHeight, _maxColumn * _fontWidth, _fontHeight));
+        NSRectFillUsingOperation(NSMakeRect(0, (_maxRow - start - 1) * _fontHeight, _maxColumn * _fontWidth, _fontHeight), NSCompositeCopy);
         [_backedImage unlockFocus];
     }
 }
@@ -329,12 +330,14 @@ static NSImage *gLeftImage;
         [_backedImage lockFocus];
         CGContextRef myCGContext = (CGContextRef)[NSGraphicsContext currentContext].graphicsPort;
         if (ds) {
+            BOOL **dirtySnapshot = [ds snapshotDirtyFlags];
+            
             /* Draw Background */
             for (y = 0; y < _maxRow; y++) {
                 for (x = 0; x < _maxColumn; x++) {
-                    if ([ds isDirtyAtRow:y column:x]) {
+                    if (dirtySnapshot[y][x]) {
                         int startx = x;
-                        for (; x < _maxColumn && [ds isDirtyAtRow:y column:x]; x++) ;
+                        for (; x < _maxColumn && dirtySnapshot[y][x]; x++) ;
                         [self updateBackgroundForRow:y from:startx to:x];
                     }
                 }
@@ -345,16 +348,16 @@ static NSImage *gLeftImage;
             
             /* Draw String row by row */
             for (y = 0; y < _maxRow; y++) {
-                [self drawStringForRow:y context:myCGContext];
+                [self drawStringForRow:y context:myCGContext dirty:dirtySnapshot[y]];
             }
             CGContextRestoreGState(myCGContext);
-            /*
-             for (y = 0; y < _maxRow; y++) {
-             for (x = 0; x < _maxColumn; x++) {
-             [ds setDirty:NO atRow:y column:x];
-             }
-             }*/
-            [ds removeAllDirtyMarks];
+            
+            // Free the snapshot
+            for (y = 0; y < _maxRow; y++) {
+                free(dirtySnapshot[y]);
+            }
+            free(dirtySnapshot);
+            
         } else {
             [[NSColor clearColor] set];
             CGContextFillRect(myCGContext, CGRectMake(0, 0, _maxColumn * _fontWidth, _maxRow * _fontHeight));
@@ -366,7 +369,8 @@ static NSImage *gLeftImage;
 }
 
 - (void)drawStringForRow:(int)r
-                 context:(CGContextRef)myCGContext {
+                 context:(CGContextRef)myCGContext 
+                   dirty:(BOOL *)dirtyRow {
     int i, c, x;
     int start, end;
     unichar textBuf[_maxColumn];
@@ -389,7 +393,7 @@ static NSImage *gLeftImage;
     isDoubleColor[i] = isDoubleByte[i] = textBuf[i] = runLength[i] = 0;
     
     // find the first dirty position in this row
-    for (x = 0; x < _maxColumn && ![ds isDirtyAtRow:r column:x]; x++)
+    for (x = 0; x < _maxColumn && !dirtyRow[x]; x++)
     ;
     // all clean? great!
     if (x == _maxColumn)
@@ -400,7 +404,7 @@ static NSImage *gLeftImage;
     
     // update the information array
     for (x = start; x < _maxColumn; x++) {
-        if (![ds isDirtyAtRow:r column:x])
+        if (!dirtyRow[x])
             continue;
         end = x;
         int db = (currRow + x)->attr.f.doubleByte;
@@ -600,6 +604,8 @@ static NSImage *gLeftImage;
             x--;
         }
     }
+
+    
 }
 
 - (void)updateBackgroundForRow:(int)r
@@ -653,12 +659,10 @@ static NSImage *gLeftImage;
             
             // Modified by K.O.ed: All background color use same alpha setting.
             NSColor *bgColor = [gConfig bgColorAtIndex:lastBackgroundColor hilite:lastBold];
-            //bgColor = [bgColor colorWithAlphaComponent:[[gConfig colorBG] alphaComponent]];
-            [bgColor set];
-            
-            //[[gConfig colorAtIndex: lastBackgroundColor hilite: lastBold] set];
-            // [NSBezierPath fillRect: rect];
-            NSRectFill(rect);
+            if (bgColor && !NSIsEmptyRect(rect)) {
+                [bgColor set];
+                NSRectFillUsingOperation(rect, NSCompositeCopy);
+            }
             
             /* finish this segment */
             length = 1;

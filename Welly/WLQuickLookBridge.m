@@ -18,7 +18,6 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(WLQuickLookBridge)
     if (self) {
         _URLs = [[NSMutableArray alloc] init];
         _EXIFs = [[NSMutableArray alloc] init];
-        [[QLPreviewPanel sharedPreviewPanel] setDataSource:self];
     }
     return self;
 }
@@ -40,7 +39,14 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(WLQuickLookBridge)
         [URLs addObject:URL];
         [[self sharedInstance]->_EXIFs addObject:EXIF];
     }
-    [[QLPreviewPanel sharedPreviewPanel] setCurrentPreviewItemIndex:index];
+    // Install data source/delegate and set the index BEFORE orderFront so
+    // the panel's first paint renders the correct item. Otherwise the panel
+    // briefly shows the previous currentPreviewItemIndex (the last picture
+    // the user viewed) before switching, producing a visible flash.
+    QLPreviewPanel *panel = [QLPreviewPanel sharedPreviewPanel];
+    panel.dataSource = [self sharedInstance];
+    panel.delegate = [self sharedInstance];
+    [panel setCurrentPreviewItemIndex:index];
     [self orderFront];
 }
 
